@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mybatis.mapper.NewsMapper">
+	<resultMap id="NewsMap" type="com.taiwan.beans.News">
+		<id property="newsId" column="NEWS_ID" />
+		<result property="title" column="TITLE" javaType="String" jdbcType="VARCHAR" />
+		<result property="content" column="CONTENT" javaType="String" jdbcType="VARCHAR" />
+		<result property="createDate" column="CREATE_DATE" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+		<result property="img" column="IMG" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.taiwan.beans.News">
+		insert into
+		NEWS(TITLE,CONTENT,IMG)
+		values(#{title},#{content},#{img})
+	</insert>
+
+	<delete id="delete" parameterType="Integer">
+		delete from NEWS where NEWS_ID
+		= #{newsId}
+	</delete>
+
+	<update id="updateById" parameterType="com.taiwan.beans.News">
+		update NEWS
+		<set>
+		<if test="title!=null">TITLE =	#{title},</if>
+		<if test="content!=null">CONTENT = #{content},</if>
+		<if test="img!=null">IMG = #{img}</if>
+		</set>
+		where
+		NEWS_ID = #{newsId}
+
+	</update>
+
+	<select id="queryById" parameterType="Integer" resultType="com.taiwan.beans.News">
+		select NEWS_ID newsId,TITLE,CONTENT,CREATE_DATE createDate,IMG from NEWS where NEWS_ID= #{newsId}
+	</select>
+
+	<select id="queryAll" resultMap="NewsMap">
+		select * from NEWS
+	</select>
+
+	<select id="queryNewsByTitle" parameterType="String" resultMap="NewsMap">
+		select * from NEWS where TITLE LIKE concat('%',#{title},'%')
+	</select>
+</mapper>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mybatis.mapper.TktItemMapper">
+	<resultMap id="TktItemMap" type="com.taiwan.beans.TktItem">
+		<id property="tktId" column="TKT_ID" javaType="Integer"
+			jdbcType="INTEGER" />
+		<id property="tktOrderId" column="TKT_ORDER_ID" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="amount" column="AMOUNT" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="uesd" column="USED" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="score" column="SCORE" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="content" column="CONTENT" javaType="String"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="insertTktItem" parameterType="com.taiwan.beans.TktItem">
+		insert into
+		TKT_ITEM(TKT_ID,TKT_ORDER_ID,AMOUNT)
+		values(#{tktId},#{tktOrderId},#{amount})
+	</insert>
+
+	<select id="queryTktItemByTktOrderId" resultMap="TktItemMap">
+		select
+		TKT_ID,TKT_ORDER_ID,AMOUNT,USED,SCORE,CONTENT from TKT_ITEM where
+		TKT_ORDER_ID=#{tktOrderId}
+	</select>
+
+	<update id="updateTktItemUsedByTKTId">
+		update TKT_ITEM set USED=#{used}
+		where
+		TKT_ORDER_ID=#{tktOrderId} and TKT_ID=#{tktId}
+	</update>
+
+	<update id="updateTktItemScoreContentByTktId">
+		update TKT_ITEM set SCORE=#{score},CONTENT=#{content}
+		where TKT_ORDER_ID=#{tktOrderId} and TKT_ID=#{tktId};
+	</update>
+
+	<select id="queryAllTktItemConTentByTktId" resultType="String">
+		select
+		content from
+		TKT_ITEM where TKT_ID=#{tktId}
+	</select>
+
+	<select id="queryFiveTktItemContentByScore" resultType="String">
+		select content from
+		TKT_ITEM where TKT_ID=#{tktId}
+		order by
+		score
+		desc limit 5
+	</select>
+
+	<select id="queryTktItemTllScoreByTktId" resultType="int">
+		select
+		sum(SCORE) as
+		TTLSCORE from TKT_ITEM where TKT_ID=#{tktId}
+	</select>
+
+	<select id="queryTktItemTtlPeopleByTktId" resultType="int">
+		select
+		count(*) as
+		TTLPEOPLE from TKT_ITEM where TKT_ID=#{tktId}
+	</select>
+
+
+</mapper>

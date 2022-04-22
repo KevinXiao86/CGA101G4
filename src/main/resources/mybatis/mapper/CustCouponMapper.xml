@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mybatis.mapper.CustCouponMapper">
+	<resultMap id="CustCouponMap" type="com.taiwan.beans.CustCoupon">
+		<id property="custCopId" column="CUST_COP_ID" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="custId" column="CUST_ID" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="copId" column="COP_ID" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="getdate" column="GETDATE"
+			javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+		<result property="usedate" column="USEDATE"
+			javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+		<result property="roomOrderId" column="ROOM_ORDER_ID"
+			javaType="Integer" jdbcType="INTEGER" />
+		<result property="tktOrderId" column="TKT_ORDER_ID"
+			javaType="Integer" jdbcType="INTEGER" />
+		<result property="discount" column="DISCOUNT"
+			javaType="Integer" jdbcType="INTEGER" />
+		<result property="status" column="STATUS" javaType="String"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="insertCustCoupon" parameterType="com.taiwan.beans.CustCoupon">
+		insert into
+		CUST_COUPON(CUST_ID,COP_ID,DISCOUNT)
+		values(#{custId},#{copId},#{discount})
+	</insert>
+
+	<select id="queryCustCouponById" parameterType="Integer"
+		resultMap="CustCouponMap">
+		select
+		CUST_COP_ID,CUST_ID,COP_ID,GETDATE,USEDATE,ROOM_ORDER_ID,TKT_ORDER_ID,DISCOUNT,STATUS
+		from CUST_COUPON where CUST_ID=#{custId}
+	</select>
+
+	<select id="queryCustCouponUsedById" resultMap="CustCouponMap">
+		select
+		CUST_COP_ID,CUST_ID,COP_ID,GETDATE,USEDATE,ROOM_ORDER_ID,TKT_ORDER_ID,DISCOUNT,STATUS
+		from CUST_COUPON where CUST_ID=#{custId} and STATUS =#{status}
+	</select>
+
+	<update id="updateCustCouponStatus">
+		update CUST_COUPON
+		<set>
+			<if test="tktOrderId!=null">TKT_ORDER_ID=#{tktOrderId},</if>
+			<if test="roomOrderId!=null">ROOM_ORDER_ID=#{roomOrderId},</if>
+			STATUS="已使用",USEDATE=#{usedate}
+		</set>
+		where CUST_ID=#{custId}
+	</update>
+
+
+	<update id="updateCustCouponStatusByTktOrderId">
+		update
+		CUST_COUPON set
+		TKT_ORDER_ID=#{tktOrderId},USEDATE=#{usedate},STATUS="已使用" where
+		CUST_ID=#{custId}
+	</update>
+
+	<update id="updateCustCouponStatusByRoomOrderId">
+		update
+		CUST_COUPON set
+		ROOM_ORDER_ID=#{roomOrderId},USEDATE=#{usedate},STATUS="已使用" where
+		CUST_ID=#{custId}
+	</update>
+
+
+
+</mapper>

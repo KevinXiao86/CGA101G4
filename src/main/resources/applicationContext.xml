@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- 組件掃描 base-package: 多個路徑可以使用逗號隔開 -->
+	<context:component-scan
+		base-package="com.taiwan">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+
+	<!-- 開啟基於註解的 aop功能 (需要 aop名稱空間) -->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
+
+	<!-- 加載外部的properties文件 -->
+	<context:property-placeholder
+		location="classpath:jdbc.properties" />
+
+
+	<!-- Hikari DataSource: 數據源對象 -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+		<!-- 無需指定，除非系統無法自動識別 -->
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!-- 連線只讀資料庫時配置為true， 保證安全 -->
+		<property name="readOnly" value="${jdbc.readOnly}" />
+		<!-- 等待連線池分配連線的最大時長（毫秒），超過這個時長還沒可用的連線則發生SQLException， 預設:30秒 -->
+		<property name="connectionTimeout"
+			value="${jdbc.connectionTimeout}" />
+		<!-- 一個連線idle狀態的最大時長（毫秒），超時則被釋放（retired），預設:10分鐘 -->
+		<property name="idleTimeout" value="${jdbc.idleTimeout}" />
+		<!-- 一個連線的生命時長（毫秒），超時而且沒被使用則被釋放（retired），預設:30分鐘，建議設定比資料庫超時時長少30秒，參考MySQL 
+			wait_timeout引數（show variables like '%timeout%';） -->
+		<property name="maxLifetime" value="${jdbc.maxLifetime}" />
+		<!-- 連線池中允許的最大連線數。預設值：10；推薦的公式：((core_count * 2) + effective_spindle_count) -->
+		<property name="maximumPoolSize"
+			value="${jdbc.maximumPoolSize}" />
+	</bean>
+
+
+	<!-- JdbcTemplate對象 -->
+	<bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.JdbcTemplate">
+		<!--注入 dataSource -->
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+
+	<!-- 配置事務管理器 -->
+	<bean id="dataSourceTransactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+
+	<!-- 開啟基於註解的事務控制, 依賴 tx名稱空間 -->
+	<tx:annotation-driven
+		transaction-manager="dataSourceTransactionManager" />
+
+
+	<!-- 配置事務的 AOP -->
+	<aop:config>
+		<!-- 切入點表達式 -->
+		<aop:pointcut
+			expression="execution(* com.taiwan.service..*.*(..))" id="pointcut" />
+
+		<!-- 事務增強 1. advice-ref: 指向事務管理器的配置 -->
+		<aop:advisor advice-ref="advice" pointcut-ref="pointcut" />
+	</aop:config>
+
+
+	<!-- 配置通知 1. transaction-manager="dataSourceTransactionManager": 指定配置哪一個事務管理器 -->
+	<tx:advice id="advice"
+		transaction-manager="dataSourceTransactionManager">
+		<!-- 事務屬性 -->
+		<tx:attributes>
+			<!-- 指名哪一些方法是事物方法 
+			1. 切入點表達式只是告訴我們要切入這些方法, 但是哪些方法要使用事務必須重新指定 也就是說哪些方法要加上事務使用 <tx:method> 指定 
+			2. 在 <tx:method> 標籤裡面可以設置屬性 -->
+			<!-- *: 也就是說 * com.taiwan.service..*.*(..) 下的所有方法都是事務方法 -->
+			<tx:method name="*" />
+			<!-- 所有以 get開頭的方法, 設置成只讀操作, 加快"查詢"速度  -->
+			<tx:method name="get*" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+
+
+	<!-- Spring 整合 Mybatis -->
+	<!--1. 創建出 SqlSessionFactory 對象 -->
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 指定數據源 -->
+		<property name="dataSource" ref="dataSource"></property>
+
+		<!-- MyBatis的全局配置文件 -->
+		<property name="configLocation"
+			value="classpath:mybatis-config.xml"></property>
+	</bean>
+
+	<!-- 掃描所有的 dao 接口, 批量生成代理实现类 ,bean的默认id是接口名首字母小写 -->
+	<!-- base-package: 屬性允許你設置映射器接口文件的基礎包。通過使用逗號或分號分隔，你可以設置多個包。並且會在你所指定的包中遞歸搜索映射器 -->
+	<mybatis-spring:scan base-package="mybatis.mapper" />
+	<!-- Spring 整合 Mybatis -->
+</beans>
+	

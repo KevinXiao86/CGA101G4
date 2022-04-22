@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mybatis.mapper.CouponMapper">
+	<resultMap id="CouponMap" type="com.taiwan.beans.CouponVO">
+		<id property="copId" column="COP_ID" />
+		<result property="copName" column="COP_NAME" javaType="String" jdbcType="VARCHAR" />
+		<result property="introduce" column="INTRODUCE" javaType="String" jdbcType="VARCHAR" />
+		<result property="discount" column="DISCOUNT" javaType="Integer" jdbcType="INTEGER" />
+		<result property="startdate" column="STARTDATE" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+		<result property="enddate" column="ENDDATE" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+		<result property="img" column="IMG" javaType="String" jdbcType="VARCHAR" />
+		<result property="status" column="STATUS" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.taiwan.beans.CouponVO">
+		insert into COUPON(COP_NAME, INTRODUCE, DISCOUNT, STARTDATE, ENDDATE, IMG)
+		values(#{copName}, #{introduce}, #{discount}, #{startdate}, #{enddate}, #{img})
+	</insert>
+
+	<delete id="delete" parameterType="Integer">
+		delete from COUPON where COP_ID = #{copId}
+	</delete>
+
+	<update id="update" parameterType="com.taiwan.beans.CouponVO">
+		update COUPON
+		<set>
+			<if test="copName!=null">COP_NAME =	#{copName},</if>
+			<if test="introduce!=null">INTRODUCE = #{introduce},</if>
+			<if test="discount!=null">DISCOUNT = #{discount},</if>
+			<if test="startdate!=null">STARTDATE = #{startdate},</if>
+			<if test="enddate!=null">ENDDATE = #{enddate}</if>
+			<if test="img!=null">IMG = #{img}</if>
+		</set>
+		where
+		COP_ID = #{copId}
+	</update>
+
+	<select id="queryById" parameterType="Integer" resultType="com.taiwan.beans.CouponVO">
+		select COP_ID copId, COP_NAME copName, INTRODUCE, DISCOUNT, STARTDATE, ENDDATE, IMG, STATUS 
+		from COUPON where COP_ID = #{copId}
+	</select>
+
+	<select id="queryAll" resultMap="CouponMap">
+		select * from COUPON
+	</select>
+
+	<select id="queryCouponByCopName" parameterType="String" resultMap="CouponMap">
+		select * from COUPON where COP_NAME LIKE concat('%',#{copName},'%')
+	</select>
+
+	<select id="queryCouponByStatus" parameterType="String" resultMap="CouponMap">
+		select COP_ID, COP_NAME, INTRODUCE, DISCOUNT, STARTDATE, ENDDATE, IMG from COUPON where STATUS = #{status}
+	</select>
+
+
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<settings>
+		<!-- 開啟駝峰命名法 -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<!-- 開啟延遲加載 -->
+		<setting name="lazyLoadingEnabled" value="true" />
+		<setting name="aggressiveLazyLoading" value="false" />
+		<!-- 開啟二級緩存 -->
+		<setting name="cacheEnabled" value="true" />
+	</settings>
+	
+	<mappers>
+		<!-- 批量註冊
+		 1.sql映射文件必須與接口同名同一目錄下 [同目錄:也就是在resources聲明同一個包路徑就可以了] 
+		-->
+		<package name="mybatis.mapper" />
+	</mappers>
+</configuration>
+	
+	

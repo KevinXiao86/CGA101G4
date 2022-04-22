@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mybatis.mapper.TktImgMapper">
+	<resultMap id="TktImgMap" type="com.taiwan.beans.TktImgVO">
+		<id property="tktImgId" column="TKT_IMG_ID" />
+		<result property="img" column="IMG" javaType="String" jdbcType="VARCHAR" />
+		<result property="tktId" column="TKT_ID" javaType="Integer" jdbcType="INTEGER" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.taiwan.beans.TktImgVO">
+		insert into TKT_IMG(IMG, TKT_ID)
+		values(#{img}, #{tktId})
+	</insert>
+
+	<delete id="delete" parameterType="Integer">
+		delete from TKT_IMG where TKT_IMG_ID = #{tktImgId}
+	</delete>
+
+	<update id="update" parameterType="com.taiwan.beans.TktImgVO">
+		update TKT_IMG
+		<set>
+			<if test="img!=null">IMG = #{img},</if>
+			<if test="tktId!=null">TKT_ID = #{tktId}</if>
+		</set>
+		where
+		TKT_IMG_ID = #{tktImgId}
+	</update>
+
+	<select id="queryById" parameterType="Integer" resultType="com.taiwan.beans.TktImgVO">
+		select TKT_IMG_ID tktImgId, IMG, TKT_ID tktId from TKT_IMG where TKT_IMG_ID = #{tktImgId}
+	</select>
+
+	<select id="queryAll" resultMap="TktImgMap">
+		select * from TKT_IMG
+	</select>
+
+	<select id="queryByTktId" parameterType="Integer" resultMap="TktImgMap">
+		select TKT_IMG_ID tktImgId, IMG, TKT_ID tktId from TKT_IMG where TKT_ID = #{tktId}
+	</select>
+
+
+</mapper>

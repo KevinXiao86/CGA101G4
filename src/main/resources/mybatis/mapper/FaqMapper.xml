@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mybatis.mapper.FaqMapper">
+	<resultMap id="FaqMap" type="com.taiwan.beans.FaqVO">
+		<id property="faqId" column="FAQ_ID" />
+		<result property="title" column="TITLE" javaType="String" jdbcType="VARCHAR" />
+		<result property="content" column="CONTENT" javaType="String" jdbcType="VARCHAR" />
+		<result property="createDate" column="CREATE_DATE" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.taiwan.beans.FaqVO">
+		insert into FAQ(TITLE,CONTENT)
+		values(#{title},#{content})
+	</insert>
+
+	<delete id="delete" parameterType="Integer">
+		delete from FAQ where FAQ_ID = #{faqId}
+	</delete>
+
+	<update id="update" parameterType="com.taiwan.beans.FaqVO">
+		update FAQ
+		<set>
+			<if test="title!=null">TITLE = #{title},</if>
+			<if test="content!=null">CONTENT = #{content}</if>
+		</set>
+		where
+		FAQ_ID = #{faqId}
+	</update>
+
+	<select id="queryById" parameterType="Integer" resultType="com.taiwan.beans.FaqVO">
+		select FAQ_ID faqId ,TITLE , CONTENT, CREATE_DATE createDate from FAQ where FAQ_ID = #{faqId}
+	</select>
+
+	<select id="queryFaqByTitle" parameterType="String" resultMap="FaqMap">
+		select * from FAQ where TITLE LIKE concat('%',#{title},'%')
+	</select>
+
+	<select id="queryAll" resultMap="FaqMap">
+		select * from FAQ
+	</select>
+
+</mapper>
