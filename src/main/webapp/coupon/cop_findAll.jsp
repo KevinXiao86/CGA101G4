@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,16 +74,26 @@ th, td {
 		</tr>
 		<c:forEach items="${requestScope.list}" var="couponVO">
 			<tr>
-				<th>${couponVO.copId}</th>
-				<th>${couponVO.copName}</th>
-				<th>${couponVO.introduce}</th>
-				<th>${couponVO.discount}</th>
-				<th>${couponVO.startdate}</th>
-				<th>${couponVO.enddate}</th>
-				<th>${couponVO.img}</th>
-				<th>${couponVO.status}</th>
-				<th>修改</th>
-				<th>刪除</th>
+				<td>${couponVO.copId}</td>
+				<td>${couponVO.copName}</td>
+				<td>${couponVO.introduce}</td>
+				<td>${couponVO.discount}</td>
+				<td><fmt:formatDate value="${couponVO.startdate}" pattern="yyyy-MM-dd HH:mm"/></td>
+				<td><fmt:formatDate value="${couponVO.startdate}" pattern="yyyy-MM-dd HH:mm"/></td>
+				<td><img src="${couponVO.img}"/></td>
+				<td>${couponVO.status}</td>
+				<td>
+					<FORM METHOD="post"	ACTION="coupon/cop2Update" style="margin-bottom: 0px;">
+						<input type="submit" value="修改">
+						 <input type="hidden" name="copId" value="${couponVO.copId}">
+					</FORM>
+				</td>
+				<td>
+					<FORM METHOD="post" ACTION="coupon/copDelete" style="margin-bottom: 0px;">
+						<input type="submit" value="刪除">
+						 <input type="hidden" name="copId" value="${couponVO.copId}">
+					</FORM>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>

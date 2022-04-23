@@ -15,9 +15,9 @@
 	<form action="coupon/findAll" method="post">
 		<input type="submit" value="搜尋全部">
 	</form>
-	<form action="">
-		<input type="submit" value="輸入頁面">
-	</form>
+	
+	
+
 
 </body>
 </html>

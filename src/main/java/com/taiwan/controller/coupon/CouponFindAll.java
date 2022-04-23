@@ -23,7 +23,7 @@ public class CouponFindAll extends HttpServlet {
 	CouponService couponService=ControllerUtil.getBean(CouponService.class);
 
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<CouponVO> ls=new ArrayList<CouponVO>();
 		ls=couponService.findAll();
@@ -33,7 +33,7 @@ public class CouponFindAll extends HttpServlet {
 		rd.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}

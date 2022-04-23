@@ -28,7 +28,7 @@
 			<if test="introduce!=null">INTRODUCE = #{introduce},</if>
 			<if test="discount!=null">DISCOUNT = #{discount},</if>
 			<if test="startdate!=null">STARTDATE = #{startdate},</if>
-			<if test="enddate!=null">ENDDATE = #{enddate}</if>
+			<if test="enddate!=null">ENDDATE = #{enddate},</if>
 			<if test="img!=null">IMG = #{img}</if>
 		</set>
 		where
