@@ -1,4 +1,4 @@
-package com.taiwan.service;
+package com.taiwan.service.company;
 
 import java.util.List;
 import java.util.Map;
@@ -27,7 +27,7 @@ public interface CompanyService {
 	public Company getCompanyByCmpId(Integer cmpId);
 	
 	//根據廠商編號更新廠商資料
-	public boolean updateCompanyById(Company company);
+	public Company updateCompanyById(Company company);
 	
 	//獲取所有廠商(管理員)
 	public List<Company> getAllCompany();

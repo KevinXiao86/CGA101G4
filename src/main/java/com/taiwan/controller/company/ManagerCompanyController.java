@@ -1,4 +1,4 @@
-package com.taiwan.controller;
+package com.taiwan.controller.company;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.taiwan.beans.Company;
-import com.taiwan.service.CompanyService;
+import com.taiwan.service.company.CompanyService;
 
 @Controller
 @RequestMapping("/manager/company")
@@ -24,7 +24,7 @@ public class ManagerCompanyController {
 		//查詢出所有廠商, 帶到頁面顯示
 		List<Company> companies = companyService.getAllCompany();
 		model.addAttribute("companies", companies);
-		return "/manager/company/cmp_manager.jsp";
+		return "/back-end/company/cmp_manager.jsp";
 	}
 	
 	
@@ -43,7 +43,7 @@ public class ManagerCompanyController {
 	public String companyDetail(@RequestParam("cmpId")Integer cmpId, Model model) {
 		Company company = companyService.getCompanyByCmpId(cmpId);
 		model.addAttribute("company", company);
-		return "/manager/company/cmp_detail.jsp";
+		return "/back-end/company/cmp_detail.jsp";
 	}
 	
 	

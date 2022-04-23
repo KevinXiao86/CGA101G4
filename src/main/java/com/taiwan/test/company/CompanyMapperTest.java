@@ -101,7 +101,7 @@ public class CompanyMapperTest {
 	
 	@Test
 	public void test06() {
-		Company company = companyMapper.queryCompanyByCmpId(20000);
+		Company company = companyMapper.queryCompanyByCmpId(10000);
 		System.out.println(company);
 	}
 	

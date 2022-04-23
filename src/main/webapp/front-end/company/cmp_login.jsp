@@ -12,7 +12,7 @@
 	<span id="error_msg">${requestScope.loginCompany.message}</span>
 	<form action="company/login" method="post">
 		<label for="cmpAccount">帳號:</label>
-		<input type="text" name="cmpAccount" value="${requestScope.loginCompany.cmpAccount}">${requestScope.errorInfo.cmpAccount}<br>
+		<input type="text" name="cmpAccount" value="${requestScope.loginCompany.cmpAccount}${requestScope.cmpAccount}">${requestScope.errorInfo.cmpAccount}<br>
 
 		<label for="cmpPassword">密碼:</label>
 		<input type="password" name="cmpPassword">${requestScope.errorInfo.cmpPassword}<br>

@@ -11,7 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.taiwan.beans.Company;
-import com.taiwan.service.CompanyService;
+import com.taiwan.service.company.CompanyService;
 
 public class CompanyServiceTest {
 
