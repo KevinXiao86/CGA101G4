@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import com.taiwan.utils.UUIDFileName;
 
 
 @WebServlet("/coupon/couponUpdate")
+@MultipartConfig
 public class CouponUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	CouponService couponService=ControllerUtil.getBean(CouponService.class);
@@ -30,7 +32,7 @@ public class CouponUpdate extends HttpServlet {
 		try {
 			//收到copId的值
 			String copIdString=request.getParameter("copId");
-			System.out.println(copIdString);
+//			System.out.println(copIdString);
 			Integer copId=Integer.valueOf(copIdString);
 			// 這邊確認輸入的優惠券名稱不是空值或是空字串
 			String copName = request.getParameter("copName");

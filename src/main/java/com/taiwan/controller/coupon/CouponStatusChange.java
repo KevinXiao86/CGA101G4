@@ -32,12 +32,15 @@ public class CouponStatusChange extends HttpServlet {
 			//並重新導回搜尋頁面
 			if(status.equals("下架")) {
 				couponService.updateStatus(copId, "上架");
-				RequestDispatcher rd=request.getRequestDispatcher("/coupon/findAll");
+				RequestDispatcher rd=request.getRequestDispatcher("/coupon/cop_status.jsp");
 				rd.forward(request, response);
+//				response.sendRedirect(request.getHeader("Referer"));
+				
 			}else {
 				couponService.updateStatus(copId, "下架");
-				RequestDispatcher rd=request.getRequestDispatcher("/coupon/findAll");
+				RequestDispatcher rd=request.getRequestDispatcher("/coupon/cop_status.jsp");
 				rd.forward(request, response);
+//				response.sendRedirect(request.getHeader("Referer"));
 			}
 			
 		} catch (Exception e) {

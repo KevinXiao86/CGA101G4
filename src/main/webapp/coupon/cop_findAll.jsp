@@ -72,7 +72,7 @@ th, td {
 			<th>修改</th>
 			<th>刪除</th>
 		</tr>
-<%-- 		<%@ include file="/coupon/page1.file" %>  --%>
+<%-- 		<%@ include file="coupon/page1.jsp" %>  --%>
 		<c:forEach items="${requestScope.list}" var="couponVO">
 			<tr>
 				<td>${couponVO.copId}</td>
@@ -103,7 +103,7 @@ th, td {
 			</tr>
 		</c:forEach>
 	</table>
-<%-- 	<%@ include file="/coupon/page2.file" %> --%>
+<%-- 	<%@ include file="coupon/page2.jsp" %> --%>
 
 </body>
 </html>

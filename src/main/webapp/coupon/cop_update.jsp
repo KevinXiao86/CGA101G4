@@ -7,9 +7,7 @@
 <head>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%@ include file="/common/head.jsp"%>
-<%
-	CouponVO couponVO=(CouponVO)request.getAttribute("couponVO");
-%>
+
 <meta charset="UTF-8">
 <title>優惠券資料修改</title>
 <style>
@@ -56,7 +54,7 @@
 	</ul>
 </c:if>
 	<form action="coupon/couponUpdate" method="post" enctype="multipart/form-data">
-		<label>優惠券流水號</label><input type="number" name="copId" value="${couponVO.copId}"><br> 
+		<label>優惠券流水號</label><input type="text" name="copId" value="${couponVO.copId}"><br> 
 		<label>優惠券名稱</label><input type="text" name="copName" autofocus placeholder="請輸入優惠券名稱" value="${couponVO.copName}"><br> 
 		<label>優惠券折價金額</label><input type="number" name="discount" step="10" min="0"  placeholder="請輸入折價金額" value="${couponVO.discount}"><br>
 		<label>優惠券開始日期</label><input id="startdate" name="startdate" type="datetime-local" value="<fmt:formatDate value="${couponVO.startdate}" pattern="yyyy-MM-dd'T'HH:mm"/>"><br> 
