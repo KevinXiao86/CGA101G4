@@ -39,9 +39,20 @@
     </FORM>
     </div>
     <div>
-    <FORM METHOD="post" ACTION="coupon/selectByStatus" >
+    <FORM METHOD="post" ACTION="coupon/selectByTitle" >
         <b>輸入優惠券標題來做查詢:</b>
         <input type="text" name="copName">
+        <input type="submit" value="送出">
+    </FORM>
+    </div>
+    
+    <div>
+    <FORM METHOD="post" ACTION="coupon/selectByStatus" >
+        <b>輸入優惠券狀態來做查詢:</b>
+        <select name="status" >
+			<option value="上架">上架</option>
+			<option value="下架">下架</option>
+		</select>
         <input type="submit" value="送出">
     </FORM>
     </div>

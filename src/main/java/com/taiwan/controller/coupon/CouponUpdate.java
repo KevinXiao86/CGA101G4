@@ -24,14 +24,14 @@ public class CouponUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	CouponService couponService=ControllerUtil.getBean(CouponService.class);
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map<String,String> errorMsgs=new LinkedHashMap<String, String>();
 		request.setAttribute("errorMsgs", errorMsgs);
 		try {
 			//收到copId的值
-//			String copIdString=request.getParameter("copId");
-//			System.out.println(copIdString);
-//			Integer copId=Integer.valueOf(copIdString);
+			String copIdString=request.getParameter("copId");
+			System.out.println(copIdString);
+			Integer copId=Integer.valueOf(copIdString);
 			// 這邊確認輸入的優惠券名稱不是空值或是空字串
 			String copName = request.getParameter("copName");
 			if (copName == null || copName.trim().equals("")) {
@@ -99,7 +99,7 @@ public class CouponUpdate extends HttpServlet {
 			}
 
 			// 開始新增資料
-			couponService.update(5, copName, introduce, discount01, startdate, enddate, dbPath);
+			couponService.update(copId, copName, introduce, discount01, startdate, enddate, dbPath);
 			// 新增完成，請求轉發到coupon首頁
 			RequestDispatcher rd = request.getRequestDispatcher("/coupon/cop_findAll.jsp");
 			rd.forward(request, response);
@@ -114,7 +114,7 @@ public class CouponUpdate extends HttpServlet {
 	}
 
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		doGet(request, response);
 	}

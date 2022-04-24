@@ -73,8 +73,13 @@ public class CouponServiceTest {
 //		System.out.println(couponService.update(5, "test", "test", 120, startdate, enddate, "images/coupon/d6d15dd1-fcd9-4bcf-93eb-d7fc9080f059t.gif"));
 //	}
 	
+//	@Test
+//	public void test06() {
+//		System.out.println(couponService.updateStatus(1, "上架"));
+//	}
+	
 	@Test
-	public void test06() {
-		System.out.println(couponService.updateStatus(1, "上架"));
+	public void test07() {
+		System.out.println(couponService.selectByStatus("下架"));
 	}
 }
