@@ -103,7 +103,7 @@ public class CouponUpdate extends HttpServlet {
 			// 開始新增資料
 			couponService.update(copId, copName, introduce, discount01, startdate, enddate, dbPath);
 			// 新增完成，請求轉發到coupon首頁
-			RequestDispatcher rd = request.getRequestDispatcher("/coupon/cop_findAll.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/coupon/findAll");
 			rd.forward(request, response);
 			// 其他錯誤處理
 		} catch (Exception e) {

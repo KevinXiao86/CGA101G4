@@ -3,29 +3,33 @@ package com.taiwan.beans;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class TicketVO implements Serializable{
+public class TicketVO implements Serializable {
 	private Integer tktId;
 	private String tktName;
 	private Integer originalAmount;
 	private Integer price;
 	private Timestamp startdate;
 	private Timestamp enddate;
-	private Integer ttlScore;   //join
-	private Integer ttlPeople;  //join
+	private Integer ttlScore; // join
+	private Integer ttlPeople; // join
 	private String location;
 	private String instruction;
 	private String address;
 	private String notice;
-	private String howUse;
-	private String canxPolicy;
+	private String howuse;
+	private String canxpolicy;
 	private String status;
-	private Integer soldAmount;  
-	private String kind;		
+	private Integer soldAmount;
+	private String kind;
+
+	public TicketVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public TicketVO(Integer tktId, String tktName, Integer originalAmount, Integer price, Timestamp startdate,
-			Timestamp enddate, Integer ttlScore, Integer ttlPeople, String location, String instruction,
-			String address, String notice, String howUse, String canxPolicy, String status, Integer soldAmount,
-			String kind) {
+			Timestamp enddate, Integer ttlScore, Integer ttlPeople, String location, String instruction, String address,
+			String notice, String howuse, String canxpolicy, String status, Integer soldAmount, String kind) {
 		super();
 		this.tktId = tktId;
 		this.tktName = tktName;
@@ -39,15 +43,11 @@ public class TicketVO implements Serializable{
 		this.instruction = instruction;
 		this.address = address;
 		this.notice = notice;
-		this.howUse = howUse;
-		this.canxPolicy = canxPolicy;
+		this.howuse = howuse;
+		this.canxpolicy = canxpolicy;
 		this.status = status;
 		this.soldAmount = soldAmount;
 		this.kind = kind;
-	}
-	
-	public TicketVO() {
-		super();
 	}
 
 	public Integer getTktId() {
@@ -146,20 +146,20 @@ public class TicketVO implements Serializable{
 		this.notice = notice;
 	}
 
-	public String getHowUse() {
-		return howUse;
+	public String getHowuse() {
+		return howuse;
 	}
 
-	public void setHowUse(String howUse) {
-		this.howUse = howUse;
+	public void setHowuse(String howuse) {
+		this.howuse = howuse;
 	}
 
-	public String getCanxPolicy() {
-		return canxPolicy;
+	public String getCanxpolicy() {
+		return canxpolicy;
 	}
 
-	public void setCanxPolicy(String canxPolicy) {
-		this.canxPolicy = canxPolicy;
+	public void setCanxpolicy(String canxpolicy) {
+		this.canxpolicy = canxpolicy;
 	}
 
 	public String getStatus() {
@@ -188,13 +188,11 @@ public class TicketVO implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Ticket [tktId=" + tktId + ", tktName=" + tktName + ", originalAmount=" + originalAmount + ", price="
+		return "TicketVO [tktId=" + tktId + ", tktName=" + tktName + ", originalAmount=" + originalAmount + ", price="
 				+ price + ", startdate=" + startdate + ", enddate=" + enddate + ", ttlScore=" + ttlScore
 				+ ", ttlPeople=" + ttlPeople + ", location=" + location + ", instruction=" + instruction + ", address="
-				+ address + ", notice=" + notice + ", howUse=" + howUse + ", canxPolicy=" + canxPolicy + ", status="
+				+ address + ", notice=" + notice + ", howuse=" + howuse + ", canxpolicy=" + canxpolicy + ", status="
 				+ status + ", soldAmount=" + soldAmount + ", kind=" + kind + "]";
 	}
-	
-	
-	
+
 }

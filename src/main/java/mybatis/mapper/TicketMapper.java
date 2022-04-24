@@ -2,6 +2,8 @@ package mybatis.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.taiwan.beans.TicketVO;
 
 public interface TicketMapper {
@@ -27,4 +29,9 @@ public interface TicketMapper {
 	public List<TicketVO> queryTicketByLocation (String location);
 	
 	public List<TicketVO> queryTicketByStatus (String status);
+	//根據票券id修改票券狀態
+	public int updateTktStatusByTktId(@Param("tktId") Integer tktId,@Param("status") String status);
+	//根據票券id搜尋全部的資訊
+	public TicketVO queryOInfoById(Integer tktId);
+	
 }

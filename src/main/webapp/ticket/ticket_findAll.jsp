@@ -7,7 +7,7 @@
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%@ include file="/common/head.jsp"%>
 <meta charset="UTF-8">
-<title>所有優惠券資料 CouponFindAll</title>
+<title>所有票券資料 TicketFindAll</title>
 <style>
 table#table-1 {
 	background-color: #CCCCFF;
@@ -47,7 +47,7 @@ th, td {
 </head>
 <body>
 
-	<h1>所有優惠券</h1>
+	<h1>所有票券</h1>
 
 	<%--錯誤列表 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -61,43 +61,43 @@ th, td {
 
 	<table>
 		<tr>
-			<th>優惠券編號</th>
-			<th>優惠券名稱</th>
-			<th>優惠券介紹</th>
-			<th>折扣</th>
+			<th>票券編號</th>
+			<th>票券名稱</th>
+			<th>票券總量</th>
+			<th>價格</th>
 			<th>開始日期</th>
 			<th>結束日期</th>
-			<th>圖片</th>
+			<th>地點</th>
 			<th>狀態</th>
-			<th>修改</th>
+			<th>詳情</th>
 			<th>刪除</th>
 		</tr>
 <%-- 		<%@ include file="coupon/page1.jsp" %>  --%>
-		<c:forEach items="${requestScope.list}" var="couponVO">
+		<c:forEach items="${requestScope.list}" var="ticketVO">
 			<tr>
-				<td>${couponVO.copId}</td>
-				<td>${couponVO.copName}</td>
-				<td>${couponVO.introduce}</td>
-				<td>${couponVO.discount}</td>
-				<td><fmt:formatDate value="${couponVO.startdate}" pattern="yyyy-MM-dd HH:mm"/></td>
-				<td><fmt:formatDate value="${couponVO.enddate}" pattern="yyyy-MM-dd HH:mm"/></td>
-				<td><img src="${couponVO.img}"/></td>
+				<td>${ticketVO.tktId}</td>
+				<td>${ticketVO.tktName}</td>
+				<td>${ticketVO.originalAmount}</td>
+				<td>${ticketVO.price}</td>
+				<td><fmt:formatDate value="${ticketVO.startdate}" pattern="yyyy-MM-dd HH:mm"/></td>
+				<td><fmt:formatDate value="${ticketVO.enddate}" pattern="yyyy-MM-dd HH:mm"/></td>
+				<td>${ticketVO.location}</td>
 				<td>
-					<FORM METHOD="post"	ACTION="coupon/copStatusChange" style="margin-bottom: 0px;">
-						<input type="submit" name="status" value="${couponVO.status}">
-						<input type="hidden" name="copId" value="${couponVO.copId}">
+					<FORM METHOD="post"	ACTION="ticket/tktStatusChange" style="margin-bottom: 0px;">
+						<input type="submit" name="status" value="${ticketVO.status}">
+						<input type="hidden" name="tktId" value="${ticketVO.tktId}">
 					</FORM>
 				</td>
 				<td>
-					<FORM METHOD="post"	ACTION="coupon/cop2Update" style="margin-bottom: 0px;">
-						<input type="submit" value="修改">
-						 <input type="hidden" name="copId" value="${couponVO.copId}">
+					<FORM METHOD="post"	ACTION="ticket/tkt2Update" style="margin-bottom: 0px;">
+						<input type="submit" value="修改票券">
+						<input type="hidden" name="tktId" value="${ticketVO.tktId}">
 					</FORM>
 				</td>
 				<td>
-					<FORM METHOD="post" ACTION="coupon/copDelete" style="margin-bottom: 0px;">
+					<FORM METHOD="post" ACTION="ticket/tktDelete" style="margin-bottom: 0px;">
 						<input type="submit" value="刪除">
-						 <input type="hidden" name="copId" value="${couponVO.copId}">
+						 <input type="hidden" name="tktId" value="${ticketVO.tktId}">
 					</FORM>
 				</td>
 			</tr>

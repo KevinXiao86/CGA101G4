@@ -79,7 +79,7 @@ th, td {
 				<td>${couponVO.introduce}</td>
 				<td>${couponVO.discount}</td>
 				<td><fmt:formatDate value="${couponVO.startdate}" pattern="yyyy-MM-dd HH:mm"/></td>
-				<td><fmt:formatDate value="${couponVO.startdate}" pattern="yyyy-MM-dd HH:mm"/></td>
+				<td><fmt:formatDate value="${couponVO.enddate}" pattern="yyyy-MM-dd HH:mm"/></td>
 				<td><img src="${couponVO.img}"/></td>
 				<td>
 					<FORM METHOD="post"	ACTION="coupon/copStatusChange" style="margin-bottom: 0px;">

@@ -14,13 +14,18 @@ public class ticketTest {
 	ApplicationContext ap=new ClassPathXmlApplicationContext("applicationContext.xml");
 	TicketService ticketService=ap.getBean(TicketService.class);
 	
+//	@Test
+//	public void test01() {
+//		List<TicketVO> ls=new ArrayList<TicketVO>();
+//		ls=ticketService.findAll();
+//		for(TicketVO ticketVO:ls) {
+//			System.out.println(ticketVO);
+//		}
+//	}
+	
 	@Test
-	public void test01() {
-		List<TicketVO> ls=new ArrayList<TicketVO>();
-		ls=ticketService.findAll();
-		for(TicketVO ticketVO:ls) {
-			System.out.println(ticketVO);
-		}
+	public void test02() {
+		TicketVO ticketVO=ticketService.findById(3);
+		System.out.println(ticketVO);
 	}
-
 }

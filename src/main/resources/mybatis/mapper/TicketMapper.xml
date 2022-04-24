@@ -3,39 +3,59 @@
 <mapper namespace="mybatis.mapper.TicketMapper">
 	<resultMap id="TicketMap" type="com.taiwan.beans.TicketVO">
 		<id property="tktId" column="TKT_ID" />
-		<result property="tktName" column="TKT_NAME" javaType="String" jdbcType="VARCHAR" />
-		<result property="originalAmount" column="ORIGINAL_AMOUNT" javaType="Integer" jdbcType="INTEGER" />
-		<result property="price" column="PRICE" javaType="Integer" jdbcType="INTEGER" />
-		<result property="startdate" column="STARTDATE" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
-		<result property="enddate" column="ENDDATE" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
-		<result property="ttlScore" column="TTL_SCORE" javaType="Integer" jdbcType="INTEGER" />
-		<result property="ttlPeople" column="TTL_PEOPLE" javaType="Integer" jdbcType="INTEGER" />
-		<result property="location" column="LOCATION" javaType="String" jdbcType="VARCHAR" />
-		<result property="instruction" column="INSTRUCTION" javaType="String" jdbcType="VARCHAR" />
-		<result property="address" column="ADDRESS" javaType="String" jdbcType="VARCHAR" />
-		<result property="notice" column="NOTICE" javaType="String" jdbcType="VARCHAR" />
-		<result property="howUse" column="HOWUSE" javaType="String" jdbcType="VARCHAR" />
-		<result property="canxPolicy" column="CANXPOLICY" javaType="String" jdbcType="VARCHAR" />
-		<result property="status" column="STATUS" javaType="String" jdbcType="VARCHAR" />
-		<result property="soldAmount" column="SOLD_AMOUNT" javaType="Integer" jdbcType="INTEGER" />
-		<result property="kind" column="KIND" javaType="String" jdbcType="VARCHAR" />
+		<result property="tktName" column="TKT_NAME" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="originalAmount" column="ORIGINAL_AMOUNT"
+			javaType="Integer" jdbcType="INTEGER" />
+		<result property="price" column="PRICE" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="startdate" column="STARTDATE"
+			javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+		<result property="enddate" column="ENDDATE"
+			javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+		<result property="ttlScore" column="TTL_SCORE"
+			javaType="Integer" jdbcType="INTEGER" />
+		<result property="ttlPeople" column="TTL_PEOPLE"
+			javaType="Integer" jdbcType="INTEGER" />
+		<result property="location" column="LOCATION" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="instruction" column="INSTRUCTION"
+			javaType="String" jdbcType="VARCHAR" />
+		<result property="address" column="ADDRESS" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="notice" column="NOTICE" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="howuse" column="HOWUSE" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="canxpolicy" column="CANXPOLICY"
+			javaType="String" jdbcType="VARCHAR" />
+		<result property="status" column="STATUS" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="soldAmount" column="SOLD_AMOUNT"
+			javaType="Integer" jdbcType="INTEGER" />
+		<result property="kind" column="KIND" javaType="String"
+			jdbcType="VARCHAR" />
 	</resultMap>
 
 	<insert id="insert" parameterType="com.taiwan.beans.TicketVO">
-		insert into TICKET(TKT_NAME, ORIGINAL_AMOUNT, PRICE, STARTDATE, ENDDATE, LOCATION, 
-							INSTRUCTION, ADDRESS, NOTICE, HOWUSE, CANXPOLICY, KIND)
-		values(#{tktName}, #{originalAmount}, #{price}, #{startdate}, #{enddate}, #{location},
-				#{instruction}, #{address}, #{notice}, #{howUse}, #{canxPolicy}, #{kind})
+		insert into TICKET(TKT_NAME,
+		ORIGINAL_AMOUNT, PRICE, STARTDATE, ENDDATE, LOCATION,
+		INSTRUCTION, ADDRESS, NOTICE, HOWUSE, CANXPOLICY, KIND)
+		values(#{tktName},
+		#{originalAmount}, #{price}, #{startdate}, #{enddate}, #{location},
+		#{instruction}, #{address}, #{notice}, #{howuse}, #{canxpolicy},
+		#{kind})
 	</insert>
 
 	<delete id="delete" parameterType="Integer">
-		delete from TICKET where TKT_ID = #{tktId}
+		delete from TICKET where
+		TKT_ID = #{tktId}
 	</delete>
 
 	<update id="update" parameterType="com.taiwan.beans.TicketVO">
 		update TICKET
 		<set>
-			<if test="tktName!=null">TKT_NAME =	#{tktName}, </if>
+			<if test="tktName!=null">TKT_NAME = #{tktName}, </if>
 			<if test="originalAmount!=null">ORIGINAL_AMOUNT = #{originalAmount}, </if>
 			<if test="price!=null">PRICE = #{price}, </if>
 			<if test="startdate!=null">STARTDATE = #{startdate}, </if>
@@ -44,18 +64,20 @@
 			<if test="instruction!=null">INSTRUCTION = #{instruction}, </if>
 			<if test="address!=null">ADDRESS = #{address}, </if>
 			<if test="notice!=null">NOTICE = #{notice}, </if>
-			<if test="howUse!=null">HOWUSE = #{howUse}, </if>
-			<if test="canxPolicy!=null">CANXPOLICY = #{canxPolicy}, </if>
+			<if test="howUse!=null">HOWUSE = #{howuse}, </if>
+			<if test="canxPolicy!=null">CANXPOLICY = #{canxpolicy}, </if>
 			<if test="kind!=null">KIND = #{kind} </if>
 		</set>
 		where
 		TKT_ID = #{tktId}
 	</update>
 
-	<select id="queryById" parameterType="Integer" resultType="com.taiwan.beans.TicketVO">
-		select TKT_NAME tktName, ORIGINAL_AMOUNT originalAmount, PRICE, STARTDATE, ENDDATE, 
-				LOCATION, INSTRUCTION, ADDRESS, NOTICE, HOWUSE, CANXPOLICY, KIND
-		from TICKET 
+	<select id="queryById" parameterType="Integer"
+		resultType="com.taiwan.beans.TicketVO">
+		select TKT_NAME tktName, ORIGINAL_AMOUNT originalAmount,
+		PRICE, STARTDATE, ENDDATE,
+		LOCATION, INSTRUCTION, ADDRESS, NOTICE, HOWUSE, CANXPOLICY, KIND
+		from TICKET
 		where TKT_ID = #{tktId}
 	</select>
 
@@ -63,39 +85,64 @@
 		select * from TICKET
 	</select>
 
-	<select id="queryTicketByTktName" parameterType="String" resultMap="TicketMap">
-		select TKT_ID, TKT_NAME, ORIGINAL_AMOUNT, PRICE, STARTDATE, ENDDATE, 
-				TTL_SCORE, TTL_PEOPLE, LOCATION, INSTRUCTION, STATUS, SOLD_AMOUNT, KIND 
-		from TICKET 
+	<select id="queryTicketByTktName" parameterType="String"
+		resultMap="TicketMap">
+		select TKT_ID, TKT_NAME, ORIGINAL_AMOUNT, PRICE, STARTDATE,
+		ENDDATE,
+		TTL_SCORE, TTL_PEOPLE, LOCATION, INSTRUCTION, STATUS, SOLD_AMOUNT, KIND
+		from TICKET
 		where TKT_NAME LIKE concat('%',#{tktName},'%')
 	</select>
 
-	<select id="queryTicketByKind" parameterType="String" resultMap="TicketMap">
-		select TKT_ID, TKT_NAME, ORIGINAL_AMOUNT, PRICE, STARTDATE, ENDDATE, 
-				TTL_SCORE, TTL_PEOPLE, LOCATION, INSTRUCTION, STATUS, SOLD_AMOUNT
-		from TICKET 
+	<select id="queryTicketByKind" parameterType="String"
+		resultMap="TicketMap">
+		select TKT_ID, TKT_NAME, ORIGINAL_AMOUNT, PRICE, STARTDATE,
+		ENDDATE,
+		TTL_SCORE, TTL_PEOPLE, LOCATION, INSTRUCTION, STATUS, SOLD_AMOUNT
+		from TICKET
 		where KIND = #{kind}
 	</select>
-	
-	<select id="queryTicketByLocation" parameterType="String" resultMap="TicketMap">
-		select TKT_ID, TKT_NAME, ORIGINAL_AMOUNT, PRICE, STARTDATE, ENDDATE, 
-				TTL_SCORE, TTL_PEOPLE, INSTRUCTION, STATUS, SOLD_AMOUNT, KIND
-		from TICKET 
+
+	<select id="queryTicketByLocation" parameterType="String"
+		resultMap="TicketMap">
+		select TKT_ID, TKT_NAME, ORIGINAL_AMOUNT, PRICE, STARTDATE,
+		ENDDATE,
+		TTL_SCORE, TTL_PEOPLE, INSTRUCTION, STATUS, SOLD_AMOUNT, KIND
+		from TICKET
 		where LOCATION = #{location}
 	</select>
 
-	<select id="queryTicketByStatus" parameterType="String" resultMap="TicketMap">
+	<select id="queryTicketByStatus" parameterType="String"
+		resultMap="TicketMap">
 		select TKT_ID, TKT_NAME from TICKET where STATUS = #{status}
 	</select>
-	
+
 	<select id="getTicketByScore" resultMap="TicketMap">
-		select TKT_NAME, LOCATION, INSTRUCTION, KIND from TICKET ORDER BY TTK_SCORE DESC LIMIT 3
+		select TKT_NAME,
+		LOCATION, INSTRUCTION, KIND from TICKET ORDER BY TTK_SCORE DESC LIMIT
+		3
 	</select>
 
 	<select id="getTicketByPeople" resultMap="TicketMap">
-		select TKT_NAME, LOCATION, INSTRUCTION, KIND from TICKET ORDER BY TTK_PEOPLE DESC LIMIT 3
+		select TKT_NAME,
+		LOCATION, INSTRUCTION, KIND from TICKET ORDER BY TTK_PEOPLE DESC LIMIT
+		3
 	</select>
+
+	<update id="updateTktStatusByTktId">
+		update TICKET set STATUS=#{status} 
+		where TKT_ID = #{tktId}
+	</update>
 	
+	<select id="queryOInfoById" parameterType="Integer"
+		resultType="com.taiwan.beans.TicketVO">
+		select TKT_ID tktId,TKT_NAME tktName, ORIGINAL_AMOUNT originalAmount,
+		PRICE, STARTDATE, ENDDATE, TTL_SCORE ttlScore ,TTL_PEOPLE ttlPeople,STATUS,
+		LOCATION, INSTRUCTION, ADDRESS, NOTICE, HOWUSE, CANXPOLICY,SOLD_AMOUNT soldAmount ,KIND
+		from TICKET
+		where TKT_ID = #{tktId}
+	</select>
+
 
 
 </mapper>
