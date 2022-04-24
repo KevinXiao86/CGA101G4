@@ -64,12 +64,17 @@ public class CouponServiceTest {
 	
 	
 	
+//	@Test
+//	public void test04() {
+//		String startString="2022-04-30 00:00:00";
+//		String endString ="2022-05-01 00:00:00";
+//		Timestamp startdate=Timestamp.valueOf(startString);
+//		Timestamp enddate=Timestamp.valueOf(endString);
+//		System.out.println(couponService.update(5, "test", "test", 120, startdate, enddate, "images/coupon/d6d15dd1-fcd9-4bcf-93eb-d7fc9080f059t.gif"));
+//	}
+	
 	@Test
-	public void test04() {
-		String startString="2022-04-30 00:00:00";
-		String endString ="2022-05-01 00:00:00";
-		Timestamp startdate=Timestamp.valueOf(startString);
-		Timestamp enddate=Timestamp.valueOf(endString);
-		System.out.println(couponService.update(5, "test", "test", 120, startdate, enddate, "images/coupon/d6d15dd1-fcd9-4bcf-93eb-d7fc9080f059t.gif"));
+	public void test06() {
+		System.out.println(couponService.updateStatus(1, "上架"));
 	}
 }

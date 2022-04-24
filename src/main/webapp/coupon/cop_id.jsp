@@ -7,7 +7,7 @@
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%@ include file="/common/head.jsp"%>
 <meta charset="UTF-8">
-<title>所有優惠券資料 CouponFindAll</title>
+<title>流水號優惠券資料 CouponFindById</title>
 <style>
 table#table-1 {
 	background-color: #CCCCFF;
@@ -47,7 +47,7 @@ th, td {
 </head>
 <body>
 
-	<h1>所有優惠券</h1>
+	<h1>藉由流水號搜尋優惠券</h1>
 
 	<%--錯誤列表 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -73,7 +73,6 @@ th, td {
 			<th>刪除</th>
 		</tr>
 <%-- 		<%@ include file="/coupon/page1.file" %>  --%>
-		<c:forEach items="${requestScope.list}" var="couponVO">
 			<tr>
 				<td>${couponVO.copId}</td>
 				<td>${couponVO.copName}</td>
@@ -101,7 +100,6 @@ th, td {
 					</FORM>
 				</td>
 			</tr>
-		</c:forEach>
 	</table>
 <%-- 	<%@ include file="/coupon/page2.file" %> --%>
 

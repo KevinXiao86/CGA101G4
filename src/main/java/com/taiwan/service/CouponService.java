@@ -24,4 +24,13 @@ public interface CouponService {
 	// 根據id查詢所選的優惠券
 	public CouponVO findById(Integer copId);
 
+	// 根據id更改coupon的狀態
+	public boolean updateStatus(Integer copId, String status);
+
+	// 根據標題做模糊查詢
+	public List<CouponVO> selectByTitle(String copName);
+
+	// 根據上架或下架做搜尋
+	public List<CouponVO> selectByStatus(String status);
+
 }

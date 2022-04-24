@@ -66,5 +66,20 @@ public class CouponServiceImpl implements CouponService {
 	public CouponVO findById(Integer copId) {
 		return mapper.queryById(copId);
 	}
+	@Transactional
+	@Override
+	public boolean updateStatus(Integer copId, String status) {
+		return mapper.updateStatus(copId, status)>0;
+	}
+
+	@Override
+	public List<CouponVO> selectByTitle(String copName) {
+		return mapper.queryCouponByCopName(copName);
+	}
+
+	@Override
+	public List<CouponVO> selectByStatus(String status) {
+		return mapper.queryCouponByStatus(status);
+	}
 
 }

@@ -28,7 +28,7 @@ public class CouponFindAll extends HttpServlet {
 		List<CouponVO> ls=new ArrayList<CouponVO>();
 		ls=couponService.findAll();
 		request.setAttribute("list", ls);
-		System.out.println(ls);
+//		System.out.println(ls);
 		RequestDispatcher rd=request.getRequestDispatcher("/coupon/cop_findAll.jsp");
 		rd.forward(request, response);
 	}

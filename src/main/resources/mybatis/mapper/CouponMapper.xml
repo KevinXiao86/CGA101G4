@@ -51,6 +51,14 @@
 	<select id="queryCouponByStatus" parameterType="String" resultMap="CouponMap">
 		select COP_ID, COP_NAME, INTRODUCE, DISCOUNT, STARTDATE, ENDDATE, IMG from COUPON where STATUS = #{status}
 	</select>
+	
+	<update id="updateStatus" >
+		update COUPON 
+		set 
+			STATUS=#{status}	
+		where
+		COP_ID = #{copId}
+	</update>
 
 
 </mapper>
