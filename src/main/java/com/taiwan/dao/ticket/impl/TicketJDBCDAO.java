@@ -60,8 +60,8 @@ public class TicketJDBCDAO implements TicketDAO_interface {
 			ps.setString(7, ticketVO.getInstruction());
 			ps.setString(8, ticketVO.getAddress());
 			ps.setString(9, ticketVO.getNotice());
-			ps.setString(10, ticketVO.getHowUse());
-			ps.setString(11, ticketVO.getCanxPolicy());
+			ps.setString(10, ticketVO.getHowuse());
+			ps.setString(11, ticketVO.getCanxpolicy());
 			ps.setString(12, ticketVO.getKind());
 			
 			count = ps.executeUpdate();
@@ -113,8 +113,8 @@ public class TicketJDBCDAO implements TicketDAO_interface {
 			ps.setString(7, ticketVO.getInstruction());
 			ps.setString(8, ticketVO.getAddress());
 			ps.setString(9, ticketVO.getNotice());
-			ps.setString(10, ticketVO.getHowUse());
-			ps.setString(11, ticketVO.getCanxPolicy());
+			ps.setString(10, ticketVO.getHowuse());
+			ps.setString(11, ticketVO.getCanxpolicy());
 			ps.setString(12, ticketVO.getKind());
 			ps.setInt(13, ticketVO.getTktId());
 			
@@ -218,8 +218,8 @@ public class TicketJDBCDAO implements TicketDAO_interface {
 				ticketVO.setInstruction(rs.getString(10));
 				ticketVO.setAddress(rs.getString(11));
 				ticketVO.setNotice(rs.getString(12));
-				ticketVO.setHowUse(rs.getString(13));
-				ticketVO.setCanxPolicy(rs.getString(14));
+				ticketVO.setHowuse(rs.getString(13));
+				ticketVO.setCanxpolicy(rs.getString(14));
 				ticketVO.setStatus(rs.getString(15));
 				ticketVO.setSoldAmount(rs.getInt(16));
 				ticketVO.setKind(rs.getString(17));
@@ -637,8 +637,8 @@ public class TicketJDBCDAO implements TicketDAO_interface {
 				ticketVO.setInstruction(rs.getString(10));
 				ticketVO.setAddress(rs.getString(11));
 				ticketVO.setNotice(rs.getString(12));
-				ticketVO.setHowUse(rs.getString(13));
-				ticketVO.setCanxPolicy(rs.getString(14));
+				ticketVO.setHowuse(rs.getString(13));
+				ticketVO.setCanxpolicy(rs.getString(14));
 				ticketVO.setStatus(rs.getString(15));
 				ticketVO.setSoldAmount(rs.getInt(16));
 				ticketVO.setKind(rs.getString(17));
@@ -692,8 +692,8 @@ public class TicketJDBCDAO implements TicketDAO_interface {
 //		ticketVO1.setInstruction("一起來看牛牛");
 //		ticketVO1.setAddress("苗栗縣通霄鎮166號");
 //		ticketVO1.setNotice("禁止打牛");
-//		ticketVO1.setHowUse("使用QR Code");
-//		ticketVO1.setCanxPolicy("無法取消");
+//		ticketVO1.setHowuse("使用QR Code");
+//		ticketVO1.setCanxpolicy("無法取消");
 //		ticketVO1.setKind("景點門票");
 //		dao.insert(ticketVO1);
 //
@@ -709,8 +709,8 @@ public class TicketJDBCDAO implements TicketDAO_interface {
 //		ticketVO2.setInstruction("一起來看牛牛");
 //		ticketVO2.setAddress("苗栗縣通霄鎮166號");
 //		ticketVO2.setNotice("禁止打牛");
-//		ticketVO2.setHowUse("使用QR Code");
-//		ticketVO2.setCanxPolicy("無法取消");
+//		ticketVO2.setHowuse("使用QR Code");
+//		ticketVO2.setCanxpolicy("無法取消");
 //		ticketVO2.setKind("景點門票");
 //		dao.insert(ticketVO2);
 //		
