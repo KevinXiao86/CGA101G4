@@ -28,7 +28,7 @@
 			<if test="introduce!=null">INTRODUCE = #{introduce},</if>
 			<if test="discount!=null">DISCOUNT = #{discount},</if>
 			<if test="startdate!=null">STARTDATE = #{startdate},</if>
-			<if test="enddate!=null">ENDDATE = #{enddate}</if>
+			<if test="enddate!=null">ENDDATE = #{enddate},</if>
 			<if test="img!=null">IMG = #{img}</if>
 		</set>
 		where
@@ -49,8 +49,16 @@
 	</select>
 
 	<select id="queryCouponByStatus" parameterType="String" resultMap="CouponMap">
-		select COP_ID, COP_NAME, INTRODUCE, DISCOUNT, STARTDATE, ENDDATE, IMG from COUPON where STATUS = #{status}
+		select * from COUPON where STATUS = #{status}
 	</select>
+	
+	<update id="updateStatus" >
+		update COUPON 
+		set 
+			STATUS=#{status}	
+		where
+		COP_ID = #{copId}
+	</update>
 
 
 </mapper>

@@ -2,6 +2,8 @@ package mybatis.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.taiwan.beans.CouponVO;
 
 public interface CouponMapper {
@@ -19,6 +21,8 @@ public interface CouponMapper {
 	public List<CouponVO> queryCouponByCopName(String copName);
 	
 	public List<CouponVO> queryCouponByStatus(String status);
+	
+	public int updateStatus(@Param("copId") Integer copId,@Param("status") String status);
 
 
 }
