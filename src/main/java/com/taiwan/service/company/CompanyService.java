@@ -32,8 +32,8 @@ public interface CompanyService {
 	//獲取所有廠商(管理員)
 	public List<Company> getAllCompany();
 	
-	//根據廠商編號將審核狀態改為審核通過(管理員)
-	public boolean updateAuditStatusByCmpId(Integer cmpId);
+	//根據廠商編號修改審核狀態(管理員)
+	public boolean updateAuditStatusByCmpId(Integer cmpId, String auditStatus);
 	
 	//根據廠商編號修改廠商狀態
 	public boolean updateStatusByCmpId(Integer cmpId, String status);

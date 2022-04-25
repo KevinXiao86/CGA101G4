@@ -138,26 +138,22 @@ public class CompanyServiceImpl implements CompanyService{
 	}
 
 	
-	//根據廠商編號查詢廠商(用戶)
+	//根據廠商編號查詢廠商(用戶, 管理員)
 	@Override
 	@Transactional(readOnly = true)
 	public Company getCompanyByCmpId(Integer cmpId) {
+		System.out.println("Serive: " + cmpId);
+		
+		//1. 先檢查 id 
+		if (cmpId == 0 && cmpId < 20000) {
+			return null;
+		}
+		
+		//2. 查詢
 		Company company = companyMapper.queryCompanyByCmpId(cmpId);
 		
-		//判斷是否有數據
-		if (company == null) {
-			//說明沒有此廠商編號
-			company = new Company();
-			company.setSuccessful(false);
-			company.setMessage("查無此廠商資訊");
-			company.setUrl("/front-end/company/cmp_index.jsp");
-			return company;
-		}else {
-			//說明有找到廠商
-			company.setSuccessful(true);
-			company.setUrl("/front-end/company/cmp_edit.jsp");
-			return company;
-		}
+		//3. 返回結果
+		return company;
 	}
 
 	
@@ -185,6 +181,7 @@ public class CompanyServiceImpl implements CompanyService{
 		}
 	}
 
+	
 	//查詢所有廠商(管理員)
 	@Override
 	@Transactional(readOnly = true)
@@ -192,28 +189,41 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyMapper.queryAllCompany();
 	}
 
-	
-	//根據廠商編號將審核狀態改為審核通過(管理員)
-	@Override
-	@Transactional
-	public boolean updateAuditStatusByCmpId(Integer cmpId) {
-		int result = companyMapper.updateAuditStatusByCmpId(cmpId, "審核通過");
-		
-		return result != 0;
-	}
 
-	
 	//根據廠商編號修改廠商狀態
 	@Override
 	@Transactional
 	public boolean updateStatusByCmpId(Integer cmpId, String status) {
-		// 1. 數據校驗
+		// 1. 先查看 id 是否正確
+		if (cmpId == 0 && cmpId < 20000) {
+			//說明不正確
+			return false;
+		}
+		// 2. 先看狀態是否是以下兩個值
 		if (status.equals("正常") || status.equals("停權")) {
 			int result = companyMapper.updateStatusByCmpId(cmpId, status);
 			
 			return result != 0;
 		}
 		return false;
+	}
+	
+	
+	//根據廠商編號修改審核狀態(管理員)
+	@Override
+	@Transactional
+	public boolean updateAuditStatusByCmpId(Integer cmpId, String auditStatus) {
+		//1. 數據校驗
+		if (cmpId == 0 && cmpId < 20000) {
+			return false;
+		}
+		
+		int result = 0;
+		if("審核通過".equals(auditStatus) || "審核未通過".equals(auditStatus)) {
+			//是這兩個值我們才做修改操作
+			result = companyMapper.updateAuditStatusByCmpId(cmpId, auditStatus);
+		}
+		return result != 0;
 	}
 
 
@@ -252,6 +262,19 @@ public class CompanyServiceImpl implements CompanyService{
 					}
             	}
 			}
+            
+            //判斷遍歷到的 key 是不是 bankAccount
+            if ("bankAccount".equals(key)) {
+            	//獲取到 key 對應的 value; 注意:key是String型，value是String型數組, 所以這邊需要做強制轉型
+            	String[] values = (String[]) map.get(key);  
+            	//進行 bankAccount 值的判斷
+            	for(int i = 0; i < values.length; i++) {
+            		if (values[i].trim().equals("")) {
+						errorMap.put(key, "請輸入銀行帳號");
+					}
+            	}	
+			}
+            
             
             //判斷遍歷到的 key 是不是 cmpMail
             if ("cmpMail".equals(key)) {
@@ -464,9 +487,7 @@ public class CompanyServiceImpl implements CompanyService{
 	public static int parseInt(String id, int defaultValue) {
 		try {
 			return Integer.parseInt(id);
-		} catch (Exception e) {
-			
-		}
+		} catch (Exception e) {}
 		//轉換失敗返回默認值
 		return defaultValue;
 	}

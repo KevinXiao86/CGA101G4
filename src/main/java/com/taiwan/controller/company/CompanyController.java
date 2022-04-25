@@ -37,6 +37,7 @@ public class CompanyController {
 	// 登入
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request, Model model) {
+		System.out.println("login ... ");
 		// 1. 獲取請求參數 cmp_account(帳號), cmp_password(密碼)
 		String cmpAccount = request.getParameter("cmpAccount");
 		String cmpPassword = request.getParameter("cmpPassword");
@@ -128,41 +129,49 @@ public class CompanyController {
 	}
 
 	// 獲取廠商訊息
+	// 之所以把 id 變成 String 的原因是: 防止直接從瀏覽器輸入 id 而抱錯, 並且還可以做數據校驗
 	@RequestMapping("/getCompany")
 	public String getCompany(@RequestParam(value = "cmpId") String cmpId, Model model) {
 		// 1. 數據校驗
-		int reslut = CompanyServiceImpl.parseInt(cmpId, 0);
-		if (reslut == 0) {
-			model.addAttribute("errorInfo", "編號必須是數字");
-			return "/front-end/company/cmp_index.jsp";
+		int id = CompanyServiceImpl.parseInt(cmpId, 0);
+		System.out.println("getCompany:" + id);
+		// 2. 調用業務方法
+		Company company = companyService.getCompanyByCmpId(id);
+		
+		// 3. 判斷 company 
+		if (company == null) {
+			company = new Company();
+			company.setMessage("查無此廠商資訊");
+			company.setUrl("/front-end/company/cmp_index.jsp");
+		}else {
+			//說明有找到廠商
+			company.setSuccessful(true);
+			company.setUrl("/front-end/company/cmp_edit.jsp");
 		}
 
-		// 2. 調用業務方法
-		Company company = companyService.getCompanyByCmpId(reslut);
+		// 4. 請求轉發到修改頁面
 		model.addAttribute("editCompany", company);
-
-		// 3. 請求轉發到修改頁面
-		// service 層已經決定要取哪個頁面了
 		return company.getUrl();
 	}
 
 	// 這個方法會提前所有的目標方法先運行, 要特別小心
-	// @RequestParam(value = "id", required = false): 並不是每個請求都需要先查詢廠商, 所以我這邊設置為 false
+	// @RequestParam(value = "id", required = false): 並不是每個請求都需要先查詢廠商, 所以我這邊設置為
+	// false
 	@ModelAttribute
 	public void getCompanyByModelAttribute(@RequestParam(value = "cmpId", required = false) String cmpId, Model model) {
-		int result = 0;
+		int id = 0;
 		// 做這個判斷是為了防止空指針異常
 		if (cmpId != null) {
 			// 1. 數據校驗
-			result = CompanyServiceImpl.parseInt(cmpId, 0);
-//			System.out.println("@ModelAttribute 進行數據校驗");
+			id = CompanyServiceImpl.parseInt(cmpId, 0);
+			System.out.println("@ModelAttribute 進行數據校驗" + id);
 		}
 
 		// 2. 數據是正確的情況下我才去查廠商資料
-		if (result != 0 && result >= 20000) {
-//			System.out.println("@ModelAttribute 進行廠商數據查找");
+		if (id != 0 && id >= 20000) {
+//			System.out.println("@ModelAttribute 進行廠商數據查找" + id);
 			// 先透過廠商編號查詢廠商
-			Company company = companyService.getCompanyByCmpId(result);
+			Company company = companyService.getCompanyByCmpId(id);
 			// 將這個廠商放入到隱含模型中
 			model.addAttribute("modelAttributeCompany", company);
 		}
@@ -170,8 +179,8 @@ public class CompanyController {
 
 	// 廠商資料修改操作
 	@RequestMapping("/editCompany")
-	public String editCompany(@RequestParam(value = "cmpId") String cmpId, @ModelAttribute("modelAttributeCompany") Company company,
-			Model model, HttpServletRequest request) {
+	public String editCompany(@RequestParam(value = "cmpId") String cmpId,
+			@ModelAttribute("modelAttributeCompany") Company company, Model model, HttpServletRequest request) {
 		// 1. 進行數據校驗
 		Map<String, String> errorMap = CompanyServiceImpl.check(request.getParameterMap());
 
@@ -184,20 +193,15 @@ public class CompanyController {
 			// 回到修改頁面
 			return "/front-end/company/cmp_edit.jsp";
 		}
-		
-		System.out.println(cmpId);
-		System.out.println(company.getCmpId());
-		
-		//3. 調用業務方法, 更新廠商訊息
-		Company editCompany = companyService.updateCompanyById(company);
-		if (editCompany.isSuccessful()) {
-			//修改成功
-		}
-		return"";
 
-//		// 將廠商編號轉成 String
-//		String id = cmpId.toString();
-//		// 重定向回 cmp_edit.jsp
-//		return "redirect:/company/getCompany?cmpId=" + id;
+//		System.out.println(cmpId);
+//		System.out.println(company.getCmpId());
+
+		// 3. 調用業務方法, 更新廠商訊息
+		Company editCompany = companyService.updateCompanyById(company);
+		// 用於回顯訊息
+		model.addAttribute("editCompany", company);
+		//4. 進行頁面跳轉
+		return editCompany.getUrl();
 	}
 }

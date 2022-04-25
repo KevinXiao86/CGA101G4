@@ -4,11 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>錯誤頁面</title>
+<title>房型管理</title>
 </head>
 <body>
-	<h1>出錯拉~~~</h1>
-	<span id="error_msg">${requestScope.errorInfo}</span>
-	<h1>requestScope: ${ex}</h1>
+
 </body>
 </html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.RoomtypeMapper">
+
+	<!-- 根據廠商編號查詢所有房型 -->
+	<!-- public List<Roomtype> queryRoomtypesByCmpId(Integer cmpId); -->
+	<select id="queryRoomtypesByCmpId" resultType="com.taiwan.beans.Roomtype">
+		SELECT 	`roomtype_id`, `cmp_id`, `roomtype_name`, `roomtype_amount`, 
+			`roomtype__people`, `total_score`, `total_people`, `roomtype_price`, 
+			`roomtype_status`, `roomtype_area`
+	 	FROM `Taiwan`.`ROOMTYPE` 
+	 	WHERE `cmp_id` = #{cmpId};
+	</select>
+</mapper>

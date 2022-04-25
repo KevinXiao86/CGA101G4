@@ -9,12 +9,16 @@
 	<%@ include file="/common/head.jsp"%>
 </head>
 <body>
+	<span id="error_msg">${requestScope.editCompany.message}</span>
 	<form action="company/editCompany" method="post">	
 		<!-- 因為修改操作都需要 id, 所以使用隱藏域直接帶上 id -->
 		<input type="hidden" name="cmpId" value="${requestScope.editCompany.cmpId}">
 		
 		<label for="cmp_tel">廠商電話:</label>
 		<input type="tel" name="cmpTel" id="cmp_tel" value="${requestScope.editCompany.cmpTel}">${requestScope.errorInfo.cmpTel}<br>
+		
+		<label for="bank_account">銀行帳號:</label>
+		<input type="tel" name="bankAccount" id="bank_account" value="${requestScope.editCompany.bankAccount}">${requestScope.errorInfo.bankAccount}<br>
 
 		<label for="cmp_mail">廠商電子信箱:</label>
 		<input type="email" name="cmpMail" id="cmp_mail" value="${requestScope.editCompany.cmpMail}">${requestScope.errorInfo.cmpMail}<br>		

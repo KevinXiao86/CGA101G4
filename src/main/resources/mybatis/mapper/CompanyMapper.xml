@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="queryCompanyByAccountAndPassword" resultType="com.taiwan.beans.Company">
 		SELECT 	`cmp_id`, `cmp_name`, `cmp_tel`, `cmp_mail`, `cmper`, `cmper_tel`, `cmp_status`, `audit_status`, 
 			`serial_no`, `cmp_account`, `cmp_password`, `cmp_introduce`, `checkin_time`, `checkout_time`, 
-			`location`, `notice`, `canx`
+			`location`, `notice`, `canx`, `bank_account`
 	 	FROM `Taiwan`.`COMPANY`
 		WHERE `cmp_account` = #{account}
 		AND `cmp_password` = #{password};	
@@ -24,9 +24,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertCompany">
 	INSERT INTO `Taiwan`.`COMPANY` 
 		( `cmp_name`, `cmp_tel`, `cmp_mail`, `cmper`, `cmper_tel`,`serial_no`, `cmp_account`,
-		 `cmp_password`, `cmp_introduce`, `checkin_time`, `checkout_time`, `location`, `notice`, `canx`)
+		 `cmp_password`, `cmp_introduce`, `checkin_time`, `checkout_time`, `location`, `notice`, `canx`, `bank_account`)
 	VALUES ( #{cmpName}, #{cmpTel}, #{cmpMail}, #{cmper}, #{cmperTel} , #{serialNo}, #{cmpAccount},
-	 #{cmpPassword}, #{cmpIntroduce}, #{checkinTime}, #{checkoutTime}, #{location}, #{notice}, #{canx});
+	 #{cmpPassword}, #{cmpIntroduce}, #{checkinTime}, #{checkoutTime}, #{location}, #{notice}, #{canx}, #{bankAccount});
 	</insert>
 	
 	
@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="queryCompanyByCmpAccount" resultType="com.taiwan.beans.Company">
 		SELECT 	`cmp_id`, `cmp_name`, `cmp_tel`, `cmp_mail`, `cmper`, `cmper_tel`, `cmp_status`, `audit_status`, 
 			`serial_no`, `cmp_account`, `cmp_password`, `cmp_introduce`, `checkin_time`, `checkout_time`, 
-			`location`, `notice`, `canx`
+			`location`, `notice`, `canx`, `bank_account`
 	 	FROM `Taiwan`.`COMPANY`
 		WHERE `cmp_account` = #{account};	
 	</select>
@@ -55,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="queryCompanyByCmpId" resultType="com.taiwan.beans.Company">
 		SELECT 	`cmp_id`, `cmp_name`, `cmp_tel`, `cmp_mail`, `cmper`, `cmper_tel`, `cmp_status`, `audit_status`, 
 			`serial_no`, `cmp_account`, `cmp_password`, `cmp_introduce`, `checkin_time`, `checkout_time`, 
-			`location`, `notice`, `canx`
+			`location`, `notice`, `canx`, `bank_account`
 	 	FROM `Taiwan`.`COMPANY`
 		WHERE `cmp_id` = #{cmpId};
 	</select>
@@ -90,6 +90,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="canx != null and canx.trim() != ''">
 				 `canx` = #{canx}, 
 			</if>
+			<if test="bankAccount != null and bankAccount.trim() != ''">
+				 `bank_account` = #{bankAccount}, 
+			</if>
 		</trim>
 		WHERE `cmp_id` = #{cmpId} ;
 	</update>
@@ -100,7 +103,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="queryAllCompany" resultType="com.taiwan.beans.Company">
 		SELECT 	`cmp_id`, `cmp_name`, `cmp_tel`, `cmp_mail`, `cmper`, `cmper_tel`, `cmp_status`, `audit_status`, 
 			`serial_no`, `cmp_account`, `cmp_password`, `cmp_introduce`, `checkin_time`, `checkout_time`, 
-			`location`, `notice`, `canx`
+			`location`, `notice`, `canx`, `bank_account`
 	 	FROM `Taiwan`.`COMPANY`;
 	</select>
 	
