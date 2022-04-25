@@ -73,6 +73,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT 	`cust_id`, `NAME`, `SEX`, `TEL`, `EMAIL`, `ADDRESS`, `ID_CARD`, 
 			`BIRTH`, `ACCOUNT`, `PASSWORD`, `IMG`, `cust_use`, `CARD`, `cust_right`
 	 	FROM  `Taiwan`.`CUSTOMER` 
-		WHERE `cust_id` = #{cust_id};
+		WHERE `cust_id` = #{custId};
 	</select>
 </mapper>

@@ -18,19 +18,35 @@ public class RoomtypeServiceImpl implements RoomtypeService{
 	
 	//根據廠商編號查詢所有房型
 	@Override
-	public List<Roomtype> getAllRoomtypesByCmpId(String cmpId) {
-		//1. 數據校驗
-		int id = parseInt(cmpId, 0);
-		//2. 判斷
-		if(id == 0) {
-			return null;
-		}
-		//3. 調用 dao 的方法
-		List<Roomtype> roomtypes = roomtypeMapper.queryRoomtypesByCmpId(id);
-		//4. 回傳結果
+	public List<Roomtype> getAllRoomtypesByCmpId(Integer cmpId) {
+		//1. 調用 dao 的方法
+		List<Roomtype> roomtypes = roomtypeMapper.queryRoomtypesByCmpId(cmpId);
+		//2. 回傳結果
 		return roomtypes;
 	}
 
+	//修改房型狀態
+	@Override
+	public boolean updateRoomtypeStatus(String cmpId, String roomtypeId, String status) {
+		//1. 數據校驗
+		int idcmp = parseInt(cmpId, 0);
+		int idRoomtype = parseInt(roomtypeId, 0);
+		if (idcmp == 0 || idRoomtype == 0) {
+			return false;
+		}
+		
+		//2. 檢查狀態
+		if ("下架".equals(status) || "上架".equals(status)) {
+			//3. 調用業務方法
+			int result = roomtypeMapper.updateRoomtypeStatusByCmpIdAndRoomtypeId(idcmp, idRoomtype, status);
+			//4. 回傳結果
+			return result != 0;
+		}
+		
+		return false;
+	}
+	
+	
 	//將字符串轉成int類型
 	public static int parseInt(String id, int defaultValue) {
 		try {
@@ -39,4 +55,6 @@ public class RoomtypeServiceImpl implements RoomtypeService{
 		//轉換失敗返回默認值
 		return defaultValue;
 	}
+
+
 }

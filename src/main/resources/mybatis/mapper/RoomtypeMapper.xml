@@ -13,4 +13,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	FROM `Taiwan`.`ROOMTYPE` 
 	 	WHERE `cmp_id` = #{cmpId};
 	</select>
+
+
+	<!-- 根據廠商編號和房型編號修改狀態 -->
+	<!-- public int updateRoomtypeStatusByCmpIdAndRoomtypeId(@Param("cmpId")Integer cmpId, @Param("roomtypeId")Integer roomtypeId,
+		 @Param("roomtypeStatus")String roomtypeStatus);	 -->
+	<update id="updateRoomtypeStatusByCmpIdAndRoomtypeId">
+		UPDATE `Taiwan`.`ROOMTYPE` 
+		SET	`roomtype_status` = #{roomtypeStatus} 
+		WHERE
+			`roomtype_id` = #{roomtypeId} 
+		AND 
+			`cmp_id` = #{cmpId};
+	</update>
+	
 </mapper>

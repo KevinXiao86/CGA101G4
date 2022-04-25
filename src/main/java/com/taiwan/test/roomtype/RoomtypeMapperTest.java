@@ -23,4 +23,17 @@ public class RoomtypeMapperTest {
 			System.out.println(roomtype);
 		}
 	}
+	
+	
+	@Test
+	public void test02() {
+		int res = roomtypeMapper.updateRoomtypeStatusByCmpIdAndRoomtypeId(20011, 1, "上架");
+		System.out.println(res);
+	}
+	
+	
+	@Test
+	public void test03() {
+		System.out.println((!"下架".equals("123")));
+	}
 }

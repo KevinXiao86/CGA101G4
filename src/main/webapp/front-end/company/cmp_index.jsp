@@ -14,6 +14,6 @@
 	<a href="company/logout">登出</a><br>
 	<a href="company/getCompany?cmpId=${sessionScope.loginCompany.cmpId}">廠商資料</a>${requestScope.errorInfo}<br><br>
 	
-	<a href="roomtype/getAllRoomtypes?cmpId=${sessionScope.loginCompany.cmpId}">房型管理</a>
+	<a href="roomtype/getAllRoomtypes">房型管理</a>
 </body>
 </html>
