@@ -55,13 +55,15 @@ public class Company extends Core{
 //	@Length(min = 1 , message = "請輸入取消政策")
 	private String canx;
 	
+	private String bankAccount;
 	
 	public Company() {
 		super();
 	}
 	public Company(Integer cmpId, String cmpName, String cmpTel, String cmpMail, String cmper, String cmperTel,
 			String cmpStatus, String auditStatus, String serialNo, String cmpAccount, String cmpPassword,
-			String cmpIntroduce, String checkinTime, String checkoutTime, String location, String notice, String canx) {
+			String cmpIntroduce, String checkinTime, String checkoutTime, String location, String notice, String canx,
+			String bankAccount) {
 		super();
 		this.cmpId = cmpId;
 		this.cmpName = cmpName;
@@ -80,7 +82,9 @@ public class Company extends Core{
 		this.location = location;
 		this.notice = notice;
 		this.canx = canx;
+		this.bankAccount = bankAccount;
 	}
+
 
 
 	public Integer getCmpId() {
@@ -185,12 +189,23 @@ public class Company extends Core{
 	public void setNotice(String notice) {
 		this.notice = notice;
 	}
+	
+	public String getBankAccount() {
+		return bankAccount;
+	}
+	public void setBankAccount(String bankAccount) {
+		this.bankAccount = bankAccount;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	@Override
 	public String toString() {
 		return "Company [cmpId=" + cmpId + ", cmpName=" + cmpName + ", cmpTel=" + cmpTel + ", cmpMail=" + cmpMail
 				+ ", cmper=" + cmper + ", cmperTel=" + cmperTel + ", cmpStatus=" + cmpStatus + ", auditStatus="
 				+ auditStatus + ", serialNo=" + serialNo + ", cmpAccount=" + cmpAccount + ", cmpPassword=" + cmpPassword
 				+ ", cmpIntroduce=" + cmpIntroduce + ", checkinTime=" + checkinTime + ", checkoutTime=" + checkoutTime
-				+ ", location=" + location + ", notice=" + notice + ", canx=" + canx + "]";
+				+ ", location=" + location + ", notice=" + notice + ", canx=" + canx + ", bankAccount=" + bankAccount
+				+ "]";
 	}
 }

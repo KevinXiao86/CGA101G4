@@ -66,9 +66,9 @@ public class CompanyMapperTest {
 				+ "由於新冠肺炎（COVID-19）疫情，住客必須於所有室內公共區域佩戴口罩。";
 		
 		String canx = "取消和預付款政策根據各種住宿類型而有所不同。 請輸入您的入住日期並參閱您所需的客房的條款";
-		
+		String bankAccount = "822-1234-567-888999";
 		Company company = new Company(null, cmpName, cmpTel, cmpMail, cmper, cmperTel, null, null, 
-				null, cmpAccount, cmpPassword, cmpIntroduce, checkinTime, checkoutTime, location, notice, canx);
+				null, cmpAccount, cmpPassword, cmpIntroduce, checkinTime, checkoutTime, location, notice, canx, bankAccount);
 		
 		int result = 0;
 		
@@ -101,7 +101,7 @@ public class CompanyMapperTest {
 	
 	@Test
 	public void test06() {
-		Company company = companyMapper.queryCompanyByCmpId(20000);
+		Company company = companyMapper.queryCompanyByCmpId(10000);
 		System.out.println(company);
 	}
 	
@@ -131,7 +131,7 @@ public class CompanyMapperTest {
 //				null, null, null, cmpIntroduce, checkinTime, checkoutTime, location, notice, canx);
 		
 		Company company = new Company(20030, null, null, null, null, null, null, null, 
-				null, null, null, cmpIntroduce, null, null, null, null, null);
+				null, null, null, cmpIntroduce, null, null, null, null, null, null);
 		
 		System.out.println(companyMapper.updateCompanyByCmpId(company));
 	}

@@ -8,7 +8,7 @@
 			jdbcType="INTEGER" />
 		<result property="amount" column="AMOUNT" javaType="Integer"
 			jdbcType="INTEGER" />
-		<result property="uesd" column="USED" javaType="Integer"
+		<result property="used" column="USED" javaType="Integer"
 			jdbcType="INTEGER" />
 		<result property="score" column="SCORE" javaType="Integer"
 			jdbcType="INTEGER" />

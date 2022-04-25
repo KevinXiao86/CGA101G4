@@ -7,6 +7,7 @@
 </head>
 <body>
 	<h1>出錯拉~~~</h1>
+	<span id="error_msg">${requestScope.errorInfo}</span>
 	<h1>requestScope: ${ex}</h1>
 </body>
 </html>

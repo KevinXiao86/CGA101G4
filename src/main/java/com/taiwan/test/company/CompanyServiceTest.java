@@ -11,7 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.taiwan.beans.Company;
-import com.taiwan.service.CompanyService;
+import com.taiwan.service.company.CompanyService;
 
 public class CompanyServiceTest {
 
@@ -57,7 +57,7 @@ public class CompanyServiceTest {
 		String canx = "取消和預付款政策根據各種住宿類型而有所不同。 請輸入您的入住日期並參閱您所需的客房的條款";
 		
 		Company company = new Company(null, cmpName, cmpTel, cmpMail, cmper, cmperTel, null, null, 
-				serialNo, cmpAccount, cmpPassword, cmpIntroduce, checkinTime, checkoutTime, location, notice, canx);
+				serialNo, cmpAccount, cmpPassword, cmpIntroduce, checkinTime, checkoutTime, location, notice, canx, null);
 		
 		Company company2 = companyService.regist(company);
 		
@@ -113,7 +113,7 @@ public class CompanyServiceTest {
 //				null, null, null, cmpIntroduce, checkinTime, checkoutTime, location, notice, canx);
 		
 		Company company = new Company(20030, null, null, null, null, null, null, null, 
-				null, null, null, cmpIntroduce, null, null, null, null, null);
+				null, null, null, cmpIntroduce, null, null, null, null, null, null);
 		
 		System.out.println(companyService.updateCompanyById(company));
 	}
@@ -130,7 +130,7 @@ public class CompanyServiceTest {
 	
 	@Test
 	public void test08() {
-		boolean result = companyService.updateAuditStatusByCmpId(20000);
+		boolean result = companyService.updateAuditStatusByCmpId(20000, "審核通過");
 		System.out.println(result);
 	}
 
