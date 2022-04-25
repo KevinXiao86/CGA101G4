@@ -11,7 +11,7 @@ public class TktImgVO implements Serializable{
 		super();
 		this.tktImgId = tktImgId;
 		this.img = img;
-		this.tktId = tktId;  //join
+		this.tktId = tktId; 
 	}
 	
 	public TktImgVO() {

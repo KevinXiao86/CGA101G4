@@ -90,5 +90,10 @@ public class TktOrder {
 				+ ", orderdate=" + orderdate + ", ttlPrice=" + ttlPrice + ", custCopId=" + custCopId + ", qrcode="
 				+ qrcode + "]";
 	}
-
+	
+//	 public CustCoupon getCustCpnVO() {
+//		    CustCouponService custCpnSvc = new CustCouponService();
+//		    CustCoupon custCpnVO = custCpnSvc.getOneCustCpn(custCopId);
+//		    return custCpnVO;
+//	}
 }
