@@ -38,7 +38,7 @@ public class EmployeeFunctionJDBCDAO implements EmployeeFunctionDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
-			pstmt.setString(1, employeeFunctionVO.getFunc_name());
+			pstmt.setString(1, employeeFunctionVO.getFuncName());
 			count = pstmt.executeUpdate();
 			System.out.println("success 新增" + count);
 			// Handle any SQL errors
@@ -81,8 +81,8 @@ public class EmployeeFunctionJDBCDAO implements EmployeeFunctionDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setString(1, employeeFunctionVO.getFunc_name());
-			pstmt.setInt(2, employeeFunctionVO.getFunc_id());
+			pstmt.setString(1, employeeFunctionVO.getFuncName());
+			pstmt.setInt(2, employeeFunctionVO.getFuncId());
 			count = pstmt.executeUpdate();
 			System.out.println("success 修改" + count);
 		} catch (ClassNotFoundException e) {
@@ -111,7 +111,7 @@ public class EmployeeFunctionJDBCDAO implements EmployeeFunctionDAO_interface {
 	}
 
 	@Override
-	public EmployeeFunctionVO findByPrimaryKey(Integer func_id) {
+	public EmployeeFunctionVO findByPrimaryKey(Integer funcId) {
 		// TODO Auto-generated method stub
 
 		EmployeeFunctionVO employeeFunctionVO = null;
@@ -124,14 +124,14 @@ public class EmployeeFunctionJDBCDAO implements EmployeeFunctionDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			pstmt.setInt(1, func_id);
+			pstmt.setInt(1, funcId);
 
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 
 				employeeFunctionVO = new EmployeeFunctionVO();
-				employeeFunctionVO.setFunc_id(rs.getInt("func_id"));
-				employeeFunctionVO.setFunc_name(rs.getString("func_name"));
+				employeeFunctionVO.setFuncId(rs.getInt(1));
+				employeeFunctionVO.setFuncName(rs.getString(2));
 
 			}
 
@@ -188,8 +188,8 @@ public class EmployeeFunctionJDBCDAO implements EmployeeFunctionDAO_interface {
 				// empVO 也稱為 Domain objects
 
 				employeeFunctionVO = new EmployeeFunctionVO();
-				employeeFunctionVO.setFunc_id(rs.getInt("func_id"));
-				employeeFunctionVO.setFunc_name(rs.getString("func_name"));
+				employeeFunctionVO.setFuncId(rs.getInt(1));
+				employeeFunctionVO.setFuncName(rs.getString(2));
 				list.add(employeeFunctionVO); // Store the row in the list
 			}
 
@@ -230,10 +230,10 @@ public class EmployeeFunctionJDBCDAO implements EmployeeFunctionDAO_interface {
 
 		EmployeeFunctionJDBCDAO dao = new EmployeeFunctionJDBCDAO();
 
-		// 新增
-		EmployeeFunctionVO employeeFunctionVO1 = new EmployeeFunctionVO();
-		employeeFunctionVO1.setFunc_name("會員管理員");
-		dao.insert(employeeFunctionVO1);
+//		// 新增
+//		EmployeeFunctionVO employeeFunctionVO1 = new EmployeeFunctionVO();
+//		employeeFunctionVO1.setFuncName("會員管理員");
+//		dao.insert(employeeFunctionVO1);
 
 //		// 修改
 //		EmployeeFunctionVO employeeFunctionVO2 = new EmployeeFunctionVO();
@@ -244,15 +244,15 @@ public class EmployeeFunctionJDBCDAO implements EmployeeFunctionDAO_interface {
 
 		// 查詢
 		EmployeeFunctionVO employeeFunctionVO3 = dao.findByPrimaryKey(4);
-		System.out.print(employeeFunctionVO3.getFunc_id() + ",");
-		System.out.println(employeeFunctionVO3.getFunc_name() );
+		System.out.print(employeeFunctionVO3.getFuncId() + ",");
+		System.out.println(employeeFunctionVO3.getFuncName() );
 		System.out.println("---------------------");
 
 		// 查詢
 		List<EmployeeFunctionVO> list = dao.getAll();
 		for (EmployeeFunctionVO aEmp : list) {
-			System.out.print(aEmp.getFunc_id() + ",");
-			System.out.print(aEmp.getFunc_name() + ",");
+			System.out.print(aEmp.getFuncId() + ",");
+			System.out.print(aEmp.getFuncName() + ",");
 			System.out.println();
 		}
 	}

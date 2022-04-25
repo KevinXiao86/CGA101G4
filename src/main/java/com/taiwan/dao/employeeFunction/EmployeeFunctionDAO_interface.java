@@ -5,12 +5,12 @@ import java.util.List;
 import com.taiwan.beans.EmployeeFunctionVO;
 
 public interface EmployeeFunctionDAO_interface{
-	//�s�W
+	//新增
 	 public void insert(EmployeeFunctionVO employeeFunctionVO);
-     //�ק�
+     //修改
 	 public void update(EmployeeFunctionVO employeeFunctionVO);
-     //�ھڥ\��s���j�M
-	 public EmployeeFunctionVO findByPrimaryKey(Integer func_id );
-     //�j�M����
+     //依權限編號搜尋
+	 public EmployeeFunctionVO findByPrimaryKey(Integer funcId );
+     //搜尋全部
 	 public List<EmployeeFunctionVO> getAll();
 }
