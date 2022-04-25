@@ -36,10 +36,10 @@ public class AuthorityJDBCDAO implements AuthorityDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
-			pstmt.setInt(1, authorityVO.getEmp_id());
-			pstmt.setInt(2, authorityVO.getFunc_id());
+			pstmt.setInt(1, authorityVO.getEmpId());
+			pstmt.setInt(2, authorityVO.getFuncId());
 			count = pstmt.executeUpdate();
-			System.out.println("success �s�W" + count);
+			System.out.println("success 幾" + count + "筆");
 			// Handle any SQL errors
 		} catch (
 
@@ -68,7 +68,7 @@ public class AuthorityJDBCDAO implements AuthorityDAO_interface {
 	}
 
 	@Override
-	public void update(AuthorityVO authorityVO, Integer newfunc_id) {
+	public void update(AuthorityVO authorityVO, Integer newfuncId) {
 		int count = 0;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -79,12 +79,12 @@ public class AuthorityJDBCDAO implements AuthorityDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, newfunc_id);
-			pstmt.setInt(2, authorityVO.getFunc_id());
-			pstmt.setInt(3, authorityVO.getEmp_id());
+			pstmt.setInt(1, newfuncId);
+			pstmt.setInt(2, authorityVO.getFuncId());
+			pstmt.setInt(3, authorityVO.getEmpId());
 
 			count = pstmt.executeUpdate();
-			System.out.println("success �ק�" + count);
+			System.out.println("success 幾" + count+"筆");
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
@@ -111,7 +111,7 @@ public class AuthorityJDBCDAO implements AuthorityDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer func_id, Integer emp_id) {
+	public void delete(Integer funcId, Integer empId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int count = 0;
@@ -121,8 +121,8 @@ public class AuthorityJDBCDAO implements AuthorityDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, func_id);
-			pstmt.setInt(2, emp_id);
+			pstmt.setInt(1, funcId);
+			pstmt.setInt(2, empId);
 
 			count = pstmt.executeUpdate();
 			System.out.println("delete sucess" + count);
@@ -154,7 +154,7 @@ public class AuthorityJDBCDAO implements AuthorityDAO_interface {
 	}
 
 	@Override
-	public List<AuthorityVO> findByFunction(Integer func_id) {
+	public List<AuthorityVO> findByFunction(Integer funcId) {
 		List<AuthorityVO> list = new ArrayList<AuthorityVO>();
 		AuthorityVO authorityVO = null;
 
@@ -167,14 +167,14 @@ public class AuthorityJDBCDAO implements AuthorityDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_FUNC);
-			pstmt.setInt(1, func_id);
+			pstmt.setInt(1, funcId);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 
 				authorityVO = new AuthorityVO();
-				authorityVO.setFunc_id(rs.getInt("func_id"));
-				authorityVO.setEmp_id(rs.getInt("emp_id"));
+				authorityVO.setFuncId(rs.getInt("funcId"));
+				authorityVO.setEmpId(rs.getInt("empId"));
 				list.add(authorityVO);
 			}
 
@@ -212,7 +212,7 @@ public class AuthorityJDBCDAO implements AuthorityDAO_interface {
 	}
 
 	@Override
-	public List<AuthorityVO> findById(Integer emp_id) {
+	public List<AuthorityVO> findById(Integer empId) {
 		List<AuthorityVO> list = new ArrayList<AuthorityVO>();
 		AuthorityVO authorityVO = null;
 
@@ -225,14 +225,14 @@ public class AuthorityJDBCDAO implements AuthorityDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_ID);
-			pstmt.setInt(1, emp_id);
+			pstmt.setInt(1, empId);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 
 				authorityVO = new AuthorityVO();
-				authorityVO.setFunc_id(rs.getInt("func_id"));
-				authorityVO.setEmp_id(rs.getInt("emp_id"));
+				authorityVO.setFuncId(rs.getInt("funcId"));
+				authorityVO.setEmpId(rs.getInt("empId"));
 				list.add(authorityVO);
 			}
 
@@ -287,8 +287,8 @@ public class AuthorityJDBCDAO implements AuthorityDAO_interface {
 			while (rs.next()) {
 
 				authorityVO = new AuthorityVO();
-				authorityVO.setEmp_id(rs.getInt("emp_id"));
-				authorityVO.setFunc_id(rs.getInt("func_id"));
+				authorityVO.setEmpId(rs.getInt(1));
+				authorityVO.setFuncId(rs.getInt(2));
 				list.add(authorityVO);
 			}
 			// Handle any driver errors
@@ -343,8 +343,8 @@ public class AuthorityJDBCDAO implements AuthorityDAO_interface {
 			while (rs.next()) {
 
 				authorityVO = new AuthorityVO();
-				authorityVO.setEmp_id(rs.getInt("emp_id"));
-				authorityVO.setFunc_id(rs.getInt("func_id"));
+				authorityVO.setEmpId(rs.getInt(1));
+				authorityVO.setFuncId(rs.getInt(2));
 				list.add(authorityVO);
 			}
 			// Handle any driver errors
@@ -382,34 +382,34 @@ public class AuthorityJDBCDAO implements AuthorityDAO_interface {
 
 	public static void main(String[] args) {
 		AuthorityJDBCDAO dao = new AuthorityJDBCDAO();
-		// �s�W
+//		// 新增
 //				AuthorityVO authority1 = new AuthorityVO();
-//				authority1.setEmp_id(30000);
-//				authority1.setFunc_id(4);
-//				System.out.println("�s�ئ��\");
+//				authority1.setEmpId(30000);
+//				authority1.setFuncId(3);
+//				System.out.println("");
 //				dao.insert(authority1);
-		// �R��
-
-		dao.delete(5,30000);
-		List<AuthorityVO> list1 = dao.findById(30000);
-		for (AuthorityVO aEmp : list1) {
-			System.out.println(aEmp.getEmp_id());
-			System.out.println(aEmp.getFunc_id());
-			System.out.println(aEmp.toString());
-			System.out.println("---------------------");
-		}
+////		 刪除
+//
+//		dao.delete(5, 30000);
+//		List<AuthorityVO> list1 = dao.findById(30000);
+//		for (AuthorityVO aEmp : list1) {
+//			System.out.println(aEmp.getEmpId());
+//			System.out.println(aEmp.getFuncId());
+//			System.out.println(aEmp.toString());
+//			System.out.println("---------------------");
+//		}
 
 		List<AuthorityVO> list2 = dao.AllFunctuon();
 		for (AuthorityVO aEmp : list2) {
-			System.out.print(aEmp.getEmp_id() + ",");
-			System.out.println(aEmp.getFunc_id());
+			System.out.print(aEmp.getEmpId() + ",");
+			System.out.println(aEmp.getFuncId());
 			System.out.println("---------------------");
-	}
+		}
 
 		List<AuthorityVO> list3 = dao.AllID();
 		for (AuthorityVO aEmp : list3) {
-			System.out.print(aEmp.getEmp_id() + ",");
-			System.out.println(aEmp.getFunc_id());
+			System.out.print(aEmp.getEmpId() + ",");
+			System.out.println(aEmp.getFuncId());
 			System.out.println("---------------------");
 		}
 	}

@@ -1,27 +1,24 @@
 package com.taiwan.beans;
 
 public class AuthorityVO {
-	private Integer emp_id;
-	private Integer func_id;
+	private Integer empId;
+	private Integer funcId;
 	
-	
-
-
-	
-	public Integer getEmp_id() {
-		return emp_id;
+	public Integer getEmpId() {
+		return empId;
 	}
-	public void setEmp_id(Integer emp_id) {
-		this.emp_id = emp_id;
+	public void setEmpId(Integer empId) {
+		this.empId = empId;
 	}
-	public Integer getFunc_id() {
-		return func_id;
+	public Integer getFuncId() {
+		return funcId;
 	}
-	public void setFunc_id(Integer func_id) {
-		this.func_id = func_id;
+	public void setFuncId(Integer funcId) {
+		this.funcId = funcId;
 	}
 	@Override
 	public String toString() {
-		return " [員工編號=" + emp_id + ", 管理員權力=" + func_id + "]";
+		return "AuthorityVO [empId=" + empId + ", funcId=" + funcId + "]";
 	}
+	
 }

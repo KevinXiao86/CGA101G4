@@ -6,25 +6,25 @@ import com.taiwan.beans.AuthorityVO;
 
 
 public interface AuthorityDAO_interface {
-	// �s�W
+	// 新增
 	public void insert(AuthorityVO authorityVO);
 
-	// �ק�
-	public void update(AuthorityVO authorityVO, Integer newfunc_id);
+	// 修改
+	public void update(AuthorityVO authorityVO, Integer newfuncId);
 
-	// �R���@��
-	public void delete(Integer func_id, Integer emp_id);
+	// 刪除
+	public void delete(Integer funcId, Integer empId);
 
-	// �ھڥ\��j�M
-	public List<AuthorityVO> findByFunction(Integer func_id);
+	// 依權限搜尋
+	public List<AuthorityVO> findByFunction(Integer funcId);
 
-	// �ھکm�W�j�M
-	public List<AuthorityVO> findById(Integer emp_id);
+	// 依員工編號搜尋
+	public List<AuthorityVO> findById(Integer empId);
 
-	// �j�M����(�̥\��Ƨ�
+	// 依權限排序
 	public List<AuthorityVO> AllFunctuon();
 
-	// �j�M����(�̥\��Ƨ�
+	// 依ID排序
 	public List<AuthorityVO> AllID();
 
 }

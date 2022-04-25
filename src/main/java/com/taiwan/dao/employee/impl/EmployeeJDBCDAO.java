@@ -33,9 +33,9 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
-			pstmt.setString(1, employeeVO.getEmp_name());
-			pstmt.setString(2, employeeVO.getEmp_password());
-//			pstmt.setDate(3, employeeVO.getHiredate());
+			pstmt.setString(1, employeeVO.getEmpName());
+			pstmt.setString(2, employeeVO.getEmpPassword());
+//			pstmt.setDate(3, employeeVO.getHiredate());　自動填寫
 
 			pstmt.executeUpdate();
 		} catch (ClassNotFoundException e) {
@@ -75,10 +75,10 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE_All);
 
-			pstmt.setString(1, employeeVO.getEmp_name());
-			pstmt.setString(2, employeeVO.getEmp_password());
-			pstmt.setString(3, employeeVO.getEmp_status());
-			pstmt.setInt(4, employeeVO.getEmp_id());
+			pstmt.setString(1, employeeVO.getEmpName());
+			pstmt.setString(2, employeeVO.getEmpPassword());
+			pstmt.setString(3, employeeVO.getEmpStatus());
+			pstmt.setInt(4, employeeVO.getEmpId());
 			count = pstmt.executeUpdate();
 			System.out.println("success 修改" + count);
 		} catch (ClassNotFoundException e) {
@@ -107,7 +107,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 	}
 
 	@Override
-	public EmployeeVO findByPrimaryKey(Integer emp_id) {
+	public EmployeeVO findByPrimaryKey(Integer empId) {
 		// TODO Auto-generated method stub
 		EmployeeVO employeeVO = null;
 		Connection con = null;
@@ -120,16 +120,16 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, emp_id);
+			pstmt.setInt(1, empId);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 
 				employeeVO = new EmployeeVO();
-				employeeVO.setEmp_id(rs.getInt("emp_id"));
-				employeeVO.setEmp_name(rs.getString("emp_name"));
-				employeeVO.setEmp_password(rs.getString("emp_password"));
-				employeeVO.setEmp_status(rs.getString("emp_status"));
-				employeeVO.setHiredate(rs.getDate("hiredate"));
+				employeeVO.setEmpId(rs.getInt(1));
+				employeeVO.setEmpName(rs.getString(2));
+				employeeVO.setEmpPassword(rs.getString(3));
+				employeeVO.setEmpStatus(rs.getString(4));
+				employeeVO.setHiredate(rs.getDate(5));
 			}
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -246,11 +246,11 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 				// empVO 也稱為 Domain objects
 
 				employeeVO = new EmployeeVO();
-				employeeVO.setEmp_id(rs.getInt("Emp_id"));
-				employeeVO.setEmp_name(rs.getString("Emp_name"));
-				employeeVO.setEmp_password(rs.getString("emp_password"));
-				employeeVO.setEmp_status(rs.getString("emp_status"));
-				employeeVO.setHiredate(rs.getDate("hiredate"));
+				employeeVO.setEmpId(rs.getInt(1));
+				employeeVO.setEmpName(rs.getString(2));
+				employeeVO.setEmpPassword(rs.getString(3));
+				employeeVO.setEmpStatus(rs.getString(4));
+				employeeVO.setHiredate(rs.getDate(5));
 				list.add(employeeVO);
 			}
 
@@ -319,10 +319,10 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 		// 查詢
 		List<EmployeeVO> list = dao.getAll();
 		for (EmployeeVO aEmp : list) {
-			System.out.println(aEmp.getEmp_id() );
-			System.out.println(aEmp.getEmp_name());
-			System.out.println(aEmp.getEmp_password());
-			System.out.println(aEmp.getEmp_status());
+			System.out.println(aEmp.getEmpId() );
+			System.out.println(aEmp.getEmpName());
+			System.out.println(aEmp.getEmpPassword());
+			System.out.println(aEmp.getEmpStatus());
 			System.out.println(aEmp.getHiredate());
 			System.out.println("---------------------");
 		}
