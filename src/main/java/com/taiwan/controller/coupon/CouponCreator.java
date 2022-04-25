@@ -53,7 +53,7 @@ public class CouponCreator extends HttpServlet {
 			// 以字串形式獲取開始日期跟結束日期
 			String startString = request.getParameter("startdate");
 			String endString = request.getParameter("enddate");
-//			System.out.println(startString);
+			System.out.println(startString);
 			// 對獲取來的日期格式做轉換，換成timestamp格式
 			startString = startString.replace("T", " ") + ":00";
 //			System.out.println(startString);

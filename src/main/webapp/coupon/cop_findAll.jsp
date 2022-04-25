@@ -1,6 +1,17 @@
+<%@page import="com.taiwan.beans.CouponVO"%>
+<%@page import="java.util.List"%>
+<%@page import="com.taiwan.service.impl.CouponServiceImpl"%>
+<%@page import="com.taiwan.service.CouponService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%
+
+List<CouponVO> list =(List<CouponVO>)request.getAttribute("list");
+pageContext.setAttribute("list", list);
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,8 +83,8 @@ th, td {
 			<th>修改</th>
 			<th>刪除</th>
 		</tr>
-<%-- 		<%@ include file="coupon/page1.jsp" %>  --%>
-		<c:forEach items="${requestScope.list}" var="couponVO">
+<%-- 		<%@ include file="page1.file" %>  --%>
+		<c:forEach items="${list}" var="couponVO" >
 			<tr>
 				<td>${couponVO.copId}</td>
 				<td>${couponVO.copName}</td>
@@ -103,7 +114,7 @@ th, td {
 			</tr>
 		</c:forEach>
 	</table>
-<%-- 	<%@ include file="coupon/page2.jsp" %> --%>
+<%-- 	<%@ include file="page2.file" %> --%>
 
 </body>
 </html>

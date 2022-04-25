@@ -1,13 +1,14 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
-<%  int rowsPerPage = 3;  //瘥�����蝑���    
-    int rowNumber=0;      //蝮賜���
-    int pageNumber=0;     //蝮賡����      
-    int whichPage=1;      //蝚砍嗾��
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%  int rowsPerPage = 2;  //每頁的筆數    
+    int rowNumber=0;      //總筆數
+    int pageNumber=0;     //總頁數      
+    int whichPage=1;      //第幾頁
     int pageIndexArray[]=null;
     int pageIndex=0; 
 %>
- 
+
 <%  
+	System.out.println("success");
     rowNumber=list.size();
     if (rowNumber%rowsPerPage !=0)
          pageNumber=rowNumber/rowsPerPage + 1;
@@ -21,10 +22,10 @@
 <%  try {
        whichPage = Integer.parseInt(request.getParameter("whichPage"));
        pageIndex=pageIndexArray[whichPage-1];
-    } catch (NumberFormatException e) { //蝚砌�甈∪�瑁�������
+    } catch (NumberFormatException e) { //第一次執行的時候
        whichPage=1;
        pageIndex=0;
-    } catch (ArrayIndexOutOfBoundsException e) { //蝮賡���訾�憭����航炊����
+    } catch (ArrayIndexOutOfBoundsException e) { //總頁數之外的錯誤頁數
          if (pageNumber>0){
               whichPage=pageNumber;
               pageIndex=pageIndexArray[pageNumber-1];
@@ -33,7 +34,7 @@
 %>
 
 <%if (pageNumber>0){%>
-  <b><font color=red>蝚�<%=whichPage%>/<%=pageNumber%>��</font></b>
+  <b><font color=red>第<%=whichPage%>/<%=pageNumber%>頁</font></b>
 <%}%>
 
-<b>��蝚� �� �� 閰� 璇� 隞� 憒� 銝� �� 蝷�: ��<font color=red><%=rowNumber%></font>蝑�</b>
+<b>●符 合 查 詢 條 件 如 下 所 示: 共<font color=red><%=rowNumber%></font>筆</b>

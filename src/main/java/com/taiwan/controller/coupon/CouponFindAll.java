@@ -31,6 +31,7 @@ public class CouponFindAll extends HttpServlet {
 //		System.out.println(ls);
 		RequestDispatcher rd=request.getRequestDispatcher("/coupon/cop_findAll.jsp");
 		rd.forward(request, response);
+		
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
