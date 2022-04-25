@@ -9,6 +9,7 @@
 	<%@ include file="/common/head.jsp"%>
 </head>
 <body>
+	<span id="error_msg">${requestScope.managerCompany.message}</span>
 	<table>
 		<tr>
 			<td>廠商編號</td>
