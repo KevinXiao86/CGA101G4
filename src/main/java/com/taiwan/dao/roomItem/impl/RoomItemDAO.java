@@ -11,7 +11,7 @@ import java.util.List;
 import com.taiwan.beans.RoomItemVO;
 import com.taiwan.dao.roomItem.RoomItemDAO_interface;
 
-public class RoomItemJDBCDAO implements RoomItemDAO_interface{
+public class RoomItemDAO implements RoomItemDAO_interface{
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
 	String userid = "root";

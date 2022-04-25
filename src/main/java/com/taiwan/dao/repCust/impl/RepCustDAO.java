@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 
 
 
-public class RepCustJDBCDAO implements RepCustDAO_interface {
+public class RepCustDAO implements RepCustDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
 	String userid = "root";

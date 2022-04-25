@@ -12,7 +12,7 @@ import com.taiwan.beans.CmpPlatMailVO;
 import com.taiwan.dao.cmpPlaMail.CmpPlatMailDAO_interface;
 
 
-public class CmpPlatMailJDBCDAO implements CmpPlatMailDAO_interface {
+public class CmpPlatMailDAO implements CmpPlatMailDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
 	String userid = "root";

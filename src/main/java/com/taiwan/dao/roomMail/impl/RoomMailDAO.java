@@ -1,4 +1,4 @@
-package com.taiwan.dao.cmpPlaMail.impl;
+package com.taiwan.dao.roomMail.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,25 +8,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.taiwan.beans.CmpPlatMailVO;
-import com.taiwan.dao.cmpPlaMail.CmpPlatMailDAO_interface;
+import com.taiwan.beans.RoomMailVO;
+import com.taiwan.dao.roomMail.RoomMailDAO_interface;
 
-
-public class CmpPlatMailJDBCDAO implements CmpPlatMailDAO_interface {
+public class RoomMailDAO implements RoomMailDAO_interface{
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "rootitri";
 
 	private static final String insert = 
-			"INSERT INTO Taiwan.CMP_PLAT_MAIL (CMP_ID, EMP_ID, CMP_PLAT_MAIL_MSG, CMP_PLAT_MAIL_WHO) VALUES (?, ?, ?, ?) ";
+			"INSERT INTO Taiwan.ROOM_MAIL (CUST_ID, CMP_ID, ROOM_MAIL_MSG, ROOM_MAIL_WHO) VALUES (?, ?, ?, ?) ";
 	private static final String find=
-			"SELECT * FROM Taiwan.CMP_PLAT_MAIL where CMP_ID=? and EMP_ID=? order by CMP_PLAT_MAIL_SEND_TIME";
-
+			"SELECT * FROM Taiwan.ROOM_MAIL where CUST_ID=? and CMP_ID=? order by ROOM_MAIL_TIME";
 	@Override
-	public List<CmpPlatMailVO> queryCmpPlatMailByEmpIdAndCmpId(Integer empId, Integer cmpId) {
-		List<CmpPlatMailVO> list = new ArrayList<CmpPlatMailVO>();
-		CmpPlatMailVO cmpPlatMailVO = null;
+	public List<RoomMailVO> queryRoomMailByCustIdAndCmpId(Integer custId, Integer cmpId) {
+		List<RoomMailVO> list = new ArrayList<RoomMailVO>();
+		RoomMailVO roomMailVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -37,17 +35,14 @@ public class CmpPlatMailJDBCDAO implements CmpPlatMailDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(find);
-			pstmt.setInt(1, cmpId);
-			pstmt.setInt(2, empId);
-
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				cmpPlatMailVO = new CmpPlatMailVO();
-				cmpPlatMailVO.setCmpPlatMailWho(rs.getString("cmp_plat_mail_who"));
-				cmpPlatMailVO.setCmpPlatMailMsg(rs.getString("cmp_plat_mail_msg"));
+				roomMailVO = new RoomMailVO();
+				roomMailVO.setRoomMailIdWho(rs.getString("room_mail_id_who"));
+				roomMailVO.setRoomMailMsg(rs.getString("room_mail_msg"));
 
-				list.add(cmpPlatMailVO); // Store the row in the list
+				list.add(roomMailVO); // Store the row in the list
 			}
 
 			// Handle any driver errors
@@ -85,7 +80,7 @@ public class CmpPlatMailJDBCDAO implements CmpPlatMailDAO_interface {
 		return list;
 	}
 	@Override
-	public void insert(CmpPlatMailVO cmpPlatMailVO) {
+	public void insert(RoomMailVO roomMailVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -95,10 +90,10 @@ public class CmpPlatMailJDBCDAO implements CmpPlatMailDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(insert);
 
-			pstmt.setInt(1, cmpPlatMailVO.getCmpId());
-			pstmt.setInt(2, cmpPlatMailVO.getEmpId());
-			pstmt.setString(3, cmpPlatMailVO.getCmpPlatMailMsg());
-			pstmt.setString(4, cmpPlatMailVO.getCmpPlatMailWho());
+			pstmt.setInt(1, roomMailVO.getCustId());
+			pstmt.setInt(2, roomMailVO.getCmpId());
+			pstmt.setString(3, roomMailVO.getRoomMailMsg());
+			pstmt.setString(4, roomMailVO.getRoomMailIdWho());
 	
 
 			pstmt.executeUpdate();
@@ -129,6 +124,5 @@ public class CmpPlatMailJDBCDAO implements CmpPlatMailDAO_interface {
 			}
 		}		
 	}
-
 
 }

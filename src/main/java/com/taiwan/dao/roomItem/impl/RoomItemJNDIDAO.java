@@ -1,28 +1,34 @@
 package com.taiwan.dao.roomItem.impl;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.*;
+import javax.sql.*;
+
 import com.taiwan.beans.RoomItemVO;
 import com.taiwan.dao.roomItem.RoomItemDAO_interface;
 
-public class RoomItemJDBCDAO implements RoomItemDAO_interface{
-	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
-	String userid = "root";
-	String passwd = "rootitri";
+public class RoomItemJNDIDAO implements RoomItemDAO_interface {
+	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
-	private static final String insert =
-			"INSERT INTO Taiwan.ROOM_ITEM ( room_id, room_order_id, room_amount, room_price) VALUES ( ?, ?, ?, ?)";
-	private static final String update =
-			"update Taiwan.ROOM_ITEM set evaluate_score = ? , evaluate_msg=? where room_item_id = ? ";
-	private static final String query =
-			"select * from Taiwan.ROOM_ITEM where room_order_id = ?";
+	private static final String insert = "INSERT INTO Taiwan.ROOM_ITEM ( room_id, room_order_id, room_amount, room_price) VALUES ( ?, ?, ?, ?)";
+	private static final String update = "update Taiwan.ROOM_ITEM set evaluate_score = ? , evaluate_msg=? where room_item_id = ? ";
+	private static final String query = "select * from Taiwan.ROOM_ITEM where room_order_id = ?";
+
 	@Override
 	public List<RoomItemVO> queryRoomItemByRoomItemId(Integer roomItemId) {
 		// TODO Auto-generated method stub
@@ -31,17 +37,16 @@ public class RoomItemJDBCDAO implements RoomItemDAO_interface{
 
 	@Override
 	public List<RoomItemVO> queryRoomItemByRoomOrderId(Integer roomOrderId) {
-		List<RoomItemVO> list =new ArrayList<RoomItemVO>();
-		RoomItemVO roomItemVO= null;
-		
+		List<RoomItemVO> list = new ArrayList<RoomItemVO>();
+		RoomItemVO roomItemVO = null;
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, roomOrderId);
 			rs = pstmt.executeQuery();
@@ -60,13 +65,8 @@ public class RoomItemJDBCDAO implements RoomItemDAO_interface{
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -95,7 +95,7 @@ public class RoomItemJDBCDAO implements RoomItemDAO_interface{
 	}
 
 	@Override
-	public List<RoomItemVO> queryRoomItemByRoomItemEvaluateScore(Integer roomItemEvaluateScore) {
+	public List<RoomItemVO> queryRoomItemByRoomItemEvaluateScore(Integer room_item_evaluate_score) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -107,8 +107,7 @@ public class RoomItemJDBCDAO implements RoomItemDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(insert);
 
 			pstmt.setInt(1, roomItemVO.getRoomId());
@@ -116,17 +115,11 @@ public class RoomItemJDBCDAO implements RoomItemDAO_interface{
 			pstmt.setInt(3, roomItemVO.getRoomItemAmount());
 			pstmt.setInt(4, roomItemVO.getRoomItemPrice());
 
-
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -143,9 +136,9 @@ public class RoomItemJDBCDAO implements RoomItemDAO_interface{
 					e.printStackTrace(System.err);
 				}
 			}
-		}				
+		}
 	}
-	/********************** 新增訂單明細評價 **********************/
+
 	@Override
 	public void updateRoomItem(RoomItemVO roomItemVO) {
 
@@ -154,25 +147,18 @@ public class RoomItemJDBCDAO implements RoomItemDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(update);
 
 			pstmt.setInt(1, roomItemVO.getRoomItemEvaluateScore());
 			pstmt.setString(2, roomItemVO.getRoomItemEvaluateMsg());
 			pstmt.setInt(3, roomItemVO.getRoomItemId());
-		
 
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {

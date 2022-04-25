@@ -4,82 +4,62 @@ import java.security.Timestamp;
 import java.time.LocalDate;
 
 public class CmpPlatMailVO {
-	private Integer cmp_plat_mail_id;
-	private Integer cmp_id;
-	private Integer emp_id;
-	private String cmp_plat_mail_msg;
-	private Timestamp cmp_plat_mail_send_time;
-	private String cmp_plat_mail_who;
+	private Integer cmpPlatMailId;
+	private Integer cmpId;
+	private Integer empId;
+	private String cmpPlatMailMsg;
+	private Timestamp cmpPlatMailSendTime;
+	private String cmpPlatMailWho;
 
-	public CmpPlatMailVO() {
-		super();
+
+	public Integer getCmpPlatMailId() {
+		return cmpPlatMailId;
 	}
 
-	public CmpPlatMailVO(Integer cmp_plat_mail_id, Integer cmp_id, Integer emp_id, String cmp_plat_mail_msg,
-			Timestamp cmp_plat_mail_send_time, String cmp_plat_mail_who) {
-		super();
-		this.cmp_plat_mail_id = cmp_plat_mail_id;
-		this.cmp_id = cmp_id;
-		this.emp_id = emp_id;
-		this.cmp_plat_mail_msg = cmp_plat_mail_msg;
-		this.cmp_plat_mail_send_time = cmp_plat_mail_send_time;
-		this.cmp_plat_mail_who = cmp_plat_mail_who;
+	public void setCmpPlatMailId(Integer cmpPlatMailId) {
+		this.cmpPlatMailId = cmpPlatMailId;
 	}
 
-
-	public Integer getCmp_plat_mail_id() {
-		return cmp_plat_mail_id;
+	public Integer getCmpId() {
+		return cmpId;
 	}
 
-	public void setCmp_plat_mail_id(Integer cmp_plat_mail_id) {
-		this.cmp_plat_mail_id = cmp_plat_mail_id;
+	public void setCmpId(Integer cmpId) {
+		this.cmpId = cmpId;
 	}
 
-	public Integer getCmp_id() {
-		return cmp_id;
+	public Integer getEmpId() {
+		return empId;
 	}
 
-	public void setCmp_id(Integer cmp_id) {
-		this.cmp_id = cmp_id;
+	public void setEmpId(Integer empId) {
+		this.empId = empId;
 	}
 
-	public Integer getEmp_id() {
-		return emp_id;
+	public String getCmpPlatMailMsg() {
+		return cmpPlatMailMsg;
 	}
 
-	public void setEmp_id(Integer emp_id) {
-		this.emp_id = emp_id;
+	public void setCmpPlatMailMsg(String cmpPlatMailMsg) {
+		this.cmpPlatMailMsg = cmpPlatMailMsg;
 	}
 
-	public String getCmp_plat_mail_msg() {
-		return cmp_plat_mail_msg;
+	public Timestamp getCmpPlatMailSendTime() {
+		return cmpPlatMailSendTime;
 	}
 
-	public void setCmp_plat_mail_msg(String cmp_plat_mail_msg) {
-		this.cmp_plat_mail_msg = cmp_plat_mail_msg;
+	public void setCmpPlatMailSendTime(Timestamp cmpPlatMailSendTime) {
+		this.cmpPlatMailSendTime = cmpPlatMailSendTime;
 	}
 
-	public Timestamp getCmp_plat_mail_send_time() {
-		return cmp_plat_mail_send_time;
+	public String getCmpPlatMailWho() {
+		return cmpPlatMailWho;
 	}
 
-	public void setCmp_plat_mail_send_time(Timestamp cmp_plat_mail_send_time) {
-		this.cmp_plat_mail_send_time = cmp_plat_mail_send_time;
-	}
-
-	public String getCmp_plat_mail_who() {
-		return cmp_plat_mail_who;
-	}
-
-	public void setCmp_plat_mail_who(String cmp_plat_mail_who) {
-		this.cmp_plat_mail_who = cmp_plat_mail_who;
+	public void setCmpPlatMailWho(String cmpPlatMailWho) {
+		this.cmpPlatMailWho = cmpPlatMailWho;
 	}
 
 
-	@Override
-	public String toString() {
-		return "CmpPlatMailVO [cmp_plat_mail_id=" + cmp_plat_mail_id + ", cmp_id=" + cmp_id + ", emp_id=" + emp_id
-				+ ", cmp_plat_mail_msg=" + cmp_plat_mail_msg + ", cmp_plat_mail_send_time=" + cmp_plat_mail_send_time
-				+ ", cmp_plat_mail_who=" + cmp_plat_mail_who + "]";
-	}
+	
 }

@@ -7,19 +7,19 @@ import com.taiwan.beans.RepCustVO;
 
 public interface RepCustDAO_interface {
 	// �ھڬy�����d�����|
-		public RepCustVO queryRepCustByRep_cust_id(Integer rep_cust_id);
+		public RepCustVO queryRepCustByRepCustId(Integer repCustId);
 
 		// �ھڷ|��ID�d�����|
-		public List<RepCustVO> queryRepCustByCust_id(Integer cust_id);
+		public List<RepCustVO> queryRepCustByCustId(Integer custId);
 
 		// �ھڼt��ID�d�����|
-		public List<RepCustVO> queryRepCustByCmp_id(Integer cmp_id);
+		public List<RepCustVO> queryRepCustByCmpId(Integer cmpId);
 
 		// �ھں޲z��ID�d�����|
-		public List<RepCustVO> queryRepCustByEmp_id(Integer emp_id);
+		public List<RepCustVO> queryRepCustByEmpId(Integer empId);
 
 		// �ھڤ���d�����|
-		public List<RepCustVO> queryRepCustByRep_cust_date(Timestamp startDate, Timestamp endDate);
+		public List<RepCustVO> queryRepCustByRepCustDate(Timestamp startDate, Timestamp endDate);
 
 		// �ھڪ��A�d�����|
 		public List<RepCustVO> queryRepCustByStatus(String status);
@@ -28,8 +28,8 @@ public interface RepCustDAO_interface {
 		public List<RepCustVO> queryRepCustAll();
 
 		// �s�W�|�����|
-		public Integer insertRepCust(Integer cust_id, Integer room_id, String reason);
+		public Integer insertRepCust(RepCustVO repCustVO);
 
 		// �B�z�|�����|
-		public Integer updateRepCust(Integer rep_cust_id,Integer emp_id ,String status ,String result);
+		public RepCustVO updateRepCust(RepCustVO repCustVO);
 }

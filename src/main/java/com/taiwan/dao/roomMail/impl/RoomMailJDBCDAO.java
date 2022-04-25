@@ -22,7 +22,7 @@ public class RoomMailJDBCDAO implements RoomMailDAO_interface{
 	private static final String find=
 			"SELECT * FROM Taiwan.ROOM_MAIL where CUST_ID=? and CMP_ID=? order by ROOM_MAIL_TIME";
 	@Override
-	public List<RoomMailVO> queryRoomMailByCust_idAndCmp_id(Integer cust_id, Integer cmp_id) {
+	public List<RoomMailVO> queryRoomMailByCustIdAndCmpId(Integer custId, Integer cmpId) {
 		List<RoomMailVO> list = new ArrayList<RoomMailVO>();
 		RoomMailVO roomMailVO = null;
 
@@ -39,8 +39,8 @@ public class RoomMailJDBCDAO implements RoomMailDAO_interface{
 
 			while (rs.next()) {
 				roomMailVO = new RoomMailVO();
-				roomMailVO.setRoom_mail_id_who(rs.getString("room_mail_id_who"));
-				roomMailVO.setRoom_mail_msg(rs.getString("room_mail_msg"));
+				roomMailVO.setRoomMailIdWho(rs.getString("room_mail_id_who"));
+				roomMailVO.setRoomMailMsg(rs.getString("room_mail_msg"));
 
 				list.add(roomMailVO); // Store the row in the list
 			}
@@ -80,7 +80,7 @@ public class RoomMailJDBCDAO implements RoomMailDAO_interface{
 		return list;
 	}
 	@Override
-	public void inser(RoomMailVO roomMailVO) {
+	public void insert(RoomMailVO roomMailVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -90,10 +90,10 @@ public class RoomMailJDBCDAO implements RoomMailDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(insert);
 
-			pstmt.setInt(1, roomMailVO.getCust_id());
-			pstmt.setInt(2, roomMailVO.getCmp_id());
-			pstmt.setString(3, roomMailVO.getRoom_mail_msg());
-			pstmt.setString(4, roomMailVO.getRoom_mail_id_who());
+			pstmt.setInt(1, roomMailVO.getCustId());
+			pstmt.setInt(2, roomMailVO.getCmpId());
+			pstmt.setString(3, roomMailVO.getRoomMailMsg());
+			pstmt.setString(4, roomMailVO.getRoomMailIdWho());
 	
 
 			pstmt.executeUpdate();

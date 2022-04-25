@@ -1,6 +1,7 @@
 package com.taiwan.dao.repCmp.impl;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,6 +34,12 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 	private static final String DELETE_REP_CMP = "DELETE FROM REP_CMP WHERE REP_CMP_ID=?;";
 	private static final String SET_REP_CMP_RESULT = "UPDATE REP_CMP SET EMP_ID=?,STATUS=?,RESULT=? WHERE REP_CMP_ID=?;";
 
+	private static final String insert = "INSERT INTO Taiwan.REP_CMP (CUST_ID, ROOM_ID, REASON) VALUES (?, ?, ?) ";
+	private static final String update = "UPDATE Taiwan.REP_CMP SET EMP_ID = ?, STATUS = ?, RESULT = ? WHERE REP_CMP_ID = ?";
+	private static final String find = "SELECT * FROM Taiwan.REP_CMP order by DESC REP_CMP_DATE ";
+	private static final String findFrom = "SELECT * FROM Taiwan.REP_CMP where ";
+
+	
 	@Override
 	public List<RepCmpVO> getRepCmpByCustId(Integer custId) {
 		Connection conn = null;
@@ -187,45 +194,470 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 
 	}
 
+
 	@Override
-	public RepCmpVO queryRepCmpByRep_cmp_id(Integer rep_cmp_id) {
-		// TODO Auto-generated method stub
-		return null;
+	public RepCmpVO queryRepCmpByRepCmpId(Integer repCmpId) {
+		RepCmpVO repCmpVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(findFrom + "rep_cmp_id = ? ");
+
+			pstmt.setInt(1, repCmpId);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				repCmpVO = new RepCmpVO();
+				repCmpVO.setRepCmpId(rs.getInt("REP_CMP_ID"));
+				repCmpVO.setCustId(rs.getInt("CUST_ID"));
+				repCmpVO.setEmpId(rs.getInt("ROOM_ID"));
+				repCmpVO.setEmpId(rs.getInt("EMP_ID"));
+				repCmpVO.setReason(rs.getString("REASON"));
+				repCmpVO.setRepCmpDate(rs.getTimestamp("REP_CMP_DATE"));
+				repCmpVO.setStatus(rs.getString("STATUS"));
+				repCmpVO.setResult(rs.getString("RESULT"));
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return repCmpVO;
+	
 	}
 
 	@Override
-	public List<RepCmpVO> queryRepCmpByRoom_id(Integer room_id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<RepCmpVO> queryRepCmpByRoomId(Integer roomId) {
+		List<RepCmpVO> list = new ArrayList<RepCmpVO>();
+		RepCmpVO repCmpVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			
+			con =ds.getConnection();
+			pstmt = con.prepareStatement(findFrom + "room_id = ? ");
+			pstmt.setInt(1, roomId);
+			
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				repCmpVO = new RepCmpVO();
+				repCmpVO.setRepCmpId(rs.getInt("REP_CMP_ID"));
+				repCmpVO.setCustId(rs.getInt("CUST_ID"));
+				repCmpVO.setEmpId(rs.getInt("ROOM_ID"));
+				repCmpVO.setEmpId(rs.getInt("EMP_ID"));
+				repCmpVO.setReason(rs.getString("REASON"));
+				repCmpVO.setRepCmpDate(rs.getTimestamp("REP_CMP_DATE"));
+				repCmpVO.setStatus(rs.getString("STATUS"));
+				repCmpVO.setResult(rs.getString("RESULT"));
+
+				list.add(repCmpVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		}  catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;	
 	}
+	
 
 	@Override
-	public List<RepCmpVO> queryRepCmpByEmp_id(Integer emp_id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public List<RepCmpVO> queryRepCmpByEmpId(Integer empId) {
+		List<RepCmpVO> list = new ArrayList<RepCmpVO>();
+		RepCmpVO repCmpVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(findFrom + "emp_id = ? ");
+			pstmt.setInt(1, empId);
+			
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				repCmpVO = new RepCmpVO();
+				repCmpVO.setRepCmpId(rs.getInt("REP_CMP_ID"));
+				repCmpVO.setCustId(rs.getInt("CUST_ID"));
+				repCmpVO.setEmpId(rs.getInt("ROOM_ID"));
+				repCmpVO.setEmpId(rs.getInt("EMP_ID"));
+				repCmpVO.setReason(rs.getString("REASON"));
+				repCmpVO.setRepCmpDate(rs.getTimestamp("REP_CMP_DATE"));
+				repCmpVO.setStatus(rs.getString("STATUS"));
+				repCmpVO.setResult(rs.getString("RESULT"));
+
+				list.add(repCmpVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		}  catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;	
+		}
 
 	@Override
-	public List<RepCmpVO> queryRepCmpByRep_cmp_date(Timestamp startDate, Timestamp endDate) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<RepCmpVO> queryRepCmpByRepCmpDate(Timestamp startDate, Timestamp endDate) {
+		List<RepCmpVO> list = new ArrayList<RepCmpVO>();
+		RepCmpVO repCmpVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(findFrom + "rep_cmp_date between ? and ? ");
+			pstmt.setTimestamp(1, startDate);
+			pstmt.setTimestamp(2, endDate);
+
+			
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				repCmpVO = new RepCmpVO();
+				repCmpVO.setRepCmpId(rs.getInt("REP_CMP_ID"));
+				repCmpVO.setCustId(rs.getInt("CUST_ID"));
+				repCmpVO.setEmpId(rs.getInt("ROOM_ID"));
+				repCmpVO.setEmpId(rs.getInt("EMP_ID"));
+				repCmpVO.setReason(rs.getString("REASON"));
+				repCmpVO.setRepCmpDate(rs.getTimestamp("REP_CMP_DATE"));
+				repCmpVO.setStatus(rs.getString("STATUS"));
+				repCmpVO.setResult(rs.getString("RESULT"));
+
+				list.add(repCmpVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		}  catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 
 	@Override
 	public List<RepCmpVO> queryRepCmpByStatus(String status) {
-		// TODO Auto-generated method stub
-		return null;
+		List<RepCmpVO> list = new ArrayList<RepCmpVO>();
+		RepCmpVO repCmpVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(findFrom + "status = ? ");
+			pstmt.setString(1, status);
+			
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// repCmpVO �]�٬� Domain objects
+				repCmpVO = new RepCmpVO();
+				repCmpVO.setRepCmpId(rs.getInt("REP_CMP_ID"));
+				repCmpVO.setCustId(rs.getInt("CUST_ID"));
+				repCmpVO.setEmpId(rs.getInt("ROOM_ID"));
+				repCmpVO.setEmpId(rs.getInt("EMP_ID"));
+				repCmpVO.setReason(rs.getString("REASON"));
+				repCmpVO.setRepCmpDate(rs.getTimestamp("REP_CMP_DATE"));
+				repCmpVO.setStatus(rs.getString("STATUS"));
+				repCmpVO.setResult(rs.getString("RESULT"));
+
+				list.add(repCmpVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 
 	@Override
 	public List<RepCmpVO> queryRepCmpAll() {
-		// TODO Auto-generated method stub
-		return null;
+		RepCmpVO repCmpVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(find);
+			
+
+			rs = pstmt.executeQuery();
+			List<RepCmpVO> list = new ArrayList<RepCmpVO>();
+			while (rs.next()) {
+				repCmpVO = new RepCmpVO();
+				repCmpVO.setRepCmpId(rs.getInt("REP_CMP_ID"));
+				repCmpVO.setCustId(rs.getInt("CUST_ID"));
+				repCmpVO.setEmpId(rs.getInt("ROOM_ID"));
+				repCmpVO.setEmpId(rs.getInt("EMP_ID"));
+				repCmpVO.setReason(rs.getString("REASON"));
+				repCmpVO.setRepCmpDate(rs.getTimestamp("REP_CMP_DATE"));
+				repCmpVO.setStatus(rs.getString("STATUS"));
+				repCmpVO.setResult(rs.getString("RESULT"));
+
+				list.add(repCmpVO); // Store the row in the list
+			}
+			
+			return list;
+			// Handle any driver errors
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 
 	@Override
-	public Integer updateRepCmp(Integer rep_cmp_id, Integer emp_id, String status, String result) {
-		// TODO Auto-generated method stub
-		return null;
+	public RepCmpVO updateRepCmp(RepCmpVO repCmpVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(update);
+
+			pstmt.setInt(1, repCmpVO.getEmpId());
+			pstmt.setString(2,repCmpVO.getStatus());
+			pstmt.setString(3, repCmpVO.getResult());
+			pstmt.setInt(4, repCmpVO.getRepCmpId());
+		
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return repCmpVO;
+	}
+
+	@Override
+	public RepCmpVO insertRepCmp(RepCmpVO repCmpVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(insert);
+
+			pstmt.setInt(1, repCmpVO.getCustId());
+			pstmt.setInt(2,repCmpVO.getRoomId());
+			pstmt.setString(3, repCmpVO.getReason());
+		
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return repCmpVO;
 	}
 }

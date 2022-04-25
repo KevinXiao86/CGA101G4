@@ -4,20 +4,14 @@ import java.util.List;
 
 import com.taiwan.beans.RoomItemVO;
 
-
 public interface RoomItemDAO_interface {
-	// �ھڭq�Эq����ӽs���d�߭q�Эq�����
-		public List<RoomItemVO> queryRoomItemByRoom_item_id(Integer room_item_id);
+	public List<RoomItemVO> queryRoomItemByRoomItemId(Integer roomItemId);
 
-		// �ھڭq�Эq��s���d�߭q�Эq�����
-		public List<RoomItemVO> queryRoomItemByRoom_order_id(Integer room_order_id);
+	public List<RoomItemVO> queryRoomItemByRoomOrderId(Integer roomOrderId);
 
-		// �ھڵ������Ƭd�߭q�Эq�����
-		public List<RoomItemVO> queryRoomItemByRoom_item_evaluate_score(Integer room_item_evaluate_score);
+	public List<RoomItemVO> queryRoomItemByRoomItemEvaluateScore(Integer roomItemEvaluateScore);
 
-		// ���ͭq�Эq�����
-		public void insertRoomItem(RoomItemVO roomItemVO);
+	public void insertRoomItem(RoomItemVO roomItemVO);
 
-		// �s�W�q�Эq����ӵ���(�s�ʭq�Эq��)�L���媩
-			public void updateRoomItem(RoomItemVO roomItemVO);
+	public void updateRoomItem(RoomItemVO roomItemVO);
 }

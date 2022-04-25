@@ -6,12 +6,10 @@ import com.taiwan.beans.FollowVO;
 
 
 public interface FollowDAO_interface {
-	// �ھڷ|���s���d�����`
-	public List<FollowVO> queryFollowByCust_id(Integer cust_id);
-
-	// �s�W�|�����`
+	//查詢
+	public List<FollowVO> queryFollowByCustId(Integer custId);
+	//新增
 	public void insertFollow(FollowVO followVO);
-
-	// �����|�����`
-	public void deleteFollow(Integer cust_id, Integer cmp_id);
+	//刪除
+	public void deleteFollow(Integer custId, Integer cmpId);
 }

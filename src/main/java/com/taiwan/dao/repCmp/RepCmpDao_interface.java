@@ -13,13 +13,15 @@ public interface RepCmpDao_interface {
 	public void deleteRepCmp(Integer repCmpId);
 
 	public void setRepCmpResult(Integer repCmpId, Integer empId, String status, String result);
-	public RepCmpVO queryRepCmpByRep_cmp_id(Integer rep_cmp_id);
-	public List<RepCmpVO> queryRepCmpByRoom_id(Integer room_id);
-	public List<RepCmpVO> queryRepCmpByEmp_id(Integer emp_id);
-	public List<RepCmpVO> queryRepCmpByRep_cmp_date(Timestamp startDate, Timestamp endDate);
+	public RepCmpVO queryRepCmpByRepCmpId(Integer repCmpId);
+	public List<RepCmpVO> queryRepCmpByRoomId(Integer roomId);
+	public List<RepCmpVO> queryRepCmpByEmpId(Integer empId);
+	public List<RepCmpVO> queryRepCmpByRepCmpDate(Timestamp startDate, Timestamp endDate);
 	public List<RepCmpVO> queryRepCmpByStatus(String status);
 	public List<RepCmpVO> queryRepCmpAll();
-	public Integer updateRepCmp(Integer rep_cmp_id,Integer emp_id ,String status ,String result);
+	//Integer repCmpId,Integer empId ,String status ,String result
+	public RepCmpVO updateRepCmp(RepCmpVO repCmpVO);
+	public RepCmpVO insertRepCmp(RepCmpVO repCmpVO);
 
 	
 }

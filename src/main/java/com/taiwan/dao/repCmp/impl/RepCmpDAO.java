@@ -12,7 +12,7 @@ import java.util.List;
 import com.taiwan.beans.RepCmpVO;
 import com.taiwan.dao.repCmp.RepCmpDao_interface;
 
-public class RepCmpJDBCDAO implements RepCmpDao_interface {
+public class RepCmpDAO implements RepCmpDao_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
 	String userid = "root";
@@ -488,7 +488,6 @@ public class RepCmpJDBCDAO implements RepCmpDao_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// repCmpVO �]�٬� Domain objects
 				repCmpVO = new RepCmpVO();
 				repCmpVO.setRepCmpId(rs.getInt("REP_CMP_ID"));
 				repCmpVO.setCustId(rs.getInt("CUST_ID"));

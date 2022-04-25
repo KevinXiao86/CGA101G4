@@ -1,26 +1,28 @@
 package com.taiwan.dao.roomOrder;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.taiwan.beans.RoomOrderVO;
 
 public interface RoomOrderDAO_interface {
-	// �ھڭq�Эq��s���d�߭q�Эq��
-		public List<RoomOrderVO> queryRoomOrderByRoom_order_id(Integer room_order_id);
+		public List<RoomOrderVO> queryRoomOrderByRoomOrderId(Integer roomOrderId);
 
-		// �ھڤJ���d�߭q�Эq��
-		public List<RoomOrderVO> queryRoomOrderByRoom_order_checkin_date(Date room_order_checkin_date);
+		public List<RoomOrderVO> queryRoomOrderByRoomOrderCheckinDate(Timestamp roomOrderCheckinDate);
 
-		// �ھڰh�Ф�d�߭q�Эq��
-		public List<RoomOrderVO> queryRoomOrderByRoom_order_checkout_date(Date room_order_checkout_date);
+		public List<RoomOrderVO> queryRoomOrderByRoomOrderCheckoutDate(Timestamp roomOrderCheckoutDate);
+		
+		public List<RoomOrderVO> queryRoomOrderByRoomOrderDate(Timestamp startDate,Timestamp endDate);
 
-		// �ھڭq�Эq�檬�A�d�߭q�Эq��
-		public List<RoomOrderVO> queryRoomOrderByRoom_order_status(String room_order_status);
 
-		// �ھڷ|���s���d�߭q�Эq��
-		public List<RoomOrderVO> queryRoomOrderByCust_id(Integer cust_id);
+		public List<RoomOrderVO> queryRoomOrderByRoomOrderStatus(String roomOrderStatus);
 
-		// ���ͭq�Эq��(�L�u�f��)
-		public void insert(RoomOrderVO roomOrderVO);
+		public List<RoomOrderVO> queryRoomOrderByCustId(Integer custId);
+
+		public Integer insert(RoomOrderVO roomOrderVO);
+		
+		public void delete(Integer roomOrderId);
+		
+		public void cancel(RoomOrderVO roomOrderVO);
+
 }

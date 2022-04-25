@@ -3,62 +3,64 @@ package com.taiwan.beans;
 import java.sql.Timestamp;
 
 public class RepCustVO {
-	private Integer rep_cust_id;
-	public Integer getCmp_id() {
-		return cmp_id;
+	private Integer repCustId;
+
+	private Integer custId;
+	private Integer empId;
+	private Integer cmpId;
+	private String repCustReason;
+	private Timestamp repCustDate;
+	private String repCustStatus;
+	private String repCustResult;
+	public Integer getRepCustId() {
+		return repCustId;
 	}
-	public void setCmp_id(Integer cmp_id) {
-		this.cmp_id = cmp_id;
+	public void setRepCustId(Integer repCustId) {
+		this.repCustId = repCustId;
 	}
-	private Integer cust_id;
-	private Integer emp_id;
-	private Integer cmp_id;
-	private String rep_cust_reason;
-	private Timestamp rep_cust_date;
-	private String rep_cust_status;
-	private String rep_cust_result;
-	public Integer getRep_cust_id() {
-		return rep_cust_id;
+	public Integer getCustId() {
+		return custId;
 	}
-	public void setRep_cust_id(Integer rep_cust_id) {
-		this.rep_cust_id = rep_cust_id;
+	public void setCustId(Integer custId) {
+		this.custId = custId;
 	}
-	public Integer getCust_id() {
-		return cust_id;
+	public Integer getEmpId() {
+		return empId;
 	}
-	public void setCust_id(Integer cust_id) {
-		this.cust_id = cust_id;
+	public void setEmpId(Integer empId) {
+		this.empId = empId;
 	}
-	public Integer getEmp_id() {
-		return emp_id;
+	public Integer getCmpId() {
+		return cmpId;
 	}
-	public void setEmp_id(Integer emp_id) {
-		this.emp_id = emp_id;
+	public void setCmpId(Integer cmpId) {
+		this.cmpId = cmpId;
 	}
-	public String getReason() {
-		return rep_cust_reason;
+	public String getRepCustReason() {
+		return repCustReason;
 	}
-	public void setReason(String reason) {
-		this.rep_cust_reason = reason;
+	public void setRepCustReason(String repCustReason) {
+		this.repCustReason = repCustReason;
 	}
-	public Timestamp getRep_cust_date() {
-		return rep_cust_date;
+	public Timestamp getRepCustDate() {
+		return repCustDate;
 	}
-	public void setRep_cust_date(Timestamp rep_cust_date) {
-		this.rep_cust_date = rep_cust_date;
+	public void setRepCustDate(Timestamp repCustDate) {
+		this.repCustDate = repCustDate;
 	}
-	public String getStatus() {
-		return rep_cust_status;
+	public String getRepCustStatus() {
+		return repCustStatus;
 	}
-	public void setStatus(String status) {
-		this.rep_cust_status = status;
+	public void setRepCustStatus(String repCustStatus) {
+		this.repCustStatus = repCustStatus;
 	}
-	public String getResult() {
-		return rep_cust_result;
+	public String getRepCustResult() {
+		return repCustResult;
 	}
-	public void setResult(String result) {
-		this.rep_cust_result = result;
+	public void setRepCustResult(String repCustResult) {
+		this.repCustResult = repCustResult;
 	}
+	
 	
 	
 }

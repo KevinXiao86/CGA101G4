@@ -13,7 +13,7 @@ import java.util.List;
 import com.taiwan.beans.RoomOrderVO;
 import com.taiwan.dao.roomOrder.RoomOrderDAO_interface;
 
-public class RoomOrderJDBCDAO implements RoomOrderDAO_interface {
+public class RoomOrderDAO implements RoomOrderDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
 	String userid = "root";
@@ -24,12 +24,12 @@ public class RoomOrderJDBCDAO implements RoomOrderDAO_interface {
 	private static final String findDate= 
 	"SELECT * FROM Taiwan.ROOM_ORDER where room_order_date between ? and ?";
 	private static final String find= 
-			"SELECT * FROM Taiwan.ROOM_ORDER where ? = ?";
+			"SELECT * FROM Taiwan.ROOM_ORDER where ";
 	private static final String delete= 
 			"delete FROM Taiwan.ROOM_ORDER where room_order_id = ?";
 	private static final String cancel= 
-			"update FROM Taiwan.ROOM_ORDER set room_order_status='已取消' , cancel= ?  where room_order_id = ?";
-	
+			"update Taiwan.ROOM_ORDER set room_order_status='已取消' , cancel= ?  where (room_order_id = ?)";
+
 
 	@Override
 	public List<RoomOrderVO> queryRoomOrderByRoomOrderId(Integer roomOrderId) {
@@ -50,9 +50,8 @@ public class RoomOrderJDBCDAO implements RoomOrderDAO_interface {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(find);
-			pstmt.setString(1, "checkin_date");
-			pstmt.setTimestamp(2, CheckinDate);
+			pstmt = con.prepareStatement(find+" checkin_date"+"= ?");
+			pstmt.setTimestamp(1, CheckinDate);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -117,9 +116,8 @@ public class RoomOrderJDBCDAO implements RoomOrderDAO_interface {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(find);
-			pstmt.setString(1, "checkout_date");
-			pstmt.setTimestamp(2, CheckoutDate);
+			pstmt = con.prepareStatement(find+"checkout_date = ?");
+			pstmt.setTimestamp(1, CheckoutDate);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -132,7 +130,7 @@ public class RoomOrderJDBCDAO implements RoomOrderDAO_interface {
 				roomOrderVO.setRoomOrderCheckoutDate(rs.getTimestamp("checkout_date"));
 				roomOrderVO.setRoomOrderStatus(rs.getString("room_order_status"));
 				roomOrderVO.setRoomOrderCancel(rs.getString("cancel"));
-				roomOrderVO.setRoomOrderPrice(rs.getInt("total"));
+				roomOrderVO.setRoomOrderPrice(rs.getInt("total_price"));
 				roomOrderVO.setCustCopId(rs.getInt("cust_cop_id"));
 
 				list.add(roomOrderVO); // Store the row in the list
@@ -184,9 +182,8 @@ public class RoomOrderJDBCDAO implements RoomOrderDAO_interface {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(find);
-			pstmt.setString(1, "room_order_status");
-			pstmt.setString(2, roomOrderStatus);
+			pstmt = con.prepareStatement(find+"room_order_status = ?" );
+			pstmt.setString(1, roomOrderStatus);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -199,7 +196,7 @@ public class RoomOrderJDBCDAO implements RoomOrderDAO_interface {
 				roomOrderVO.setRoomOrderCheckoutDate(rs.getTimestamp("checkout_date"));
 				roomOrderVO.setRoomOrderStatus(rs.getString("room_order_status"));
 				roomOrderVO.setRoomOrderCancel(rs.getString("cancel"));
-				roomOrderVO.setRoomOrderPrice(rs.getInt("total"));
+				roomOrderVO.setRoomOrderPrice(rs.getInt("total_price"));
 				roomOrderVO.setCustCopId(rs.getInt("cust_cop_id"));
 
 				list.add(roomOrderVO); // Store the row in the list
@@ -251,9 +248,8 @@ public class RoomOrderJDBCDAO implements RoomOrderDAO_interface {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(find);
-			pstmt.setString(1, "cust_id");
-			pstmt.setInt(2, custId);
+			pstmt = con.prepareStatement(find+"cust_id = ?");
+			pstmt.setInt(1, custId);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -266,7 +262,7 @@ public class RoomOrderJDBCDAO implements RoomOrderDAO_interface {
 				roomOrderVO.setRoomOrderCheckoutDate(rs.getTimestamp("checkout_date"));
 				roomOrderVO.setRoomOrderStatus(rs.getString("room_order_status"));
 				roomOrderVO.setRoomOrderCancel(rs.getString("cancel"));
-				roomOrderVO.setRoomOrderPrice(rs.getInt("total"));
+				roomOrderVO.setRoomOrderPrice(rs.getInt("total_price"));
 				roomOrderVO.setCustCopId(rs.getInt("cust_cop_id"));
 
 				list.add(roomOrderVO); // Store the row in the list
@@ -387,7 +383,7 @@ public class RoomOrderJDBCDAO implements RoomOrderDAO_interface {
 				roomOrderVO.setRoomOrderCheckoutDate(rs.getTimestamp("checkout_date"));
 				roomOrderVO.setRoomOrderStatus(rs.getString("room_order_status"));
 				roomOrderVO.setRoomOrderCancel(rs.getString("cancel"));
-				roomOrderVO.setRoomOrderPrice(rs.getInt("total"));
+				roomOrderVO.setRoomOrderPrice(rs.getInt("total_price"));
 				roomOrderVO.setCustCopId(rs.getInt("cust_cop_id"));
 
 				list.add(roomOrderVO); // Store the row in the list

@@ -6,7 +6,7 @@ import com.taiwan.beans.CmpPlatMailVO;
 
 
 public interface CmpPlatMailDAO_interface {
-	public List<CmpPlatMailVO> queryCmpPlatMailByEmp_idAndCmp_id(Integer emp_id, Integer cmp_id);
+	public List<CmpPlatMailVO> queryCmpPlatMailByEmpIdAndCmpId(Integer empId, Integer cmpId);
 
 	public void insert(CmpPlatMailVO cmpPlatMailVO);
 
