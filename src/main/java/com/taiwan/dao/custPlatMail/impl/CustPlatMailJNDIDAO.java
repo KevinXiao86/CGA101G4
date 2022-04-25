@@ -31,6 +31,7 @@ public class CustPlatMailJNDIDAO implements CustPlatMailDao_interface {
 	private static final String GET_CUST_PLAT_MAIL = "SELECT CUST_PLAT_ID ,CUST_ID ,EMP_ID ,MSG,CUST_PLAT_TIME ,WHO"
 			+ " FROM CUST_PLAT_MAIL LIMIT ? OFFSET ? ;";
 	private static final String SET_CUST_PLAT_MAIL = "INSERT INTO CUST_PLAT_MAIL(CUST_ID,EMP_ID,MSG,WHO) VALUES(?,?,?,?);";
+	private static final String GET_ALL = "SELECT * FROM CUST_PLAT_MAIL;";
 
 	@Override
 	public List<CustPlatMailVO> getCust_Plat_Mail(Integer rowNum, Integer offset) {
@@ -119,5 +120,54 @@ public class CustPlatMailJNDIDAO implements CustPlatMailDao_interface {
 				}
 			}
 		}
+	}
+
+	@Override
+	public List<CustPlatMailVO> getAll() {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<CustPlatMailVO> list = new ArrayList<CustPlatMailVO>();
+		try {
+			conn = ds.getConnection();
+			ps = conn.prepareStatement(GET_ALL);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				CustPlatMailVO custPlatMailVO = new CustPlatMailVO();
+				custPlatMailVO.setCustPlatId(rs.getInt(1));
+				custPlatMailVO.setCustId(rs.getInt(2));
+				custPlatMailVO.setEmpId(rs.getInt(3));
+				custPlatMailVO.setMsg(rs.getString(4));
+				custPlatMailVO.setCustPlatTime(rs.getTimestamp(5));
+				custPlatMailVO.setWho(rs.getInt(6));
+				list.add(custPlatMailVO);
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+		return list;
 	}
 }

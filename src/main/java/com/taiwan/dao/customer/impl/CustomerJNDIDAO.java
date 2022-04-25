@@ -5,14 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import com.taiwan.beans.CustomerVO;
 import com.taiwan.dao.customer.CustomerDAO_interface;
-
-import ch.qos.logback.core.Context;
-
 
 public class CustomerJNDIDAO implements CustomerDAO_interface {
 	private static DataSource ds = null;
@@ -28,14 +26,14 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 	private static final String SET_ALL = "INSERT INTO CUSTOMER(NAME,SEX,TEL,EMAIL,ADDRESS,ID_CARD,BIRTH,ACCOUNT,PASSWORD,CUST_USE,CUST_RIGHT) "
 			+ "VALUES(?,?,?,?,?,?,?,?,?,?,?);";
 	private static final String SET_UPDATE = "UPDATE CUSTOMER "
-			+ "SET NAME=?,SEX=?,TEL=?,EMAIL=?,ADDRESS=?,ID_CARD=?,BIRTH=?,ACCOUNT=?,PASSWORD=?,IMG=?,CUST_USE=?,CARD=?,CUST_RIGHT=? "
+			+ "SET NAME=?,SEX=?,TEL=?,EMAIL=?,ADDRESS=?,ID_CARD=?,BIRTH=?,ACCOUNT=?,PASSWORD=?,IMG=?,CARD=? "
 			+ "WHERE CUST_ID=?;";
 	private static final String GET_ALL = "select cust_Id,name,sex,tel,email,address,id_Card ,birth,account,password,img,cust_Use ,card,cust_Right "
 			+ "from CUSTOMER WHERE CUST_ID= ? ;";
 	private static final String GET_PASSWORD = "SELECT PASSWORD FROM CUSTOMER WHERE ACCOUNT=?;";
 	private static final String GET_EMAIL = "SELECT EMAIL FROM CUSTOMER WHERE ACCOUNT=?;";
 	private static final String SET_CUST_RIGHT = "UPDATE CUSTOMER SET CUST_RIGHT =? WHERE CUST_ID =?;";
-	private static final String GET_LOGIN = "SELECT CUST_ID FROM CUSTOMER WHERE ACCOUNT=? AND PASSWORD=?;";
+	private static final String GET_LOGIN = "SELECT * FROM CUSTOMER WHERE ACCOUNT=? AND PASSWORD=?;";
 
 	@Override
 	public void setAll(CustomerVO customer) {
@@ -96,10 +94,8 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 			ps.setString(8, customer.getAccount());
 			ps.setString(9, customer.getPassword());
 			ps.setString(10, customer.getImg());
-			ps.setString(11, customer.getCustUse());
-			ps.setString(12, customer.getCard());
-			ps.setString(13, customer.getCustRight());
-			ps.setInt(14, customer.getCustId());
+			ps.setString(11, customer.getCard());
+			ps.setInt(12, customer.getCustId());
 			int count = ps.executeUpdate();
 			System.out.println(count + "success");
 		} catch (SQLException se) {
@@ -301,20 +297,34 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 	}
 
 	@Override
-	public Integer getLogin(String account, String password) {
+	public CustomerVO getLogin(String account, String password) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		Integer custId = null;
+		CustomerVO customerVO = null;
 		try {
 			conn = ds.getConnection();
 			ps = conn.prepareStatement(GET_LOGIN);
 			ps.setString(1, account);
-			ps.setString(1, account);
 			ps.setString(2, password);
 			rs = ps.executeQuery();
+			
 			if (rs.next()) {
-				custId = rs.getInt(1);
+				customerVO = new CustomerVO();
+				customerVO.setAccount(rs.getString("ACCOUNT"));
+				customerVO.setAddress(rs.getString("ADDRESS"));
+				customerVO.setBirth(rs.getDate("BIRTH"));
+				customerVO.setCard(rs.getString("CARD"));
+				customerVO.setCustId(rs.getInt("CUST_ID"));
+				customerVO.setCustRight(rs.getString("cust_right"));
+				customerVO.setCustUse(rs.getString("cust_use"));
+				customerVO.setEmail(rs.getString("EMAIL"));
+				customerVO.setIdCard(rs.getString("ID_CARD"));
+				customerVO.setImg(rs.getString("IMG"));
+				customerVO.setName(rs.getString("NAME"));
+				customerVO.setPassword(rs.getString("PASSWORD"));
+				customerVO.setSex(rs.getString("SEX"));
+				customerVO.setTel(rs.getString("TEL"));
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -342,7 +352,7 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 			}
 
 		}
-		return custId;
+		return customerVO;
 	}
 
 }

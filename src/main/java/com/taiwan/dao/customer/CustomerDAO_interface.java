@@ -15,5 +15,5 @@ public interface CustomerDAO_interface {
 
 	public void setCustRight(Integer custId, String custRight);
 
-	public Integer getLogin(String account, String password);
+	public CustomerVO getLogin(String account, String password);
 }
