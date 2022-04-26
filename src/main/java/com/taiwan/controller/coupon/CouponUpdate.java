@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import com.taiwan.service.CouponService;
+import com.taiwan.service.coupon.CouponService;
 import com.taiwan.utils.ControllerUtil;
 import com.taiwan.utils.UUIDFileName;
 
@@ -95,7 +95,7 @@ public class CouponUpdate extends HttpServlet {
 //			}
 			// 如果錯誤訊息的map不是空值的話，就請求轉發回/coupon/cop_create.jsp
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher rd = request.getRequestDispatcher("/coupon/cop_update.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/back-end/coupon/cop_update.jsp");
 				rd.forward(request, response);
 				return;
 			}
@@ -103,12 +103,12 @@ public class CouponUpdate extends HttpServlet {
 			// 開始新增資料
 			couponService.update(copId, copName, introduce, discount01, startdate, enddate, dbPath);
 			// 新增完成，請求轉發到coupon首頁
-			RequestDispatcher rd = request.getRequestDispatcher("/coupon/findAll");
+			RequestDispatcher rd = request.getRequestDispatcher("/back-end/coupon/findAll");
 			rd.forward(request, response);
 			// 其他錯誤處理
 		} catch (Exception e) {
 			errorMsgs.put("Exception", e.getMessage());
-			RequestDispatcher rd = request.getRequestDispatcher("/coupon/cop_update.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/back-end/coupon/cop_update.jsp");
 			rd.forward(request, response);
 			e.printStackTrace();
 		}

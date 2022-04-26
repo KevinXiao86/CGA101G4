@@ -43,7 +43,7 @@ public class TicketSelectById extends HttpServlet {
 //				System.out.println(entry.getKey() + ":" + entry.getValue());
 //			}
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher rd = request.getRequestDispatcher("/ticket/ticket_index.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/back-end/ticket/ticket_index.jsp");
 				rd.forward(request, response);
 				return;// 程式中斷
 			}
@@ -54,19 +54,19 @@ public class TicketSelectById extends HttpServlet {
 				errorMsgs.put("ticketVO", "查無資料");
 			}
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher rd = request.getRequestDispatcher("/ticket/ticket_index.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/back-end/ticket/ticket_index.jsp");
 				rd.forward(request, response);
 				return;// 程式中斷
 			}
 			// 把查到的coupon放到request域中
 			request.setAttribute("ticketVO", ticketVO);
 			// 準備請求轉向跳轉頁面
-			RequestDispatcher rd = request.getRequestDispatcher("/ticket/ticket_id.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/back-end/ticket/ticket_id.jsp");
 			rd.forward(request, response);
 
 		} catch (Exception e) {
 			errorMsgs.put("其他錯誤發生", e.getMessage());
-			RequestDispatcher rd = request.getRequestDispatcher("/ticket/ticket_index.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/back-end/ticket/ticket_index.jsp");
 			rd.forward(request, response);
 		}
 

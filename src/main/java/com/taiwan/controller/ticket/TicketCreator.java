@@ -103,7 +103,7 @@ public class TicketCreator extends HttpServlet {
 //			}
 			// 如果錯誤訊息的map不是空值的話，就請求轉發回/ticket/ticket_create.jsp
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher rd = request.getRequestDispatcher("/ticket/ticket_create.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/back-end/ticket/ticket_create.jsp");
 				rd.forward(request, response);
 				return;
 			}
@@ -111,11 +111,12 @@ public class TicketCreator extends HttpServlet {
 			ticketService.addTicket(tktName, originalAmount, price, startdate, enddate, city, instruction, allAddress,
 					notice, howuse, canxpolicy, kind);
 			//新增完成，請求轉發到ticket首頁
-			RequestDispatcher rd=request.getRequestDispatcher("/ticket/ticket_index.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("/back-end/ticket/ticket_index.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
 			errorMsgs.put("anotherError", e.getMessage());
-			RequestDispatcher rd=request.getRequestDispatcher("/ticket/ticket_create.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("/back-end/ticket/ticket_create.jsp");
+			rd.forward(request, response);
 		}
 	}
 

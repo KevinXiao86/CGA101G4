@@ -9,11 +9,11 @@ public class UUIDFileName {
 	
 	public String getUUIDFileName(Part part) {
 		String header = part.getHeader("content-disposition");
-		System.out.println("header=" + header); // 測試用
+//		System.out.println("header=" + header); // 測試用
 		String id=UUID.randomUUID().toString();
 		String filename = new File(header.substring(header.length()-6, header.length() - 1)).getName();
 		filename=id+filename;
-		System.out.println("filename=" + filename); // 測試用
+//		System.out.println("filename=" + filename); // 測試用
 		if (filename.length() == 0) {
 			return null;
 		}

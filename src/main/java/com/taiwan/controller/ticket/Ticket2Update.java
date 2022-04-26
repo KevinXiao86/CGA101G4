@@ -51,7 +51,7 @@ public class Ticket2Update extends HttpServlet {
 						 "&canxpolicy=" +ticketVO.getCanxpolicy()+
 						 "&soldAmount="    +ticketVO.getSoldAmount()+
 						 "&kind="   +ticketVO.getKind();
-			String url="/ticket/ticket_update.jsp"+param;
+			String url="/back-end/ticket/ticket_update.jsp"+param;
 			RequestDispatcher rd=request.getRequestDispatcher(url);
 			rd.forward(request, response);
 		}catch (Exception e) {

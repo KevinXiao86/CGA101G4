@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="mybatis.mapper.ThemeMapper">
 	<resultMap id="ThemeMap" type="com.taiwan.beans.Theme">
-		<id property="themeId" column="THEME_ID" javaType="Integer"
-			jdbcType="INTEGER" />
+		<id property="themeId" column="THEME_ID" />
 		<result property="title" column="TITLE" javaType="String"
 			jdbcType="VARCHAR" />
 		<result property="content" column="CONTENT" javaType="String"
@@ -28,9 +27,9 @@
 	<update id="updateById" parameterType="com.taiwan.beans.Theme">
 		update THEME
 		<set>
-		<if test="title!=null">TITLE = #{title},</if>
-		<if test="content!=null">CONTENT = #{content},</if>
-		<if test="img!=null">IMG = #{img}</if>
+			<if test="title!=null">TITLE = #{title},</if>
+			<if test="content!=null">CONTENT = #{content},</if>
+			<if test="img!=null">IMG = #{img}</if>
 		</set>
 		where
 		THEME_ID = #{themeId}
@@ -47,7 +46,7 @@
 		select * from THEME
 	</select>
 
-	<select id="queryNewsByTitle" parameterType="String"
+	<select id="queryThemeByTitle" parameterType="String"
 		resultMap="ThemeMap">
 		select * from THEME where TITLE LIKE
 		concat('%',#{title},'%')

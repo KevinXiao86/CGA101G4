@@ -1,9 +1,15 @@
+<%@page import="com.taiwan.beans.TicketVO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
+<%
+List<TicketVO> list=(List<TicketVO>)request.getAttribute("list");
+pageContext.setAttribute("list", list);
+%>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%@ include file="/common/head.jsp"%>
 <meta charset="UTF-8">
@@ -72,8 +78,8 @@ th, td {
 			<th>詳情</th>
 			<th>刪除</th>
 		</tr>
-<%-- 		<%@ include file="coupon/page1.jsp" %>  --%>
-		<c:forEach items="${requestScope.list}" var="ticketVO">
+		<%@ include file="page1.file" %> 
+		<c:forEach items="${requestScope.list}" var="ticketVO" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 			<tr>
 				<td>${ticketVO.tktId}</td>
 				<td>${ticketVO.tktName}</td>
@@ -103,7 +109,7 @@ th, td {
 			</tr>
 		</c:forEach>
 	</table>
-<%-- 	<%@ include file="coupon/page2.jsp" %> --%>
+	<%@ include file="page2.file" %>
 
 </body>
 </html>

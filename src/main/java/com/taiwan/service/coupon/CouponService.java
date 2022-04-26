@@ -1,4 +1,4 @@
-package com.taiwan.service;
+package com.taiwan.service.coupon;
 
 import java.sql.Timestamp;
 import java.util.List;

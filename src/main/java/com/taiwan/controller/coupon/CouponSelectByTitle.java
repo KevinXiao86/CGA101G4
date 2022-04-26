@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.taiwan.beans.CouponVO;
-import com.taiwan.service.CouponService;
+import com.taiwan.service.coupon.CouponService;
 import com.taiwan.utils.ControllerUtil;
 
 @WebServlet("/coupon/selectByTitle")
@@ -38,7 +38,7 @@ public class CouponSelectByTitle extends HttpServlet {
 //				System.out.println(entry.getKey() + ":" + entry.getValue());
 //			}
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher rd = request.getRequestDispatcher("/coupon/cop_index.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/back-end/coupon/cop_index.jsp");
 				rd.forward(request, response);
 				return;// 程式中斷
 			}
@@ -54,19 +54,19 @@ public class CouponSelectByTitle extends HttpServlet {
 //				System.out.println(entry.getKey() + ":" + entry.getValue());
 //			}
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher rd = request.getRequestDispatcher("/coupon/cop_index.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/back-end/coupon/cop_index.jsp");
 				rd.forward(request, response);
 				return;// 程式中斷
 			}
 			// 把list送到request域中
 			request.setAttribute("list", ls);
 			// 請求轉發到搜尋標頭的jsp中
-			RequestDispatcher rd = request.getRequestDispatcher("/coupon/cop_name.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/back-end/coupon/cop_name.jsp");
 			rd.forward(request, response);
 			// 判斷是否有其他錯誤
 		} catch (Exception e) {
 			errorMsgs.put("其他錯誤", e.getMessage());
-			RequestDispatcher rd = request.getRequestDispatcher("/coupon/cop_index.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/back-end/coupon/cop_index.jsp");
 			rd.forward(request, response);
 		}
 

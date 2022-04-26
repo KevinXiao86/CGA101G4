@@ -19,13 +19,11 @@ import javax.servlet.http.Part;
 
 import org.apache.catalina.tribes.tipis.AbstractReplicatedMap.MapEntry;
 
-import com.taiwan.service.CouponService;
+import com.taiwan.service.coupon.CouponService;
 import com.taiwan.utils.ControllerUtil;
 import com.taiwan.utils.UUIDFileName;
 
-/**
- * Servlet implementation class CouponCreator
- */
+
 @WebServlet("/coupon/couponCreator")
 @MultipartConfig
 public class CouponCreator extends HttpServlet {
@@ -53,7 +51,7 @@ public class CouponCreator extends HttpServlet {
 			// 以字串形式獲取開始日期跟結束日期
 			String startString = request.getParameter("startdate");
 			String endString = request.getParameter("enddate");
-			System.out.println(startString);
+//			System.out.println(startString);
 			// 對獲取來的日期格式做轉換，換成timestamp格式
 			startString = startString.replace("T", " ") + ":00";
 //			System.out.println(startString);
@@ -87,6 +85,9 @@ public class CouponCreator extends HttpServlet {
 			}
 			// 取得上傳的檔案
 			Part part = request.getPart("uploadFile");
+			if (part.getHeader("content-disposition").contains("filename=\"\"")) {
+				errorMsgs.put("uploadFile", "沒有傳入熱門活動的照片");
+			}
 			UUIDFileName uuidFileName = new UUIDFileName();
 			String filename = uuidFileName.getUUIDFileName(part);
 			part.write(realPath + "/" + filename);
@@ -101,7 +102,7 @@ public class CouponCreator extends HttpServlet {
 //			}
 			// 如果錯誤訊息的map不是空值的話，就請求轉發回/coupon/cop_create.jsp
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher rd = request.getRequestDispatcher("/coupon/cop_create.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/back-end/coupon/cop_create.jsp");
 				rd.forward(request, response);
 				return;
 			}
@@ -109,12 +110,12 @@ public class CouponCreator extends HttpServlet {
 			// 開始新增資料
 			couponService.addCoupon(copName, introduce, discount01, startdate, enddate, dbPath);
 			// 新增完成，請求轉發到coupon首頁
-			RequestDispatcher rd = request.getRequestDispatcher("/coupon/cop_index.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/back-end/coupon/cop_index.jsp");
 			rd.forward(request, response);
 			// 其他錯誤處理
 		} catch (Exception e) {
 			errorMsgs.put("Exception", e.getMessage());
-			RequestDispatcher rd = request.getRequestDispatcher("/coupon/cop_create.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/back-end/coupon/cop_create.jsp");
 			rd.forward(request, response);
 			e.printStackTrace();
 		}

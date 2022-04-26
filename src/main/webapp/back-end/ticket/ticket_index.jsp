@@ -17,7 +17,7 @@
 	</form>
 	
 	<div>
-		<a href='ticket/ticket_create.jsp'>新增</a>一筆優惠券
+		<a href='back-end/ticket/ticket_create.jsp'>新增</a>一筆票券
 	</div>
 	
 	
@@ -40,7 +40,7 @@
     </div>
     <div>
     <FORM METHOD="post" ACTION="ticket/selectByTitle" >
-        <b>輸入優惠券標題來做查詢:</b>
+        <b>輸入票券標題來做查詢:</b>
         <input type="text" name="tktName">
         <input type="submit" value="送出">
     </FORM>

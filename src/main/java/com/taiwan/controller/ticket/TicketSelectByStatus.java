@@ -1,4 +1,4 @@
-package com.taiwan.controller.coupon;
+package com.taiwan.controller.ticket;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,42 +13,44 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.taiwan.beans.CouponVO;
-import com.taiwan.service.coupon.CouponService;
-import com.taiwan.utils.ControllerUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 
-@WebServlet("/coupon/selectByStatus")
-public class CouponSelectByStatus extends HttpServlet {
+import com.taiwan.beans.CouponVO;
+import com.taiwan.beans.TicketVO;
+import com.taiwan.service.TicketService;
+
+@WebServlet("/ticket/selectByStatus")
+public class TicketSelectByStatus extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	CouponService couponService = ControllerUtil.getBean(CouponService.class);
+	@Autowired
+	private TicketService ticketService;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+		Map<String, String> errorMsgs=new LinkedHashMap<String, String>();
 		request.setAttribute("errorMsgs", errorMsgs);
-
 		try {
 			String status = request.getParameter("status");
 //			System.out.println(status);
-			List<CouponVO> ls = new ArrayList<CouponVO>();
-			ls = couponService.selectByStatus(status);
+			List<TicketVO> ls = new ArrayList<TicketVO>();
+			ls = ticketService.findByStatus(status);
 //			System.out.println(ls);
 			//判斷有沒有搜尋到資料
 			if(ls.isEmpty() || ls.size()==0) {
 				errorMsgs.put("list is null", "查無資料");
 			}
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher rd = request.getRequestDispatcher("/back-end/coupon/cop_index.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/back-end/ticket/tkt_index.jsp");
 				rd.forward(request, response);
 				return;// 程式中斷
 			}
 			request.setAttribute("list", ls);
 //		System.out.println(ls);
-			RequestDispatcher rd = request.getRequestDispatcher("/back-end/coupon/cop_status.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/back-end/ticket/ticket_status.jsp");
 			rd.forward(request, response);
 		} catch (ServletException e) {
 			errorMsgs.put("發生異常錯誤", e.getMessage());
-			RequestDispatcher rd=request.getRequestDispatcher("/back-end/coupon/cop_index.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("/back-end/ticket/ticket_index.jsp");
 			rd.forward(request, response);
 		}
 	}

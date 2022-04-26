@@ -1,4 +1,4 @@
-package com.taiwan.service.impl;
+package com.taiwan.service.coupon.impl;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.taiwan.beans.CouponVO;
-import com.taiwan.service.CouponService;
+import com.taiwan.service.coupon.CouponService;
 
 import mybatis.mapper.CouponMapper;
 

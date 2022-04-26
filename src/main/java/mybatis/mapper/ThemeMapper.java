@@ -15,7 +15,7 @@ public interface ThemeMapper {
 	public Theme queryById(Integer themeId);
 
 //	根據title來搜尋活動主題(ok)
-	public List<Theme> queryNewsByTitle(String title);
+	public List<Theme> queryThemeByTitle(String title);
 
 //	根據id更新活動主題(ok)
 	public int updateById(Theme obj);

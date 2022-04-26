@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.taiwan.service.CouponService;
+import com.taiwan.service.coupon.CouponService;
 import com.taiwan.utils.ControllerUtil;
 
 
@@ -30,12 +30,12 @@ public class CouponDelete extends HttpServlet {
 			//開始刪除資料
 			couponService.delete(custId);
 			//刪除成功，準備請求轉向
-			RequestDispatcher rd=request.getRequestDispatcher("/coupon/findAll");
+			RequestDispatcher rd=request.getRequestDispatcher("/back-end/coupon/findAll");
 			rd.forward(request, response);
 			//其他錯誤處理
 		}catch(Exception e) {
 			errorMsgs.put("刪除資料失敗", e.getMessage());
-			RequestDispatcher rd=request.getRequestDispatcher("/coupon/findAll");
+			RequestDispatcher rd=request.getRequestDispatcher("/back-end/coupon/findAll");
 			rd.forward(request, response);
 		}
 	}
