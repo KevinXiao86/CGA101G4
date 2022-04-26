@@ -30,12 +30,12 @@ public class CouponDelete extends HttpServlet {
 			//開始刪除資料
 			couponService.delete(custId);
 			//刪除成功，準備請求轉向
-			RequestDispatcher rd=request.getRequestDispatcher("/back-end/coupon/findAll");
+			RequestDispatcher rd=request.getRequestDispatcher("/coupon/findAll");
 			rd.forward(request, response);
 			//其他錯誤處理
 		}catch(Exception e) {
 			errorMsgs.put("刪除資料失敗", e.getMessage());
-			RequestDispatcher rd=request.getRequestDispatcher("/back-end/coupon/findAll");
+			RequestDispatcher rd=request.getRequestDispatcher("/coupon/findAll");
 			rd.forward(request, response);
 		}
 	}

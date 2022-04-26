@@ -52,6 +52,10 @@ th, td {
 	padding: 5px;
 	text-align: center;
 }
+img{
+ width: 150px;
+ height: 150px;
+}
 </style>
 </head>
 <body>
@@ -87,15 +91,15 @@ th, td {
 				<td><fmt:formatDate value="${theme.createDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 				<td><img src="${theme.img}"/></td>
 				<td>
-					<FORM METHOD="post"	ACTION="coupon/cop2Update" style="margin-bottom: 0px;">
+					<FORM METHOD="post"	ACTION="theme/theme2Update" style="margin-bottom: 0px;">
 						<input type="submit" value="修改">
-						 <input type="hidden" name="themeId" value="${theme.themeId}">
+						<input type="hidden" name="themeId" value="${theme.themeId}">
 					</FORM>
 				</td>
 				<td>
-					<FORM METHOD="post" ACTION="coupon/copDelete" style="margin-bottom: 0px;">
+					<FORM METHOD="post" ACTION="theme/themeDelete" style="margin-bottom: 0px;">
 						<input type="submit" value="刪除">
-						 <input type="hidden" name="themeId" value="${theme.themeId}">
+						<input type="hidden" name="themeId" value="${theme.themeId}">
 					</FORM>
 				</td>
 			</tr>

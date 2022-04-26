@@ -58,7 +58,7 @@ public class ThemeCreator extends HttpServlet {
 			String filename = uuidFileName.getUUIDFileName(part);
 			part.write(realPath + "/" + filename);
 			// 傳入db的路徑前面不能再有斜槓，不然伺服器找的時候會跑一次阿飄路徑
-			String dbSaveDirectory = "images/coupon";
+			String dbSaveDirectory = "images/theme";
 			// 要傳回數據庫的路徑
 			String dbPath = dbSaveDirectory + "/" + filename;
 

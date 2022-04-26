@@ -54,6 +54,10 @@ th, td {
 	padding: 5px;
 	text-align: center;
 }
+img{
+ width: 150px;
+ height: 150px;
+}
 </style>
 </head>
 <body>

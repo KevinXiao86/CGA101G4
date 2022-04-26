@@ -2,6 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+	CouponVO couponVO=(CouponVO)request.getAttribute("couponVO");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,6 +43,10 @@
   th, td {
     padding: 1px;
   }
+  img{
+ width: 150px;
+ height: 150px;
+}
 </style>
 </head>
 <body>

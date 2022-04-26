@@ -43,11 +43,15 @@ th, td {
 	padding: 5px;
 	text-align: center;
 }
+img{
+ width: 150px;
+ height: 150px;
+}
 </style>
 </head>
 <body>
 
-	<h1>所有優惠券</h1>
+	<h1>${couponVO.status}優惠券</h1>
 
 	<%--錯誤列表 --%>
 	<c:if test="${not empty errorMsgs}">

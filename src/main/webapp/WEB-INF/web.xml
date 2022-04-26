@@ -84,4 +84,34 @@
     <servlet-name>ThemeCreator</servlet-name>
     <url-pattern>/ThemeCreator</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ThemeDelete</display-name>
+    <servlet-name>ThemeDelete</servlet-name>
+    <servlet-class>com.taiwan.controller.theme.ThemeDelete</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ThemeDelete</servlet-name>
+    <url-pattern>/ThemeDelete</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>theme2Update</display-name>
+    <servlet-name>theme2Update</servlet-name>
+    <servlet-class>com.taiwan.controller.theme.theme2Update</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>theme2Update</servlet-name>
+    <url-pattern>/theme2Update</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ThemeUpdate</display-name>
+    <servlet-name>ThemeUpdate</servlet-name>
+    <servlet-class>com.taiwan.controller.theme.ThemeUpdate</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ThemeUpdate</servlet-name>
+    <url-pattern>/ThemeUpdate</url-pattern>
+  </servlet-mapping>
 </web-app>
