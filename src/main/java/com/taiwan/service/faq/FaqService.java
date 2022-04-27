@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.taiwan.beans.FaqVO;
 
-public interface faqService {
+public interface FaqService {
 	
 	// 搜尋全部FAQ
 	public List<FaqVO> findAll();

@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.taiwan.beans.FaqVO;
-import com.taiwan.service.faq.faqService;
+import com.taiwan.service.faq.FaqService;
 
 import mybatis.mapper.FaqMapper;
 
 @Service
-public class faqServiceImpl implements faqService {
+public class FaqServiceImpl implements FaqService {
 
 	@Autowired
 	FaqMapper mapper;

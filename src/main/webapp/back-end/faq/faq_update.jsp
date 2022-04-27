@@ -1,56 +1,53 @@
+<%@page import="com.taiwan.beans.FaqVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+FaqVO faqVO=(FaqVO)request.getAttribute("faq");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%@ include file="/common/head.jsp"%>
 <meta charset="UTF-8">
-<title>news creator</title>
+<title>FAQ資料修改</title>
 <style type="text/css">
-img{
-height: 150px;
-width: 150px;
-}
+  h4 {
+    color: blue;
+    display: inline;
+  }
 </style>
 </head>
 <body>
 	<div id="select_div">
-		<form action="news/newsCreator" method="post" enctype="multipart/form-data">
+		<form action="faq/faqUpdate" method="post">
 			<div id="div1">
-				<span id="span1">最新消息標題</span><input id="input_title" type="text"
-					name="title" placeholder="請輸入標題" value="${param.title}">${errorMsgs.title}<br>
+				<label>FAQ編號</label><input type="text" name="faqId" value="${faqVO.faqId}" readonly="readonly" ><br>
+				<span id="span1">FAQ標題</span><input id="input_title" type="text"
+					name="title" placeholder="請輸入標題" value="${faqVO.title}">${errorMsgs.title}<br>
 			</div>
 			<div id="div4">
-				<h4>最新消息內文</h4>
+				<h4>FAQ內文</h4>
 			</div>
 			${errorMsgs.content}
 			<div id="div2">
 				<textarea name="content" id="content" cols="100" rows="10"
-					style="resize: none;" placeholder="請輸入內文">${param.content}</textarea>
+					style="resize: none;" placeholder="請輸入內文">${faqVO.content}</textarea>
 			</div>
 			<div id="div3">
 				<span id="num_content">剩餘可輸入500字</span>
 			</div>
-			<div id="div5">
-				${errorMsgs.updateFile}
-				<input name="updateFile" id="file1" type="file" accept=“image/*>
-				<img id="look_img" src="">
-			</div>
 			<input type="submit" value="提交">
 		</form>
 	</div>
+	
 	<div>
-		<a href='back-end/news/news_index.jsp'>回最新消息首頁</a>
+		<a href='back-end/faq/faq_index.jsp'>回FAQ首頁</a>
 	</div>
 
+
 	<script>
-        document.querySelector('#file1').addEventListener('change',e=>{
-            const url = URL.createObjectURL(file1.files[0]);
-            let img=document.querySelector('#look_img');
-            img.src=url;
-            
-        })
         $(function(){
         $('#content').on('keyup',function(){
             var txtval = $('#content').val().length;

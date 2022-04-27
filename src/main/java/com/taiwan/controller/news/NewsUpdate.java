@@ -30,7 +30,6 @@ public class NewsUpdate extends HttpServlet {
 		request.setAttribute("errorMsgs", errorMsgs);
 		News news=new News();
 		try {
-			System.out.println("scuccess");
 			// 獲取newsId的值
 			String newsIdString = request.getParameter("newsId");
 			Integer newsId = Integer.valueOf(newsIdString);
