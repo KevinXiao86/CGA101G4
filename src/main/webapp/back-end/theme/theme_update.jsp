@@ -2,6 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+Theme theme=(Theme)request.getAttribute("theme");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +37,7 @@ img{
 	<div id="select_div">
 		<form action="theme/themeUpdate" method="post" enctype="multipart/form-data">
 			<div id="div1">
-				<label>熱門活動流水號</label><input type="text" name="copId" value="${theme.themeId}"><br>
+				<label>熱門活動編號</label><input type="text" name="themeId" value="${theme.themeId}" readonly="readonly" ><br>
 				<span id="span1">熱門活動標題</span><input id="input_title" type="text"
 					name="title" placeholder="請輸入標題" value="${theme.title}">${errorMsgs.title}<br>
 			</div>
@@ -58,6 +61,10 @@ img{
 			</div>
 			<input type="submit" value="提交">
 		</form>
+	</div>
+	
+	<div>
+		<a href='back-end/theme/theme_index.jsp'>回熱門活動首頁</a>
 	</div>
 
 

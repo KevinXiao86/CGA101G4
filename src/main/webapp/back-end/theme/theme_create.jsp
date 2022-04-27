@@ -35,7 +35,9 @@
 			<input type="submit" value="提交">
 		</form>
 	</div>
-
+	<div>
+		<a href='back-end/theme/theme_index.jsp'>回熱門活動首頁</a>
+	</div>
 
 	<script>
         document.querySelector('#file1').addEventListener('change',e=>{

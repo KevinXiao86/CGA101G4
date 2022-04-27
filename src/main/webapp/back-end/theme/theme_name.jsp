@@ -16,7 +16,7 @@ pageContext.setAttribute("list", list);
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%@ include file="/common/head.jsp"%>
 <meta charset="UTF-8">
-<title>所有熱門活動券資料 ThemeCouponFindAll</title>
+<title>熱門活動資料 ThemeByName</title>
 <style>
 table#table-1 {
 	background-color: #CCCCFF;
@@ -60,7 +60,7 @@ img{
 </head>
 <body>
 
-	<h1>所有熱門活動</h1>
+	<h1>根據標題搜尋熱門活動</h1>
 
 	<%--錯誤列表 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -82,8 +82,8 @@ img{
 			<th>修改</th>
 			<th>刪除</th>
 		</tr>
-		<%@ include file="page1.file" %> 
-		<c:forEach items="${list}" var="theme" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+<%-- 		<%@ include file="page1.file" %>  --%>
+		<c:forEach items="${list}" var="theme" >
 			<tr>
 				<td>${theme.themeId}</td>
 				<td>${theme.title}</td>
@@ -105,8 +105,8 @@ img{
 			</tr>
 		</c:forEach>
 	</table>
-	<%@ include file="page2.file" %>
-	
+<%-- 	<%@ include file="page2.file" %> --%>
+
 	<div>
 		<a href='back-end/theme/theme_index.jsp'>回熱門活動首頁</a>
 	</div>

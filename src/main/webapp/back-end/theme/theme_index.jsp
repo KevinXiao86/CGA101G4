@@ -23,40 +23,31 @@
 	
 	
 	<%--錯誤列表 --%> 
-<%-- 	<c:if test="${not empty errorMsgs}"> --%>
-<!-- 		<font style="color: red">請修正以下錯誤:</font> -->
-<!-- 		<ul> -->
-<%-- 			<c:forEach var="message" items="${errorMsgs}"> --%>
-<%-- 				<li style="color: red">${message}</li> --%>
-<%-- 			</c:forEach> --%>
-<!-- 		</ul> -->
-<%-- 	</c:if> --%>
+	<c:if test="${not empty errorMsgs}">
+		<font style="color: red">請修正以下錯誤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: red">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
 	
-<!-- 	<div> -->
-<!-- 	<FORM METHOD="post" ACTION="couponController/selectById" > -->
-<!--         <b>輸入優惠券編號來做查詢:</b> -->
-<!--         <input type="text" name="copId"> -->
-<!--         <input type="submit" value="送出"> -->
-<!--     </FORM> -->
-<!--     </div> -->
-<!--     <div> -->
-<!--     <FORM METHOD="post" ACTION="coupon/selectByTitle" > -->
-<!--         <b>輸入優惠券標題來做查詢:</b> -->
-<!--         <input type="text" name="copName"> -->
-<!--         <input type="submit" value="送出"> -->
-<!--     </FORM> -->
-<!--     </div> -->
+	<div>
+	<FORM METHOD="post" ACTION="theme/selectById" >
+        <b>輸入熱門活動編號來做查詢:</b>
+        <input type="text" name="themeId">
+        <input type="submit" value="送出">
+    </FORM>
+    </div>
+    <div>
+    <FORM METHOD="post" ACTION="theme/selectByTitle" >
+        <b>輸入熱門活動標題來做查詢:</b>
+        <input type="text" name="title">
+        <input type="submit" value="送出">
+    </FORM>
+    </div>
     
-<!--     <div> -->
-<!--     <FORM METHOD="post" ACTION="coupon/selectByStatus" > -->
-<!--         <b>輸入優惠券狀態來做查詢:</b> -->
-<!--         <select name="status" > -->
-<!-- 			<option value="上架">上架</option> -->
-<!-- 			<option value="下架">下架</option> -->
-<!-- 		</select> -->
-<!--         <input type="submit" value="送出"> -->
-<!--     </FORM> -->
-<!--     </div> -->
+
     
 
 

@@ -30,6 +30,7 @@ public class CouponUpdate extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map<String,String> errorMsgs=new LinkedHashMap<String, String>();
 		request.setAttribute("errorMsgs", errorMsgs);
+		CouponVO couponVO=new CouponVO();
 		try {
 			//收到copId的值
 			String copIdString=request.getParameter("copId");
@@ -93,11 +94,7 @@ public class CouponUpdate extends HttpServlet {
 			// 要傳回數據庫的路徑
 			String dbPath = dbSaveDirectory + "/" + filename;
 //			System.out.println(dbPath);
-			//遍歷一下MAP裡面的值
-//			for (Map.Entry<String, String> entry : errorMsgs.entrySet()) {
-//				System.out.println(entry.getKey() + ":" + entry.getValue());
-//			}
-			CouponVO couponVO=new CouponVO();
+			//把新的輸入的優惠券資料裝到優惠券物件裡
 			couponVO.setCopId(copId);
 			couponVO.setCopName(copName);
 			couponVO.setDiscount(discount);
@@ -105,8 +102,12 @@ public class CouponUpdate extends HttpServlet {
 			couponVO.setStartdate(startdate);
 			couponVO.setEnddate(enddate);
 			couponVO.setImg(dbPath);
-			
+			//遍歷一下MAP裡面的值
+//			for (Map.Entry<String, String> entry : errorMsgs.entrySet()) {
+//				System.out.println(entry.getKey() + ":" + entry.getValue());
+//			}
 			// 如果錯誤訊息的map不是空值的話，就請求轉發回/coupon/cop_update.jsp
+			//在request域中放入剛剛封裝的優惠券資料
 			if (!errorMsgs.isEmpty()) {
 				request.setAttribute("couponVO", couponVO);
 				RequestDispatcher rd = request.getRequestDispatcher("/back-end/coupon/cop_update.jsp");
@@ -121,6 +122,7 @@ public class CouponUpdate extends HttpServlet {
 			rd.forward(request, response);
 			// 其他錯誤處理
 		} catch (Exception e) {
+			request.setAttribute("couponVO", couponVO);
 			errorMsgs.put("Exception", e.getMessage());
 			RequestDispatcher rd = request.getRequestDispatcher("/back-end/coupon/cop_update.jsp");
 			rd.forward(request, response);

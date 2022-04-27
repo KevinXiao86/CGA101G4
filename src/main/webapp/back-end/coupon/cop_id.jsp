@@ -107,5 +107,9 @@ img{
 	</table>
 <%-- 	<%@ include file="/coupon/page2.file" %> --%>
 
+	<div>
+		<a href='back-end/coupon/cop_index.jsp'>新增</a>一筆優惠券
+	</div>
+
 </body>
 </html>

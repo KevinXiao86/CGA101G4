@@ -28,6 +28,10 @@
 		<label>請輸入照片</label> <input type="file" name="uploadFile" accept="image/*" required><br>
 		<input type="submit" value="提交">
 	</form>
+	
+	<div>
+		<a href='back-end/coupon/cop_index.jsp'>新增</a>一筆優惠券
+	</div>
 
 </body>
 </html>

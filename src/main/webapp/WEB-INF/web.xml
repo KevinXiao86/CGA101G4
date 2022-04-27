@@ -114,4 +114,24 @@
     <servlet-name>ThemeUpdate</servlet-name>
     <url-pattern>/ThemeUpdate</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ThemeSelectById</display-name>
+    <servlet-name>ThemeSelectById</servlet-name>
+    <servlet-class>com.taiwan.controller.theme.ThemeSelectById</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ThemeSelectById</servlet-name>
+    <url-pattern>/ThemeSelectById</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ThemeSelectByTitle</display-name>
+    <servlet-name>ThemeSelectByTitle</servlet-name>
+    <servlet-class>com.taiwan.controller.theme.ThemeSelectByTitle</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ThemeSelectByTitle</servlet-name>
+    <url-pattern>/ThemeSelectByTitle</url-pattern>
+  </servlet-mapping>
 </web-app>
