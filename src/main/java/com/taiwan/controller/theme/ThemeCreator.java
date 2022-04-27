@@ -39,7 +39,7 @@ public class ThemeCreator extends HttpServlet {
 			if (content == null || content.trim().equals("")) {
 				errorMsgs.put("content", "熱門活動內文請勿不輸入，或是只有空白");
 			}
-			// 我優惠券要存在這個檔案目錄之下
+			// 我熱門活動要存在這個檔案目錄之下
 			String saveDirectory = "/images/theme";
 			// 找到阿飄路徑
 			String realPath = getServletContext().getRealPath(saveDirectory);

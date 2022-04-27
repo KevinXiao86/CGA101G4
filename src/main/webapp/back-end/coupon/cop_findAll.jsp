@@ -121,7 +121,7 @@ img{
 	<%@ include file="page2.file" %>
 	
 	<div>
-		<a href='back-end/coupon/cop_index.jsp'>新增</a>一筆優惠券
+		<a href='back-end/coupon/cop_index.jsp'>回到優惠券首頁</a>
 	</div>
 
 </body>

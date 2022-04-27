@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%@ include file="/common/head.jsp"%>
 <meta charset="UTF-8">
-<title>所有優惠券資料 CouponFindAll</title>
+<title>上下架優惠券 CouponSelectByStatus</title>
 <style>
 table#table-1 {
 	background-color: #CCCCFF;
@@ -43,9 +43,10 @@ th, td {
 	padding: 5px;
 	text-align: center;
 }
-img{
- width: 150px;
- height: 150px;
+
+img {
+	width: 150px;
+	height: 150px;
 }
 </style>
 </head>
@@ -76,41 +77,44 @@ img{
 			<th>修改</th>
 			<th>刪除</th>
 		</tr>
-<%-- 		<%@ include file="/coupon/page1.file" %>  --%>
 		<c:forEach items="${requestScope.list}" var="couponVO">
 			<tr>
 				<td>${couponVO.copId}</td>
 				<td>${couponVO.copName}</td>
 				<td>${couponVO.introduce}</td>
 				<td>${couponVO.discount}</td>
-				<td><fmt:formatDate value="${couponVO.startdate}" pattern="yyyy-MM-dd HH:mm"/></td>
-				<td><fmt:formatDate value="${couponVO.enddate}" pattern="yyyy-MM-dd HH:mm"/></td>
-				<td><img src="${couponVO.img}"/></td>
+				<td><fmt:formatDate value="${couponVO.startdate}"
+						pattern="yyyy-MM-dd HH:mm" /></td>
+				<td><fmt:formatDate value="${couponVO.enddate}"
+						pattern="yyyy-MM-dd HH:mm" /></td>
+				<td><img src="${couponVO.img}" /></td>
 				<td>
-					<FORM METHOD="post"	ACTION="coupon/copStatusChange" style="margin-bottom: 0px;">
+					<FORM METHOD="post" ACTION="coupon/copStatusChange"
+						style="margin-bottom: 0px;">
 						<input type="submit" name="status" value="${couponVO.status}">
 						<input type="hidden" name="copId" value="${couponVO.copId}">
 					</FORM>
 				</td>
 				<td>
-					<FORM METHOD="post"	ACTION="coupon/cop2Update" style="margin-bottom: 0px;">
-						<input type="submit" value="修改">
-						 <input type="hidden" name="copId" value="${couponVO.copId}">
+					<FORM METHOD="post" ACTION="coupon/cop2Update"
+						style="margin-bottom: 0px;">
+						<input type="submit" value="修改"> <input type="hidden"
+							name="copId" value="${couponVO.copId}">
 					</FORM>
 				</td>
 				<td>
-					<FORM METHOD="post" ACTION="coupon/copDelete" style="margin-bottom: 0px;">
-						<input type="submit" value="刪除">
-						 <input type="hidden" name="copId" value="${couponVO.copId}">
+					<FORM METHOD="post" ACTION="coupon/copDelete"
+						style="margin-bottom: 0px;">
+						<input type="submit" value="刪除"> <input type="hidden"
+							name="copId" value="${couponVO.copId}">
 					</FORM>
 				</td>
 			</tr>
 		</c:forEach>
 	</table>
-<%-- 	<%@ include file="/coupon/page2.file" %> --%>
 
 	<div>
-		<a href='back-end/coupon/cop_index.jsp'>新增</a>一筆優惠券
+		<a href='back-end/coupon/cop_index.jsp'>回到優惠券首頁</a>
 	</div>
 
 </body>

@@ -23,7 +23,7 @@ public class ThemeFindAll extends HttpServlet {
 
 	ThemeService themeService = ControllerUtil.getBean(ThemeService.class);
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<Theme> themeList = new ArrayList<Theme>();
 		themeList = themeService.findAll();
@@ -32,7 +32,7 @@ public class ThemeFindAll extends HttpServlet {
 		rd.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}

@@ -1,22 +1,13 @@
-<%@page import="com.taiwan.beans.Theme"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<%
-
-List<Theme> list =(List<Theme>)request.getAttribute("list");
-pageContext.setAttribute("list", list);
-
-%>
 <!DOCTYPE html>
 <html>
 <head>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%@ include file="/common/head.jsp"%>
 <meta charset="UTF-8">
-<title>所有熱門活動資料 ThemeFindAll</title>
+<title>最新消息資料 newsById</title>
 <style>
 table#table-1 {
 	background-color: #CCCCFF;
@@ -60,7 +51,7 @@ img{
 </head>
 <body>
 
-	<h1>所有熱門活動</h1>
+	<h1>根據編號搜尋最新消息</h1>
 
 	<%--錯誤列表 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -74,41 +65,40 @@ img{
 
 	<table>
 		<tr>
-			<th>熱門活動編號</th>
-			<th>熱門活動標題</th>
-			<th>熱門活動介紹</th>
+			<th>最新消息編號</th>
+			<th>最新消息標題</th>
+			<th>最新消息介紹</th>
 			<th>撰寫日期</th>
 			<th>圖片</th>
 			<th>修改</th>
 			<th>刪除</th>
 		</tr>
-		<%@ include file="page1.file" %> 
-		<c:forEach items="${list}" var="theme" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+<%-- 		<%@ include file="page1.file" %>  --%>
+
 			<tr>
-				<td>${theme.themeId}</td>
-				<td>${theme.title}</td>
-				<td>${theme.content}</td>
-				<td><fmt:formatDate value="${theme.createDate}" pattern="yyyy-MM-dd HH:mm"/></td>
-				<td><img src="${theme.img}"/></td>
+				<td>${news.newsId}</td>
+				<td>${news.title}</td>
+				<td>${news.content}</td>
+				<td><fmt:formatDate value="${news.createDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+				<td><img src="${news.img}"/></td>
 				<td>
-					<FORM METHOD="post"	ACTION="theme/theme2Update" style="margin-bottom: 0px;">
+					<FORM METHOD="post"	ACTION="news/news2Update" style="margin-bottom: 0px;">
 						<input type="submit" value="修改">
-						<input type="hidden" name="themeId" value="${theme.themeId}">
+						<input type="hidden" name="newsId" value="${news.newsId}">
 					</FORM>
 				</td>
 				<td>
-					<FORM METHOD="post" ACTION="theme/themeDelete" style="margin-bottom: 0px;">
+					<FORM METHOD="post" ACTION="news/newsDelete" style="margin-bottom: 0px;">
 						<input type="submit" value="刪除">
-						<input type="hidden" name="themeId" value="${theme.themeId}">
+						<input type="hidden" name="newsId" value="${news.newsId}">
 					</FORM>
 				</td>
 			</tr>
-		</c:forEach>
 	</table>
-	<%@ include file="page2.file" %>
-	
-	<div>
-		<a href='back-end/theme/theme_index.jsp'>回熱門活動首頁</a>
+<%-- 	<%@ include file="page2.file" %> --%>
+
+    <div>
+		<a href='back-end/news/news_index.jsp'>回最新消息首頁</a>
 	</div>
  
 </body>

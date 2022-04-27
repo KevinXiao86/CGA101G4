@@ -1,4 +1,4 @@
-package com.taiwan.controller.theme;
+package com.taiwan.controller.news;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,14 +13,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.taiwan.beans.Theme;
-import com.taiwan.service.theme.ThemeService;
+import com.taiwan.beans.News;
+import com.taiwan.service.news.NewsService;
 import com.taiwan.utils.ControllerUtil;
 
-@WebServlet("/theme/selectByTitle")
-public class ThemeSelectByTitle extends HttpServlet {
+@WebServlet("/news/selectByTitle")
+public class NewsSelectByTitle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	ThemeService themeService = ControllerUtil.getBean(ThemeService.class);
+	NewsService newsService = ControllerUtil.getBean(NewsService.class);
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
@@ -37,38 +37,37 @@ public class ThemeSelectByTitle extends HttpServlet {
 //				System.out.println(entry.getKey() + ":" + entry.getValue());
 //			}
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher rd = request.getRequestDispatcher("/back-end/theme/theme_index.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/back-end/news/news_index.jsp");
 				rd.forward(request, response);
 				return;// 程式中斷
 			}
 			// 開始做查詢
-			List<Theme> themeList = new ArrayList<Theme>();
-			themeList = themeService.findByTitle(title);
+			List<News> newsList = new ArrayList<News>();
+			newsList = newsService.findByTitle(title);
 			// 判斷一下list裡面有沒有值
 //			System.out.println(ls);
-			if (themeList.isEmpty() || themeList.size() == 0) {
+			if (newsList.isEmpty() || newsList.size() == 0) {
 				errorMsgs.put("List is null", "查無資料");
 			}
-//			for (Map.Entry<String, String> entry : errorMsgs.entrySet()) {
-//				System.out.println(entry.getKey() + ":" + entry.getValue());
-//			}
+			
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher rd = request.getRequestDispatcher("/back-end/theme/theme_index.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/back-end/news/news_index.jsp");
 				rd.forward(request, response);
 				return;// 程式中斷
 			}
 			// 把list送到request域中
-			request.setAttribute("list", themeList);
+			request.setAttribute("list", newsList);
 			// 請求轉發到搜尋標頭的jsp中
-			RequestDispatcher rd = request.getRequestDispatcher("/back-end/theme/theme_name.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/back-end/news/news_name.jsp");
 			rd.forward(request, response);
 			// 判斷是否有其他錯誤
 		} catch (Exception e) {
 			errorMsgs.put("其他錯誤", e.getMessage());
-			RequestDispatcher rd = request.getRequestDispatcher("/back-end/theme/theme_index.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/back-end/news/news_index.jsp");
 			rd.forward(request, response);
 		}
 	}
+
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

@@ -16,7 +16,7 @@ public interface ThemeService {
 	public boolean delete(Integer themeId);
 
 	// 更新一筆主題活動
-	public boolean update(Integer theme,String title, String content, String img);
+	public boolean update(Integer themeId,String title, String content, String img);
 
 	// 根據Id查詢主題活動
 	public Theme findById(Integer themeId);
