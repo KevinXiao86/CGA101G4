@@ -1,6 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.taiwan.controller.RoomOrder;
 =======
+=======
+>>>>>>> m1a2st
 package com.taiwan.controller.roomOrder;
 
 >>>>>>> d51c797ee69a3f245ed8c5d6827faec7f936e49f
@@ -43,7 +46,7 @@ public class RoomOrderFindAllInfo extends HttpServlet {
 			RoomOrder roomOrder=roomOrderMyService.findById(roomOrderId);
 			
 			RoomItemVO roomItemVO=roomItemService.findByOrderId(roomOrderId);
-			System.out.println(roomItemVO);
+//			System.out.println(roomItemVO);
 			//對request域中塞資料
 			request.setAttribute("roomOrder", roomOrder);
 			request.setAttribute("roomItemVO", roomItemVO);
