@@ -6,7 +6,7 @@ import java.util.List;
 import com.taiwan.beans.RoomOrderVO;
 
 public interface RoomOrderService {
-	public RoomOrderVO addRoomOrder(Integer custId,Timestamp checkin,Timestamp checkout ,Integer roomId,Integer amount,Integer price);
+	public RoomOrderVO addRoomOrder(Integer custId,Timestamp checkin,Timestamp checkout ,Integer roomId,Integer amount,Integer price,Integer cmpId);
 	
 	public RoomOrderVO chancelRoomOrder(Integer roomOrderId,String reason);
 	
