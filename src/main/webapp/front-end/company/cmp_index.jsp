@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>廠商首頁</title>
 	<%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 	<%@ include file="/common/head.jsp"%>
 </head>

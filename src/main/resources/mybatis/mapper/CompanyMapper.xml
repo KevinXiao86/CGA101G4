@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			`location`, `notice`, `canx`, `bank_account`
 	 	FROM `Taiwan`.`COMPANY`
 		WHERE `cmp_account` = #{account}
-		AND `cmp_password` = #{password};	
+		AND `cmp_password` = #{password};
 	</select>
 	
 

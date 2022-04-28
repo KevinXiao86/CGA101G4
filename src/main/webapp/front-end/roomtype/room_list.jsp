@@ -13,7 +13,7 @@ $(function () {
 	// 如果是使用 blur 失去焦點事件, 還需要自己判斷數值有無改變, 所以推薦使用 onchange事件
 	$("#updatePrice").change(function () {
 		// 獲取房型名稱 
-		var name = $(this).parent().parent().find("td:first").text();
+		var name = $(this).parent().parent().find("td:eq(1)").text();
 		// 獲取廠商編號
 		var cmpId = $(this).attr('cmpId');
 		// 獲取房型編號
@@ -36,36 +36,35 @@ $(function () {
 </script>
 </head>
 <body>
-	${sessionScope.loginCompany.cmpId}
+	<a href="front-end/roomtype/add.jsp">新增房型</a>
 	<span id="error_msg">${requestScope.managerCompany.message}</span>
 	<table>
 		<tr>
+			<td>房型圖片</td>
 			<td>房型名稱</td>
 			<td>房型數量</td>
 			<td>入住人數</td>
-			<td>總評分</td>
-			<td>評分總人數</td>
 			<td>價格</td>
 			<td>狀態</td>
-			<td>平方公尺</td>
-			<td>上架/下架</td>
-			<td>詳情</td>
+			<td>操作</td>
 		</tr>
 
 		<c:forEach items="${requestScope.roomtypes}" var="Roomtype">
 			<tr>
+				<td>
+					<c:forEach items="${Roomtype.roomImgs}" end="0" var="RoomImg">
+						<img  height="128px" width="128px" src="${RoomImg.roomImg}">
+					</c:forEach>
+				</td>
 				<td>${Roomtype.roomtypeName}</td>
 				<td>${Roomtype.roomtypeAmount}</td>
 				<td>${Roomtype.roomtypePeople}</td>
-				<td>${Roomtype.totalScore}</td>
-				<td>${Roomtype.totalPeople}</td>
 				<td>
-					<input id="updatePrice" style="width: 80px;"
+					<input id="updatePrice" style="width: 50px;"
 					roomtypeId="${Roomtype.roomtypeId}" cmpId="${sessionScope.loginCompany.cmpId}"
 					type="text" value="${Roomtype.roomtypePrice}">
 				</td>
 				<td>${Roomtype.roomtypeStatus}</td>
-				<td>${Roomtype.roomtypeArea}</td>
 				<td><c:choose>
 						<c:when test="${Roomtype.roomtypeStatus == '上架'}">
 							<a
@@ -77,7 +76,8 @@ $(function () {
 								href="roomtype/updateRoomtypeStatus?cmpId=${sessionScope.loginCompany.cmpId}&roomtypeId=${Roomtype.roomtypeId}&status=上架">上架房型</a>
 						</c:when>
 					</c:choose></td>
-				<td><a href="#">查看房型照片與設施</a></td>
+				<td><a href="roomtype/getRoomtype?cmpId=${sessionScope.loginCompany.cmpId}&roomtypeId=${Roomtype.roomtypeId}">查看詳情</a></td>
+				<td><a href="roomtype/getRoomtype2?cmpId=${sessionScope.loginCompany.cmpId}&roomtypeId=${Roomtype.roomtypeId}">修改</a></td>
 			</tr>
 		</c:forEach>
 	</table>

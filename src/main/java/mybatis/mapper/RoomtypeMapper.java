@@ -7,12 +7,21 @@ import org.apache.ibatis.annotations.Param;
 import com.taiwan.beans.Roomtype;
 
 public interface RoomtypeMapper {
-
-	//根據廠商編號查詢所有房型
-	public List<Roomtype> queryRoomtypesByCmpId(Integer cmpId);
+	// 根據廠商編號獲取所有房型
+	public List<Roomtype> queryAllRoomtypes(Integer cmpId);
 	
-	//根據廠商編號和房型編號修改狀態
-	public int updateRoomtypeStatusByCmpIdAndRoomtypeId(@Param("cmpId")Integer cmpId, @Param("roomtypeId")Integer roomtypeId, @Param("roomtypeStatus")String roomtypeStatus);
+	//根據房型編號和廠商編號修改狀態
+	public int updateStatusByRoomtypeIdAndCmpId(@Param("cmpId")Integer cmpId, @Param("roomtypeId")Integer roomtypeId, @Param("status")String status);
 	
-	//根據廠商編號和房型編號修改房型價格
+	//根據房型編號和廠商編號修改狀態
+	public int updatePriceByCmpIdAndRoomtypeId(@Param("cmpId")Integer cmpId, @Param("roomtypeId")Integer roomtypeId, @Param("price")Integer price);
+	
+	//根據房型編號和廠商編號查詢房型
+	public Roomtype getRoomtypeByCmpIdAndRoomtypeId(@Param("cmpId")Integer cmpId, @Param("roomtypeId")Integer roomtypeId);
+	
+	//新增房型
+	public int insertRoomtype(Roomtype roomtype);
+	
+	//查找目前最大的房型編號
+	public int queryRoomtypeId();
 }

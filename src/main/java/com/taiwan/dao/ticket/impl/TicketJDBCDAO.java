@@ -60,8 +60,8 @@ public class TicketJDBCDAO implements TicketDAO_interface {
 			ps.setString(7, ticketVO.getInstruction());
 			ps.setString(8, ticketVO.getAddress());
 			ps.setString(9, ticketVO.getNotice());
-			ps.setString(10, ticketVO.getHowUse());
-			ps.setString(11, ticketVO.getCanxPolicy());
+//			ps.setString(10, ticketVO.getHowUse());
+//			ps.setString(11, ticketVO.getCanxPolicy());
 			ps.setString(12, ticketVO.getKind());
 			
 			count = ps.executeUpdate();
@@ -113,8 +113,8 @@ public class TicketJDBCDAO implements TicketDAO_interface {
 			ps.setString(7, ticketVO.getInstruction());
 			ps.setString(8, ticketVO.getAddress());
 			ps.setString(9, ticketVO.getNotice());
-			ps.setString(10, ticketVO.getHowUse());
-			ps.setString(11, ticketVO.getCanxPolicy());
+//			ps.setString(10, ticketVO.getHowUse());
+//			ps.setString(11, ticketVO.getCanxPolicy());
 			ps.setString(12, ticketVO.getKind());
 			ps.setInt(13, ticketVO.getTktId());
 			
@@ -218,8 +218,8 @@ public class TicketJDBCDAO implements TicketDAO_interface {
 				ticketVO.setInstruction(rs.getString(10));
 				ticketVO.setAddress(rs.getString(11));
 				ticketVO.setNotice(rs.getString(12));
-				ticketVO.setHowUse(rs.getString(13));
-				ticketVO.setCanxPolicy(rs.getString(14));
+//				ticketVO.setHowUse(rs.getString(13));
+//				ticketVO.setCanxPolicy(rs.getString(14));
 				ticketVO.setStatus(rs.getString(15));
 				ticketVO.setSoldAmount(rs.getInt(16));
 				ticketVO.setKind(rs.getString(17));
@@ -637,8 +637,8 @@ public class TicketJDBCDAO implements TicketDAO_interface {
 				ticketVO.setInstruction(rs.getString(10));
 				ticketVO.setAddress(rs.getString(11));
 				ticketVO.setNotice(rs.getString(12));
-				ticketVO.setHowUse(rs.getString(13));
-				ticketVO.setCanxPolicy(rs.getString(14));
+//				ticketVO.setHowUse(rs.getString(13));
+//				ticketVO.setCanxPolicy(rs.getString(14));
 				ticketVO.setStatus(rs.getString(15));
 				ticketVO.setSoldAmount(rs.getInt(16));
 				ticketVO.setKind(rs.getString(17));
