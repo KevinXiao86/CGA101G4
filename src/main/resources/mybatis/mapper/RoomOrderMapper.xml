@@ -18,6 +18,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="cancel" property="cancel"/>
 		<result column="total_price" property="totalPrice"/>
 		<result column="cust_cop_id" property="custCopId"/>
+		<result column="cmp_id" property="cmpId"/>
+
 		
 		<association property="customer" 
 			select="mybatis.mapper.RoomOrderMapper.getCustomerVOByCustId" column="cust_id">
@@ -28,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- public List<RoomOrder> queryAllRoomOrders(); -->
 	<select id="queryAllRoomOrders" resultMap="order">
 		SELECT 	`room_order_id`, `cust_id`, `room_order_date`, `room_order_price`, `checkin_date`,
-			 `checkout_date`, `room_order_status`, `cancel`, `total_price`, `cust_cop_id`
+			 `checkout_date`, `room_order_status`, `cancel`, `total_price`, `cust_cop_id`,`cmp_id`
 	 	FROM  `Taiwan`.`ROOM_ORDER` 
 	</select>
 	
@@ -38,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="queryRoomOrdersByRoomOrderDate" resultMap="order">		
 		SELECT 	`room_order_id`, `cust_id`, `room_order_date`, `room_order_price`, 
 			`checkin_date`, `checkout_date`, `room_order_status`, `cancel`, 
-			`total_price`, `cust_cop_id`
+			`total_price`, `cust_cop_id`,`cmp_id`
 	 	FROM  `Taiwan`.`ROOM_ORDER` 
 	 	WHERE `room_order_date` = #{roomOrderDate}
 	</select>
@@ -50,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="queryRoomOrdersByCheckinDate" resultMap="order">
 		SELECT 	`room_order_id`, `cust_id`, `room_order_date`, `room_order_price`, 
 			`checkin_date`, `checkout_date`, `room_order_status`, `cancel`, 
-			`total_price`, `cust_cop_id`
+			`total_price`, `cust_cop_id`,`cmp_id`
 	 	FROM  `Taiwan`.`ROOM_ORDER` 
 	 	WHERE `checkin_date` = #{checkinDate}
 	</select>
@@ -61,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="queryRoomOrdersByCheckoutDate" resultMap="order">
 		SELECT 	`room_order_id`, `cust_id`, `room_order_date`, `room_order_price`, 
 			`checkin_date`, `checkout_date`, `room_order_status`, `cancel`, 
-			`total_price`, `cust_cop_id`
+			`total_price`, `cust_cop_id`,`cmp_id`
 	 	FROM  `Taiwan`.`ROOM_ORDER` 
 	 	WHERE `checkout_date` = #{checkoutDate}
 	</select>
@@ -71,8 +73,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- public CustomerVO getCustomerVOByCustId(Integer custId); -->
 	<select id="getCustomerVOByCustId" resultType="com.taiwan.beans.CustomerVO">		
 		SELECT 	`cust_id`, `NAME`, `SEX`, `TEL`, `EMAIL`, `ADDRESS`, `ID_CARD`, 
-			`BIRTH`, `ACCOUNT`, `PASSWORD`, `IMG`, `cust_use`, `CARD`, `cust_right`
+			`BIRTH`, `ACCOUNT`, `PASSWORD`, `IMG`, `cust_use`, `CARD`, `cust_right`,`cmp_id`
 	 	FROM  `Taiwan`.`CUSTOMER` 
-		WHERE `cust_id` = #{custId};
+		WHERE `cust_id` = #{custId}
+	</select>
+	
+	<select id="queryById" resultMap="order">
+		SELECT 	`room_order_id`, `cust_id`, `room_order_date`, `room_order_price`, `checkin_date`,
+			 `checkout_date`, `room_order_status`, `cancel`, `total_price`, `cust_cop_id`,`cmp_id`
+	 	FROM  `Taiwan`.`ROOM_ORDER` 
+	 	WHERE room_order_id=#{roomOrderId}
 	</select>
 </mapper>

@@ -264,4 +264,34 @@
     <servlet-name>FaqUpdate</servlet-name>
     <url-pattern>/FaqUpdate</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RoomOrderFindAll</display-name>
+    <servlet-name>RoomOrderFindAll</servlet-name>
+    <servlet-class>com.taiwan.controller.roomOrder.RoomOrderFindAll</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RoomOrderFindAll</servlet-name>
+    <url-pattern>/RoomOrderFindAll</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RoomOrderFindAllInfo</display-name>
+    <servlet-name>RoomOrderFindAllInfo</servlet-name>
+    <servlet-class>com.taiwan.controller.roomOrder.RoomOrderFindAllInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RoomOrderFindAllInfo</servlet-name>
+    <url-pattern>/RoomOrderFindAllInfo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RoomOrderMangerFindAll</display-name>
+    <servlet-name>RoomOrderMangerFindAll</servlet-name>
+    <servlet-class>com.taiwan.controller.roomOrder.RoomOrderMangerFindAll</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RoomOrderMangerFindAll</servlet-name>
+    <url-pattern>/RoomOrderMangerFindAll</url-pattern>
+  </servlet-mapping>
 </web-app>

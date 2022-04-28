@@ -1,11 +1,11 @@
-package com.taiwan.service.impl;
+package com.taiwan.service.roomItem.impl;
 
 import java.util.List;
 
 import com.taiwan.beans.RoomItemVO;
 import com.taiwan.dao.roomItem.RoomItemDAO_interface;
 import com.taiwan.dao.roomItem.impl.RoomItemDAO;
-import com.taiwan.service.RoomItemService;
+import com.taiwan.service.roomItem.RoomItemService;
 
 public class RoomItemServiceImpl implements RoomItemService {
 	private RoomItemDAO_interface dao;
@@ -40,5 +40,11 @@ public class RoomItemServiceImpl implements RoomItemService {
 		roomItemVO.setRoomItemEvaluateMsg(evaluateMsg);
 		dao.updateRoomItem(roomItemVO);
 		
+	}
+
+	@Override
+	public RoomItemVO findByOrderId(Integer roomOrderId) {
+		RoomItemVO roomItemVO=dao.queryByRoomOrderId(roomOrderId);
+		return roomItemVO;
 	}
 }

@@ -192,4 +192,10 @@ public class RoomItemJDBCDAO implements RoomItemDAO_interface{
 		}
 
 	}
+
+	@Override
+	public RoomItemVO queryByRoomOrderId(Integer roomOrderId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

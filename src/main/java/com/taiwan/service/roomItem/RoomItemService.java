@@ -1,4 +1,4 @@
-package com.taiwan.service;
+package com.taiwan.service.roomItem;
 
 import java.util.List;
 
@@ -16,4 +16,7 @@ public interface RoomItemService {
 	
 	/**********************新增訂單明細評價**********************/
 	public void addEvaluate(Integer roomItemId,Integer evaluateSocre,String evaluateMsg);
+	
+	//根據roomOrderId查詢roomItem
+	public RoomItemVO findByOrderId(Integer roomOrderId);
 }

@@ -22,4 +22,7 @@ public interface RoomOrderMapper {
 	
 	//根據 id 查詢會員
 	public CustomerVO getCustomerVOByCustId(Integer custId);
+	
+	//根據訂單Id搜尋訂房訂單
+	public RoomOrder queryById(Integer roomOrderId);
 }
