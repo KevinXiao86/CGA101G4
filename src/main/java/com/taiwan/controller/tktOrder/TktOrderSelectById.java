@@ -31,7 +31,6 @@ public class TktOrderSelectById extends HttpServlet {
 		String action = req.getParameter("action");
 		
 		if ("getOne_For_Display".equals(action)) {   
-			
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
@@ -69,6 +68,13 @@ public class TktOrderSelectById extends HttpServlet {
 				errorMsgs.put("tktOrderId", "查無資料");
 			}
 			
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/tktOrder/tktOrderIndex.jsp");
+				failureView.forward(req, res);
+				return;
+			}
+			
+	
 			//加入會員名字 (not yet)
 			Integer custId = tktOrder.getCustId();
 			CustomerService custSvc = new CustomerServiceImpl();
