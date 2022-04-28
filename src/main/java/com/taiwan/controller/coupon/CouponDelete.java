@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.taiwan.service.CouponService;
+import com.taiwan.service.coupon.CouponService;
 import com.taiwan.utils.ControllerUtil;
 
 

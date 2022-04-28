@@ -126,4 +126,11 @@ public class RoomOrderMapperTest {
 		CustomerVO customer = roomOrderMapper.getCustomerVOByCustId(10000);
 		System.out.println(customer);
 	}
+	
+	
+	@Test
+	public void test09() {
+		RoomOrder roomOrder=roomOrderMapper.queryById(1);
+		System.out.println(roomOrder);
+	}
 }

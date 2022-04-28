@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import com.taiwan.beans.CouponVO;
-import com.taiwan.service.CouponService;
+import com.taiwan.service.coupon.CouponService;
 import com.taiwan.utils.ControllerUtil;
 
 
@@ -20,7 +23,8 @@ import com.taiwan.utils.ControllerUtil;
 public class CouponFindAll extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	CouponService couponService=ControllerUtil.getBean(CouponService.class);
+	
+	 CouponService couponService=ControllerUtil.getBean(CouponService.class);
 
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -28,8 +32,8 @@ public class CouponFindAll extends HttpServlet {
 		List<CouponVO> ls=new ArrayList<CouponVO>();
 		ls=couponService.findAll();
 		request.setAttribute("list", ls);
-//		System.out.println(ls);
-		RequestDispatcher rd=request.getRequestDispatcher("/coupon/cop_findAll.jsp");
+		System.out.println(ls);
+		RequestDispatcher rd=request.getRequestDispatcher("/back-end/coupon/cop_findAll.jsp");
 		rd.forward(request, response);
 		
 	}

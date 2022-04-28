@@ -3,7 +3,7 @@ package com.taiwan.test.index0878;
 import java.util.List;
 
 import com.taiwan.beans.RoomItemVO;
-import com.taiwan.service.impl.RoomItemServiceImpl;
+import com.taiwan.service.roomItem.impl.RoomItemServiceImpl;
 
 public class RoomItem {
 public static void main(String[] args) {

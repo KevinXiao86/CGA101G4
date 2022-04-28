@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.taiwan.beans.CouponVO;
-import com.taiwan.service.CouponService;
+import com.taiwan.service.coupon.CouponService;
 import com.taiwan.utils.MyBatisUtil;
 
 import mybatis.mapper.CouponMapper;

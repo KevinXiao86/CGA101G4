@@ -178,4 +178,54 @@ public class RoomItemJNDIDAO implements RoomItemDAO_interface {
 		}
 
 	}
+
+	@Override
+	public RoomItemVO queryByRoomOrderId(Integer roomOrderId) {
+		RoomItemVO roomItemVO =new RoomItemVO();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, roomOrderId);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				roomItemVO.setRoomItemId(rs.getInt("room_item_id"));
+				roomItemVO.setRoomId(rs.getInt("room_id"));
+				roomItemVO.setRoomOrderId(rs.getInt("room_order_id"));
+				roomItemVO.setRoomItemAmount(rs.getInt("room_amount"));
+				roomItemVO.setRoomItemEvaluateScore(rs.getInt("evaluate_score"));
+				roomItemVO.setRoomItemEvaluateMsg(rs.getString("evaluate_msg"));
+				roomItemVO.setRoomItemPrice(rs.getInt("room_price"));
+			}
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return roomItemVO;
+	}
 }

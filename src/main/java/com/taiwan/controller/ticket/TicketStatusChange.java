@@ -37,7 +37,7 @@ public class TicketStatusChange extends HttpServlet {
 			
 		} catch (Exception e) {
 			errorMsgs.put("其他錯誤", e.getMessage());
-			RequestDispatcher rd=request.getRequestDispatcher("/ticket/tkt_findAll.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("/back-end/ticket/tkt_findAll.jsp");
 			rd.forward(request, response);
 		}
 	}

@@ -24,13 +24,10 @@ public class TicketFindAll extends HttpServlet {
 		List<TicketVO> ls = new ArrayList<TicketVO>();
 		//搜尋全部的票券
 		ls = ticketService.findAll();
-//		for (TicketVO ticketVO : ls) {
-//			System.out.println(ticketVO);
-//		}
 		//把搜尋到的List放到request域中
 		request.setAttribute("list", ls);
 		//請求導向到findAll.jsp頁面
-		RequestDispatcher rd = request.getRequestDispatcher("/ticket/ticket_findAll.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/back-end/ticket/ticket_findAll.jsp");
 		rd.forward(request, response);
 	}
 

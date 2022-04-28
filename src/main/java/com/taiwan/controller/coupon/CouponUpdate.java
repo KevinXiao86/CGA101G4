@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import com.taiwan.service.CouponService;
+import com.taiwan.beans.CouponVO;
+import com.taiwan.service.coupon.CouponService;
 import com.taiwan.utils.ControllerUtil;
 import com.taiwan.utils.UUIDFileName;
 
@@ -29,6 +30,7 @@ public class CouponUpdate extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map<String,String> errorMsgs=new LinkedHashMap<String, String>();
 		request.setAttribute("errorMsgs", errorMsgs);
+		CouponVO couponVO=new CouponVO();
 		try {
 			//收到copId的值
 			String copIdString=request.getParameter("copId");
@@ -60,13 +62,13 @@ public class CouponUpdate extends HttpServlet {
 				errorMsgs.put("timeError", "結束日期比開始日期還早");
 			}
 			// 判斷discount裡面有沒有值
-			String discount = request.getParameter("discount");
-			if (discount == null || discount.trim().equals("")) {
+			String discountString = request.getParameter("discount");
+			if (discountString == null || discountString.trim().equals("")) {
 				errorMsgs.put("discount", "折扣不可為空");
 			}
 			// 判斷discount是不是負值
-			Integer discount01 = Integer.valueOf(discount);
-			if (discount01 <= 0) {
+			Integer discount = Integer.valueOf(discountString);
+			if (discount <= 0) {
 				errorMsgs.put("discount01", "折扣不可能為0");
 			}
 			// 我優惠券要存在這個檔案目錄之下
@@ -81,6 +83,9 @@ public class CouponUpdate extends HttpServlet {
 			}
 			// 取得上傳的檔案
 			Part part = request.getPart("uploadFile");
+			if (part.getHeader("content-disposition").contains("filename=\"\"")) {
+				errorMsgs.put("uploadFile", "沒有傳入熱門活動的照片");
+			}
 			UUIDFileName uuidFileName = new UUIDFileName();
 			String filename = uuidFileName.getUUIDFileName(part);
 			part.write(realPath + "/" + filename);
@@ -89,28 +94,38 @@ public class CouponUpdate extends HttpServlet {
 			// 要傳回數據庫的路徑
 			String dbPath = dbSaveDirectory + "/" + filename;
 //			System.out.println(dbPath);
+			//把新的輸入的優惠券資料裝到優惠券物件裡
+			couponVO.setCopId(copId);
+			couponVO.setCopName(copName);
+			couponVO.setDiscount(discount);
+			couponVO.setIntroduce(introduce);
+			couponVO.setStartdate(startdate);
+			couponVO.setEnddate(enddate);
+			couponVO.setImg(dbPath);
 			//遍歷一下MAP裡面的值
 //			for (Map.Entry<String, String> entry : errorMsgs.entrySet()) {
 //				System.out.println(entry.getKey() + ":" + entry.getValue());
 //			}
-			// 如果錯誤訊息的map不是空值的話，就請求轉發回/coupon/cop_create.jsp
+			// 如果錯誤訊息的map不是空值的話，就請求轉發回/coupon/cop_update.jsp
+			//在request域中放入剛剛封裝的優惠券資料
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher rd = request.getRequestDispatcher("/coupon/cop_update.jsp");
+				request.setAttribute("couponVO", couponVO);
+				RequestDispatcher rd = request.getRequestDispatcher("/back-end/coupon/cop_update.jsp");
 				rd.forward(request, response);
 				return;
 			}
 
-			// 開始新增資料
-			couponService.update(copId, copName, introduce, discount01, startdate, enddate, dbPath);
+			// 開始修改資料
+			couponService.update(copId, copName, introduce, discount, startdate, enddate, dbPath);
 			// 新增完成，請求轉發到coupon首頁
 			RequestDispatcher rd = request.getRequestDispatcher("/coupon/findAll");
 			rd.forward(request, response);
 			// 其他錯誤處理
 		} catch (Exception e) {
+			request.setAttribute("couponVO", couponVO);
 			errorMsgs.put("Exception", e.getMessage());
-			RequestDispatcher rd = request.getRequestDispatcher("/coupon/cop_update.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/back-end/coupon/cop_update.jsp");
 			rd.forward(request, response);
-			e.printStackTrace();
 		}
 		
 	}

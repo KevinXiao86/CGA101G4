@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.taiwan.service.CouponService;
+import com.taiwan.service.coupon.CouponService;
 import com.taiwan.utils.ControllerUtil;
 
 
@@ -45,7 +45,7 @@ public class CouponStatusChange extends HttpServlet {
 			
 		} catch (Exception e) {
 			errorMsgs.put("其他錯誤", e.getMessage());
-			RequestDispatcher rd=request.getRequestDispatcher("/coupon/cop_findAll.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("/back-end/coupon/cop_findAll.jsp");
 			rd.forward(request, response);
 		}
 	}

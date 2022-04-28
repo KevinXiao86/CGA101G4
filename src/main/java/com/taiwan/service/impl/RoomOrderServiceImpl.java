@@ -7,6 +7,7 @@ import com.taiwan.beans.RoomOrderVO;
 import com.taiwan.dao.roomOrder.RoomOrderDAO_interface;
 import com.taiwan.dao.roomOrder.impl.RoomOrderDAO;
 import com.taiwan.service.RoomOrderService;
+import com.taiwan.service.roomItem.impl.RoomItemServiceImpl;
 
 public class RoomOrderServiceImpl implements RoomOrderService{
 	private RoomOrderDAO_interface dao;

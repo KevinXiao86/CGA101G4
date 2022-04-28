@@ -14,4 +14,6 @@ public interface RoomItemDAO_interface {
 	public void insertRoomItem(RoomItemVO roomItemVO);
 
 	public void updateRoomItem(RoomItemVO roomItemVO);
+	
+	public RoomItemVO queryByRoomOrderId(Integer roomOrderId);
 }

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.taiwan.beans.CouponVO;
-import com.taiwan.service.CouponService;
+import com.taiwan.service.coupon.CouponService;
 import com.taiwan.utils.ControllerUtil;
 
 
@@ -33,12 +33,12 @@ public class Coupon2Update extends HttpServlet {
 			//對request域塞資料
 			request.setAttribute("couponVO", couponVO);
 			//請求轉發到/coupon/cop_update.jsp
-			RequestDispatcher rd=request.getRequestDispatcher("/coupon/cop_update.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("/back-end/coupon/cop_update.jsp");
 			rd.forward(request, response);
 			//其他的錯誤處理
 		}catch (Exception e) {
 			errorMsgs.put("無法取得需要的資料", e.getMessage());
-			RequestDispatcher rd=request.getRequestDispatcher("/coupon/cop_findAll.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("/coupon/findAll");
 			rd.forward(request, response);
 		}
 	}
