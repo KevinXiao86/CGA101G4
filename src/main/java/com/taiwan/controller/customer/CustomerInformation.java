@@ -1,4 +1,4 @@
-package com.taiwan.customer.controller;
+package com.taiwan.controller.customer;
 
 import java.io.IOException;
 
@@ -28,11 +28,11 @@ public class CustomerInformation extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("customerInformation");
-		Integer custId=Integer.valueOf(request.getParameter("customer"));
-		CustomerServiceImpl customerServiceImpl=new CustomerServiceImpl();
-		CustomerVO customerVO=customerServiceImpl.getAll(custId);
+		Integer custId = Integer.valueOf(request.getParameter("customer"));
+		CustomerServiceImpl customerServiceImpl = new CustomerServiceImpl();
+		CustomerVO customerVO = customerServiceImpl.getAll(custId);
 		request.setAttribute("customer", customerVO);
-		RequestDispatcher successView = request.getRequestDispatcher("/cust/CustomerInformation.jsp");
+		RequestDispatcher successView = request.getRequestDispatcher("/front-end/cust/CustomerInformation.jsp");
 		successView.forward(request, response);
 	}
 

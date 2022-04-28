@@ -1,4 +1,4 @@
-package com.taiwan.customer.controller;
+package com.taiwan.controller.customer;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

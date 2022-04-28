@@ -16,7 +16,9 @@ public class RepCmpServiceImpl implements RepCmpService {
 
 	@Override
 	public List<RepCmpVO> getRepCmpByCustId(Integer custId) {
-		return dao.getRepCmpByCustId(custId);
+		List<RepCmpVO> list=dao.getRepCmpByCustId(custId);
+		System.out.println("我在service層"+list);
+		return list;
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package com.taiwan.customer.controller;
+package com.taiwan.controller.customer;
 
 import java.io.IOException;
 
@@ -45,9 +45,9 @@ public class UpdateCustomerInformation extends HttpServlet {
 		String param = "?name=" + customerVO.getName() + "&sex=" + customerVO.getSex() + "&tel=" + customerVO.getTel()
 				+ "&email=" + customerVO.getEmail() + "&address=" + address + "&idCard=" + customerVO.getIdCard()
 				+ "&birth=" + customerVO.getBirth() + "&account=" + customerVO.getAccount() + "&password="
-				+ customerVO.getPassword() + "&img=" + img + "&card=" + card + "&custId="
+				+ customerVO.getPassword() + "&imgOrigin=" + img + "&card=" + card + "&custId="
 				+ customerVO.getCustId();
-		String url = "/cust/UpdateCustomerInformation.jsp" + param;
+		String url = "/front-end/cust/UpdateCustomerInformation.jsp" + param;
 		request.setAttribute("customer", customerVO);
 		RequestDispatcher successView = request.getRequestDispatcher(url);
 		successView.forward(request, response);

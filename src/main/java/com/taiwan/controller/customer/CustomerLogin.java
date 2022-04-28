@@ -1,4 +1,4 @@
-package com.taiwan.customer.controller;
+package com.taiwan.controller.customer;
 
 import java.io.IOException;
 
@@ -39,24 +39,24 @@ public class CustomerLogin extends HttpServlet {
 				CustomerVO customerVO = customerService.getLogin(account, password);
 				request.setAttribute("customer", customerVO);
 
-				if ("/cust/CustomerLogin.jsp".equals(customerVO.getUrl())) {
-					RequestDispatcher failureView = request.getRequestDispatcher("/cust/CustomerLogin.jsp");
+				if (!customerVO.isSuccessful()) {
+					RequestDispatcher failureView = request.getRequestDispatcher(customerVO.getUrl());
 					failureView.forward(request, response);
 				} else {
-					RequestDispatcher successView = request.getRequestDispatcher("/cust/CustomerIndex.jsp");
+					RequestDispatcher successView = request.getRequestDispatcher("/front-end/cust/CustomerIndex.jsp");
 					successView.forward(request, response);
 				}
 			}
-			
-			if("forgetPassword".equals(action)) {
+
+			if ("forgetPassword".equals(action)) {
 				System.out.println("foget");
 			}
 		} catch (Exception e) {
 			CustomerVO customerVO = new CustomerVO();
 			customerVO.setMessage("系統錯誤");
-			RequestDispatcher failureView = request.getRequestDispatcher("/cust/CustomerLogin.jsp");
-			failureView.forward(request, response);
 			request.setAttribute("customer", customerVO);
+			RequestDispatcher failureView = request.getRequestDispatcher("/front-end/cust/CustomerLogin.jsp");
+			failureView.forward(request, response);
 		}
 	}
 
