@@ -17,13 +17,14 @@ public class RoomOrderServiceImpl implements RoomOrderService{
 	}
 
 	@Override
-	public RoomOrderVO addRoomOrder(Integer custId,Timestamp checkin,Timestamp checkout ,Integer roomId,Integer amount,Integer price) {
+	public RoomOrderVO addRoomOrder(Integer custId,Timestamp checkin,Timestamp checkout ,Integer roomId,Integer amount,Integer price,Integer cmpId) {
 		RoomOrderVO roomOrderVO=new RoomOrderVO();
 		roomOrderVO.setCustId(custId);
 		roomOrderVO.setRoomOrderCheckinDate(checkin);
 		roomOrderVO.setRoomOrderCheckoutDate(checkout);
 		roomOrderVO.setRoomOrderPrice(price*amount);
 		roomOrderVO.setRoomOrderTotalPrice(price*amount);
+		roomOrderVO.setCmpId(cmpId);
 		int roomOrderId=dao.insert(roomOrderVO);
 		
 		/***************新增明細****************************/

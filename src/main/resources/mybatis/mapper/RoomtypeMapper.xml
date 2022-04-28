@@ -20,14 +20,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			column="roomtype_id"></collection>
 	</resultMap>
 	
-	<!-- 根據廠商編號獲取所有房型 -->
-	<!-- public List<Roomtype> queryAllRoomtypes(Integer cmpId); -->
-	<select id="queryAllRoomtypes" resultMap="roomtype">
-		SELECT 	`roomtype_id`, `cmp_id`, `roomtype_name`, `roomtype_amount`, `roomtype_people`, 
-			`total_score`, `total_people`, `roomtype_price`, `roomtype_status`, `roomtype_area`,
-			`roomtype_introduce`
-		FROM  `Taiwan`.`ROOMTYPE` 
-		WHERE `cmp_id` = #{cpmId};
+	<!-- 根據廠商編號查詢所有房型 -->
+	<!-- public List<Roomtype> queryRoomtypesByCmpId(Integer cmpId); -->
+	<select id="queryRoomtypesByCmpId" resultType="com.taiwan.beans.Roomtype">
+		SELECT 	`roomtype_id`, `cmp_id`, `roomtype_name`, `roomtype_amount`, 
+			`roomtype_people`, `total_score`, `total_people`, `roomtype_price`, 
+			`roomtype_status`, `roomtype_area`
+	 	FROM `Taiwan`.`ROOMTYPE` 
+	 	WHERE `cmp_id` = #{cmpId};
 	</select>
 	
 	
