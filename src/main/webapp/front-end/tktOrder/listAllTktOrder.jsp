@@ -7,8 +7,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%
-	TktOrderService tktOrerSvc = new TktOrderService();
-	List<TktOrder> list = tktOrerSvc.getAll();
+	List<TktOrder> list = (List<TktOrder>)request.getAttribute("list");
 	pageContext.setAttribute("list",list);
 %>
 
@@ -80,22 +79,19 @@
 		<th>總金額</th>
 		<th>會員優惠券編號</th>
 	</tr>
-<%-- 	<%@ include file=page1.file" %>  --%>
-<%-- begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" --%>
 	<c:forEach var="tktOrder" items="${list}" >
 		
 		<tr>
 			<td>${tktOrder.tktOrderId}</td>
 			<td>${tktOrder.custId}</td>
 			<td>${tktOrder.originalPrice}</td>
-			<td><fmt:formatDate value="${tktOrder.orderdate}" pattern="yyyy-MM-dd'T'HH:mm"/></td>
+			<td><fmt:formatDate value="${tktOrder.orderdate}" pattern="yyyy-MM-dd HH:mm"/></td>
 			<td>${tktOrder.ttlPrice}</td>
 			<td>${tktOrder.custCopId}</td>
 <%-- 		<td>${empVO.deptno}-[${empVO.deptVO.dname}]</td> --%>
 		</tr>
 	</c:forEach>
 </table>
-<%-- <%@ include file="page2.file" %> --%>
 
 </body>
 </html>

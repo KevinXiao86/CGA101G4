@@ -42,6 +42,7 @@ public class CustomerLogin extends HttpServlet {
 				if (!customerVO.isSuccessful()) {
 					RequestDispatcher failureView = request.getRequestDispatcher(customerVO.getUrl());
 					failureView.forward(request, response);
+					
 				} else {
 					RequestDispatcher successView = request.getRequestDispatcher("/front-end/cust/CustomerIndex.jsp");
 					successView.forward(request, response);

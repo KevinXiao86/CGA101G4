@@ -330,7 +330,7 @@ public class TktOrderJDBCDao implements TktOrderDao {
 
 	@Override
 	public TktOrder queryTktOrderByTktOrderId(Integer tktOrderId) {
-		TktOrder tktOrder = new TktOrder();
+		TktOrder tktOrder = null;
 		String sql = "select tkt_order_id,cust_id,original_price,orderdate,"
 				+ "ttl_price,cust_cop_id,qrcode from TKT_ORDER where tkt_order_id=?;";
 		try (Connection conn = DbUtil.getConnection();
@@ -377,26 +377,27 @@ public class TktOrderJDBCDao implements TktOrderDao {
 	public static void main(String[] args) {
 		
 		TktOrderJDBCDao dao = new TktOrderJDBCDao();
-		
-		TktOrder tktOrder = new TktOrder();
-		tktOrder.setCustId(10027);
-		tktOrder.setOriginalPrice(1598);
-		tktOrder.setTtlPrice(1498);
-		tktOrder.setCustCopId(4);
-		tktOrder.setQrcode("wrewerewrewr");
-		
-		List<TktItem> list = new ArrayList<TktItem>();
-		TktItem tktItem1 = new TktItem();
-		tktItem1.setTktId(11);
-		tktItem1.setAmount(1);
-		
-		TktItem tktItem2 = new TktItem();
-		tktItem2.setTktId(12);
-		tktItem2.setAmount(1);
-		
-		list.add(tktItem1);
-		list.add(tktItem2);
-		
-		dao.insertTktOrderWithCoupon(tktOrder, list);
+//		
+//		TktOrder tktOrder = new TktOrder();
+//		tktOrder.setCustId(10027);
+//		tktOrder.setOriginalPrice(1598);
+//		tktOrder.setTtlPrice(1498);
+//		tktOrder.setCustCopId(4);
+//		tktOrder.setQrcode("wrewerewrewr");
+//		
+//		List<TktItem> list = new ArrayList<TktItem>();
+//		TktItem tktItem1 = new TktItem();
+//		tktItem1.setTktId(11);
+//		tktItem1.setAmount(1);
+//		
+//		TktItem tktItem2 = new TktItem();
+//		tktItem2.setTktId(12);
+//		tktItem2.setAmount(1);
+//		
+//		list.add(tktItem1);
+//		list.add(tktItem2);
+//		
+//		dao.insertTktOrderWithCoupon(tktOrder, list);
+		System.out.println(dao.queryTktOrderByTktOrderId(1));
 	}
 }

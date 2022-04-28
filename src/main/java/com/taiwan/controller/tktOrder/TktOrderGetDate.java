@@ -52,13 +52,6 @@ public class TktOrderGetDate extends HttpServlet {
 			//查詢訂單有幾筆  bug
 //			int orderListSize = orderList.size();
 
-			//更改orderdate的顯示方式
-			for(TktOrder tktOrder : orderList) {
-				String date = String.valueOf(tktOrder.getOrderdate());
-				Timestamp orderdate = Timestamp.valueOf(date.replace("T", " ") + ":00");
-				tktOrder.setOrderdate(orderdate);
-				System.out.println(orderdate);
-			}
 			
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/tktOrder/tktOrderIndex.jsp");

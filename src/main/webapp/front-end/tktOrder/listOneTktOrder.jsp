@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="com.taiwan.beans.CustomerVO"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
@@ -65,7 +66,7 @@
 		<td>${tktOrder.custId}</td>
 		<td>${customerVO.name}</td>
 		<td>${tktOrder.originalPrice}</td>
-		<td>${tktOrder.orderdate}</td>
+		<td><fmt:formatDate value="${tktOrder.orderdate}" pattern="yyyy-MM-dd HH:mm"/></td>
 		<td>${tktOrder.ttlPrice}</td>
 		<td>${tktOrder.custCopId}</td>
 		<td>

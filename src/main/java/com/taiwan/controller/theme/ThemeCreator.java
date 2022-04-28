@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import com.taiwan.beans.Theme;
 import com.taiwan.service.theme.ThemeService;
 import com.taiwan.utils.ControllerUtil;
 import com.taiwan.utils.UUIDFileName;
