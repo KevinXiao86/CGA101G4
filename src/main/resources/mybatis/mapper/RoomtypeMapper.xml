@@ -3,28 +3,91 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mybatis.mapper.RoomtypeMapper">
-
-	<!-- 根據廠商編號查詢所有房型 -->
-	<!-- public List<Roomtype> queryRoomtypesByCmpId(Integer cmpId); -->
-	<select id="queryRoomtypesByCmpId" resultType="com.taiwan.beans.Roomtype">
-		SELECT 	`roomtype_id`, `cmp_id`, `roomtype_name`, `roomtype_amount`, 
-			`roomtype__people`, `total_score`, `total_people`, `roomtype_price`, 
-			`roomtype_status`, `roomtype_area`
-	 	FROM `Taiwan`.`ROOMTYPE` 
-	 	WHERE `cmp_id` = #{cmpId};
+	<resultMap type="com.taiwan.beans.Roomtype" id="roomtype">
+		<id column="roomtype_id" property="roomtypeId"/>
+		<result column="cmp_id" property="cmpId"/>
+		<result column="roomtype_name" property="roomtypeName"/>
+		<result column="roomtype_amount" property="roomtypeAmount"/>
+		<result column="roomtype_people" property="roomtypePeople"/>
+		<result column="total_score" property="totalScore"/>
+		<result column="total_people" property="totalPeople"/>
+		<result column="roomtype_price" property="roomtypePrice"/>
+		<result column="roomtype_status" property="roomtypeStatus"/>
+		<result column="roomtype_area" property="roomtypeArea"/>
+		<result column="roomtype_introduce" property="roomtypeIntroduce"/>
+		
+		<collection property="roomImgs" select="mybatis.mapper.RoomImgMapper.queryRoomImgsByRoomtypeId"
+			column="roomtype_id"></collection>
+	</resultMap>
+	
+	<!-- 根據廠商編號獲取所有房型 -->
+	<!-- public List<Roomtype> queryAllRoomtypes(Integer cmpId); -->
+	<select id="queryAllRoomtypes" resultMap="roomtype">
+		SELECT 	`roomtype_id`, `cmp_id`, `roomtype_name`, `roomtype_amount`, `roomtype_people`, 
+			`total_score`, `total_people`, `roomtype_price`, `roomtype_status`, `roomtype_area`,
+			`roomtype_introduce`
+		FROM  `Taiwan`.`ROOMTYPE` 
+		WHERE `cmp_id` = #{cpmId};
 	</select>
-
-
-	<!-- 根據廠商編號和房型編號修改狀態 -->
-	<!-- public int updateRoomtypeStatusByCmpIdAndRoomtypeId(@Param("cmpId")Integer cmpId, @Param("roomtypeId")Integer roomtypeId,
-		 @Param("roomtypeStatus")String roomtypeStatus);	 -->
-	<update id="updateRoomtypeStatusByCmpIdAndRoomtypeId">
+	
+	
+	
+	<!-- 根據房型編號和廠商編號修改狀態 -->
+	<!-- public int updateStatusByRoomtypeIdAndCmpId(@Param("cmpId")Integer cmpId, 
+			@Param("roomtypeId")Integer roomtypeId, @Param("status")String status); -->
+	<update id="updateStatusByRoomtypeIdAndCmpId">
 		UPDATE `Taiwan`.`ROOMTYPE` 
-		SET	`roomtype_status` = #{roomtypeStatus} 
+		SET `roomtype_status` = #{status}
 		WHERE
 			`roomtype_id` = #{roomtypeId} 
-		AND 
+		AND
 			`cmp_id` = #{cmpId};
 	</update>
+	
+	
+	<!-- 根據房型編號和廠商編號修改狀態 -->
+	<!-- public int updatePriceByCmpIdAndRoomtypeId(@Param("cmpId")Integer cmpId,
+		  @Param("roomtypeId")Integer roomtypeId, @Param("price")Integer price); -->
+	<update id="updatePriceByCmpIdAndRoomtypeId">
+		UPDATE `Taiwan`.`ROOMTYPE` 
+		SET `roomtype_price` = #{price}
+		WHERE
+			`roomtype_id` = #{roomtypeId} 
+		AND
+			`cmp_id` = #{cmpId};
+	</update>	  
+	
+	
+	<!-- 根據房型編號和廠商編號查詢房型 -->
+	<!-- public Roomtype getRoomtypeByCmpIdAndRoomtypeId(@Param("cmpId")Integer cmpId, @Param("roomtypeId")Integer roomtypeId); -->
+	<select id="getRoomtypeByCmpIdAndRoomtypeId" resultMap="roomtype">
+		SELECT 	`roomtype_id`, `cmp_id`, `roomtype_name`, `roomtype_amount`, `roomtype_people`, 
+			`total_score`, `total_people`, `roomtype_price`, `roomtype_status`, `roomtype_area`,
+			`roomtype_introduce`
+		FROM  `Taiwan`.`ROOMTYPE` 
+		WHERE `cmp_id` = #{cmpId}
+		AND `roomtype_id` = #{roomtypeId};
+	</select>
+	
+	
+	<!-- 新增房型 -->
+	<!-- public int insertRoomtype(Roomtype roomtype); -->
+	<insert id="insertRoomtype">
+		INSERT INTO `Taiwan`.`ROOMTYPE` 
+			(`roomtype_id`, `cmp_id`, `roomtype_name`, `roomtype_amount`, `roomtype_people`, `total_score`
+			, `total_people`, `roomtype_price`, `roomtype_status`, `roomtype_area`, `roomtype_introduce`)
+		VALUES
+			(#{roomtypeId}, #{cmpId}, #{roomtypeName}, #{roomtypeAmount}, #{roomtypePeople}, #{totalScore}, 
+			#{totalPeople}, #{roomtypePrice}, #{roomtypeStatus}, #{roomtypeArea}, #{roomtypeIntroduce});
+	</insert>
+	
+	
+	<!-- 查找目前最大的房型編號 -->
+	<!-- public int queryRoomtypeId(); -->
+	<select id="queryRoomtypeId" resultType="_int">
+		SELECT `roomtype_id` FROM `ROOMTYPE`
+		ORDER BY `roomtype_id` DESC
+		LIMIT 0, 1;
+	</select>
 	
 </mapper>

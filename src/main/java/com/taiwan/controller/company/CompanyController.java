@@ -2,21 +2,14 @@ package com.taiwan.controller.company;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,8 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.taiwan.beans.Company;
 import com.taiwan.service.company.CompanyService;
-import com.taiwan.service.company.impl.CompanyServiceImpl;
-import com.taiwan.utils.CompanyUtils;
 
 @Controller
 @RequestMapping("/company")
@@ -43,7 +34,7 @@ public class CompanyController {
 		String cmpPassword = request.getParameter("cmpPassword");
 
 		// 2. 進行數據校驗
-		Map<String, String> errorMap = CompanyServiceImpl.check(request.getParameterMap());
+		Map<String, String> errorMap = CompanyService.check(request.getParameterMap());
 
 		// 3. 判斷 errorMap 的長度, 如果大於 0 就說明有錯誤訊息, 此時就須要回到頁面回顯錯誤訊息
 		if (errorMap.size() > 0) {
@@ -86,7 +77,7 @@ public class CompanyController {
 	public String regist(Company company, @RequestParam("uploadFile") MultipartFile uploadFile,
 			HttpServletRequest request, Model model, HttpSession session) throws IllegalStateException, IOException {
 		// 1. 進行數據校驗
-		Map<String, String> errorMap = CompanyServiceImpl.check(request.getParameterMap());
+		Map<String, String> errorMap = CompanyService.check(request.getParameterMap());
 
 		// 2. 判斷 errorMap 的長度, 如果大於 0 就說明有錯誤訊息, 此時就須要回到頁面回顯錯誤訊息
 		if (errorMap.size() > 0) {
@@ -109,7 +100,7 @@ public class CompanyController {
 		}
 
 		// 獲取圖片路徑
-		String savePath = CompanyServiceImpl.getPath(uploadFile, session, company);
+		String savePath = CompanyService.getPath(uploadFile, session, company);
 		company.setSerialNo(savePath);
 
 		// 調用 service 層的業務方法
@@ -124,6 +115,15 @@ public class CompanyController {
 			model.addAttribute("registCompany", registCompany);
 		}
 
+		// 設定收件人
+		String email = company.getCmpMail();
+		// 設定主旨
+		String subject = "註冊成功通知信件";
+		// 設定內容
+		String messageText = "Hello ~!" + company.getCmpName() + "感謝您成為我們的廠商\n" + "我們將盡快完成審核, 請靜待審核結果";
+		// 寄信通知廠商
+		companyService.sendEmail(email, subject, messageText);
+		
 		// 進行頁面跳轉
 		return registCompany.getUrl();
 	}
@@ -133,18 +133,18 @@ public class CompanyController {
 	@RequestMapping("/getCompany")
 	public String getCompany(@RequestParam(value = "cmpId") String cmpId, Model model) {
 		// 1. 數據校驗
-		int id = CompanyServiceImpl.parseInt(cmpId, 0);
+		int id = CompanyService.parseInt(cmpId, 0);
 		System.out.println("getCompany:" + id);
 		// 2. 調用業務方法
 		Company company = companyService.getCompanyByCmpId(id);
-		
-		// 3. 判斷 company 
+
+		// 3. 判斷 company
 		if (company == null) {
 			company = new Company();
 			company.setMessage("查無此廠商資訊");
 			company.setUrl("/front-end/company/cmp_index.jsp");
-		}else {
-			//說明有找到廠商
+		} else {
+			// 說明有找到廠商
 			company.setSuccessful(true);
 			company.setUrl("/front-end/company/cmp_edit.jsp");
 		}
@@ -163,7 +163,7 @@ public class CompanyController {
 		// 做這個判斷是為了防止空指針異常
 		if (cmpId != null) {
 			// 1. 數據校驗
-			id = CompanyServiceImpl.parseInt(cmpId, 0);
+			id = CompanyService.parseInt(cmpId, 0);
 			System.out.println("@ModelAttribute 進行數據校驗" + id);
 		}
 
@@ -182,7 +182,7 @@ public class CompanyController {
 	public String editCompany(@RequestParam(value = "cmpId") String cmpId,
 			@ModelAttribute("modelAttributeCompany") Company company, Model model, HttpServletRequest request) {
 		// 1. 進行數據校驗
-		Map<String, String> errorMap = CompanyServiceImpl.check(request.getParameterMap());
+		Map<String, String> errorMap = CompanyService.check(request.getParameterMap());
 
 		// 2. 判斷 errorMap 的長度, 如果大於 0 就說明有錯誤訊息, 此時就須要回到頁面回顯錯誤訊息
 		if (errorMap.size() > 0) {
@@ -201,7 +201,7 @@ public class CompanyController {
 		Company editCompany = companyService.updateCompanyById(company);
 		// 用於回顯訊息
 		model.addAttribute("editCompany", company);
-		//4. 進行頁面跳轉
+		// 4. 進行頁面跳轉
 		return editCompany.getUrl();
 	}
 }

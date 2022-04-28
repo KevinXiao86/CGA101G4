@@ -1,5 +1,7 @@
 package com.taiwan.beans;
 
+import java.util.List;
+
 public class Roomtype extends Core{
 	private static final long serialVersionUID = 1L;
 	private Integer roomtypeId;
@@ -12,12 +14,14 @@ public class Roomtype extends Core{
 	private Integer roomtypePrice;
 	private String roomtypeStatus;
 	private Integer roomtypeArea;
+	private String roomtypeIntroduce;
+	private List<RoomImg> roomImgs;
 	public Roomtype() {
 		super();
 	}
 	public Roomtype(Integer roomtypeId, Integer cmpId, String roomtypeName, Integer roomtypeAmount,
 			Integer roomtypePeople, Integer totalScore, Integer totalPeople, Integer roomtypePrice,
-			String roomtypeStatus, Integer roomtypeArea) {
+			String roomtypeStatus, Integer roomtypeArea, String roomtypeIntroduce) {
 		super();
 		this.roomtypeId = roomtypeId;
 		this.cmpId = cmpId;
@@ -29,8 +33,25 @@ public class Roomtype extends Core{
 		this.roomtypePrice = roomtypePrice;
 		this.roomtypeStatus = roomtypeStatus;
 		this.roomtypeArea = roomtypeArea;
+		this.roomtypeIntroduce = roomtypeIntroduce;
 	}
-
+	public Roomtype(Integer roomtypeId, Integer cmpId, String roomtypeName, Integer roomtypeAmount,
+			Integer roomtypePeople, Integer totalScore, Integer totalPeople, Integer roomtypePrice,
+			String roomtypeStatus, Integer roomtypeArea, String roomtypeIntroduce, List<RoomImg> roomImgs) {
+		super();
+		this.roomtypeId = roomtypeId;
+		this.cmpId = cmpId;
+		this.roomtypeName = roomtypeName;
+		this.roomtypeAmount = roomtypeAmount;
+		this.roomtypePeople = roomtypePeople;
+		this.totalScore = totalScore;
+		this.totalPeople = totalPeople;
+		this.roomtypePrice = roomtypePrice;
+		this.roomtypeStatus = roomtypeStatus;
+		this.roomtypeArea = roomtypeArea;
+		this.roomtypeIntroduce = roomtypeIntroduce;
+		this.roomImgs = roomImgs;
+	}
 	public Integer getRoomtypeId() {
 		return roomtypeId;
 	}
@@ -91,11 +112,27 @@ public class Roomtype extends Core{
 	public void setRoomtypeArea(Integer roomtypeArea) {
 		this.roomtypeArea = roomtypeArea;
 	}
+	public String getRoomtypeIntroduce() {
+		return roomtypeIntroduce;
+	}
+	public void setRoomtypeIntroduce(String roomtypeIntroduce) {
+		this.roomtypeIntroduce = roomtypeIntroduce;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	public List<RoomImg> getRoomImgs() {
+		return roomImgs;
+	}
+	public void setRoomImgs(List<RoomImg> roomImgs) {
+		this.roomImgs = roomImgs;
+	}
 	@Override
 	public String toString() {
 		return "Roomtype [roomtypeId=" + roomtypeId + ", cmpId=" + cmpId + ", roomtypeName=" + roomtypeName
 				+ ", roomtypeAmount=" + roomtypeAmount + ", roomtypePeople=" + roomtypePeople + ", totalScore="
 				+ totalScore + ", totalPeople=" + totalPeople + ", roomtypePrice=" + roomtypePrice + ", roomtypeStatus="
-				+ roomtypeStatus + ", roomtypeArea=" + roomtypeArea + "]";
+				+ roomtypeStatus + ", roomtypeArea=" + roomtypeArea + ", roomtypeIntroduce=" + roomtypeIntroduce;
+//				+ ", roomImgs=" + roomImgs + "]";
 	}
 }

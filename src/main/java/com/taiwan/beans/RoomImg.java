@@ -13,6 +13,7 @@ public class RoomImg {
 		this.roomtypeId = roomtypeId;
 		this.roomImg = roomImg;
 	}
+	
 	public Integer getRoomImgId() {
 		return roomImgId;
 	}

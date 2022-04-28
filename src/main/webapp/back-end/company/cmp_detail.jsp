@@ -64,7 +64,9 @@
 		<c:when test="${requestScope.detailCompany.auditStatus == '審核通過'}">審核完成</c:when>
 
 		<%--有時間在做這個功能 --%>
-		<c:when test="${requestScope.detailCompany.auditStatus == '審核未通過'}"><a href="#">告知補件</a></c:when>
+		<c:when test="${requestScope.detailCompany.auditStatus == '審核未通過'}">
+			<a href="manager/company/sendEmail?cmpId=${requestScope.detailCompany.cmpId}">告知補件</a>
+		</c:when>
 	</c:choose>
 </body>
 </html>
