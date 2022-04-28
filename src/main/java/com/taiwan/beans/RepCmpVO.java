@@ -111,57 +111,56 @@ public class RepCmpVO {
 				+ ", reason=" + reason + ", repCmpDate=" + repCmpDate + ", status=" + status + ", result=" + result
 				+ "]";
 	}
-//	public String getRoomtypeName() {
-//		private static DataSource ds = null;
-//		static {
-//			try {
-//				Context ctx = new InitialContext();
-//				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
-//			} catch (NamingException e) {
-//				e.printStackTrace();
-//			}
-//
-//		}
-//		Connection conn = null;
-//		PreparedStatement ps = null;
-//		ResultSet rs = null;
-//		try {
-//			conn = ds.getConnection();
-//			ps = conn.prepareStatement("SELECT roomtype_name FROM ROOMTYPE WHERE roomtype_id=?;");
-//			ps.setInt(1, roomId);
-//			System.out.println("我進來JNDI囉!只是還沒到while裡面");
-//			rs = ps.executeQuery();
-//			if(rs.next()) {
-//				
-//				System.out.println("我在JNDI層while迴圈裡:" + repCmpVO);
-//			}
-//		} catch (SQLException se) {
-//			throw new RuntimeException("A database error occured. " + se.getMessage());
-//		} finally {
-//			if (rs != null) {
-//				try {
-//					rs.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace(System.err);
-//				}
-//			}
-//			if (ps != null) {
-//				try {
-//					ps.close();
-//				} catch (SQLException se) {
-//					se.printStackTrace(System.err);
-//				}
-//			}
-//			if (conn != null) {
-//				try {
-//					conn.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace(System.err);
-//				}
-//			}
-//
-//		}
-//		return list;
-//
-//	}
+
+	public String getRoomtypeName() {
+		DataSource ds = null;
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String roomtypeName = null;
+		try {
+			conn = ds.getConnection();
+			ps = conn.prepareStatement("SELECT roomtype_name FROM ROOMTYPE WHERE roomtype_id=?;");
+			ps.setInt(1, roomId);
+			System.out.println("我進來JNDI囉!只是還沒到if裡面");
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				roomtypeName = rs.getString("roomtype_name");
+				System.out.println("我在JNDI層if裡:" + roomtypeName);
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+		return roomtypeName;
+	}
 }
