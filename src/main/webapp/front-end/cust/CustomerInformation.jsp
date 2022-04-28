@@ -5,12 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<%@ include file="/common/head.jsp"%>
 </head>
 <body>
 	<div
 		style="display: inline-block; border: 2px solid blue; vertical-align: middle">
-		<form method="post">
-			<input type="submit" value="會員基本資料">
+		<form method="post" action="cust/CustomerInformation">
+			<input type="submit" value="會員基本資料"> <input type="hidden"
+			name="customer" value="${customer.custId}">
 		</form>
 		<form method="post">
 			<input type="submit" value="關注廠商">
@@ -18,9 +20,11 @@
 		<form method="post">
 			<input type="submit" value="管理優惠劵">
 		</form>
-		<form method="post">
+		
+		<form method="post" action="cust/showRepCmp">
 			<input type="submit" value="瀏覽檢舉">
-		</form>
+			<input type="hidden" name="customer" value="${customer.custId}">
+	    </form>
 		<form method="post">
 			<input type="submit" value="常用旅伴">
 		</form>
@@ -29,7 +33,7 @@
 		</form>
 	</div>
 	<div style="display: inline-block; vertical-align: middle">
-		<form method="post" action="UpdateCustomerInformation">
+		<form method="post" action="cust/UpdateCustomerInformation">
 			<input type="submit" value="修改基本資料"> <input type="hidden"
 				name="customer" value="${customer.custId}">
 		</form>
@@ -72,7 +76,7 @@
 			</tr>
 			<tr>
 				<th>圖片</th>
-				<td>${customer.img}</td>
+				<td><img src="${customer.img}"></td>
 			</tr>
 			<tr>
 				<th>信用卡卡號</th>

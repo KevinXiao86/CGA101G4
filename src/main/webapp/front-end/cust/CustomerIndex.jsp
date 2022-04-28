@@ -10,22 +10,24 @@ request.setAttribute("customer", customerVO);
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<%@ include file="/common/head.jsp"%>
 </head>
 <body>
-	<form method="post" action="CustomerInformation">
-
-		<input type="submit" value="會員基本資料"> <input type="hidden"
-			name="customer" value="${customer.custId}">
+	<form method="post" action="cust/CustomerInformation">
+		<input type="submit" value="會員基本資料"> 
+		<input type="hidden" name="customer" value="${customer.custId}">
 	</form>
 
-	<form method="post">
+	<form method="post" action="">	
 		<input type="submit" value="關注廠商">
+		<input type="hidden" name="customer" value="${customer.custId}">
 	</form>
 	<form method="post">
 		<input type="submit" value="管理優惠劵">
 	</form>
-	<form method="post">
+	<form method="post" action="cust/showRepCmp">
 		<input type="submit" value="瀏覽檢舉">
+		<input type="hidden" name="customer" value="${customer.custId}">
 	</form>
 	<form method="post">
 		<input type="submit" value="常用旅伴">
