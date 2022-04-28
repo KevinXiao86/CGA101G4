@@ -46,7 +46,7 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>訂單資料</h3>
-		 <h4><a href="tktOrderIndex.jsp">回首頁</a></h4>
+		 <h4><a href="front-end/tktOrder/tktOrderIndex.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -66,7 +66,7 @@
 			<td>${tktOrder.tktOrderId}</td>
 			<td>${tktOrder.custId}</td>
 			<td>${tktOrder.originalPrice}</td>
-			<td><fmt:formatDate value="${tktOrder.orderdate}" pattern="yyyy-MM-dd'T'HH:mm"/></td>
+			<td><fmt:formatDate value="${tktOrder.orderdate}" pattern="yyyy-MM-dd HH:mm"/></td>
 			<td>${tktOrder.ttlPrice}</td>
 			<td>${tktOrder.custCopId}</td>
 		</tr>

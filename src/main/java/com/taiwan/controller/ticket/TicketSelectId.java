@@ -45,7 +45,7 @@ public class TicketSelectId extends HttpServlet {
 
 			/********************* 1.接收請求參數 - 輸入格式的錯誤處理 ********************/
 			String str = req.getParameter("tktId");
-			if (str == null | str.trim().length() == 0) {
+			if (str == null || str.trim().length() == 0) {
 				errorMsgs.put("tktId", "請輸入票券編號");
 			}
 			if (!errorMsgs.isEmpty()) {

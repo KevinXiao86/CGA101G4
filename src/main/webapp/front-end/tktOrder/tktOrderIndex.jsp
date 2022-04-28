@@ -53,7 +53,7 @@
 <!--  開發中 會員id-->
   <li>
     <FORM METHOD="post" ACTION="tktOrder/getCustId" >
-        <b>輸入會員編號:</b><font color=red>${errorMsgs.tktOrderId}</font><br>
+        <b>輸入會員編號:</b><font color=red>${errorMsgs.custId}</font><br>
         <input type="text" name="custId" value="${param.custId}">
         <input type="hidden" name="action" value="get_order_cust">
         <input type="submit" value="送出">
@@ -96,8 +96,8 @@
 //             $('#startdate').attr('min', today);
             $('#startdate').blur(e => {
                 $('#enddate').attr({
-                    'min': $('#startdate').val()
-//                     'max': lastday   //可設可不設(區間)
+                    'min': $('#startdate').val(),
+                    'max': today
                 })
             })	
         });
