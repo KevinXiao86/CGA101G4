@@ -1,0 +1,129 @@
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600,300' rel='stylesheet' type='text/css'");
+
+a {
+  text-decoration: none;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex_space {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  border: none;
+  background: none;
+  outline: none;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.primary-btn {
+  padding: 15px 40px;
+  background: #5786c4;
+  border: 2px solid white;
+  font-weight: bold;
+  color: white;
+}
+
+.container {
+  max-width: 85%;
+  margin: auto;
+}
+
+/* home */
+/* book */
+input {
+  outline: none;
+  border: none;
+  width: 100%;
+}
+
+.book input:nth-child(1) {
+  background: #5786c4;
+  color: #fff;
+}
+
+/* book */
+/* about */
+.left .right {
+  width: 50%;
+  padding: 30px;
+}
+
+.top {
+  margin-top: 80px;
+}
+
+.mtop {
+  margin-top: 20px;
+}
+
+/* counter */
+/* rooms */
+.rooms {
+  position: relative;
+}
+
+.rooms .text {
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  border-top: none;
+  padding: 30px;
+  margin-top: -30px;
+}
+
+.rooms i {
+  font-size: 12px;
+  color: #fbb234;
+  margin: 15px 0;
+  margin-right: 5px;
+}
+
+.rooms p {
+  margin: 5px 0;
+  opacity: 0.7;
+}
+
+.content h3 {
+  font-size: 30px;
+  line-height: 20px;
+  margin-left: 20px;
+  font-weight: 500;
+  color: #e5e769;
+}
+
+.rooms h3 span {
+  font-size: 15px;
+  font-weight: 400;
+  color: #000;
+}
+
+.owl-nav .owl-prev,
+.owl-nav .owl-next {
+  position: absolute;
+  top: -20%;
+  height: 50px;
+  width: 50px;
+  background: #5786c4 !important;
+  color: #fff;
+}
+
+.owl-nav .owl-prev i,
+.owl-nav .owl-next i {
+  color: #fff;
+}
+
+.owl-nav .owl-prev {
+  left: 89%;
+}
+
+.owl-nav .owl-next {
+  right: 0;
+}
+
+.image img{
+  height:200px;
+}

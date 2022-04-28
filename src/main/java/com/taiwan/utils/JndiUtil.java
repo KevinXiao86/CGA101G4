@@ -9,12 +9,13 @@ import javax.naming.Context;
 import javax.sql.DataSource;
 
 public class JndiUtil {
-	private static Connection conn = null;
+//	private static Connection conn = null;
 	private static Context ctx = null;
 	private static DataSource ds = null;
 
 	public static Connection getConnection() throws Exception {
-		if (conn == null) {
+		Connection conn=null;
+//		if (conn == null) {
 			try {
 				ctx = new javax.naming.InitialContext();
 				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
@@ -22,7 +23,7 @@ public class JndiUtil {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}
+//		}
 
 		return conn;
 	}
