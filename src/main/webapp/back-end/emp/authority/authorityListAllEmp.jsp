@@ -98,9 +98,13 @@ th, td {
 
 			<tr>
 				<td>${authorityVO.empId}</td>
+				<td>${authorityVO.empId}</td>
+				<td>${authorityVO.funcId}</td>
+				<td>${authorityVO.funcId}</td>
+				<td>${authorityVO.funcId}</td>
+				<td>${authorityVO.funcId}</td>
 				<td>${authorityVO.funcId}</td>
 				
-
 <!-- 				<td> -->
 <!-- 					<FORM METHOD="post" -->
 <%-- 						ACTION="<%=request.getContextPath()%>/EmployeeServlet" --%>
@@ -118,7 +122,7 @@ th, td {
 <%-- 							name="empId" value="${employeeVO.empId}"> <input --%>
 <!-- 							type="hidden" name="action" value="delete"> -->
 <!-- 					</FORM> -->
-<!-- 				</td> -->
+				</td>
 			</tr>
 		</c:forEach>
 	</table>

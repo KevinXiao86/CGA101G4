@@ -98,13 +98,6 @@ th, td {
 					value="${param.empPassword}" /></td>
 				<td>${errorMsgs.empPassword}</td>
 			</tr>
-			<!-- 						<tr> -->
-			<!-- 							<td>狀態:</td> -->
-			<!-- 							<td><input type="TEXT" name="status" size="1" -->
-			<%-- 								value="${param.empStatus}" /></td> --%>
-			<%-- 							<td>${errorMsgs.empStatus}</td> --%>
-			<!-- 						</tr> -->
-
 			<td>啟用狀態:<font color=red><b>*</b></font></td>
 			<td><select size="1" name="empStatus">
 					<option value="啟用" ${(param.empStatus=="啟用")? 'selected':'' } >啟用</option>

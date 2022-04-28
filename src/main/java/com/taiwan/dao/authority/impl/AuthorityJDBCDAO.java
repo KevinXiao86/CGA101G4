@@ -22,7 +22,7 @@ public class AuthorityJDBCDAO implements AuthorityDAO_interface {
 
 	private static final String INSERT_STMT = "INSERT INTO AUTHORITY (EMP_ID, FUNC_ID) VALUES ( ?,?)";
 	private static final String GET_ALL_FUNC = "SELECT FUNC_ID,EMP_ID FROM AUTHORITY order by FUNC_ID";
-	private static final String GET_ALL_ID = "SELECT FUNC_ID,EMP_ID FROM AUTHORITY order by EMP_ID";
+	private static final String GET_ALL_ID = "SELECT EMP_ID,FUNC_ID FROM AUTHORITY order by EMP_ID";
 	private static final String GET_ONE_FUNC = "SELECT FUNC_ID, EMP_ID FROM AUTHORITY where FUNC_ID = ?";
 	private static final String GET_ONE_ID = "SELECT FUNC_ID, EMP_ID FROM AUTHORITY where EMP_ID = ?";
 	private static final String UPDATE = "UPDATE AUTHORITY set FUNC_ID=? where FUNC_ID = ? and EMP_ID = ?";
