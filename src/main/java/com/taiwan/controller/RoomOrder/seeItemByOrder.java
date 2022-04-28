@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.taiwan.beans.RoomItemVO;
-import com.taiwan.service.impl.RoomItemServiceImpl;
+import com.taiwan.service.roomItem.impl.RoomItemServiceImpl;
 
 /**
  * Servlet implementation class seeItemByOrder

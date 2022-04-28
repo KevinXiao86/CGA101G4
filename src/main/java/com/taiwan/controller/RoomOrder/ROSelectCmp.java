@@ -85,7 +85,7 @@ public class ROSelectCmp extends HttpServlet {
 			RoomtypeService roomTypeSvc = ControllerUtil.getBean(RoomtypeService.class);
 			System.out.println("訪問成功85");
 
-			List<Roomtype> list=roomTypeSvc.getAllRoomtypesByCmpId(cmpId);
+			List<Roomtype> list=roomTypeSvc.getAllRoomtypes(cmpId);
 			System.out.println("訪問成功88");
 
 			if (list == null) {
