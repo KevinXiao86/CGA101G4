@@ -83,13 +83,13 @@ public class CustomerServiceImpl implements CustomerService {
 			customerVO = new CustomerVO();
 			customerVO.setMessage("帳號密碼錯誤");
 			customerVO.setAccount(account);
-			customerVO.setUrl("/cust/CustomerLogin.jsp");
+			customerVO.setUrl("/front-end/cust/CustomerLogin.jsp");
 
 			return customerVO;
 		} else if ("停權".equals(customerVO.getCustRight())) {
 			customerVO.setMessage("您已被停權");
 			customerVO.setSuccessful(false);
-			customerVO.setUrl("/cust/CustomerLogin.jsp");
+			customerVO.setUrl("/front-end/cust/CustomerLogin.jsp");
 			customerVO.setAccount(null);
 			customerVO.setPassword(null);
 
@@ -97,10 +97,11 @@ public class CustomerServiceImpl implements CustomerService {
 		} else if ("未啟動".equals(customerVO.getCustUse())) {
 			customerVO.setMessage("您的帳號尚未啟動，請確認您的電子信箱，並按下台玩所發送信件中的按鈕，以啟動帳號");
 			customerVO.setSuccessful(false);
-			customerVO.setUrl("/cust/CustomerLogin.jsp");
+			customerVO.setUrl("/front-end/cust/CustomerLogin.jsp");
 
 			return customerVO;
 		}
+		customerVO.setSuccessful(true);
 		return customerVO;
 	}
 
