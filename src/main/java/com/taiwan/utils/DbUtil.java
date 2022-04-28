@@ -30,13 +30,14 @@ public class DbUtil {
 
 // 用於獲取資料庫連線物件的靜態方法，直接由類呼叫
 	public static Connection getConnection() {
-		if (conn == null) {
+		Connection conn = null;
+		//if (conn == null) {
 			try {
 				conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+		//}
 		return conn;
 	}
 

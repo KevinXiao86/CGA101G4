@@ -1,93 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app id="WebApp_ID" version="2.5"
-	xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <resource-ref>
     <description>DB Connection</description>
     <res-ref-name>jdbc/TestDB2</res-ref-name>
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
   </resource-ref>
-
-	<!-- 字符編碼過濾器 -->
-	<filter>
-		<filter-name>CharacterEncodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>CharacterEncodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
-
-
-	<!-- REST 過濾器 -->
-	<filter>
-		<filter-name>HiddenHttpMethodFilter</filter-name>
-		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>HiddenHttpMethodFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
-
-
-	<!-- 指定 Spring 配置文件位置 -->
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:applicationContext.xml</param-value>
-	</context-param>
-	<!-- 監聽 ServletContext 對象創建, 然後將 Spring 容器放到該 ServletContext 中緩存起來 -->
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-
-
-
-	<!-- 配置 SpringMVC 的前端控制器, 對瀏覽器發送的請求統一進行處理 -->
-	<servlet>
-		<servlet-name>springMVC</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<!-- 通過初始化參數指定 SprnigMVC 配置文件的位置和名稱 -->
-		<init-param>
-			<!-- contextConfigLocation 為固定值 -->
-			<param-name>contextConfigLocation</param-name>
-			<!-- 使用 classpath: 表示從類路徑開始查找配置文件 -->
-			<param-value>classpath:spring-mvc.xml</param-value>
-		</init-param>
-		<!-- 作為框架的核心組件, 在啟動的過程中有大量的初始化操作要做, 而這些操作放在第一次請求時才執行會嚴重影響訪問速度
-		因此需要通過此標籤將啟動 DispatcherServlet 的初始化時間設置成服務器啟動時 -->
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>springMVC</servlet-name>
-		<!-- 設置 SpringMVC 的核心控制器所能處理的請求路徑, / 所匹配的請求可以是 /login 或 .html 或 .js 或 .css 這些靜態資源
-		但是 / 不能匹配 .jsp 請求路徑 -->	
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
-	
-	
-	<!--error-page標籤配置，服務器出錯之後，自動跳轉的頁面 -->
-	<error-page>
-		<!--error-code是錯誤類型 -->
-		<error-code>500</error-code>
-		<!--location表示要跳轉去的頁面路徑 -->
-		<location>/common/error/error500.jsp</location>
-	</error-page>
-
-	<!--error-page標籤配置，服務器出錯之後，自動跳轉的頁面 -->
-	<error-page>
-		<!--error-code是錯誤類型 -->
-		<error-code>404</error-code>
-		<!--location表示要跳轉去的頁面路徑 -->
-		<location>/common/error/error404.jsp</location>
-	</error-page>
-	
+  <filter>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <filter-name>HiddenHttpMethodFilter</filter-name>
+    <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>HiddenHttpMethodFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <servlet>
+    <servlet-name>springMVC</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring-mvc.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>springMVC</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/common/error/error500.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/common/error/error404.jsp</location>
+  </error-page>
+  <servlet>
+    <description></description>
+    <display-name>TktItemSelectById</display-name>
+    <servlet-name>TktItemSelectById</servlet-name>
+    <servlet-class>com.taiwan.controller.tktItem.TktItemSelectById</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TktItemSelectById</servlet-name>
+    <url-pattern>/TktItemSelectById</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TktOrderGetCustId</display-name>
+    <servlet-name>TktOrderGetCustId</servlet-name>
+    <servlet-class>com.taiwan.controller.tktOrder.TktOrderGetCustId</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TktOrderGetCustId</servlet-name>
+    <url-pattern>/TktOrderGetCustId</url-pattern>
+  </servlet-mapping>
 </web-app>

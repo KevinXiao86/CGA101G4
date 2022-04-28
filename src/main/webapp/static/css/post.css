@@ -1,0 +1,23 @@
+.wrapper {
+    display: flex;
+    gap: 20px;
+}
+.wrapper div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.product-qty button {
+    background: var(--platinum);
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+button {
+    border: none;
+    background: none;
+    font: inherit;
+    cursor: pointer;
+}
