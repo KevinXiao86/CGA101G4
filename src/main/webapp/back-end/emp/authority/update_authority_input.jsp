@@ -107,11 +107,11 @@ th, td {
 
 			<td>啟用狀態:<font color=red><b>*</b></font></td>
 			<td><select size="1" name="empStatus">
-					<option value="啟用" ${(param.empStatus=="啟用")? 'selected':'' } >啟用</option>
+					<option value="啟用" ${(param.empStatus=="啟用")? 'selected':'' }>啟用</option>
 					<option value="未啟用" ${(param.empStatus=="未啟用")? 'selected':'' }>未啟用</option>
 					<option value="離職" ${(param.empStatus=="離職")? 'selected':'' }>離職</option>
 					<%-- 					<option selected="selected">${param.empStatus}</option> --%>
-			</select></td>    
+			</select></td>
 			</tr>
 
 			<tr>
