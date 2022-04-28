@@ -3,13 +3,14 @@ package com.taiwan.dao.tktorder;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.taiwan.beans.TktItem;
 import com.taiwan.beans.TktOrder;
 
 public interface TktOrderDao{
-	//新增一筆票券訂單(有使用優惠券)
-	public int insertTktOrderWithCoupon(TktOrder obj);
-	//新增一筆票券訂單(未使用優惠券)
-	public int insertTktOrderNoCoupon(TktOrder obj);
+	//新增一筆票券訂單(有使用優惠券)+同時新增訂單明細
+	public void insertTktOrderWithCoupon(TktOrder tktOrder, List<TktItem> tktItem_list);
+	//新增一筆票券訂單(未使用優惠券)+同時新增訂單明細
+	public void insertTktOrderNoCoupon(TktOrder tktOrder, List<TktItem> tktItem_list);
 	//查詢全部票券訂單
 	public List<TktOrder> queryAllTktOrder();
 	//根據會員Id查詢票券訂單
@@ -28,6 +29,5 @@ public interface TktOrderDao{
 	//根據訂單編號查詢
 	public TktOrder queryTktOrderByTktOrderId(Integer tktOrderId);
 	//訂單複合查詢(未完成)
-	public List<TktOrder> queryXX(Integer tktOrderId,Integer custId,Timestamp orderDate);
-	
+    //public List<TktOrder> queryXX(Integer tktOrderId,Integer custId,Timestamp orderDate);
 }

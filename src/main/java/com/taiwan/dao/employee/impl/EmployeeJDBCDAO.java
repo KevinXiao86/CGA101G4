@@ -1,6 +1,7 @@
 package com.taiwan.dao.employee.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,10 +9,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.taiwan.beans.EmployeeVO;
 import com.taiwan.dao.employee.EmployeeDAO_interface;
 
+
 public class EmployeeJDBCDAO implements EmployeeDAO_interface {
+	
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
 	String userid = "root";
@@ -22,7 +30,8 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 	private static final String GET_ALL_DATE = "SELECT EMP_ID,EMP_NAME,EMP_PASSWORD,EMP_STATUS,HIREDATE FROM EMPLOYEE order by EMP_ID";
 	private static final String GET_ONE_STMT = "SELECT EMP_ID,EMP_NAME,EMP_PASSWORD,EMP_STATUS,HIREDATE FROM EMPLOYEE where EMP_ID = ?";
 	private static final String GET_ONE_NAME = "SELECT EMP_ID,EMP_NAME,EMP_PASSWORD,EMP_STATUS,HIREDATE FROM EMPLOYEE where EMP_ID = ?";
-	private static final String UPDATE_All = "UPDATE EMPLOYEE set EMP_NAME=? ,EMP_PASSWORD=?,EMP_STATUS=? where EMP_ID = ?";
+	private static final String UPDATE_All = "UPDATE EMPLOYEE set EMP_NAME=? ,EMP_PASSWORD=?,EMP_STATUS=? ,HIREDATE=? where EMP_ID = ?";
+	private static final String DELETE = "DELETE FROM EMPLOYEE WHERE EMP_ID = ? ";
 
 	@Override
 	public void insert(EmployeeVO employeeVO) {
@@ -78,7 +87,8 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 			pstmt.setString(1, employeeVO.getEmpName());
 			pstmt.setString(2, employeeVO.getEmpPassword());
 			pstmt.setString(3, employeeVO.getEmpStatus());
-			pstmt.setInt(4, employeeVO.getEmpId());
+			pstmt.setDate(4, employeeVO.getHiredate());
+			pstmt.setInt(5, employeeVO.getEmpId());
 			count = pstmt.executeUpdate();
 			System.out.println("success 修改" + count);
 		} catch (ClassNotFoundException e) {
@@ -287,24 +297,71 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 		return list;
 	}
 
+	@Override
+	
+	public void delete(Integer empId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int count = 0;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(DELETE);
+
+			pstmt.setInt(1, empId);
+		
+
+			count = pstmt.executeUpdate();
+			System.out.println("delete sucess" + count);
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+
 	public static void main(String[] args) {
 		EmployeeJDBCDAO dao = new EmployeeJDBCDAO();
 
 ////		 新增
 //		EmployeeVO employee01 = new EmployeeVO();
-//		employee01.setEmp_name("汪達");
-//		employee01.setEmp_password("12233322");
+//		employee01.setEmpName("如花");
+//		employee01.setEmpPassword("12233322");
 //		System.out.println("新建成功");
 //		dao.insert(employee01);
-
-//		// 修改
-//		EmployeeVO employee02 = new EmployeeVO();
-//		
-//		employee02.setEmp_id(30000);
-//		employee02.setEmp_name("謝美麗");
-//		employee02.setEmp_password("122333");
-//		employee02.setEmp_status("啟動");
-//		dao.update(employee02);
+//			刪除
+//		dao.delete(30007);
+	
+		// 修改
+		EmployeeVO employee02 = new EmployeeVO();
+		
+		employee02.setEmpId(30000);
+//		employee02.setEmpName("謝丁");
+		employee02.setEmpPassword("132333");
+//		employee02.setstatus("啟用");
+		employee02.setHiredate(java.sql.Date.valueOf("2022-04-08"));
+		dao.update(employee02);
 
 //		// 查詢
 //		EmployeeVO employee03 = dao.findByPrimaryKey(30000);
@@ -317,16 +374,17 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 //		System.out.println("---------------------");
 
 		// 查詢
-		List<EmployeeVO> list = dao.getAll();
-		for (EmployeeVO aEmp : list) {
-			System.out.println(aEmp.getEmpId() );
-			System.out.println(aEmp.getEmpName());
-			System.out.println(aEmp.getEmpPassword());
-			System.out.println(aEmp.getEmpStatus());
-			System.out.println(aEmp.getHiredate());
-			System.out.println("---------------------");
-		}
-
+//		List<EmployeeVO> list = dao.getAll();
+//		for (EmployeeVO aEmp : list) {
+//			System.out.println(aEmp.getEmpId() );
+//			System.out.println(aEmp.getEmpName());
+//			System.out.println(aEmp.getEmpPassword());
+//			System.out.println(aEmp.getEmpStatus());
+//			System.out.println(aEmp.getHiredate());
+//			System.out.println("---------------------");
+//		}
+//
 	}
 
 }
+

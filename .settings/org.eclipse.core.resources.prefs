@@ -1,11 +1,9 @@
 =\=\=\=\=\=\=
 <<<<<<<=HEAD
->>>>>>>=7a7ac9c3c30329887d1957f31e1d6eb28d42f025
+>>>>>>>=ienHua
 eclipse.preferences.version=1
 encoding//src/main/java/com/taiwan/dao/employee/impl/EmployeeJDBCDAO.java=UTF-8
 encoding//src/main/java/com/taiwan/dao/employeeFunction/impl/EmployeeFunctionJDBCDAO.java=UTF-8
 encoding//src/main/webapp/back-end/company/cmp_manager.jsp=UTF-8
-encoding//src/main/webapp/coupon/page1.file=UTF-8
 encoding//src/main/webapp/back-end/coupon/page1.file=UTF-8
 encoding//src/main/webapp/manager/company/cmp_manager.jsp=UTF-8
-

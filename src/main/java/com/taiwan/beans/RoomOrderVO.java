@@ -13,6 +13,13 @@ public class RoomOrderVO {
 	private String roomOrderCancel;
 	private Integer roomOrderTotalPrice;
 	private Integer custCopId;
+	private Integer cmpId;
+	public Integer getCmpId() {
+		return cmpId;
+	}
+	public void setCmpId(Integer cmpId) {
+		this.cmpId = cmpId;
+	}
 	public Integer getRoomOrderId() {
 		return roomOrderId;
 	}

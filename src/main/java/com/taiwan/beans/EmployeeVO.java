@@ -2,6 +2,7 @@ package com.taiwan.beans;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 public class EmployeeVO  implements java.io.Serializable {
 	private Integer empId;
@@ -45,7 +46,11 @@ public class EmployeeVO  implements java.io.Serializable {
 				+ empStatus + ", hiredate=" + hiredate + "]";
 	}
 
-	
+	public List<com.taiwan.beans.AuthorityVO> getAuthorityVO() {
+		com.taiwan.service.authority.AuthorityService atiSvc = new com.taiwan.service.authority.AuthorityService();
+		List<com.taiwan.beans.AuthorityVO> authorityVO=atiSvc.findById(empId);
+	    return authorityVO;
+    }
 	
 	
 }

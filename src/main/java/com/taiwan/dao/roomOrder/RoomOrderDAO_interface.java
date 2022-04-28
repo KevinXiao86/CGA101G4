@@ -6,7 +6,7 @@ import java.util.List;
 import com.taiwan.beans.RoomOrderVO;
 
 public interface RoomOrderDAO_interface {
-		public List<RoomOrderVO> queryRoomOrderByRoomOrderId(Integer roomOrderId);
+		public RoomOrderVO queryRoomOrderByRoomOrderId(Integer roomOrderId);
 
 		public List<RoomOrderVO> queryRoomOrderByRoomOrderCheckinDate(Timestamp roomOrderCheckinDate);
 

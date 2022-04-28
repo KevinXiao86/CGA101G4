@@ -1,6 +1,17 @@
 package com.taiwan.beans;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 public class RepCmpVO {
 	private Integer repCmpId;
@@ -100,4 +111,57 @@ public class RepCmpVO {
 				+ ", reason=" + reason + ", repCmpDate=" + repCmpDate + ", status=" + status + ", result=" + result
 				+ "]";
 	}
+//	public String getRoomtypeName() {
+//		private static DataSource ds = null;
+//		static {
+//			try {
+//				Context ctx = new InitialContext();
+//				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
+//			} catch (NamingException e) {
+//				e.printStackTrace();
+//			}
+//
+//		}
+//		Connection conn = null;
+//		PreparedStatement ps = null;
+//		ResultSet rs = null;
+//		try {
+//			conn = ds.getConnection();
+//			ps = conn.prepareStatement("SELECT roomtype_name FROM ROOMTYPE WHERE roomtype_id=?;");
+//			ps.setInt(1, roomId);
+//			System.out.println("我進來JNDI囉!只是還沒到while裡面");
+//			rs = ps.executeQuery();
+//			if(rs.next()) {
+//				
+//				System.out.println("我在JNDI層while迴圈裡:" + repCmpVO);
+//			}
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. " + se.getMessage());
+//		} finally {
+//			if (rs != null) {
+//				try {
+//					rs.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//			if (ps != null) {
+//				try {
+//					ps.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (conn != null) {
+//				try {
+//					conn.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//
+//		}
+//		return list;
+//
+//	}
 }

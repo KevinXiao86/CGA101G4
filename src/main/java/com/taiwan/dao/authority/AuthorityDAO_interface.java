@@ -1,8 +1,10 @@
 package com.taiwan.dao.authority;
 
 import java.util.List;
+import java.util.Set;
 
 import com.taiwan.beans.AuthorityVO;
+import com.taiwan.beans.EmployeeVO;
 
 
 public interface AuthorityDAO_interface {
@@ -26,5 +28,8 @@ public interface AuthorityDAO_interface {
 
 	// 依ID排序
 	public List<AuthorityVO> AllID();
-
+	//查詢某員工(一對多)(回傳 Set)
+	 public Set<EmployeeVO> getEmployeeByAuthority(Integer empId);
+	//查詢某權限(一對多)(回傳 Set)
+	 public Set<EmployeeVO> getFunctionByAuthority(Integer funcId);
 }
