@@ -26,6 +26,7 @@ public class EmployeeFunctionJDBCDAO implements EmployeeFunctionDAO_interface {
 	private static final String GET_ALL_STMT = "SELECT FUNC_ID, FUNC_NAME FROM EMPLOYEE_FUNCTION order by FUNC_ID";
 	private static final String GET_ONE_STMT = "SELECT FUNC_ID, FUNC_NAME FROM EMPLOYEE_FUNCTION where FUNC_ID = ?";
 	private static final String UPDATE = "UPDATE EMPLOYEE_FUNCTION set FUNC_NAME=? where FUNC_ID = ?";
+	private static final String DELETE = "DELETE FROM EMPLOYEE_FUNCTION WHERE FUNC_ID = ? ";
 
 	@Override
 	public void insert(EmployeeFunctionVO employeeFunctionVO) {
@@ -226,34 +227,77 @@ public class EmployeeFunctionJDBCDAO implements EmployeeFunctionDAO_interface {
 		return list;
 	}
 
-	public static void main(String[] args) {
+	@Override
+	public void delete(Integer funcId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int count = 0;
+		try {
 
-		EmployeeFunctionJDBCDAO dao = new EmployeeFunctionJDBCDAO();
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(DELETE);
 
+			pstmt.setInt(1, funcId);
+		
+
+			count = pstmt.executeUpdate();
+			System.out.println("delete sucess" + count);
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+
+//	public static void main(String[] args) {
+//
+//		EmployeeFunctionJDBCDAO dao = new EmployeeFunctionJDBCDAO();
+//
 //		// 新增
 //		EmployeeFunctionVO employeeFunctionVO1 = new EmployeeFunctionVO();
 //		employeeFunctionVO1.setFuncName("會員管理員");
 //		dao.insert(employeeFunctionVO1);
-
+//
 //		// 修改
 //		EmployeeFunctionVO employeeFunctionVO2 = new EmployeeFunctionVO();
 //		
 //		employeeFunctionVO2.setFunc_id(2);
 //		employeeFunctionVO2.setFunc_name("票券管理員");
 //		dao.update(employeeFunctionVO2);
-
-		// 查詢
-		EmployeeFunctionVO employeeFunctionVO3 = dao.findByPrimaryKey(4);
-		System.out.print(employeeFunctionVO3.getFuncId() + ",");
-		System.out.println(employeeFunctionVO3.getFuncName() );
-		System.out.println("---------------------");
-
-		// 查詢
-		List<EmployeeFunctionVO> list = dao.getAll();
-		for (EmployeeFunctionVO aEmp : list) {
-			System.out.print(aEmp.getFuncId() + ",");
-			System.out.print(aEmp.getFuncName() + ",");
-			System.out.println();
-		}
-	}
+//
+//		// 查詢
+//		EmployeeFunctionVO employeeFunctionVO3 = dao.findByPrimaryKey(4);
+//		System.out.print(employeeFunctionVO3.getFuncId() + ",");
+//		System.out.println(employeeFunctionVO3.getFuncName() );
+//		System.out.println("---------------------");
+//
+//		// 查詢
+//		List<EmployeeFunctionVO> list = dao.getAll();
+//		for (EmployeeFunctionVO aEmp : list) {
+//			System.out.print(aEmp.getFuncId() + ",");
+//			System.out.print(aEmp.getFuncName() + ",");
+//			System.out.println();
+//		}
+//	}
 }
