@@ -72,10 +72,19 @@
 		<img src="${couponVO.img}"/><br>
 		<label>請輸入照片</label> <input type="file" name="uploadFile" accept="image/*"><br>
 		<input type="submit" value="提交">
+		<img id="look_img" src="">
 	</form>
 	<div>
 		<a href='back-end/coupon/cop_index.jsp'>回到優惠券首頁</a>
 	</div>
+	
+	<script type="text/javascript">
+		document.querySelector('#file1').addEventListener('change',e=>{
+        	const url = URL.createObjectURL(file1.files[0]);
+        	let img=document.querySelector('#look_img');
+        	img.src=url;
+    	})
+	</script>
 
 
 </body>

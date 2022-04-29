@@ -24,4 +24,5 @@ public interface RoomtypeMapper {
 	
 	//查找目前最大的房型編號
 	public int queryRoomtypeId();
+	
 }

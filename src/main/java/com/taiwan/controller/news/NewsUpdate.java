@@ -88,7 +88,7 @@ public class NewsUpdate extends HttpServlet {
 			// 開始新增資料
 			newsService.update(newsId, title, content, dbPath);
 			// 新增完成，請求轉發到news首頁
-			RequestDispatcher rd = request.getRequestDispatcher("/back-end/news/news_index.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/news/findAll");
 			rd.forward(request, response);
 			// 其他錯誤處理
 		} catch (Exception e) {

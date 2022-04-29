@@ -20,6 +20,10 @@
 			<span>${roomOrder.custId}</span>
 		</div>
 		<div>
+			<span>會員編號</span> 
+			<span>${roomOrder.cmpId}</span>
+		</div>
+		<div>
 			<span>訂單成立日期</span>
 			<span><fmt:formatDate value="${roomOrder.roomOrderDate}" pattern="yyyy-MM-dd " /></span>
 		</div>
@@ -49,12 +53,16 @@
 		</div>
 		<div>
 			<span>會員優惠券編號</span> 
-			<span>${roomOrder.custCopId}</span>
+			<span>${(roomOrder.custCopId== null)? "未使用優惠券" : roomOrder.custCopId}</span>
 		</div>
 		============================================================================
 		<div>
 			<span>房型編號</span> 
 			<span>${roomItemVO.roomId}</span>
+		</div>
+		<div>
+			<span>房型名稱</span> 
+			<span>${roomtype.roomtypeName}</span>
 		</div>
 		<div>
 			<span>訂購數量</span> 

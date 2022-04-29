@@ -3,85 +3,122 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mybatis.mapper.RoomOrderMapper">
-
-	<!-- 這是使用第三方緩存 -->
-	<cache type="org.mybatis.caches.ehcache.EhcacheCache"></cache>
-	
-	<resultMap type="com.taiwan.beans.RoomOrder" id="order">
-		<id column="room_order_id" property="roomOrderId"/>
-		<result column="cust_id" property="custId"/>
-		<result column="room_order_date" property="roomOrderDate"/>
-		<result column="room_order_price" property="roomOrderPrice"/>
-		<result column="checkin_date" property="checkinDate"/>
-		<result column="checkout_date" property="checkoutDate"/>
-		<result column="room_order_status" property="roomOrderStatus"/>
-		<result column="cancel" property="cancel"/>
-		<result column="total_price" property="totalPrice"/>
-		<result column="cust_cop_id" property="custCopId"/>
-		<result column="cmp_id" property="cmpId"/>
-
-		
-		<association property="customer" 
-			select="mybatis.mapper.RoomOrderMapper.getCustomerVOByCustId" column="cust_id">
-		</association>
-	</resultMap>
-	
-	<!-- 查詢所有訂單 -->
-	<!-- public List<RoomOrder> queryAllRoomOrders(); -->
-	<select id="queryAllRoomOrders" resultMap="order">
-		SELECT 	`room_order_id`, `cust_id`, `room_order_date`, `room_order_price`, `checkin_date`,
-			 `checkout_date`, `room_order_status`, `cancel`, `total_price`, `cust_cop_id`,`cmp_id`
-	 	FROM  `Taiwan`.`ROOM_ORDER` 
+	<!-- public List<RoomOrder> getRoomOrders(); -->
+	<select id="queryAllRoomOrders" resultType="com.taiwan.beans.RoomOrder">
+		SELECT `ROOM_ORDER`.`room_order_id`, `ROOM_ORDER`.`cust_id`,
+    		`ROOM_ORDER`.`room_order_date`, `ROOM_ORDER`.`room_order_price`,
+    		`ROOM_ORDER`.`checkin_date`, `ROOM_ORDER`.`checkout_date`,
+  			`ROOM_ORDER`.`room_order_status`, `ROOM_ORDER`.`cancel`,
+    		`ROOM_ORDER`.`total_price`, `ROOM_ORDER`.`cust_cop_id`,
+    		`ROOM_ORDER`.`cmp_id`
+		FROM `Taiwan`.`ROOM_ORDER`
 	</select>
 	
-	
-	<!-- 根據訂單成立日期查詢訂單 -->
-	<!-- public List<RoomOrder> queryRoomOrdersByRoomOrderDate(Date roomOrderDate); -->
-	<select id="queryRoomOrdersByRoomOrderDate" resultMap="order">		
-		SELECT 	`room_order_id`, `cust_id`, `room_order_date`, `room_order_price`, 
-			`checkin_date`, `checkout_date`, `room_order_status`, `cancel`, 
-			`total_price`, `cust_cop_id`,`cmp_id`
-	 	FROM  `Taiwan`.`ROOM_ORDER` 
-	 	WHERE `room_order_date` = #{roomOrderDate}
+<!-- 	//根據訂單成立日期查詢訂單 -->
+<!-- 	public List<RoomOrder> queryRoomOrdersByRoomOrderDate(Date roomOrderDate); -->
+	<select id="queryRoomOrdersByRoomOrderDate" resultType="com.taiwan.beans.RoomOrder">
+		SELECT `ROOM_ORDER`.`room_order_id`, `ROOM_ORDER`.`cust_id`,
+    		`ROOM_ORDER`.`room_order_date`, `ROOM_ORDER`.`room_order_price`,
+    		`ROOM_ORDER`.`checkin_date`, `ROOM_ORDER`.`checkout_date`,
+  			`ROOM_ORDER`.`room_order_status`, `ROOM_ORDER`.`cancel`,
+    		`ROOM_ORDER`.`total_price`, `ROOM_ORDER`.`cust_cop_id`,
+    		`ROOM_ORDER`.`cmp_id`
+		FROM `Taiwan`.`ROOM_ORDER`
+		WHERE `ROOM_ORDER`.`room_order_date`= #{roomOrderDate}
+	</select>
+<!-- 	//根據入住時間查詢訂單 -->
+<!-- 	public List<RoomOrder> queryRoomOrdersByCheckinDate(Date checkinDate); -->
+	<select id="queryRoomOrdersByCheckinDate" resultType="com.taiwan.beans.RoomOrder">
+		SELECT `ROOM_ORDER`.`room_order_id`, `ROOM_ORDER`.`cust_id`,
+    		`ROOM_ORDER`.`room_order_date`, `ROOM_ORDER`.`room_order_price`,
+    		`ROOM_ORDER`.`checkin_date`, `ROOM_ORDER`.`checkout_date`,
+  			`ROOM_ORDER`.`room_order_status`, `ROOM_ORDER`.`cancel`,
+    		`ROOM_ORDER`.`total_price`, `ROOM_ORDER`.`cust_cop_id`,
+    		`ROOM_ORDER`.`cmp_id`
+		FROM `Taiwan`.`ROOM_ORDER`
+		WHERE `ROOM_ORDER`.`checkin_date` = #{checkinDate}
+	</select>
+<!-- 	//根據退房時間查詢訂單 -->
+<!-- 	public List<RoomOrder> queryRoomOrdersByCheckoutDate(Date checkoutDate); -->
+	<select id="queryRoomOrdersByCheckoutDate" resultType="com.taiwan.beans.RoomOrder">
+		SELECT `ROOM_ORDER`.`room_order_id`, `ROOM_ORDER`.`cust_id`,
+    		`ROOM_ORDER`.`room_order_date`, `ROOM_ORDER`.`room_order_price`,
+    		`ROOM_ORDER`.`checkin_date`, `ROOM_ORDER`.`checkout_date`,
+  			`ROOM_ORDER`.`room_order_status`, `ROOM_ORDER`.`cancel`,
+    		`ROOM_ORDER`.`total_price`, `ROOM_ORDER`.`cust_cop_id`,
+    		`ROOM_ORDER`.`cmp_id`
+		FROM `Taiwan`.`ROOM_ORDER`
+		WHERE `ROOM_ORDER`.`checkout_date`= #{checkoutDate}
+	</select>
+<!-- 	//根據訂單Id搜尋訂房訂單 -->
+<!-- 	public RoomOrder queryById(Integer roomOrderId); -->
+	<select id="queryById" resultType="com.taiwan.beans.RoomOrder">
+		SELECT `ROOM_ORDER`.`room_order_id`, `ROOM_ORDER`.`cust_id`,
+    		`ROOM_ORDER`.`room_order_date`, `ROOM_ORDER`.`room_order_price`,
+    		`ROOM_ORDER`.`checkin_date`, `ROOM_ORDER`.`checkout_date`,
+  			`ROOM_ORDER`.`room_order_status`, `ROOM_ORDER`.`cancel`,
+    		`ROOM_ORDER`.`total_price`, `ROOM_ORDER`.`cust_cop_id`,
+    		`ROOM_ORDER`.`cmp_id`
+		FROM `Taiwan`.`ROOM_ORDER`
+		WHERE `ROOM_ORDER`.`room_order_id`= #{roomOrderId}
+	</select>
+<!-- 	//根據廠商Id搜尋他的訂單 -->
+<!-- 	public List<RoomOrder> queryByCmpId(Integer cmpId); -->
+	<select id="queryByCmpId" resultType="com.taiwan.beans.RoomOrder">
+		SELECT `ROOM_ORDER`.`room_order_id`, `ROOM_ORDER`.`cust_id`,
+    		`ROOM_ORDER`.`room_order_date`, `ROOM_ORDER`.`room_order_price`,
+    		`ROOM_ORDER`.`checkin_date`, `ROOM_ORDER`.`checkout_date`,
+  			`ROOM_ORDER`.`room_order_status`, `ROOM_ORDER`.`cancel`,
+    		`ROOM_ORDER`.`total_price`, `ROOM_ORDER`.`cust_cop_id`,
+    		`ROOM_ORDER`.`cmp_id`
+		FROM `Taiwan`.`ROOM_ORDER`
+		WHERE `ROOM_ORDER`.`cmp_id`= #{cmpId}
+	</select>
+<!-- 	//根據會員Id搜尋他的訂單 -->
+<!-- 	public List<RoomOrder> queryByCustId(Integer custId); -->
+	<select id="queryByCustId" resultType="com.taiwan.beans.RoomOrder">
+		SELECT `ROOM_ORDER`.`room_order_id`, `ROOM_ORDER`.`cust_id`,
+    		`ROOM_ORDER`.`room_order_date`, `ROOM_ORDER`.`room_order_price`,
+    		`ROOM_ORDER`.`checkin_date`, `ROOM_ORDER`.`checkout_date`,
+  			`ROOM_ORDER`.`room_order_status`, `ROOM_ORDER`.`cancel`,
+    		`ROOM_ORDER`.`total_price`, `ROOM_ORDER`.`cust_cop_id`,
+    		`ROOM_ORDER`.`cmp_id`
+		FROM `Taiwan`.`ROOM_ORDER`
+		WHERE `ROOM_ORDER`.`cust_id`= #{custId}
+	</select>
+<!-- 	//搜尋一段時間內的訂單 -->
+<!-- 	public List<RoomOrder> queryByDate(@Param("startdate") Date startdate,@Param("enddate") Date enddate); -->
+	<select id="queryByDate" resultType="com.taiwan.beans.RoomOrder">
+		SELECT `ROOM_ORDER`.`room_order_id`, `ROOM_ORDER`.`cust_id`,
+    		`ROOM_ORDER`.`room_order_date`, `ROOM_ORDER`.`room_order_price`,
+    		`ROOM_ORDER`.`checkin_date`, `ROOM_ORDER`.`checkout_date`,
+  			`ROOM_ORDER`.`room_order_status`, `ROOM_ORDER`.`cancel`,
+    		`ROOM_ORDER`.`total_price`, `ROOM_ORDER`.`cust_cop_id`,
+    		`ROOM_ORDER`.`cmp_id`
+		FROM `Taiwan`.`ROOM_ORDER`
+		WHERE `ROOM_ORDER`.`room_order_date` BETWEEN #{startdate} AND #{enddate}
+	</select>
+<!-- 	//根據訂單id取消訂單 -->
+<!-- 	public int updateStatusAndReason(@Param("roomOrderId") Integer roomOrderId,@Param("roomOrderStatus") String roomOrderStatus,@Param("cancel") String cancel); -->
+	<update id="updateStatusAndReason" >
+		update `Taiwan`.`ROOM_ORDER`
+		SET
+			`ROOM_ORDER`.`room_order_status` = #{roomOrderStatus},
+			`ROOM_ORDER`.`cancel` = #{cancel}
+		where
+			`ROOM_ORDER`.`room_order_id`= #{roomOrderId}
+	</update>
+<!-- 	//根據訂單狀態搜尋訂單 --> 
+<!-- 	public List<RoomOrder> queryByStatus(String roomOrderStatus);  -->
+	<select id="queryByStatus" resultType="com.taiwan.beans.RoomOrder">
+		SELECT `ROOM_ORDER`.`room_order_id`, `ROOM_ORDER`.`cust_id`,
+    		`ROOM_ORDER`.`room_order_date`, `ROOM_ORDER`.`room_order_price`,
+    		`ROOM_ORDER`.`checkin_date`, `ROOM_ORDER`.`checkout_date`,
+  			`ROOM_ORDER`.`room_order_status`, `ROOM_ORDER`.`cancel`,
+    		`ROOM_ORDER`.`total_price`, `ROOM_ORDER`.`cust_cop_id`,
+    		`ROOM_ORDER`.`cmp_id`
+		FROM `Taiwan`.`ROOM_ORDER`
+		WHERE `ROOM_ORDER`.`room_order_status`= #{roomOrderStatus}
 	</select>
 	
-	
-	
-	<!-- 根據入住時間查詢訂單 -->
-	<!-- public List<RoomOrder> queryRoomOrdersByCheckinDate(Date checkinDate); -->
-	<select id="queryRoomOrdersByCheckinDate" resultMap="order">
-		SELECT 	`room_order_id`, `cust_id`, `room_order_date`, `room_order_price`, 
-			`checkin_date`, `checkout_date`, `room_order_status`, `cancel`, 
-			`total_price`, `cust_cop_id`,`cmp_id`
-	 	FROM  `Taiwan`.`ROOM_ORDER` 
-	 	WHERE `checkin_date` = #{checkinDate}
-	</select>
-	
-	
-	<!-- 根據退房時間查詢訂單 -->
-	<!-- public List<RoomOrder> queryRoomOrdersByCheckoutDate(Date checkoutDate); -->
-	<select id="queryRoomOrdersByCheckoutDate" resultMap="order">
-		SELECT 	`room_order_id`, `cust_id`, `room_order_date`, `room_order_price`, 
-			`checkin_date`, `checkout_date`, `room_order_status`, `cancel`, 
-			`total_price`, `cust_cop_id`,`cmp_id`
-	 	FROM  `Taiwan`.`ROOM_ORDER` 
-	 	WHERE `checkout_date` = #{checkoutDate}
-	</select>
-
-
-	<!-- 根據 id 查詢會員 -->
-	<!-- public CustomerVO getCustomerVOByCustId(Integer custId); -->
-	<select id="getCustomerVOByCustId" resultType="com.taiwan.beans.CustomerVO">		
-		SELECT 	`cust_id`, `NAME`, `SEX`, `TEL`, `EMAIL`, `ADDRESS`, `ID_CARD`, 
-			`BIRTH`, `ACCOUNT`, `PASSWORD`, `IMG`, `cust_use`, `CARD`, `cust_right`,`cmp_id`
-	 	FROM  `Taiwan`.`CUSTOMER` 
-		WHERE `cust_id` = #{custId}
-	</select>
-	
-	<select id="queryById" resultMap="order">
-		SELECT 	`room_order_id`, `cust_id`, `room_order_date`, `room_order_price`, `checkin_date`,
-			 `checkout_date`, `room_order_status`, `cancel`, `total_price`, `cust_cop_id`,`cmp_id`
-	 	FROM  `Taiwan`.`ROOM_ORDER` 
-	 	WHERE room_order_id=#{roomOrderId}
-	</select>
 </mapper>

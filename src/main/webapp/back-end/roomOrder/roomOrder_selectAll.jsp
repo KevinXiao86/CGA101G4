@@ -4,7 +4,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
-List<RoomOrder> list=(List<RoomOrder>)request.getAttribute("list");
+List<RoomOrder> list=(List<RoomOrder>)request.getAttribute("roomOrders");
 pageContext.setAttribute("list", list);
 %>
 <!DOCTYPE html>
@@ -76,8 +76,8 @@ th, td {
 			<th>訂單狀態</th>
 			<th>詳情</th>
 		</tr>
-		<%@ include file="page1.file" %> 
-		<c:forEach items="${list}" var="roomOrder" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+<%-- 		<%@ include file="page1.file" %>  --%>
+		<c:forEach items="${list}" var="roomOrder" >
 			<tr>
 				<td>${roomOrder.roomOrderId}</td>
 				<td>
@@ -106,7 +106,7 @@ th, td {
 			</tr>
 		</c:forEach>
 	</table>
-	<%@ include file="page2.file" %>
+<%-- 	<%@ include file="page2.file" %> --%>
 	
 	<div>
 		<a href='back-end/roomOrder/roomOrder_index.jsp'>回到訂房訂單首頁</a>
