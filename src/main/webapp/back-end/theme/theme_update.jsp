@@ -52,6 +52,7 @@ img{
 			<div id="div3">
 				<span id="num_content">剩餘可輸入500字</span>
 			</div>
+			<input type="hidden" name="img" value="${theme.img}">
 			<div id="div5">
 			<label>舊照片</label><br>
 			<img src="${theme.img}"/><br>

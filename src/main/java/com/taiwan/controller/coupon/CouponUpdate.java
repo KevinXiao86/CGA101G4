@@ -81,18 +81,22 @@ public class CouponUpdate extends HttpServlet {
 			if (!fsaveDirectory.exists()) {
 				fsaveDirectory.mkdirs();
 			}
+			//要傳回數據庫的路徑
+			String dbPath=null;
 			// 取得上傳的檔案
 			Part part = request.getPart("uploadFile");
 			if (part.getHeader("content-disposition").contains("filename=\"\"")) {
-				errorMsgs.put("uploadFile", "沒有傳入熱門活動的照片");
+//				errorMsgs.put("uploadFile", "沒有傳入熱門活動的照片");
+				dbPath=request.getParameter(dbPath);
+			}else {
+				UUIDFileName uuidFileName = new UUIDFileName();
+				String filename = uuidFileName.getUUIDFileName(part);
+				part.write(realPath + "/" + filename);
+				// 傳入db的路徑前面不能再有斜槓，不然伺服器找的時候會跑一次阿飄路徑
+				String dbSaveDirectory = "images/coupon";
+				// 要傳回數據庫的路徑
+				dbPath = dbSaveDirectory + "/" + filename;
 			}
-			UUIDFileName uuidFileName = new UUIDFileName();
-			String filename = uuidFileName.getUUIDFileName(part);
-			part.write(realPath + "/" + filename);
-			//傳入db的路徑前面不能再有斜槓，不然伺服器找的時候會跑一次阿飄路徑
-			String dbSaveDirectory="images/coupon";
-			// 要傳回數據庫的路徑
-			String dbPath = dbSaveDirectory + "/" + filename;
 //			System.out.println(dbPath);
 			//把新的輸入的優惠券資料裝到優惠券物件裡
 			couponVO.setCopId(copId);

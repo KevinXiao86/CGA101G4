@@ -31,7 +31,7 @@ public class SelectCmpById extends HttpServlet {
 			Integer cmpId = Integer.valueOf(cmpIdString);
 			// 查詢廠商資料
 			Company company = companyService.getCompanyByCmpId(cmpId);
-			System.out.println(company);
+//			System.out.println(company);
 			request.setAttribute("company", company);
 			RequestDispatcher rd = request.getRequestDispatcher("/back-end/roomOrder/cmpData.jsp");
 			rd.forward(request, response);

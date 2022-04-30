@@ -31,7 +31,7 @@ public class SelectCustById extends HttpServlet {
 			Integer custId = Integer.valueOf(custIdString);
 			// 查詢會員資料
 			CustomerVO customerVO = customerService.getAll(custId);
-			System.out.println(customerVO);
+//			System.out.println(customerVO);
 			// 把取得的資料放進request域中
 			request.setAttribute("customer", customerVO);
 			// 請求轉向到會員資料頁面
