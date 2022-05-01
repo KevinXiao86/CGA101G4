@@ -90,4 +90,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LIMIT 0, 1;
 	</select>
 	
+	
+	<!-- 修改房型  -->
+	<!-- public int updateRoomtype (Roomtype roomtype); -->
+	<update id="updateRoomtype">
+		UPDATE `Taiwan`.`ROOMTYPE` 
+		SET
+			`roomtype_name` = #{roomtypeName}, 
+			`roomtype_amount` = #{roomtypeAmount}, 
+			`roomtype_people` = #{roomtypePeople}, 
+			`total_score` = #{totalScore}, 
+			`total_people` = #{totalPeople}, 
+			`roomtype_price` = #{roomtypePrice}, 
+			`roomtype_status` = #{roomtypeStatus}, 
+			`roomtype_area` = #{roomtypeArea}, 
+			`roomtype_introduce` = #{roomtypeIntroduce}	
+		WHERE
+			`roomtype_id` = #{roomtypeId} ;
+	</update>	
 </mapper>

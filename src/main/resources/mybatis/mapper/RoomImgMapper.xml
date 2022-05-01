@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE `roomtype_id` = #{roomtypeId};
 	</select>
 	
-	<!-- 根據房型圖片 -->
+	<!-- 新增房型圖片 -->
 	<!-- public int insertRoomImg(@Param("roomImgs")List<RoomImg> roomImgs); -->
 	<insert id="insertRoomImg">
 		INSERT INTO `Taiwan`.`ROOM_IMG` 

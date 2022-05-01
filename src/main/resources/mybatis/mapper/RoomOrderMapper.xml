@@ -29,9 +29,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 查詢所有訂單 -->
 	<!-- public List<RoomOrder> queryAllRoomOrders(); -->
 	<select id="queryAllRoomOrders" resultMap="order">
-		SELECT 	`room_order_id`, `cust_id`, `room_order_date`, `room_order_price`, `checkin_date`,
-			 `checkout_date`, `room_order_status`, `cancel`, `total_price`, `cust_cop_id`,`cmp_id`
-	 	FROM  `Taiwan`.`ROOM_ORDER` 
+	 	SELECT 	`room_order_id`, `cust_id`, `room_order_date`, `room_order_price`, `checkin_date`, 
+			`checkout_date`, `room_order_status`, `cancel`, `total_price`, `cust_cop_id`, `cmp_id` 
+		FROM  `Taiwan`.`ROOM_ORDER` ;
 	</select>
 	
 	

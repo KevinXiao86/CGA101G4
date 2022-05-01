@@ -15,5 +15,7 @@
 	<a href="company/getCompany?cmpId=${sessionScope.loginCompany.cmpId}">廠商資料</a>${requestScope.errorInfo}<br><br>
 	
 	<a href="roomtype/getAllRoomtypes">房型管理</a>
+	<a href="reservation/getAllRoomtypes">房數管理</a>
+	
 </body>
 </html>

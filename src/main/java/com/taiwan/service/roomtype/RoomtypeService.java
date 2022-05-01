@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.taiwan.beans.RoomImg;
 import com.taiwan.beans.Roomtype;
 import com.taiwan.utils.CommonUtils;
 
@@ -78,24 +79,32 @@ public class RoomtypeService {
 		Integer[] ids = new Integer[roomImgIds.length];
 		for(int i = 0; i < roomImgIds.length; i++) {
 			//轉成 int 
-			int id = CommonUtils.parseInt(roomImgIds[0], 0);
+			int id = CommonUtils.parseInt(roomImgIds[i], 0);
 			//轉換失敗
 			if (id == 0) {
 				flag = true;
 				break;
 			}
 			//轉換成功
-			ids[0] = id;
-		}
-		
-		for(Integer i : ids) {
-			System.out.println(i);
+			ids[i] = id;
 		}
 		if (flag) {
 			return false;
 		}
-//		int result = roomImgMapper.deleteRoomImgByRoomImgId(roomImgIds);
-//		return result != 0;
-		return true;
+		int result = roomImgMapper.deleteRoomImgByRoomImgId(ids);
+		return result != 0;
 	}
+
+	
+	//根據房型編號修改房型
+	public boolean updateRoomtypeByRoomtypeId(Roomtype roomtype) {
+		int res = roomtypeMapper.updateRoomtype(roomtype);
+		return res != 0;
+	}
+	
+	//在修改頁面新增房型圖片
+	public boolean updateRoomImg(List<RoomImg> imgs) {
+		int res = roomImgMapper.insertRoomImg(imgs);
+		return res != 0;
+	} 
 }

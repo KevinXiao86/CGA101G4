@@ -24,4 +24,7 @@ public interface RoomtypeMapper {
 	
 	//查找目前最大的房型編號
 	public int queryRoomtypeId();
+
+	//修改房型 
+	public int updateRoomtype (Roomtype roomtype);
 }

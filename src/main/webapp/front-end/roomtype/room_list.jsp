@@ -78,6 +78,7 @@ $(function () {
 					</c:choose></td>
 				<td><a href="roomtype/getRoomtype?cmpId=${sessionScope.loginCompany.cmpId}&roomtypeId=${Roomtype.roomtypeId}">查看詳情</a></td>
 				<td><a href="roomtype/getRoomtype2?cmpId=${sessionScope.loginCompany.cmpId}&roomtypeId=${Roomtype.roomtypeId}">修改</a></td>
+				<td><a href="roomtype/getRoomtype2?cmpId=${sessionScope.loginCompany.cmpId}&roomtypeId=${Roomtype.roomtypeId}">預約表</a></td>
 			</tr>
 		</c:forEach>
 	</table>
