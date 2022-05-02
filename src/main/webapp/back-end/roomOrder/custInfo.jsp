@@ -101,9 +101,6 @@
 						
 						<button id="pre">上一頁</button>
 
-						<div id="back_index">
-							<a href='back-end/roomOrder/roomOrder_index.jsp'>回到訂房訂單首頁</a>
-						</div>
 					</div>
 				</div>
 			</div>

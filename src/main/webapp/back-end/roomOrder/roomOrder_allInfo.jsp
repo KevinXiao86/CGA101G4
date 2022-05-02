@@ -98,11 +98,11 @@ span {
 					<span>訂購數量 :</span> <span>${roomItemVO.roomItemAmount}</span>
 				</div>
 				<div>
-					<span>評價分數 :</span> <span>${roomItemVO.roomItemEvaluateScore}</span>
+					<span>評價分數 :</span> <span>${(roomItemVO.roomItemEvaluateScore == null)? "還未評分" : roomItemVO.roomItemEvaluateScore}</span>
 				</div>
 				<div>
 					<span>評價內文 :</span>
-					<textarea rows="6" cols="40" name="canx" id="canx" readonly="readonly" style="resize: none;">${roomItemVO.roomItemEvaluateMsg}</textarea><br>	
+					<textarea rows="6" cols="40" name="canx" id="canx" readonly="readonly" style="resize: none;">${(roomItemVO.roomItemEvaluateMsg == null)? "還未有評價" : roomItemVO.roomItemEvaluateMsg}</textarea><br>	
 				</div>
 			</div>
 		</div>

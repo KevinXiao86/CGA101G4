@@ -18,7 +18,7 @@ pageContext.setAttribute("list", list);
 <style>
 #page-wrapper {
     background-color: rgb(221, 221, 241) !important;
-    height: 600px; 
+    height: 1000px; 
 }
 
 table {

@@ -5,68 +5,71 @@
 <head>
 <title>訂單詳細資料 - listOneTktItem.jsp</title>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
-	<%@ include file="/common/head.jsp"%>
+<%@ include file="back-end-index.jsp"%>
 <style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
+#page-wrapper {
+	background-color: rgb(221, 221, 241) !important;
+	height: 1000px;
+}
 
-<style>
-  table {
-	width: 600px;
-	background-color: white;
+table {
+	width: 1100px;
+	background-color: rgb(221, 221, 241) !important;
 	margin-top: 5px;
 	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-</style>
+}
 
+table, th, td {
+	border: 3px solid #CCCCFF;
+}
+
+th, td {
+	padding: 5px;
+	text-align: center;
+}
+
+img {
+	width: 150px;
+	height: 150px;
+}
+</style>
 </head>
 <body bgcolor='white'>
 
-<!-- <table id="table-1"> -->
-<!-- 	<tr><td> -->
-<!-- 		 <h3>訂單資料</h3> -->
-<!-- 		 <h4><a href="front-end/tktItem/tktOrderIndex.jsp">回首頁</a></h4> -->
-<!-- 	</td></tr> -->
-<!-- </table> -->
+	<div id="page-wrapper">
+		<div class="container-fluid">
 
-<table>
-	<tr>
-		<th>票券訂單編號</th>
-		<th>票券編號</th>
-		<th>購買數量</th>
-		<th>評價分數</th>
-		<th>評價內文</th>
-	</tr>
-	<c:forEach var="tktItem" items="${tktItems}" >
-		<tr>
-			<td>${tktItem.tktOrderId}</td>
-			<td>${tktItem.tktId}</td>
-			<td>${tktItem.amount}</td>
-			<td>${(tktItem.score == 0)? "還未評分" : tktItem.score}</td>
-			<td>${(tktItem.content == null)? "還未評論" : tktItem.content}</td>
-		</tr>	
-	</c:forEach>
-</table>
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">票券訂單明細</h1>
+				</div>
+			</div>
+
+			<table>
+				<tr>
+					<th>票券訂單編號</th>
+					<th>票券編號</th>
+					<th>購買數量</th>
+					<th>評價分數</th>
+					<th>評價內文</th>
+				</tr>
+				<c:forEach var="tktItem" items="${tktItems}">
+					<tr>
+						<td>${tktItem.tktOrderId}</td>
+						<td>${tktItem.tktId}</td>
+						<td>${tktItem.amount}</td>
+						<td>${(tktItem.score == 0)? "還未評分" : tktItem.score}</td>
+						<td>${(tktItem.content == null)? "還未評論" : tktItem.content}</td>
+					</tr>
+				</c:forEach>
+			</table>
+
+		</div>
+	</div>
+
+
+
+
 
 </body>
 </html>
