@@ -1,72 +1,141 @@
 <%@page import="com.taiwan.beans.Theme"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
-Theme theme=(Theme)request.getAttribute("theme");
+Theme theme = (Theme) request.getAttribute("theme");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
-<%@ include file="/common/head.jsp"%>
+<%@ include file="back-end-index.jsp"%>
 <meta charset="UTF-8">
 <title>活動主題資料修改</title>
 <style type="text/css">
-img{
-	width: 150px;
-	height: 150px;
-}
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
+
+		#page-wrapper {
+            background-color: rgb(221, 221, 241) !important;
+            height: 1000px
+        }
+		
+ 		input[type="submit"] {
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            box-shadow: inset 0px 1px 0px 0px #ffffff;
+            background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+            background-color: #ffffff;
+            border-radius: 6px;
+            border: 1px solid #dcdcdc;
+            display: inline-block;
+            cursor: pointer;
+            color: #666666;
+            font-family: Arial;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 6px 24px;
+            text-decoration: none;
+            text-shadow: 0px 1px 0px #ffffff;
+        }
+
+        input[type="submit"]:hover {
+            background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+        }
+        #select_div{ 
+        	position:relative; 
+        } 
+        
+        #back_index { 
+            position: fixed; 
+            right: 5%; 
+            bottom: 10%; 
+        } 
+
+        #back_index a { 
+            font-size: 20px; 
+            color: blue; 
+        } 
+
+        #back_index a:hover { 
+            color: red; 
+            text-decoration: none; 
+        } 
+        
+        img { 
+/*             border: 1px solid black;   */
+            height: 200px; 
+            width: 200px; 
+        } 
+
+        #img_div { 
+            position: absolute; 
+            top: 45%; 
+            right: 10%; 
+        }
+        
+         #img_Odiv {
+            position: absolute;
+            top: -10%;
+            right: 10%;
+        } 
+        
+
 </style>
 </head>
 <body>
-	<div id="select_div">
-		<form action="theme/themeUpdate" method="post" enctype="multipart/form-data">
-			<div id="div1">
-				<label>熱門活動編號</label><input type="text" name="themeId" value="${theme.themeId}" readonly="readonly" ><br>
-				<span id="span1">熱門活動標題</span><input id="input_title" type="text"
-					name="title" placeholder="請輸入標題" value="${theme.title}">${errorMsgs.title}<br>
+
+	<div id="page-wrapper">
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">活動主題資料修改</h1>
+				</div>
 			</div>
-			<div id="div4">
-				<h4>熱門活動內文</h4>
+			<div id="select_div">
+				<form action="theme/themeUpdate" method="post"
+					enctype="multipart/form-data">
+					<div id="div1">
+						<label>熱門活動編號</label><input type="text" name="themeId"
+							value="${theme.themeId}" readonly="readonly"><br> 
+							<span id="span1">熱門活動標題</span>
+							<input id="input_title" type="text"	name="title" placeholder="請輸入標題" value="${theme.title}">${errorMsgs.title}<br>
+					</div>
+					<div id="div4">
+						<h4>熱門活動內文</h4>
+					</div>
+					${errorMsgs.content}
+					<div id="div2">
+						<textarea name="content" id="content" cols="100" rows="10"
+							style="resize: none;" placeholder="請輸入內文">${theme.content}</textarea>
+					</div>
+					<div id="div3">
+						<span id="num_content">剩餘可輸入500字</span>
+					</div>
+					<input type="hidden" name="img" value="${theme.img}">
+					<div id="img_Odiv">
+						<img src="${theme.img}" />
+					</div>
+						${errorMsgs.updateFile} 
+						<input name="updateFile" id="file1"	type="file" accept=“image/*>
+					<div id="img_div"> 
+						<img id="look_img" src="">
+					</div>
+					<input type="submit" value="提交">
+				</form>
 			</div>
-			${errorMsgs.content}
-			<div id="div2">
-				<textarea name="content" id="content" cols="100" rows="10"
-					style="resize: none;" placeholder="請輸入內文">${theme.content}</textarea>
+
+			<div id="back_index">
+				<a href='back-end/theme/theme_index.jsp'>回熱門活動首頁</a>
 			</div>
-			<div id="div3">
-				<span id="num_content">剩餘可輸入500字</span>
-			</div>
-			<input type="hidden" name="img" value="${theme.img}">
-			<div id="div5">
-			<label>舊照片</label><br>
-			<img src="${theme.img}"/><br>
-				${errorMsgs.updateFile}
-				<input name="updateFile" id="file1" type="file" accept=“image/*>
-				<img id="look_img" src="">
-			</div>
-			<input type="submit" value="提交">
-		</form>
+
+
+
+		</div>
 	</div>
-	
-	<div>
-		<a href='back-end/theme/theme_index.jsp'>回熱門活動首頁</a>
-	</div>
+
 
 
 	<script>

@@ -121,4 +121,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE `ROOM_ORDER`.`room_order_status`= #{roomOrderStatus}
 	</select>
 	
+<!-- 	// 根據會員與廠商Id搜尋的訂單 -->
+<!-- 	public List<RoomOrder> queryByCustIdAndCmpId(@Param("cmpId") Integer cmpId,@Param("custId") Integer custId); -->
+	<select id="queryByCustIdAndCmpId" resultType="com.taiwan.beans.RoomOrder">
+		SELECT `ROOM_ORDER`.`room_order_id`, `ROOM_ORDER`.`cust_id`,
+    		`ROOM_ORDER`.`room_order_date`, `ROOM_ORDER`.`room_order_price`,
+    		`ROOM_ORDER`.`checkin_date`, `ROOM_ORDER`.`checkout_date`,
+  			`ROOM_ORDER`.`room_order_status`, `ROOM_ORDER`.`cancel`,
+    		`ROOM_ORDER`.`total_price`, `ROOM_ORDER`.`cust_cop_id`,
+    		`ROOM_ORDER`.`cmp_id`
+		FROM `Taiwan`.`ROOM_ORDER`
+		WHERE `ROOM_ORDER`.`cust_id`= #{custId} AND `ROOM_ORDER`.`cmp_id`=#{cmpId}
+	</select>	
+<!-- 	// 搜尋同一家廠商一段時間內的訂單 -->
+<!-- 	public List<RoomOrder> queryByDateAndCmpId(@Param("cmpId") Integer cmpId,@Param("startdate") Date startdate, @Param("enddate") Date enddate); -->
+	<select id="queryByDateAndCmpId" resultType="com.taiwan.beans.RoomOrder">
+		SELECT `ROOM_ORDER`.`room_order_id`, `ROOM_ORDER`.`cust_id`,
+    		`ROOM_ORDER`.`room_order_date`, `ROOM_ORDER`.`room_order_price`,
+    		`ROOM_ORDER`.`checkin_date`, `ROOM_ORDER`.`checkout_date`,
+  			`ROOM_ORDER`.`room_order_status`, `ROOM_ORDER`.`cancel`,
+    		`ROOM_ORDER`.`total_price`, `ROOM_ORDER`.`cust_cop_id`,
+    		`ROOM_ORDER`.`cmp_id`
+		FROM `Taiwan`.`ROOM_ORDER`
+		WHERE `ROOM_ORDER`.`cmp_id`=#{cmpId} AND
+			`ROOM_ORDER`.`room_order_date` BETWEEN #{startdate} AND #{enddate}
+	</select>
+<!-- 	// 根據訂單狀態搜尋同一家訂單 -->
+<!-- 	public List<RoomOrder> queryByStatusAndCmpId(@Param("cmpId") Integer cmpId,@Param("roomOrderStatus") String roomOrderStatus); -->
+	<select id="queryByStatusAndCmpId" resultType="com.taiwan.beans.RoomOrder">
+		SELECT `ROOM_ORDER`.`room_order_id`, `ROOM_ORDER`.`cust_id`,
+    		`ROOM_ORDER`.`room_order_date`, `ROOM_ORDER`.`room_order_price`,
+    		`ROOM_ORDER`.`checkin_date`, `ROOM_ORDER`.`checkout_date`,
+  			`ROOM_ORDER`.`room_order_status`, `ROOM_ORDER`.`cancel`,
+    		`ROOM_ORDER`.`total_price`, `ROOM_ORDER`.`cust_cop_id`,
+    		`ROOM_ORDER`.`cmp_id`
+		FROM `Taiwan`.`ROOM_ORDER`
+		WHERE `ROOM_ORDER`.`room_order_status`= #{roomOrderStatus} AND `ROOM_ORDER`.`cmp_id`=#{cmpId}
+	</select>
+	
+<!-- 	//根據訂單Id修改狀態 -->
+<!-- 	public int updateStatus(@Param("roomOrderId") Integer roomOrderId,@Param("roomOrderStatus") String roomOrderStatus);  -->
+	<update id="updateStatus" >
+		update `Taiwan`.`ROOM_ORDER`
+		SET
+			`ROOM_ORDER`.`room_order_status` = #{roomOrderStatus},
+		where
+			`ROOM_ORDER`.`room_order_id`= #{roomOrderId}
+	</update>
 </mapper>

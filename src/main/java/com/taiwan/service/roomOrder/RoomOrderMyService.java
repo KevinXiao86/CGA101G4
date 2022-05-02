@@ -28,6 +28,15 @@ public interface RoomOrderMyService {
 	//根據訂單狀態搜尋訂單
 	public List<RoomOrder> findByStatus(String roomOrderStatus);
 	
+	//根據訂單Id更改訂單的狀態
+	public boolean changeStatus(Integer cmpId,String roomOrderStatus);
+	
+	//廠商查詢
+	public List<RoomOrder> cmpFindByCustId(Integer cmpId,Integer custId);
+	
+	public List<RoomOrder> cmpFindByDate(Integer cmpId,Date startsate ,Date enddate);
+	
+	public List<RoomOrder> cmpFindByStatus(Integer cmpId,String roomOrderStatus);
 	
 
 }

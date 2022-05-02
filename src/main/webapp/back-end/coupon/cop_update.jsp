@@ -16,7 +16,7 @@ CouponVO couponVO = (CouponVO) request.getAttribute("couponVO");
 <style>
         #page-wrapper {
             background-color: rgb(221, 221, 241) !important;
-            height: 600px; 
+/*             height: 600px;  */
         }
 
         label {

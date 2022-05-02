@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>tktOrder_index</title>
 <style>
 .xdsoft_datetimepicker .xdsoft_datepicker {
 	width: 300px; /* width:  300px; */
@@ -70,15 +70,15 @@ select[name="roomOrderStatus"] {
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">訂房訂單管理首頁</h1>
+                        <h1 class="page-header">票券訂單管理首頁</h1>
                     </div>
                 </div>
                 <div id="findAll_div">
-                    <form action="roomOrder/findAll" method="post">
+                    <form action="tktOrder/findAll" method="post">
                         <input type="submit" value="搜尋全部">
                     </form>
                 </div>
-
+ 
                 <%--錯誤列表 --%>
                     <c:if test="${not empty errorMsgs}">
                         <font style="color: red">請修正以下錯誤:</font>
@@ -89,40 +89,24 @@ select[name="roomOrderStatus"] {
                         </ul>
                     </c:if>
                 <div>
-                    <FORM METHOD="post" ACTION="roomOrder/selectById">
-                        <b>輸入訂房訂單編號來做查詢:</b>
-                        <input type="text" name="roomOrderId">
-                        <input type="submit" value="送出">
-                    </FORM>
-                </div>
-                <div id="cmpId_div">
-                    <FORM METHOD="post" ACTION="roomOrder/selectByCmpId">
-                        <b>輸入廠商編號來做查詢:</b> <input type="text" name="cmpId">
+                    <FORM METHOD="post" ACTION="tktOrder/findById">
+                        <b>輸入票券訂單編號來做查詢:</b>
+                        <input type="text" name="tktOrderId">
                         <input type="submit" value="送出">
                     </FORM>
                 </div>
 
                 <div>
-                    <FORM METHOD="post" ACTION="roomOrder/selectByCustId">
+                    <FORM METHOD="post" ACTION="tktOrder/findByCustId">
                         <b>輸入會員編號來做查詢:</b>
                         <input type="text" name="custId">
                         <input type="submit" value="送出">
                     </FORM>
                 </div>
 
-                <div>
-                    <FORM METHOD="post" ACTION="roomOrder/selectByStatus">
-                        <b>輸入訂房訂單狀態來做查詢:</b> <select name="roomOrderStatus">
-                            <option value="正常">正常</option>
-                            <option value="已取消">已取消</option>
-                            <option value="以實現">以實現</option>
-                        </select> <input type="submit" value="送出">
-                    </FORM>
-                </div>
-
 
                 <div>
-                    <FORM METHOD="post" ACTION="roomOrder/selectByDate">
+                    <FORM METHOD="post" ACTION="tktOrder/findByDate">
                         <b>根據日期來做查詢來做查詢:</b> <br>
                         <label for="from">From</label>
 						<input type="text"  name="startdate" id="start_date">

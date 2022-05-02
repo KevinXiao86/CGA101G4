@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%-- <%@ include file="/common/head.jsp"%> --%>
-
+<%@ include file="back-end-index.jsp"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -11,7 +11,7 @@
 <style>
         #page-wrapper {
             background-color: rgb(221, 221, 241) !important;
-            height: 600px;  
+            height: 800px;  
         }
 
         #create_div {
@@ -83,7 +83,7 @@
 </head>
 <body>
 
-	<%@ include file="back-end-index.jsp"%>
+	
 
 	<div id="page-wrapper">
             <div class="container-fluid">

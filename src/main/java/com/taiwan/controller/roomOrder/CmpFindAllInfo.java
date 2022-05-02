@@ -20,13 +20,12 @@ import com.taiwan.service.roomOrder.RoomOrderMyService;
 import com.taiwan.service.roomtype.RoomtypeService;
 import com.taiwan.utils.ControllerUtil;
 
-@WebServlet("/roomOrder/findAllInfo")
-public class RoomOrderFindAllInfo extends HttpServlet {
+@WebServlet("/roomOrder/cmpFindAllInfo")
+public class CmpFindAllInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	RoomOrderMyService roomOrderMyService = ControllerUtil.getBean(RoomOrderMyService.class);
+	RoomOrderMyService roomOrderMyService=ControllerUtil.getBean(RoomOrderMyService.class);
 	RoomItemService roomItemService = new RoomItemServiceImpl();
 	RoomtypeService roomtypeService = ControllerUtil.getBean(RoomtypeService.class);
-
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 		request.setAttribute("errorMsgs", errorMsgs);
@@ -60,6 +59,7 @@ public class RoomOrderFindAllInfo extends HttpServlet {
 			rd.forward(request, response);
 		}
 	}
+	
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
