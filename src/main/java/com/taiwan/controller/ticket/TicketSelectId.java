@@ -14,8 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.taiwan.beans.CustomerVO;
 import com.taiwan.beans.TicketVO;
+import com.taiwan.beans.TktImgVO;
 import com.taiwan.beans.TktItem;
 import com.taiwan.service.TicketService;
+import com.taiwan.service.TktImgService;
 import com.taiwan.service.TktItemService;
 import com.taiwan.service.customer.CustomerService;
 import com.taiwan.service.customer.impl.CustomerServiceImpl;
@@ -85,17 +87,22 @@ public class TicketSelectId extends HttpServlet {
 			Integer ttlPeople = tktItemSvc.getTktItemTtlPeople(tktId);
 			tktVO.setTtlPeople(ttlPeople);
 			// 取得平均分數
-			Integer ttlScore = (tktItemSvc.getTktItemTllScore(tktId)) / ttlPeople;
-			tktVO.setTtlScore(ttlScore);
+			if(ttlPeople != 0) {
+				Integer ttlScore = (tktItemSvc.getTktItemTllScore(tktId)) / ttlPeople;
+				tktVO.setTtlScore(ttlScore);				
+			}
 			// 取會員姓名、頭貼
 //			Integer custId = 
 //			CustomerService custSvc = new CustomerServiceImpl();
 //			CustomerVO customerVO = custSvc.getAll(custId);
 			// 取TktImg所有圖片
+			TktImgService imgSvc = new TktImgService();
+			List<TktImgVO> imgList = imgSvc.getByTktId(tktId);
 
 			/********************** 3.查詢完成，設定參數，送出成功頁面 **********************/
 			req.setAttribute("tktVO", tktVO);
 			req.setAttribute("tktItemList", tktItemList);
+			req.setAttribute("imgList", imgList);
 			RequestDispatcher success = req.getRequestDispatcher("/front-end/ticket11/ticketpost.jsp");
 			success.forward(req, res);
 		}

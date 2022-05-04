@@ -38,7 +38,7 @@
 <h3>資料查詢:</h3>
 <ul>
 	<li>
-		<Form action="tktOrder/getAll" method="post">
+		<Form action="ticket/getAll" method="post">
 	  		<input type="submit" value="all Tickets.">  <br><br>
 	  	</Form>
   	</li>

@@ -1,4 +1,3 @@
-<%@page import="com.taiwan.service.impl.TicketServiceImpl"%>
 <%@page import="com.taiwan.service.*"%>
 <%@page import="com.taiwan.beans.TicketVO"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -71,7 +70,7 @@
 </c:if>
 
 <table>
-	<tr>
+	<tr> 
 		<th>票券編號</th>
 		<th>票券名稱</th>
 		<th>原始數量</th>
@@ -88,30 +87,31 @@
 <!-- 		<th>賣出數量</th> -->
 		<th>種類</th>
 	</tr>
-	<%@ include file="page1.file"%>
-	<c:forEach var="tktVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+<%-- 	<%@ include file="page1.file"%> --%>
+<%-- begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" --%>
+	<c:forEach var="ticketVO" items="${list}">
 		
 		<tr>
-			<td>${tktVO.tktId}</td>
-			<td>${tktVO.tktName}</td>
-			<td>${tktVO.originalAmount}</td>
-			<td>${tktVO.price}</td>
-			<td><fmt:formatDate value="${tktVO.startdate}" pattern="yyyy-MM-dd'T'HH:mm"/></td>
-			<td><fmt:formatDate value="${tktVO.enddate}" pattern="yyyy-MM-dd'T'HH:mm"/></td>
-			<td>${tktVO.location}</td> 
-			<td>${tktVO.instruction}</td> 
-			<td>${tktVO.address}</td> 
-			<td>${tktVO.notice}</td> 
-			<td>${tktVO.howuse}</td> 
-			<td>${tktVO.canxpolicy}</td> 
-			<td>${tktVO.status}</td> 
-<%-- 			<td>${tktVO.soldAmount}</td>  --%>
-			<td>${tktVO.kind}</td> 
+			<td>${ticketVO.tktId}</td>
+			<td>${ticketVO.tktName}</td>
+			<td>${ticketVO.originalAmount}</td>
+			<td>${ticketVO.price}</td>
+			<td><fmt:formatDate value="${ticketVO.startdate}" pattern="yyyy-MM-dd'T'HH:mm"/></td>
+			<td><fmt:formatDate value="${ticketVO.enddate}" pattern="yyyy-MM-dd'T'HH:mm"/></td>
+			<td>${ticketVO.location}</td> 
+			<td>${ticketVO.instruction}</td> 
+			<td>${ticketVO.address}</td> 
+			<td>${ticketVO.notice}</td> 
+			<td>${ticketVO.howuse}</td> 
+			<td>${ticketVO.canxpolicy}</td> 
+			<td>${ticketVO.status}</td> 
+<%-- 			<td>${ticketVO.soldAmount}</td>  --%>
+			<td>${ticketVO.kind}</td> 
 			
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="page2.file" %>
+<%-- <%@ include file="page2.file" %> --%>
 
 </body>
 </html>

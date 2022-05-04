@@ -2,6 +2,7 @@ package com.taiwan.beans;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 public class TicketVO implements Serializable {
 	private Integer tktId;
@@ -10,7 +11,7 @@ public class TicketVO implements Serializable {
 	private Integer price;
 	private Timestamp startdate;
 	private Timestamp enddate;
-	private Integer ttlScore; // join
+	private Integer ttlScore;  // join
 	private Integer ttlPeople; // join
 	private String location;
 	private String instruction;
@@ -195,4 +196,21 @@ public class TicketVO implements Serializable {
 				+ status + ", soldAmount=" + soldAmount + ", kind=" + kind + "]";
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(tktName);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TicketVO other = (TicketVO) obj;
+		return Objects.equals(tktName, other.tktName);
+	}
+	
 }

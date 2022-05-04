@@ -1,14 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%
-  // EmpVO empVO = (EmpVO) request.getAttribute("empVO");
-%>
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>訂單資料修改</title>
+<title>新增訂單資料</title>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 	<%@ include file="/common/head.jsp"%>
 <style>
@@ -48,54 +45,45 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>訂單資料新增 - addTktOrder.jsp</h3></td><td>
-		 <h4><a href="select_page.jsp">回首頁</a></h4>
+		 <h3>新增訂單資料 - addTktOrder.jsp</h3></td><td>
+		 <h4><a href="front-end/tktOrder/tktOrderIndex.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
 
 <h3>資料新增:</h3>
 
 
-<FORM METHOD="post" ACTION="emp.do" name="form1">
+<FORM METHOD="post" ACTION="front-end/tktOrder.creator" name="form1">
 <table>
 	<tr>
-		<td>員工姓名:</td>
-		<td><input type="TEXT" name="ename" size="45" 
-			 value="${param.ename}"/></td><td>${errorMsgs.ename}</td>
+		<td>訂購人:</td>
+		<td><input type="text" name="orderName" size="45" 
+			 value="${param.orderName}"/></td><td>${errorMsgs.orderName}</td>
 	</tr>
 	<tr>
-		<td>職位:</td>
-		<td><input type="TEXT" name="job" size="45"
-			 value="${param.job}"/></td><td>${errorMsgs.job}</td>
+		<td>連絡電話:</td>
+		<td><input type="tel" name="orderMobile" size="45" 
+			 value="${param.orderMobile}"/></td><td>${errorMsgs.orderMobile}</td>
 	</tr>
 	<tr>
-		<td>雇用日期:</td>
-		<td><input name="hiredate" id="f_date1" type="text"/></td><td>${errorMsgs.hiredate}</td>
-	</tr>
-	<tr>
-		<td>薪水:</td>
-		<td><input type="TEXT" name="sal" size="45"
-			 value="${param.sal}"/></td><td>${errorMsgs.sal}</td>
-	</tr>
-	<tr>
-		<td>獎金:</td>
-		<td><input type="TEXT" name="comm" size="45"
-			 value="${param.comm}"/></td><td>${errorMsgs.comm}</td>
+		<td>Email:</td>
+		<td><input type="email" name="orderEmail" size="45" 
+			 value="${param.orderEmail}"/></td><td>${errorMsgs.orderEmail}</td>
 	</tr>
 
 <%-- 	<jsp:useBean id="deptSvc" scope="page" class="com.dept.model.DeptService" /> --%>
-	<tr>
-		<td>部門:<font color=red><b>*</b></font></td>
-		<td><select size="1" name="deptno">
-			<c:forEach var="deptVO" items="${deptSvc.all}">
-				<option value="${deptVO.deptno}" ${(param.deptno==deptVO.deptno)? 'selected':'' } >${deptVO.dname}
-			</c:forEach>
-		</select></td>
-	</tr>
+<!-- 	<tr> -->
+<!-- 		<td>部門:<font color=red><b>*</b></font></td> -->
+<!-- 		<td><select size="1" name="deptno"> -->
+<%-- 			<c:forEach var="deptVO" items="${deptSvc.all}"> --%>
+<%-- 				<option value="${deptVO.deptno}" ${(param.deptno==deptVO.deptno)? 'selected':'' } >${deptVO.dname} --%>
+<%-- 			</c:forEach> --%>
+<!-- 		</select></td> -->
+<!-- 	</tr> -->
 
 </table>
 <br>
-<input type="hidden" name="action" value="insert">
+<input type="hidden" name="action" value="insert_order">
 <input type="submit" value="送出新增"></FORM>
 </body>
 

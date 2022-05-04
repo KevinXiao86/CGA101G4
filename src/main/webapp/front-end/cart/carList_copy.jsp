@@ -33,7 +33,7 @@
         <!-- Top Header Area -->
         <div class="top-header" id="headerFixed">
             <div class="container h-100">
-                <div class="row h-100 align-items-center"><img src="static/img/ticket-img/logo.jpg" alt="" id="bear"
+                <div class="row h-100 align-items-center"><img src="<%=request.getContextPath()%>/static/img/ticket-img/logo.jpg" alt="" id="bear"
                         style="height:65px;">
                     <div class="col-12 col-sm-5" style="margin-left:480px">
                         <div class="top-social-area">
@@ -77,7 +77,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="static/img/cart/green-tomatoes.jpg" class="product-img">
+                                    <img src="<%=request.getContextPath()%>/static/img/cart/green-tomatoes.jpg" class="product-img">
                                 </td>
                                 <td>1</td>
                                 <td>1003</td>
@@ -104,7 +104,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="static/img/cart/green-tomatoes.jpg" class="product-img">
+                                    <img src="<%=request.getContextPath()%>/static/img/cart/green-tomatoes.jpg" class="product-img">
                                 </td>
                                 <td>1</td>
                                 <td>1003</td>
@@ -254,14 +254,14 @@
                         <h2 class="section-heading">商品明細</h2>
                         <table style="width: 350px; border: 1;">
                             <tr>
-                                <td><img src="static/img/cart/green-tomatoes.jpg" class="product-img"
+                                <td><img src="<%=request.getContextPath()%>/static/img/cart/green-tomatoes.jpg" class="product-img"
                                         style="margin:0 -40px 0 -10px;"></td>
                                 <td>飛牛牧場</td>
                                 <td>1張</td>
                                 <td>250元</td>
                             </tr>
                             <tr>
-                                <td><img src="static/img/cart/green-tomatoes.jpg" class="product-img"
+                                <td><img src="<%=request.getContextPath()%>/static/img/cart/green-tomatoes.jpg" class="product-img"
                                         style="margin:0 -40px 0 -10px;"></td>
                                 <td>飛牛牧場</td>
                                 <td>1張</td>

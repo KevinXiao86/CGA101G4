@@ -1,13 +1,11 @@
 =\=\=\=\=\=\=
 <<<<<<<=HEAD
-<<<<<<< HEAD
->>>>>>>=ienHua
-=======
->>>>>>>=tchen1019
->>>>>>> a8cbe4f (pull)
+>>>>>>>=a8cbe4f (pull)
 eclipse.preferences.version=1
 encoding//src/main/java/com/taiwan/dao/employee/impl/EmployeeJDBCDAO.java=UTF-8
 encoding//src/main/java/com/taiwan/dao/employeeFunction/impl/EmployeeFunctionJDBCDAO.java=UTF-8
 encoding//src/main/webapp/back-end/company/cmp_manager.jsp=UTF-8
 encoding//src/main/webapp/back-end/coupon/page1.file=UTF-8
+encoding//src/main/webapp/front-end/homepage/footer.jsp=UTF-8
+encoding//src/main/webapp/front-end/homepage/header.jsp=UTF-8
 encoding//src/main/webapp/manager/company/cmp_manager.jsp=UTF-8

@@ -12,19 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.taiwan.beans.TicketVO;
 import com.taiwan.beans.TktItem;
-import com.taiwan.service.TicketService;
 import com.taiwan.service.TktItemService;
-import com.taiwan.service.impl.TicketServiceImpl;
-import com.taiwan.utils.ControllerUtil;
 
-@WebServlet("/tktItem/selectById")
-public class TktItemSelectById extends HttpServlet {
+@WebServlet("/tktItem/content")
+public class TktItemAddContent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	TicketService ticketService = ControllerUtil.getBean(TicketService.class);
-
+	
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
 	}
@@ -34,42 +28,42 @@ public class TktItemSelectById extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
-		if ("get_orderItem".equals(action)) {
+		if ("insert".equals(action)) {
 
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 ***************************/
 			// 從頁面直接指定要查看的訂單，所以不會沒有資料
-			String str = req.getParameter("tktOrderId");
-			// 將訂單編號轉換成數字
-			Integer tktOrderId = Integer.valueOf(str);
-
-			/*************************** 2.開始查詢資料 ***************************/
-			TktItemService tktItemSvc = new TktItemService();
-			List<TktItem> itemList = tktItemSvc.getTktItemByTktOrderId(tktOrderId);
-			if (itemList == null || itemList.size() == 0) {
-				errorMsgs.put("itmlist", "查無資料");
+			Integer tktOrderId = Integer.valueOf(req.getParameter("tktOrderId"));
+			
+			Integer tktId = Integer.valueOf(req.getParameter("tktId"));
+			
+			String content = req.getParameter("content");
+			if (content == null || content.trim().length() == 0) {
+				errorMsgs.put("content","內容請勿空白");
 			}
+			
+			Integer score = null;
+			try {
+				score = Integer.valueOf(req.getParameter("score"));
+			} catch (NumberFormatException e) {
+				errorMsgs.put("score","評分請填數字");
+			}
+
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/tktOrder/tktOrderIndex.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/tktItem/listOneTktItem.jsp");
 				failureView.forward(req, res);
 				return;
 			}
-//				System.out.println(itemList);
-
-			//加入票券名稱
-//			ticketService = new TicketServiceImpl();
-//			TicketVO ticketVO = ticketService.findById(tktItem.getTktId());
-//			
-//			for(TktItem tktItem : itemList) {
-//				ticketVO = ticketService.findById(tktItem.getTktId());
-//			}
+			
+			/*************************** 2.開始查詢資料 ***************************/
+			TktItemService tktItemSvc = new TktItemService();
+			TktItem item = tktItemSvc.updateTktItemScoreContent(tktOrderId, tktId, score, content);
 
 			/******************** 3.查詢完成，設定參數，送出成功頁面 ********************/
-			req.setAttribute("itemList", itemList);
-//			req.setAttribute("ticketVO", ticketVO);
+			req.setAttribute("item", item);
 			RequestDispatcher success = req.getRequestDispatcher("/front-end/tktItem/listOneTktItem.jsp");
 			success.forward(req, res);
 
