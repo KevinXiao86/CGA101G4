@@ -42,7 +42,7 @@ public class CmpFindAllInfo extends HttpServlet {
 			//獲取房型編號
 			Integer roomId = roomItemVO.getRoomId();
 			//查詢房型名稱
-			Roomtype roomtype = roomtypeService.getRoomtypeByCmpIdAndRoomtypeId(cmpId, roomId);
+			Roomtype roomtype = roomtypeService.getRoomtypeByCmpIdAndRoomtypeId(cmpId+"", roomId+"");
 //			System.out.println(roomtype);
 			// 對request域中塞資料
 			request.setAttribute("roomOrder", roomOrder);

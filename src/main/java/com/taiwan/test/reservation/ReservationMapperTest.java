@@ -21,18 +21,6 @@ public class ReservationMapperTest {
 	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 	ReservationMapper reservationMapper = context.getBean(ReservationMapper.class);
 
-	@Test
-	public void test01() throws ParseException {
-		// 創建解析器
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		// 設置時區
-		dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Taipei"));
-		Date date = dateFormat.parse("2022-05-02");
-		List<Reservation> list = reservationMapper.getAllReservationsByDate(date);
-		for (Reservation reservation : list) {
-			System.out.println(reservation);
-		}
-	}
 
 	@Test
 	public void test02() throws ParseException {

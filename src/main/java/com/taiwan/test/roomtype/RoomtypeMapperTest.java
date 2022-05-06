@@ -104,16 +104,4 @@ public class RoomtypeMapperTest {
 			System.out.println(img);
 		}
 	}
-	
-	
-	@Test
-	public void test07() {
-		List<Roomtype> list = roomtypeMapper.queryAllRoomtypesByCmpIdAndStatus(20011, "上架");
-		for(Roomtype roomtype : list) {
-			for(RoomImg roomImg : roomtype.getRoomImgs()) {
-				System.out.println(roomImg);
-			}
-		}
-	}
-	
 }
