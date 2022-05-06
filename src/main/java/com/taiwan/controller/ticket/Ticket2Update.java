@@ -2,6 +2,7 @@ package com.taiwan.controller.ticket;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -12,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.taiwan.beans.TicketVO;
+import com.taiwan.beans.TktImgVO;
 import com.taiwan.service.TicketService;
+import com.taiwan.service.tktImg.TktImgService;
 import com.taiwan.utils.ControllerUtil;
 
 @WebServlet("/ticket/tkt2Update")
@@ -34,6 +37,8 @@ public class Ticket2Update extends HttpServlet {
 			String city=allAddress.substring(0,3);
 			String town=allAddress.substring(3,6);
 			String address=allAddress.substring(6);
+			TktImgService tktImgService=new TktImgService();
+			List<TktImgVO> tktImgVOs=tktImgService.getByTktId(tktId);
 			//在網址塞資料
 			String param="?tktId="  +ticketVO.getTktId()+
 				       	 "&tktName="  +ticketVO.getTktName()+
@@ -52,6 +57,7 @@ public class Ticket2Update extends HttpServlet {
 						 "&soldAmount="    +ticketVO.getSoldAmount()+
 						 "&kind="   +ticketVO.getKind();
 			String url="/back-end/ticket/ticket_update.jsp"+param;
+			request.setAttribute("tktImgVOs", tktImgVOs);
 			RequestDispatcher rd=request.getRequestDispatcher(url);
 			rd.forward(request, response);
 		}catch (Exception e) {

@@ -1,66 +1,59 @@
 <%@page import="com.taiwan.beans.Theme"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%
-
-List<Theme> list =(List<Theme>)request.getAttribute("list");
+List<Theme> list = (List<Theme>) request.getAttribute("list");
 pageContext.setAttribute("list", list);
-
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
-<%@ include file="/common/head.jsp"%>
+<%@ include file="back-end-index.jsp"%>
 <meta charset="UTF-8">
 <title>熱門活動資料 ThemeByName</title>
 <style>
-table#table-1 {
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
+#page-wrapper {
+	background-color: rgb(221, 221, 241) !important;
+	height: 800px;
 }
 
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
-</style>
-
-<style>
 table {
-	width: 800px;
-	background-color: white;
+	width: 1100px;
+	background-color: rgb(221, 221, 241) !important;
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
 
 table, th, td {
-	border: 1px solid #CCCCFF;
+	border: 3px solid #CCCCFF;
 }
 
 th, td {
 	padding: 5px;
 	text-align: center;
 }
-img{
- width: 150px;
- height: 150px;
+
+img {
+	width: 150px;
+	height: 150px;
 }
 </style>
 </head>
 <body>
 
-	<h1>根據標題搜尋熱門活動</h1>
+	<div id="page-wrapper">
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">根據標題搜尋熱門活動</h1>
+				</div>
+			</div>
+
 
 	<%--錯誤列表 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -82,13 +75,12 @@ img{
 			<th>修改</th>
 			<th>刪除</th>
 		</tr>
-<%-- 		<%@ include file="page1.file" %>  --%>
 		<c:forEach items="${list}" var="theme" >
 			<tr>
 				<td>${theme.themeId}</td>
 				<td>${theme.title}</td>
 				<td>${theme.content}</td>
-				<td><fmt:formatDate value="${theme.createDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+				<td><fmt:formatDate value="${theme.createDate}" pattern="yyyy-MM-dd"/></td>
 				<td><img src="${theme.img}"/></td>
 				<td>
 					<FORM METHOD="post"	ACTION="theme/theme2Update" style="margin-bottom: 0px;">
@@ -105,11 +97,16 @@ img{
 			</tr>
 		</c:forEach>
 	</table>
-<%-- 	<%@ include file="page2.file" %> --%>
 
 	<div>
 		<a href='back-end/theme/theme_index.jsp'>回熱門活動首頁</a>
 	</div>
- 
+
+
+		</div>
+	</div>
+
+
+
 </body>
 </html>

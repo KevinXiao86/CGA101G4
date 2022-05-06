@@ -24,3 +24,4 @@ request.getContextPath()可以返回当前页面所在的項目的名字;
 <!-- 寫base標籤,永遠固定相對路徑跳轉的結果 -->
 <base href="<%=basePath%>">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link   rel="stylesheet" type="text/css" href="datetimepicker/jquery.datetimepicker.css" />

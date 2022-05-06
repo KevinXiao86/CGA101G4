@@ -33,5 +33,7 @@ public interface TicketMapper {
 	public int updateTktStatusByTktId(@Param("tktId") Integer tktId,@Param("status") String status);
 	//根據票券id搜尋全部的資訊
 	public TicketVO queryOInfoById(Integer tktId);
+	//找到最新的Id
+	public int queryMax();
 	
 }

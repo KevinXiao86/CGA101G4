@@ -53,21 +53,23 @@ public class NewsUpdate extends HttpServlet {
 			if (!fsaveDirectory.exists()) {
 				fsaveDirectory.mkdirs();
 			}
+			//要回傳數據庫的路徑
+			String dbPath=null;
 			// 取得上傳的檔案
 			Part part = request.getPart("updateFile");
 			// 判斷使用者有沒有上傳檔案
 			if (part.getHeader("content-disposition").contains("filename=\"\"")) {
-				errorMsgs.put("updateFile", "沒有傳入最新消息的照片");
-			}
-			
-			
-			UUIDFileName uuidFileName = new UUIDFileName();
-			String filename = uuidFileName.getUUIDFileName(part);
-			part.write(realPath + "/" + filename);
-			// 傳入db的路徑前面不能再有斜槓，不然伺服器找的時候會跑一次阿飄路徑
-			String dbSaveDirectory = "images/news";
-			// 要傳回數據庫的路徑
-			String dbPath = dbSaveDirectory + "/" + filename;
+//				errorMsgs.put("updateFile", "沒有傳入最新消息的照片");
+				dbPath=request.getParameter(dbPath);
+			}else {
+				UUIDFileName uuidFileName = new UUIDFileName();
+				String filename = uuidFileName.getUUIDFileName(part);
+				part.write(realPath + "/" + filename);
+				// 傳入db的路徑前面不能再有斜槓，不然伺服器找的時候會跑一次阿飄路徑
+				String dbSaveDirectory = "images/news";
+				// 要傳回數據庫的路徑
+				dbPath = dbSaveDirectory + "/" + filename;
+			}	
 			// 把新的最新消息資料封裝好
 			
 			news.setNewsId(newsId);
@@ -88,7 +90,7 @@ public class NewsUpdate extends HttpServlet {
 			// 開始新增資料
 			newsService.update(newsId, title, content, dbPath);
 			// 新增完成，請求轉發到news首頁
-			RequestDispatcher rd = request.getRequestDispatcher("/back-end/news/news_index.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/news/findAll");
 			rd.forward(request, response);
 			// 其他錯誤處理
 		} catch (Exception e) {

@@ -97,6 +97,7 @@ public class RoomtypeService {
 		return true;
 	}
 
+
 	// 在房型修改頁面刪除已有的房型圖片
 	@Transactional
 	public boolean deleteRoomImgInEditPage(String[] roomImgIds, HttpSession session) {
@@ -184,4 +185,67 @@ public class RoomtypeService {
 
 		return savePath;
 	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 }

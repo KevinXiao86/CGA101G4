@@ -114,7 +114,7 @@
 
 	<select id="queryTicketByStatus" parameterType="String"
 		resultMap="TicketMap">
-		select TKT_ID, TKT_NAME from TICKET where STATUS = #{status}
+		select * from TICKET where STATUS = #{status}
 	</select>
 
 	<select id="getTicketByScore" resultMap="TicketMap">
@@ -141,6 +141,11 @@
 		LOCATION, INSTRUCTION, ADDRESS, NOTICE, HOWUSE, CANXPOLICY,SOLD_AMOUNT soldAmount ,KIND
 		from TICKET
 		where TKT_ID = #{tktId}
+	</select>
+	
+	
+	<select id="queryMax" resultType="Integer">
+		select max(TKT_ID) from TICKET
 	</select>
 
 

@@ -89,7 +89,7 @@ public class CouponCreator extends HttpServlet {
 				errorMsgs.put("uploadFile", "沒有傳入熱門活動的照片");
 			}
 			UUIDFileName uuidFileName = new UUIDFileName();
-			String filename = uuidFileName.getUUIDFileName(part);
+			String filename = uuidFileName.getFileNameFromPart(part);
 			part.write(realPath + "/" + filename);
 			//傳入db的路徑前面不能再有斜槓，不然伺服器找的時候會跑一次阿飄路徑
 			String dbSaveDirectory="images/coupon";

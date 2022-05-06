@@ -22,7 +22,7 @@ public class CouponSelectByStatus extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	CouponService couponService = ControllerUtil.getBean(CouponService.class);
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 		request.setAttribute("errorMsgs", errorMsgs);
@@ -53,7 +53,7 @@ public class CouponSelectByStatus extends HttpServlet {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}

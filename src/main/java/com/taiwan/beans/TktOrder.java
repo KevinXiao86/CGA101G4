@@ -10,14 +10,12 @@ public class TktOrder {
 	private Integer ttlPrice;
 	private Integer custCopId;
 	private String qrcode;
-
-	public TktOrder() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	private String orderName;
+	private String orderEmail;
+	private String orderMobile;	
 
 	public TktOrder(Integer tktOrderId, Integer custId, Integer originalPrice, Timestamp orderdate, Integer ttlPrice,
-			Integer custCopId, String qrcode) {
+			Integer custCopId, String qrcode, String orderName, String orderEmail, String orderMobile) {
 		super();
 		this.tktOrderId = tktOrderId;
 		this.custId = custId;
@@ -26,6 +24,17 @@ public class TktOrder {
 		this.ttlPrice = ttlPrice;
 		this.custCopId = custCopId;
 		this.qrcode = qrcode;
+		this.orderName = orderName;
+		this.orderEmail = orderEmail;
+		this.orderMobile = orderMobile;
+	}
+
+	@Override
+	public String toString() {
+		return "TktOrder [tktOrderId=" + tktOrderId + ", custId=" + custId + ", originalPrice=" + originalPrice
+				+ ", orderdate=" + orderdate + ", ttlPrice=" + ttlPrice + ", custCopId=" + custCopId + ", qrcode="
+				+ qrcode + ", orderName=" + orderName + ", orderEmail=" + orderEmail + ", orderMobile=" + orderMobile
+				+ "]";
 	}
 
 	public Integer getTktOrderId() {
@@ -84,16 +93,32 @@ public class TktOrder {
 		this.qrcode = qrcode;
 	}
 
-	@Override
-	public String toString() {
-		return "TktOrder [tktOrderId=" + tktOrderId + ", custId=" + custId + ", originalPrice=" + originalPrice
-				+ ", orderdate=" + orderdate + ", ttlPrice=" + ttlPrice + ", custCopId=" + custCopId + ", qrcode="
-				+ qrcode + "]";
+	public String getOrderName() {
+		return orderName;
 	}
-	
-//	 public CustCoupon getCustCpnVO() {
-//		    CustCouponService custCpnSvc = new CustCouponService();
-//		    CustCoupon custCpnVO = custCpnSvc.getOneCustCpn(custCopId);
-//		    return custCpnVO;
-//	}
+
+	public void setOrderName(String orderName) {
+		this.orderName = orderName;
+	}
+
+	public String getOrderEmail() {
+		return orderEmail;
+	}
+
+	public void setOrderEmail(String orderEmail) {
+		this.orderEmail = orderEmail;
+	}
+
+	public String getOrderMobile() {
+		return orderMobile;
+	}
+
+	public void setOrderMobile(String orderMobile) {
+		this.orderMobile = orderMobile;
+	}
+
+	public TktOrder() {
+		super();
+	}
+
 }
