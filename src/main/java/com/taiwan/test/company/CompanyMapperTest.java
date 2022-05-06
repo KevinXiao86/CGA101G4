@@ -23,14 +23,6 @@ public class CompanyMapperTest {
 	CompanyMapper companyMapper = context.getBean(CompanyMapper.class);
 
 	
-	@Test
-	public void test01() {
-		CompanyMapper companyMapper = context.getBean(CompanyMapper.class);
-		
-		Company company = companyMapper.queryCompanyByAccountAndPassword("admin", "admin");
-		
-		System.out.println(company);
-	}
 	
 	
 	@Test
@@ -90,13 +82,6 @@ public class CompanyMapperTest {
 	}
 
 	
-	@Test
-	public void test05() {
-		CompanyMapper companyMapper = context.getBean(CompanyMapper.class);
-//		images/jackpassword/營業登記證3.jpg
-		int res = companyMapper.updateSerialNoByCmpAccount("jack", "images/jackpassword/營業登記證3.jpg");
-		System.out.println(res);
-	}
 
 	
 	@Test
