@@ -10,4 +10,6 @@ public interface CustPlatMailDao_interface {
 	public void setCust_Plat_Mail(CustPlatMailVO mail);
 
 	public List<CustPlatMailVO> getAll();
+
+	public List<CustPlatMailVO> getAllByCustId(Integer custId);
 }
