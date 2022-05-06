@@ -18,7 +18,7 @@ import com.taiwan.utils.DbUtil;
 public class TktOrderJDBCDao implements TktOrderDao {
 
 	@Override
-	public void insertTktOrderWithCoupon(TktOrder tktOrder, List<TktItem> tktItem_list) {
+	public String insertTktOrderWithCoupon(TktOrder tktOrder, List<TktItem> tktItem_list) {
 		Connection conn = null;
 		PreparedStatement prep = null;
 		String sql = "insert into TKT_ORDER(cust_id,original_price,ttl_price,cust_cop_id,qrcode,order_name,order_email,order_mobile)"
@@ -64,7 +64,8 @@ public class TktOrderJDBCDao implements TktOrderDao {
 			conn.commit();
 			conn.setAutoCommit(true); 
 			System.out.println("新增訂單編號" + next_tktOrderId + "時,共有" + tktItem_list.size()
-					+ "筆訂單明細同時被新增");				
+					+ "筆訂單明細同時被新增");		
+			return next_tktOrderId;
 				
 		} catch (SQLException se) {
 			if (conn != null) {
@@ -98,7 +99,7 @@ public class TktOrderJDBCDao implements TktOrderDao {
 	}
 
 	@Override
-	public void insertTktOrderNoCoupon(TktOrder tktOrder, List<TktItem> tktItem_list) {
+	public String insertTktOrderNoCoupon(TktOrder tktOrder, List<TktItem> tktItem_list) {
 		Connection conn =null;
 		PreparedStatement prep = null;
 		String sql = "insert into TKT_ORDER(cust_id,original_price,ttl_price,qrcode,order_name,order_email,order_mobile)" + " values(?,?,?,?,?,?,?);";
@@ -144,6 +145,8 @@ public class TktOrderJDBCDao implements TktOrderDao {
 			System.out.println("新增訂單編號" + next_tktOrderId + "時,共有" + tktItem_list.size()
 					+ "筆訂單明細同時被新增");				
 				
+			return next_tktOrderId;
+			
 		} catch (SQLException se) {
 			if (conn != null) {
 				try {

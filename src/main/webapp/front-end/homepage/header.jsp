@@ -254,9 +254,10 @@ ol li {
 		<div class="top-header" id="headerFixed">
 			<div class="container h-100">
 				<div class="row h-100 align-items-center">
-					<img
-						src="<%=request.getContextPath()%>/static/img/ticket-img/logo.jpg"
-						alt="" id="bear" style="height: 65px;">
+					<a href="<%=request.getContextPath()%>/front-end/homepage/index.jsp">
+						<img src="<%=request.getContextPath()%>/static/img/ticket-img/logo.jpg"
+							alt="" id="bear" style="height: 65px;">
+					</a>
 
 					<!-- Top Social Area -->
 

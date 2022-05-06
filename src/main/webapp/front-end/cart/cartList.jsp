@@ -30,9 +30,7 @@
 <body>
 	<%
 	List<TicketVO> cartlist = (List<TicketVO>) session.getAttribute("tktlist");
-	// 	Map<String, List<TicketVO>> map = new LinkedHashMap<>();
-	//     Map<Integer, Integer> qtyMap = new LinkedHashMap<>();
-	// 	pageContext.setAttribute("cart", list);
+	List<Integer> amountList = (List<Integer>) session.getAttribute("amountList");
 	%>
 	<!-- Preloader -->
 	<div id="preloader">
@@ -94,8 +92,8 @@
 			<a class="btn original-btn" href="<%=request.getContextPath()%>/front-end/homepage/index.jsp">繼續購物</a>
 		</div>
 	
-		<%}%>
 		<%
+		}
 		if (cartlist != null && (cartlist.size() > 0)) {
 		%>
 		<div class="form-step form-step-active">
@@ -126,7 +124,7 @@
 								<td><%=order.getTktName()%></td>
 								<td>NT$ <%=order.getPrice()%></td>
 								<td>
-									${amount}
+									<%=amountList.get(index) %>
 <!-- 									<div class="product-qty"> -->
 <!-- 										<button id="decrement"> -->
 <!-- 											<ion-icon name="remove-outline"></ion-icon> -->
@@ -137,7 +135,7 @@
 <!-- 										</button> -->
 <!-- 									</div> -->
 								</td>
-								<td>NT$ ${total}</td>
+								<td>NT$ <%=order.getPrice()*amountList.get(index)%></td>
 								<td>
 									<button class="product-close-btn">
 										<ion-icon name="close-outline"></ion-icon>
@@ -164,10 +162,10 @@
 
 				<div class="amount">
 					<div class="total">
-						<span>小計</span><span id="total"> $2.15</span>
+						<span>小計</span><span id="total"> $${total}</span>
 					</div>
 					<div class="tax">
-						<span>折扣金額</span><span id="tax"> $0</span>
+						<span>折扣金額</span><span id="tax"> -$0</span>
 					</div>
 					<div class="subtotal">
 						<span>總金額</span><span id="subtotal"> $2.05</span>
@@ -194,53 +192,7 @@
 	%>
 	
 	<!-- #### Footer start #### -->
-	<footer class="footer">
-		<div class="container">
-			<div class="row">
-				<div class="footer-col">
-					<h4>台玩</h4>
-					<ul>
-						<li><a href="#">關於台玩</a></li>
-						<li><a href="#">使用者條款</a></li>
-						<li><a href="#">隱私權保護政策</a></li>
-					</ul>
-				</div>
-				<div class="footer-col">
-					<h4>旅人&合作夥伴</h4>
-					<ul>
-						<li><a href="#">關於合作夥伴</a></li>
-						<li><a href="#">成為供應商</a></li>
-						<li><a href="#">供應商登入</a></li>
-						<li><a href="#">人才招募</a></li>
-					</ul>
-				</div>
-				<div class="footer-col">
-					<h4>get help</h4>
-					<ul>
-						<li><a href="#">FAQ</a></li>
-						<li><a href="#">三大保證</a></li>
-						<li><a href="#">聯絡客服</a></li>
-					</ul>
-				</div>
-				<div class="footer-col">
-					<h4>follow us</h4>
-					<div class="social-links">
-						<a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i
-							class="fab fa-twitter"></i></a> <a href="#"><i
-							class="fab fa-instagram"></i></a> <a href="#"><i
-							class="fab fa-linkedin-in"></i> </a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="copyright">
-			Copyright &copy; 2022 All rights reserved | This template is made
-			with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-				href="https://colorlib.com" target="_blank">Colorlib</a>
-		</div>
-
-	</footer>
-	<!-- ##### Footer Area End ##### -->
+	<jsp:include page="/front-end/homepage/footer.jsp"></jsp:include>
 
 	<script
 		src="<%=request.getContextPath()%>/static/js/front-main/jquery/jquery-2.2.4.min.js"></script>

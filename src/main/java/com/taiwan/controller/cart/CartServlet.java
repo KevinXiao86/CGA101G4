@@ -92,7 +92,7 @@ public class CartServlet extends HttpServlet {
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
-					// 如果購物車裡沒有
+					// 購物車裡不同票券種類就add
 					if (!match) {
 						try {
 							CartService.addCartList(custId, addtkts);
@@ -103,21 +103,27 @@ public class CartServlet extends HttpServlet {
 					}
 				}
 			}
-
+			
+			//取出購物車清單
 			List<String> list = CartService.getCartList(custId);
+			//目的為取得票券資料
 			List<TicketVO> tktlist = new ArrayList<>();
+			//目的為存放各票券的購買數量
+			List<Integer> amountList = new ArrayList<>();
+			
 			Integer tktId = 0;
 			Integer amount = 0;
+			Integer total = 0;
 			if (list != null && list.size() != 0) {
-
 				for (int index = 0; index < list.size(); index++) {
 					JSONObject jsonProduct;
-					
 					try {
 						jsonProduct = new JSONObject(list.get(index));
 						tktId = Integer.valueOf(jsonProduct.getString("tktId"));
 						amount = Integer.valueOf(jsonProduct.getString("amount"));
-
+						amountList.add(amount);
+						Integer price = Integer.valueOf(jsonProduct.getString("price"));
+						total += (price * amount);
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -127,11 +133,12 @@ public class CartServlet extends HttpServlet {
 				}
 			}
 			
-			//錯誤作法 -> 每當新增不同票種，大家的數量就會一起變動，改成直接從Redis取出最後的值
+			//錯誤作法 -> 每當新增不同票種，大家的數量就會一起變動，所以改成將值存入集合中，一一讀取
 //			req.setAttribute("amount", amount);  
 			
+			session.setAttribute("amountList", amountList);
 			session.setAttribute("tktlist", tktlist);
-			session.setAttribute("tktId", tktId);
+			session.setAttribute("total", total);
 			RequestDispatcher rd = req.getRequestDispatcher("/front-end/cart/cartList.jsp");
 			// 不能直接做轉發，務必加上return
 			try {
@@ -149,18 +156,18 @@ public class CartServlet extends HttpServlet {
 			Integer total = 0;
 			Integer amount = 0;
 			for (int i = 0; i < cartlist.size(); i++) {
-				JSONObject tkt;
+				JSONObject jsonProduct;
 				try {
-					tkt = new JSONObject(cartlist.get(i));
-					amount = Integer.valueOf(tkt.getString("amount"));
-					Integer price = Integer.valueOf(tkt.getString("price"));
+					jsonProduct = new JSONObject(cartlist.get(i));
+					amount = Integer.valueOf(jsonProduct.getString("amount"));
+					Integer price = Integer.valueOf(jsonProduct.getString("price"));
 					total += (price * amount);
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
 			}
 
-			// 結帳頁面 自動導入資料
+			// 結帳頁面checkout.jsp 自動導入資料
 			Integer custid = Integer.valueOf(custId);
 			CustomerService customerService = new CustomerServiceImpl();
 			CustomerVO customerVO = customerService.getAll(custid);

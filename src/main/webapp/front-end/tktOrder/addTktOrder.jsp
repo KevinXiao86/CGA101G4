@@ -53,7 +53,7 @@
 <h3>資料新增:</h3>
 
 
-<FORM METHOD="post" ACTION="front-end/tktOrder.creator" name="form1">
+<FORM METHOD="post" ACTION="front-end/tktOrder/creator" name="form1">
 <table>
 	<tr>
 		<td>訂購人:</td>

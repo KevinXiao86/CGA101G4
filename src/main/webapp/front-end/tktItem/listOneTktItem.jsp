@@ -71,7 +71,12 @@ th, td {
 		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/tktItem/content" style="margin-bottom: 0px;">
 			評分:<div>${errorMsgs.score}</div>
 			<input type="text" name="score" required>${param.score}<br>
-			
+			<input type="radio" name="rating" value="1" class="star">
+            <input type="radio" name="rating" value="2" class="star">
+            <input type="radio" name="rating" value="3" class="star">
+            <input type="radio" name="rating" value="4" class="star">
+            <input type="radio" name="rating" value="5" class="star">
+            
 			評價內容:<div>${errorMsgs.content}</div>
 			<textarea name="content" placeholder="請輸入500字以內" required>${param.content}</textarea>
 			

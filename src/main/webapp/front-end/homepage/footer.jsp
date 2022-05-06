@@ -3,12 +3,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/front-main/style.css">
 <script src="https://kit.fontawesome.com/c95ced1229.js" crossorigin="anonymous"></script>
 
 <title>Insert title here</title>
 
 <style>
+*{
+	margin:0;
+	padding:0;
+}
+ul, ol {
+    margin: 0;
+}
+ul li, ol li {
+    list-style: none;
+}
+ul{
+padding:0;
+}
 
 /* footer */
 .footer {
@@ -115,7 +127,7 @@ a:focus {
 
 <footer class="footer">
 		<div class="container">
-			<div class="row">
+			<div class="row" style="display:flex;">
 				<div class="footer-col">
 					 <h4>台玩</h4>
                     <ul>

@@ -32,7 +32,7 @@ public class TktOrderService {
 	}
 	
 	//新增一筆票券訂單(未使用優惠券)
-	public TktOrder insertTktOrderNoCoupon(Integer custId, Integer originalPrice, Integer ttlPrice,
+	public TktOrder addTktOrderNoCoupon(Integer custId, Integer originalPrice, Integer ttlPrice,
 			String qrcode, List<TktItem> tktItem_list) {
 		
 		TktOrder tktOrder = new TktOrder();
