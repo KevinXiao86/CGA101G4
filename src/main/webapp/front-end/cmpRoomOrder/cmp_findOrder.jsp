@@ -7,8 +7,6 @@
 <%
 List<RoomOrder> list = (List<RoomOrder>) request.getAttribute("roomOrders");
 pageContext.setAttribute("list", list);
-List<CustomerVO> list2 = (List<CustomerVO>) request.getAttribute("customerVOs");
-pageContext.setAttribute("list2", list2);
 %>
 <!DOCTYPE html>
 <html>
