@@ -11,7 +11,7 @@
 <style type="text/css">
 #page-wrapper {
 	background-color: rgb(221, 221, 241) !important;
-	height: 700px;
+	height: 900px;
 }
 
 span {
@@ -57,7 +57,10 @@ span {
 				<span>會員編號 :</span> <span>${roomOrder.custId}</span>
 			</div>
 			<div>
-				<span>會員編號 :</span> <span>${roomOrder.cmpId}</span>
+				<span>會員姓名 :</span> <span>${roomOrder.customer.name}</span>
+			</div>
+			<div>
+				<span>廠商編號 :</span> <span>${roomOrder.cmpId}</span>
 			</div>
 			<div>
 				<span>訂單成立日期 :</span> <span><fmt:formatDate
@@ -75,7 +78,8 @@ span {
 				<span>訂單狀態 :</span> <span>${roomOrder.roomOrderStatus}</span>
 			</div>
 			<div>
-				<span>取消原因 :</span> <span>${roomOrder.cancel}</span>
+				<span>取消原因 :</span> 
+				<textarea rows="6" cols="40" name="canx" id="canx" readonly="readonly" style="resize: none;">${roomOrder.cancel}</textarea><br>
 			</div>
 			<div>
 				<span>原始金額 :</span> <span>${roomOrder.roomOrderPrice}</span>
@@ -98,20 +102,16 @@ span {
 					<span>訂購數量 :</span> <span>${roomItemVO.roomItemAmount}</span>
 				</div>
 				<div>
-					<span>評價分數 :</span> <span>${(roomItemVO.roomItemEvaluateScore == null)? "還未評分" : roomItemVO.roomItemEvaluateScore}</span>
+					<span>評價分數 :</span> <span>${roomItemVO.roomItemEvaluateScore}</span>
 				</div>
 				<div>
 					<span>評價內文 :</span>
-					<textarea rows="6" cols="40" name="canx" id="canx" readonly="readonly" style="resize: none;">${(roomItemVO.roomItemEvaluateMsg == null)? "還未有評價" : roomItemVO.roomItemEvaluateMsg}</textarea><br>	
+					<textarea rows="6" cols="40" name="canx" id="canx" readonly="readonly" style="resize: none;">${roomItemVO.roomItemEvaluateMsg}</textarea><br>	
 				</div>
 			</div>
 		</div>
 
 		<button id="pre">上一頁</button>
-
-		<div id="back_index">
-			<a href='back-end/roomOrder/roomOrder_index.jsp'>回到訂房訂單首頁</a>
-		</div>
 	</div>
 </div>
 <script type="text/javascript">

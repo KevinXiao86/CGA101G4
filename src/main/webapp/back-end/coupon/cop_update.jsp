@@ -106,7 +106,7 @@ CouponVO couponVO = (CouponVO) request.getAttribute("couponVO");
                         <h1 class="page-header">優惠券修改</h1>
                     </div>
                 </div>
-                錯誤表列
+				<!-- 錯誤表列 -->
                 <c:if test="${not empty errorMsgs}">
                     <font style="color: red">請修正以下錯誤:</font>
                     <ul>
@@ -117,7 +117,7 @@ CouponVO couponVO = (CouponVO) request.getAttribute("couponVO");
                 </c:if>
                 <div id="coupon_form">
                     <form action="coupon/couponUpdate" method="post" enctype="multipart/form-data">
-                        <label>優惠券流水號</label><input type="text" name="copId" value="${couponVO.copId}"><br> 
+                        <label>優惠券編號</label><input type="text" name="copId" value="${couponVO.copId}"><br> 
 						<label>優惠券名稱</label><input type="text" name="copName" autofocus placeholder="請輸入優惠券名稱" value="${couponVO.copName}"><br> 
 						<label>優惠券折價金額</label><input type="number" name="discount" step="10" min="0"  placeholder="請輸入折價金額" value="${couponVO.discount}"><br>
 						<label>優惠券開始日期</label><input id="startdate" name="startdate" type="datetime-local" value="<fmt:formatDate value="${couponVO.startdate}" pattern="yyyy-MM-dd'T'HH:mm"/>"><br> 

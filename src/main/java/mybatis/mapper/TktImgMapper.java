@@ -18,4 +18,6 @@ public interface TktImgMapper {
 	public List<TktImgVO> queryAll();
 	
 	public List<TktImgVO> queryByTktId(Integer tktId);
+	
+	public int deleteBytktId(Integer tktId);
 }

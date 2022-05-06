@@ -16,6 +16,7 @@ public class RoomOrder {
 	private Integer cmpId;
 
 	private CustomerVO customer;
+	private Company company;
 
 	public RoomOrder() {
 		super();
@@ -24,7 +25,7 @@ public class RoomOrder {
 
 	public RoomOrder(Integer roomOrderId, Integer custId, Date roomOrderDate, Integer roomOrderPrice, Date checkinDate,
 			Date checkoutDate, String roomOrderStatus, String cancel, Integer totalPrice, Integer custCopId,
-			Integer cmpId, CustomerVO customer) {
+			Integer cmpId, CustomerVO customer, Company company) {
 		super();
 		this.roomOrderId = roomOrderId;
 		this.custId = custId;
@@ -38,6 +39,7 @@ public class RoomOrder {
 		this.custCopId = custCopId;
 		this.cmpId = cmpId;
 		this.customer = customer;
+		this.company = company;
 	}
 
 	public Integer getRoomOrderId() {
@@ -136,12 +138,21 @@ public class RoomOrder {
 		this.customer = customer;
 	}
 
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
 	@Override
 	public String toString() {
 		return "RoomOrder [roomOrderId=" + roomOrderId + ", custId=" + custId + ", roomOrderDate=" + roomOrderDate
 				+ ", roomOrderPrice=" + roomOrderPrice + ", checkinDate=" + checkinDate + ", checkoutDate="
 				+ checkoutDate + ", roomOrderStatus=" + roomOrderStatus + ", cancel=" + cancel + ", totalPrice="
-				+ totalPrice + ", custCopId=" + custCopId + ", cmpId=" + cmpId + ", customer=" + customer + "]";
+				+ totalPrice + ", custCopId=" + custCopId + ", cmpId=" + cmpId + ", customer=" + customer + ", company="
+				+ company + "]";
 	}
 
 }

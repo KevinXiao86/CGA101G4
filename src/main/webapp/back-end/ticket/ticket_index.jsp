@@ -8,6 +8,77 @@
 <%@ include file="back-end-index.jsp"%>
 <meta charset="UTF-8">
 <title>票券首頁 Ticket_Index</title>
+<style>
+ #page-wrapper {
+            background-color: rgb(221, 221, 241) !important;
+            height: 800px;  
+        }
+
+        #create_div {
+            /* border: 1px solid blue; */
+            margin-bottom: 10px;
+        }
+
+        #findAll_div {
+            margin-bottom: 10px;
+        }
+
+        #create {
+            font-size: 24px;
+            color: blue;
+            /* margin-left: 5%; */
+        }
+
+        #create:hover {
+            color: red;
+            text-decoration: none;
+        }
+
+        input[type="submit"] {
+            box-shadow: inset 0px 0px 11px 0px #bbdaf7;
+            background: linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
+            background-color: #79bbff;
+            border-radius: 20px;
+            display: inline-block;
+            cursor: pointer;
+            color: black;
+            font-family: Arial;
+            font-size: 16px;
+            font-weight: bold;
+            font-style: italic;
+            padding: 12px 35px;
+            text-decoration: none;
+            text-shadow: 5px 7px 0px #528ecc;
+            border: none;
+        }
+
+        input[type="submit"]:hover {
+            background: linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
+            background-color: #378de5;
+        }
+
+        input[type="submit"]:active {
+            position: relative;
+            top: 1px;
+        }
+
+        select[name="status"] {
+            height: 25px;
+            border: 1px solid black;
+
+        }
+
+
+        b {
+            font-size: 25px;
+            vertical-align: middle;
+        }
+
+        #title_div {
+            margin: 10px 0 10px 0;
+            /* border: 1px solid black; */
+        }
+</style>
 </head>
 <body>
 
@@ -19,14 +90,16 @@
 					<h1 class="page-header">票券管理頁面</h1>
 				</div>
 			</div>
-
-			<form action="ticket/findAll" method="post">
-				<input type="submit" value="搜尋全部">
-			</form>
-
-			<div>
-				<a href='back-end/ticket/ticket_create.jsp'>新增一筆票券</a>
+			
+			<div id="create_div">
+				<a id="create" href='back-end/ticket/ticket_create.jsp'>新增一筆票券</a>
 			</div>
+			<div id="findAll_div">
+				<form action="ticket/findAll" method="post">
+					<input type="submit" value="搜尋全部">
+				</form>
+
+			
 
 
 			<%-- 	<%--錯誤列表 --%>
@@ -46,31 +119,26 @@
 					<input type="submit" value="送出">
 				</FORM>
 			</div>
-			<div>
+			<div id="title_div">
 				<FORM METHOD="post" ACTION="ticket/selectByTitle">
 					<b>輸入票券標題來做查詢:</b> 
 					<input type="text" name="tktName"> 
 					<input type="submit" value="送出">
 				</FORM>
 			</div>
-
+			 <div id="status_div">
+                    <FORM METHOD="post" ACTION="ticket/selectByStatus">
+                        <b>輸入票券狀態來做查詢:</b> 
+                        <select name="status">
+                            <option value="上架">上架</option>
+                            <option value="下架">下架</option>
+                        </select> 
+                        <input type="submit" value="送出">
+                    </FORM>
+                </div>
+			</div>
 		</div>
 	</div>
-
-
-
-	<!--     <div> -->
-	<!--     <FORM METHOD="post" ACTION="coupon/selectByStatus" > -->
-	<!--         <b>輸入優惠券狀態來做查詢:</b> -->
-	<!--         <select name="status" > -->
-	<!-- 			<option value="上架">上架</option> -->
-	<!-- 			<option value="下架">下架</option> -->
-	<!-- 		</select> -->
-	<!--         <input type="submit" value="送出"> -->
-	<!--     </FORM> -->
-	<!--     </div> -->
-
-
 
 </body>
 </html>

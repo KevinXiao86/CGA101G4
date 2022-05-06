@@ -44,15 +44,15 @@ img {
 </head>
 <body>
 
-
 	<div id="page-wrapper">
 		<div class="container-fluid">
 
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">所有票券</h1>
+					<h1 class="page-header">搜尋票券</h1>
 				</div>
 			</div>
+
 			<%--錯誤列表 --%>
 			<c:if test="${not empty errorMsgs}">
 				<font style="color: red">請修正以下錯誤:</font>
@@ -75,9 +75,7 @@ img {
 					<th>詳情</th>
 					<th>刪除</th>
 				</tr>
-				<%@ include file="page1.file"%>
-				<c:forEach items="${requestScope.list}" var="ticketVO"
-					begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+				<c:forEach items="${requestScope.list}" var="ticketVO">
 					<tr>
 						<td>${ticketVO.tktId}</td>
 						<td>${ticketVO.tktName}</td>
@@ -86,19 +84,22 @@ img {
 						<td><fmt:formatDate value="${ticketVO.enddate}"	pattern="yyyy-MM-dd HH:mm" /></td>
 						<td>${ticketVO.location}</td>
 						<td>
-							<FORM METHOD="post" ACTION="ticket/tktStatusChange"	style="margin-bottom: 0px;">
+							<FORM METHOD="post" ACTION="ticket/tktStatusChange"
+								style="margin-bottom: 0px;">
 								<input type="submit" name="status" value="${ticketVO.status}">
 								<input type="hidden" name="tktId" value="${ticketVO.tktId}">
 							</FORM>
 						</td>
 						<td>
-							<FORM METHOD="post" ACTION="ticket/tkt2Update" style="margin-bottom: 0px;">
+							<FORM METHOD="post" ACTION="ticket/tkt2Update"
+								style="margin-bottom: 0px;">
 								<input type="submit" value="修改票券"> 
 								<input type="hidden" name="tktId" value="${ticketVO.tktId}">
 							</FORM>
 						</td>
 						<td>
-							<FORM METHOD="post" ACTION="ticket/tktDelete" style="margin-bottom: 0px;">
+							<FORM METHOD="post" ACTION="ticket/tktDelete"
+								style="margin-bottom: 0px;">
 								<input type="submit" value="刪除"> 
 								<input type="hidden" name="tktId" value="${ticketVO.tktId}">
 							</FORM>
@@ -106,9 +107,10 @@ img {
 					</tr>
 				</c:forEach>
 			</table>
-			<%@ include file="page2.file"%>
 		</div>
 	</div>
+
+
 
 
 </body>

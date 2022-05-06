@@ -80,14 +80,14 @@ img {
 						<td><img src="${couponVO.img}" /></td>
 						<td>
 							<FORM METHOD="post" ACTION="coupon/copStatusChange"	style="margin-bottom: 0px;">
-								<input type="submit" name="status" value="${couponVO.status}">
+								<input type="submit" name="status" value="${couponVO.status}" ${(couponVO.status == "已過期")? "disabled='disabled'":"" }>
 								<input type="hidden" name="copId" value="${couponVO.copId}">
 							</FORM>
 						</td>
 						<td>
 							<FORM METHOD="post" ACTION="coupon/cop2Update" style="margin-bottom: 0px;">
-								<input type="submit" value="修改"> 
-								<input type="hidden"	name="copId" value="${couponVO.copId}">
+								<input type="submit" value="修改" ${(couponVO.status == "已過期")? "disabled='disabled'":"" }> 
+								<input type="hidden" name="copId" value="${couponVO.copId}">
 							</FORM>
 						</td>
 						<td>

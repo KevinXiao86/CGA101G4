@@ -69,13 +69,13 @@
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i>網頁管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">管理優惠券</a>
+                                    <a href="back-end/coupon/cop_index.jsp">管理優惠券</a>
                                 </li>
                                 <li>
-                                    <a href="#">最新消息管理</a>
+                                    <a href="back-end/theme/theme_index.jsp">最新消息管理</a>
                                 </li>
                                 <li>
-                                    <a href="#">FAQ管理</a>
+                                    <a href="back-end/faq/faq_index.jsp">FAQ管理</a>
                                 </li>                 
                             </ul>
                         </li>
@@ -92,7 +92,7 @@
                                     <a href="#">廠商資料管理</a>
                                 </li>
                                 <li>
-                                    <a href="#">訂房訂單管理</a>
+                                    <a href="back-end/roomOrder/roomOrder_index.jsp">訂房訂單管理</a>
                                 </li>
                             </ul>
                         </li>
@@ -100,10 +100,10 @@
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i>票券管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">票券資料管理</a>
+                                    <a href="back-end/ticket/ticket_index.jsp">票券資料管理</a>
                                 </li>
                                 <li>
-                                    <a href="#">票券訂單管理</a>
+                                    <a href="back-end/tktOrder/tktOrder_index.jsp">票券訂單管理</a>
                                 </li>                 
                             </ul>
                         </li>

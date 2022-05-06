@@ -18,23 +18,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.taiwan.beans.CouponVO;
 import com.taiwan.beans.TicketVO;
 import com.taiwan.service.TicketService;
+import com.taiwan.test.ticket.ticketTest;
+import com.taiwan.utils.ControllerUtil;
 
 @WebServlet("/ticket/selectByStatus")
 public class TicketSelectByStatus extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	@Autowired
-	private TicketService ticketService;
+	
+	TicketService ticketService=ControllerUtil.getBean(TicketService.class);
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Map<String, String> errorMsgs=new LinkedHashMap<String, String>();
 		request.setAttribute("errorMsgs", errorMsgs);
 		try {
 			String status = request.getParameter("status");
-//			System.out.println(status);
+			System.out.println(status);
 			List<TicketVO> ls = new ArrayList<TicketVO>();
 			ls = ticketService.findByStatus(status);
-//			System.out.println(ls);
+			System.out.println(ls);
 			//判斷有沒有搜尋到資料
 			if(ls.isEmpty() || ls.size()==0) {
 				errorMsgs.put("list is null", "查無資料");
@@ -55,7 +57,7 @@ public class TicketSelectByStatus extends HttpServlet {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}

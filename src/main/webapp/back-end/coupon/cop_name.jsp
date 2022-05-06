@@ -46,11 +46,9 @@ img {
 
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">Page Title</h1>
+					<h1 class="page-header">藉由標題搜尋優惠券</h1>
 				</div>
 			</div>
-
-			<h1>藉由標題搜尋優惠券</h1>
 
 			<%--錯誤列表 --%>
 			<c:if test="${not empty errorMsgs}">
@@ -87,18 +85,20 @@ img {
 						<td>
 							<FORM METHOD="post" ACTION="coupon/copStatusChange"
 								style="margin-bottom: 0px;">
-								<input type="submit" name="status" value="${couponVO.status}">
+								<input type="submit" name="status" value="${couponVO.status}" ${(couponVO.status == "已過期")? "disabled='disabled'":"" }>
 								<input type="hidden" name="copId" value="${couponVO.copId}">
 							</FORM>
 						</td>
 						<td>
 							<FORM METHOD="post" ACTION="coupon/cop2Update" style="margin-bottom: 0px;">
-								<input type="submit" value="修改"> <input type="hidden"	name="copId" value="${couponVO.copId}">
+								<input type="submit" value="修改" ${(couponVO.status == "已過期")? "disabled='disabled'":"" }> 
+								<input type="hidden" name="copId" value="${couponVO.copId}">
 							</FORM>
 						</td>
 						<td>
 							<FORM METHOD="post" ACTION="coupon/copDelete" style="margin-bottom: 0px;">
-								<input type="submit" value="刪除"> <input type="hidden"	name="copId" value="${couponVO.copId}">
+								<input type="submit" value="刪除"> 
+								<input type="hidden" name="copId" value="${couponVO.copId}">
 							</FORM>
 						</td>
 					</tr>

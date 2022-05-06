@@ -128,10 +128,13 @@
 
                 <div id="status_div">
                     <FORM METHOD="post" ACTION="couponController/selectByStatus">
-                        <b>輸入優惠券狀態來做查詢:</b> <select name="status">
+                        <b>輸入優惠券狀態來做查詢:</b> 
+                        <select name="status">
                             <option value="上架">上架</option>
                             <option value="下架">下架</option>
-                        </select> <input type="submit" value="送出">
+                            <option value="已過期">已過期</option>
+                        </select> 
+                        <input type="submit" value="送出">
                     </FORM>
                 </div>
 

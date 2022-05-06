@@ -37,6 +37,10 @@
 	<select id="queryByTktId" parameterType="Integer" resultMap="TktImgMap">
 		select TKT_IMG_ID tktImgId, IMG, TKT_ID tktId from TKT_IMG where TKT_ID = #{tktId}
 	</select>
+	
+	<delete id="deleteBytktId" parameterType="Integer">
+		delete from TKT_IMG where TKT_ID = #{tktId}
+	</delete>
 
 
 </mapper>

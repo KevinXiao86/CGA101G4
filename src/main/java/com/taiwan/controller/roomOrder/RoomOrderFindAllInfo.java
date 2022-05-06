@@ -50,13 +50,13 @@ public class RoomOrderFindAllInfo extends HttpServlet {
 			request.setAttribute("roomItemVO", roomItemVO);
 			request.setAttribute("roomtype", roomtype);
 			// 請求轉發到/back-end/roomOrder/roomOrder_allInfo.jsp
-			RequestDispatcher rd = request.getRequestDispatcher("/front-end/cmpRoomOrder/roomOrder_allInfo.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/back-end/roomOrder/roomOrder_allInfo.jsp");
 			rd.forward(request, response);
 
 			// 其他錯誤處理
 		} catch (Exception e) {
 			errorMsgs.put("Exception", "其他額外的錯誤");
-			RequestDispatcher rd = request.getRequestDispatcher("/roomOrder/cmpFindOrder");
+			RequestDispatcher rd = request.getRequestDispatcher("/roomOrder/findAll");
 			rd.forward(request, response);
 		}
 	}

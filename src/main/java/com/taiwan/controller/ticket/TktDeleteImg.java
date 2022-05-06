@@ -18,17 +18,23 @@ import com.taiwan.service.TicketService;
 import com.taiwan.service.tktImg.TktImgService;
 import com.taiwan.utils.ControllerUtil;
 
-@WebServlet("/ticket/tkt2Update")
-public class Ticket2Update extends HttpServlet {
+@WebServlet("/ticket/deleteImg")
+public class TktDeleteImg extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	TicketService ticketService = ControllerUtil.getBean(TicketService.class);
+	
+	TicketService ticketService=ControllerUtil.getBean(TicketService.class);
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Map<String, String> errorMsgs=new LinkedHashMap<String, String>();
+		Map<String, String> errorMsgs =new LinkedHashMap<String, String>();
 		request.setAttribute("errorMsgs", errorMsgs);
 		try {
-			//獲得請求參數
+			String[] tktImgIds=request.getParameterValues("tktImgId");
+			for(Integer i=0;i<tktImgIds.length;i++) {
+				Integer tktImgId=Integer.valueOf(tktImgIds[i]);
+				TktImgService tktImgService=new TktImgService();
+				tktImgService.deleteTktImg(tktImgId);
+			}
 			Integer tktId=Integer.valueOf(request.getParameter("tktId"));
 			//獲取請求查詢的結果
 			TicketVO ticketVO=ticketService.findById(tktId);
@@ -60,12 +66,12 @@ public class Ticket2Update extends HttpServlet {
 			request.setAttribute("tktImgVOs", tktImgVOs);
 			RequestDispatcher rd=request.getRequestDispatcher(url);
 			rd.forward(request, response);
-		}catch (Exception e) {
-			errorMsgs.put("errorMsgs", e.getMessage());
-			RequestDispatcher rd=request.getRequestDispatcher("/ticket/findAll");
+			
+		}catch(Exception e) {
+			errorMsgs.put("Exception", e.getMessage());
+			RequestDispatcher rd=request.getRequestDispatcher("/back-end/ticket/ticket_update.jsp");
 			rd.forward(request, response);
 		}
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

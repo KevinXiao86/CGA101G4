@@ -23,9 +23,21 @@ public class ticketTest {
 //		}
 //	}
 	
+//	@Test
+//	public void test02() {
+//		TicketVO ticketVO=ticketService.findById(3);
+//		System.out.println(ticketVO);
+//	}
+//	@Test
+//	public void test03() {
+//		List<TicketVO> ticketVOs=ticketService.findByStatus("上架");
+//		System.out.println(ticketVOs);
+//	}
+	
 	@Test
-	public void test02() {
-		TicketVO ticketVO=ticketService.findById(3);
-		System.out.println(ticketVO);
+	public void test04() {
+		TicketVO ticketVO=new TicketVO();
+		ticketVO.setTktId(58);
+		ticketVO.setOriginalAmount(1000);
 	}
 }

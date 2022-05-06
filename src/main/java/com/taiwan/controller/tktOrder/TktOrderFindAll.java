@@ -22,6 +22,8 @@ public class TktOrderFindAll extends HttpServlet {
 		TktOrderService tktOrerSvc = new TktOrderService();
 		List<TktOrder> list = tktOrerSvc.getAll();
 		
+		
+		
 		/********************* 2.查詢完成，設定參數，送出成功頁面 **********************/
 		request.setAttribute("list", list);
 		RequestDispatcher success = request.getRequestDispatcher("/back-end/tktOrder/tktOrder_findAll.jsp");

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.taiwan.beans.Company;
+import com.taiwan.beans.CustomerVO;
 import com.taiwan.beans.RoomOrder;
 
 public interface RoomOrderMapper {
@@ -49,5 +51,11 @@ public interface RoomOrderMapper {
 	public List<RoomOrder> queryByStatusAndCmpId(@Param("cmpId") Integer cmpId,@Param("roomOrderStatus") String roomOrderStatus);
 	
 	//根據訂單Id修改狀態
-	public int updateStatus(@Param("roomOrderId") Integer roomOrderId,@Param("roomOrderStatus") String roomOrderStatus); 
+	public int updateStatus(@Param("roomOrderId") Integer roomOrderId,@Param("roomOrderStatus") String roomOrderStatus);
+	
+	//根據會員id查找會員資料
+	public CustomerVO selectById(Integer custId);
+	
+	//根據廠商id查找廠商資料
+	public Company selectByCmpId(Integer cmpId);
 }

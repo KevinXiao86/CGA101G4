@@ -68,8 +68,8 @@ img {
 			<table>
 				<tr>
 					<th>訂房訂單編號</th>
-					<th>訂房會員編號</th>
-					<th>廠商編號</th>
+					<th>訂房會員姓名</th>
+					<th>廠商名稱</th>
 					<th>訂單成立日期</th>
 					<th>入住時間</th>
 					<th>退房時間</th>
@@ -83,13 +83,13 @@ img {
 						<td>${roomOrder.roomOrderId}</td>
 						<td>
 							<FORM METHOD="post" ACTION="roomOrder/selectCustById" style="margin-bottom: 0px;">
-								<input type="submit" value="${roomOrder.custId}">
+								<input type="submit" value="${roomOrder.customer.name}">
 								<input type="hidden" name="custId" value="${roomOrder.custId}">
 							</FORM>
 						</td>
 						<td>
 						<FORM METHOD="post" ACTION="roomOrder/selectCmpById" style="margin-bottom: 0px;">
-								<input type="submit" value="${roomOrder.cmpId}">
+								<input type="submit" value="${roomOrder.company.cmpName}" style='background: ${(roomOrder.company.cmpStatus == "停權")?"yellow": ""};'>
 								<input type="hidden" name="cmpId" value="${roomOrder.cmpId}">
 							</FORM>
 						</td>

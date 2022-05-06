@@ -11,15 +11,22 @@ import com.taiwan.beans.RoomOrder;
 import mybatis.mapper.RoomOrderMapper;
 
 public class RoomOrderMapperTest {
-
+	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+	RoomOrderMapper roomOrderMapper = context.getBean(RoomOrderMapper.class);
+//	@Test
+//	public void test() {
+//		
+//		List<RoomOrder> roomOrders = roomOrderMapper.queryAllRoomOrders();
+//		for(RoomOrder roomOrder : roomOrders) {
+//			System.out.println(roomOrder);
+//		}
+//	}
+	
 	@Test
-	public void test() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		RoomOrderMapper roomOrderMapper = context.getBean(RoomOrderMapper.class);
-		List<RoomOrder> roomOrders = roomOrderMapper.queryAllRoomOrders();
-		for(RoomOrder roomOrder : roomOrders) {
-			System.out.println(roomOrder);
-		}
+	public void test01() {
+		RoomOrder roomOrder=new RoomOrder();
+		roomOrder.setCustomer(roomOrderMapper.selectById(10000)); 
+		System.out.println(roomOrder.getCustomer());
 	}
 }
 

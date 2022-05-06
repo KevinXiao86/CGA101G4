@@ -57,7 +57,10 @@ span {
 				<span>會員編號 :</span> <span>${roomOrder.custId}</span>
 			</div>
 			<div>
-				<span>會員編號 :</span> <span>${roomOrder.cmpId}</span>
+				<span>會員姓名 :</span> <span>${roomOrder.customer.name}</span>
+			</div>
+			<div>
+				<span>廠商編號 :</span> <span>${roomOrder.cmpId}</span>
 			</div>
 			<div>
 				<span>訂單成立日期 :</span> <span><fmt:formatDate

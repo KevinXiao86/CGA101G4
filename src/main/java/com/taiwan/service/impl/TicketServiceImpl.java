@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.taiwan.beans.TicketVO;
+import com.taiwan.dao.ticket.TicketDAO_interface;
+import com.taiwan.dao.ticket.impl.TicketJDBCDAO;
 import com.taiwan.service.TicketService;
 
 import mybatis.mapper.TicketMapper;
@@ -16,7 +18,12 @@ import mybatis.mapper.TicketMapper;
 public class TicketServiceImpl implements TicketService {
 	@Autowired
 	private TicketMapper mapper;
-
+	
+	private TicketDAO_interface dao;
+	
+	public TicketServiceImpl() {
+		dao=new TicketJDBCDAO();
+	}
 	@Transactional
 	@Override
 	public List<TicketVO> findAll() {
@@ -74,17 +81,63 @@ public class TicketServiceImpl implements TicketService {
 		List<TicketVO> ls=mapper.queryTicketByStatus(status);
 		return ls;
 	}
-
+	@Transactional
 	@Override
 	public List<TicketVO> findByLoc(String location) {
 		List<TicketVO> ls=mapper.queryTicketByLocation(location);
 		return ls;
 	}
-
+	@Transactional
 	@Override
 	public List<TicketVO> findBykind(String kind) {
 		List<TicketVO> ls=mapper.queryTicketByKind(kind);
 		return ls;
+	}
+	@Transactional
+	@Override
+	public int findTktId() {
+		return mapper.queryMax();
+	}
+	@Transactional
+	@Override
+	public boolean updateTkt(Integer tktId, String tktName, Integer originalAmount, Integer price, Timestamp startdate,
+			Timestamp enddate, String location, String instruction, String address, String notice, String howuse,
+			String canxpolicy, String kind) {
+		TicketVO ticketVO = new TicketVO();
+		ticketVO.setTktId(tktId);
+		ticketVO.setTktName(tktName);
+		ticketVO.setOriginalAmount(originalAmount);
+		ticketVO.setPrice(price);
+		ticketVO.setStartdate(startdate);
+		ticketVO.setEnddate(enddate);
+		ticketVO.setLocation(location);
+		ticketVO.setInstruction(instruction);
+		ticketVO.setAddress(address);
+		ticketVO.setNotice(notice);
+		ticketVO.setHowuse(howuse);
+		ticketVO.setCanxpolicy(canxpolicy);
+		ticketVO.setKind(kind);
+		return mapper.update(ticketVO)>0;
+	}
+	@Override
+	public boolean update(Integer tktId, String tktName, Integer originalAmount, Integer price, Timestamp startdate,
+			Timestamp enddate, String location, String instruction, String address, String notice, String howuse,
+			String canxpolicy, String kind) {
+		TicketVO ticketVO = new TicketVO();
+		ticketVO.setTktId(tktId);
+		ticketVO.setTktName(tktName);
+		ticketVO.setOriginalAmount(originalAmount);
+		ticketVO.setPrice(price);
+		ticketVO.setStartdate(startdate);
+		ticketVO.setEnddate(enddate);
+		ticketVO.setLocation(location);
+		ticketVO.setInstruction(instruction);
+		ticketVO.setAddress(address);
+		ticketVO.setNotice(notice);
+		ticketVO.setHowuse(howuse);
+		ticketVO.setCanxpolicy(canxpolicy);
+		ticketVO.setKind(kind);
+		return dao.update(ticketVO)>0;
 	}
 
 }
