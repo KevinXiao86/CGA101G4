@@ -1,7 +1,6 @@
 package com.taiwan.utils;
 
 public class CommonUtils {
-
 	//將字符串轉成int類型
 	public static int parseInt(String id, int defaultValue) {
 		try {

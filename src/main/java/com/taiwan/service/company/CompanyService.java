@@ -1,5 +1,13 @@
 package com.taiwan.service.company;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.UUID;
+
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -11,34 +19,62 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.taiwan.beans.Company;
+import com.taiwan.utils.CommonUtils;
 
 import mybatis.mapper.CompanyMapper;
 
 @Service
 public class CompanyService {
-
+	
 	@Autowired
 	private CompanyMapper companyMapper;
+
 	
 	//登入
 	@Transactional(readOnly = true)
 	public Company login(String account, String password) {
+		//數據校驗
+		if("".equals(account) || "".equals(password)) {
+			// 等於 null, 就創建一個新的 Company 物件, 方便設置回顯訊息
+			Company company = new Company();
+			//1). 表示登入失敗, 設置回顯的錯誤訊息
+			company.setMessage("帳號或密碼錯誤");
+			company.setCmpAccount(account);
+			company.setSuccessful(false);
+			//2). 回傳結果
+			return company;
+		}
+		if (!account.matches("^[a-zA-Z]\\w{3,17}$")) {
+			// 等於 null, 就創建一個新的 Company 物件, 方便設置回顯訊息
+			Company company = new Company();
+			//1). 表示登入失敗, 設置回顯的錯誤訊息
+			company.setMessage("帳號必須由字母,數字下滑線組成,並且長度為4到18位");
+			company.setCmpAccount(account);
+			company.setSuccessful(false);
+			//2). 回傳結果
+			return company;
+		}
+		if (!password.matches("^[a-zA-Z]\\w{3,17}$")) {
+			// 等於 null, 就創建一個新的 Company 物件, 方便設置回顯訊息
+			Company company = new Company();
+			//1). 表示登入失敗, 設置回顯的錯誤訊息
+			company.setMessage("密碼必須由字母,數字下滑線組成,並且長度為4到18位");
+			company.setCmpAccount(account);
+			company.setSuccessful(false);
+			//2). 回傳結果
+			return company;
+		}
+		
+		
 		//1. 去數據庫查看有沒有這條數據
-		Company company = companyMapper.queryCompanyByAccountAndPassword(account, password);
+		Company company = companyMapper.queryCompanyByCmpAccountAndCmpPassword(account, password);
 		
 		//2. 判斷 company 是否為 null
 		if (company == null) {
@@ -48,138 +84,104 @@ public class CompanyService {
 			company.setMessage("帳號或密碼錯誤");
 			company.setCmpAccount(account);
 			company.setSuccessful(false);
-			//2). 設置要跳轉的地址
-			company.setUrl("/front-end/company/cmp_login.jsp");
-			//3). 回傳結果
+			//2). 回傳結果
 			return company;
 		}else {
 			// 進入到這, 表示有對應的廠商紀錄
 			if ("停權".equals(company.getCmpStatus())) {
-				//設置回顯的錯誤訊息
+				//1). 設置回顯的錯誤訊息
 				company.setMessage("你已被停權!!");
 				company.setSuccessful(false);
-				
-				//設置要跳轉的地址
-				company.setUrl("/front-end/company/cmp_login.jsp");
+				//2). 回傳結果
 				return company;
 			}else if ("審核未通過".equals(company.getAuditStatus())) {
-				//設置回顯的錯誤訊息
+				//1). 設置回顯的錯誤訊息
 				company.setMessage("審核未通過, 請補件!");
-				company.setSuccessful(false);
-				//設置要跳轉的地址
-				company.setUrl("/front-end/company/cmp_regist.jsp");
-				
+				company.setSuccessful(true);//設置true, 只是說明他已經註冊過了
+				//2). 設置地址值
+				company.setUrl("front-end/company/edit.jsp");
+				//3). 回傳結果
 				return company;
 			}else if ("待審核".equals(company.getAuditStatus())) {
-				//設置回顯的錯誤訊息
+				//1). 設置回顯的錯誤訊息
 				company.setMessage("審核中, 請靜待審核結果!");
 				company.setSuccessful(false);
-				//設置要跳轉的地址
-				company.setUrl("/front-end/company/cmp_login.jsp");
-				
+				//2). 回傳結果
 				return company;
 			}else {
-				//表示成功登入
+				//1). 表示成功登入
 				company.setSuccessful(true);
-				company.setUrl("/front-end/company/cmp_index.jsp");
-				
+				company.setUrl("front-end/company/index.jsp");
+				//2). 回傳結果
 				return company;
 			}
 		}
 	}
 
-
+	
+	//查詢廠商帳號是否存在: 返回 true 說明已存在, 返回 false 說明不存在
+	//因為註冊實的帳號必須是唯一性
+	@Transactional(readOnly = true)
+	public boolean existsCmpAccount(String cmpAccount) {
+		Company company = companyMapper.queryCompanyByCmpAccount(cmpAccount);
+		return company != null;
+	}
+	
+	
 	//註冊
 	@Transactional
 	public Company regist(Company company) {
-		//首先判斷廠商帳號是否有重複
-		if (existsCmpAccount(company.getCmpAccount())) {
-			company.setMessage("用戶名已存在");
-			company.setSuccessful(false);
-			company.setUrl("/front-end/company/cmp_regist.jsp");
-			return company;	
-		}
-		
 		//數據校驗完成之後, 就可以調用 dao 層跟數據庫做互動
 		int result = companyMapper.insertCompany(company);
 		
 		if (result == 0) {
 			company.setMessage("註冊失敗");
 			company.setSuccessful(false);
-			company.setUrl("/front-end/company/cmp_regist.jsp");
+			company.setUrl("/front-end/company/regist.jsp");
 			return company;			
 		}else {
 			company.setMessage("註冊成功");
 			company.setSuccessful(true);
-			company.setUrl("/front-end/company/cmp_regist_success.jsp");
+			company.setUrl("/front-end/company/regist_success.jsp");
 			return company;	
 		}
 	}
 
 	
-	//判斷廠商帳號是否重複, 返回 true 說明已存在, 返回 false 說明不存在
-	@Transactional(readOnly = true)
-	public boolean existsCmpAccount(String cmpAccount) {
-		Company company = companyMapper.queryCompanyByCmpAccount(cmpAccount);
-		
-		if (company == null) {
-			//說明不存在
-			return false;
-		}
-		//說明已存在
-		return true;
-	}
-
-	
-	//更新廠商營業登記證路徑(因為註冊的寫法改了, 這個暫時用不到)
-	@Transactional
-	public boolean updateSerialNoPath(String cmpAccount, String serialNo) {
-		int result = companyMapper.updateSerialNoByCmpAccount(cmpAccount, serialNo);
-		return result != 0;
-	}
-
-	
-	//根據廠商編號查詢廠商(用戶, 管理員)
-	@Transactional(readOnly = true)
-	public Company getCompanyByCmpId(Integer cmpId) {
-		System.out.println("Serive: " + cmpId);
-		
-		//1. 先檢查 id 
-		if (cmpId == 0 && cmpId < 20000) {
-			return null;
-		}
-		
-		//2. 查詢
-		Company company = companyMapper.queryCompanyByCmpId(cmpId);
-		
-		//3. 返回結果
+	//根據廠商帳號和廠商密碼來查詢廠商(配合 @ModelAttribute 使用的)
+	public Company getCompanyByCmpAccountAndCmpPassword(String cmpAccount, String cmpPassword) {
+		Company company = companyMapper.queryCompanyByCmpAccountAndCmpPassword(cmpAccount, cmpPassword);
 		return company;
 	}
-
-	
-	//根據廠商編號更新廠商
-	@Transactional
-	public Company updateCompanyById(Company company) {
+	//審核未通過的廠商修改廠商訊息
+	public Company updateRegistCompany(Company company) {
 		int result = companyMapper.updateCompanyByCmpId(company);
 		
 		
 		if (result == 0) {
-			Company cmp = new Company();
-			//說明更新失敗
-			cmp.setSuccessful(false);
-			cmp.setMessage("修改資料失敗");
-			cmp.setUrl("/front-end/company/cmp_edit.jsp");
-			return cmp;
+			company.setSuccessful(false);
+			company.setMessage("修改資料失敗");
 		}else {
-			//說明更新成功
 			company.setSuccessful(true);
 			company.setMessage("修改資料成功");
-			//重定向回修改頁面, 看看是否有修改成功
-			company.setUrl("redirect:/company/getCompany?cmpId=" + company.getCmpId());
-			return company;
 		}
+		
+		company.setUrl("/front-end/company/edit.jsp");
+		
+		return company;
 	}
-
+	
+	//根據廠商編號查詢廠商
+	@Transactional
+	public Company getCompanyByCmpId(String cmpId) {
+		Integer id = CommonUtils.parseInt(cmpId, 0);
+		if (id == 0) {
+			return null;
+		}
+		Company company = companyMapper.queryCompanyByCmpId(id);
+		return company;
+	}
+	
 	
 	//查詢所有廠商(管理員)
 	@Transactional(readOnly = true)
@@ -187,7 +189,7 @@ public class CompanyService {
 		return companyMapper.queryAllCompany();
 	}
 
-
+	
 	//根據廠商編號修改廠商狀態
 	@Transactional
 	public boolean updateStatusByCmpId(Integer cmpId, String status) {
@@ -215,7 +217,9 @@ public class CompanyService {
 		}
 		
 		int result = 0;
+		
 		Company company = companyMapper.queryCompanyByCmpId(cmpId);
+		
 		if("審核通過".equals(auditStatus) || "審核未通過".equals(auditStatus)) {
 			String email = null;
 			String subject = null;
@@ -246,8 +250,9 @@ public class CompanyService {
 		}
 		return result != 0;
 	}
-
-
+	
+	
+	
 	//寄信
 	public void sendEmail(String cmpMail, String subject, String messageText) {
 		try {
@@ -292,10 +297,10 @@ public class CompanyService {
 			e.printStackTrace();
 		}
 	}
-
 	
-	//數據校驗
-	public static Map<String, String> check(Map map){
+
+	//註冊時的數據校驗
+	public Map<String, String> registCheck(Map map){
 		//用來存儲錯誤訊息
 		Map<String, String> errorMap = new HashMap<String, String>();
 		
@@ -304,6 +309,7 @@ public class CompanyService {
         while(iterator.hasNext()){
         	//獲取到 key 值
             String key = (String)iterator.next();
+            System.out.println("key: " + key);
             
             //判斷遍歷到的 key 是不是 cmpName
             if ("cmpName".equals(key)) {
@@ -312,10 +318,12 @@ public class CompanyService {
             	//進行 cmpAccount 值的判斷
             	for(int i = 0; i < values.length; i++) {
             		if (values[i].trim().equals("")) {
+            			System.out.println("數據有誤");
             			errorMap.put(key, "廠商名稱不能為空!");	
 					}
             	}
             }
+            
             
             //判斷遍歷到的 key 是不是 cmpTel
             if ("cmpTel".equals(key)) {
@@ -323,24 +331,45 @@ public class CompanyService {
             	String[] values = (String[]) map.get(key);  
             	//進行 cmpTel 值的判斷
             	for(int i = 0; i < values.length; i++) {
-//            		!values[i].matches("^[0-9]*$")
+            		if (!values[i].matches("^[0-9]*$")) {
+						errorMap.put(key, "請輸入手機號碼或電話號碼");
+					}
             		if (values[i].trim().equals("")) {
 						errorMap.put(key, "請輸入手機號碼或電話號碼");
 					}
             	}
 			}
             
-            //判斷遍歷到的 key 是不是 bankAccount
-            if ("bankAccount".equals(key)) {
+            
+            //判斷遍歷到的 key 是不是 headBank
+            if ("headBank".equals(key)) {
             	//獲取到 key 對應的 value; 注意:key是String型，value是String型數組, 所以這邊需要做強制轉型
             	String[] values = (String[]) map.get(key);  
-            	//進行 bankAccount 值的判斷
+            	//進行 headBank 值的判斷
             	for(int i = 0; i < values.length; i++) {
+            		if (!values[i].matches("^[0-9]*$")) {
+						errorMap.put(key, "請輸入數字");
+					}
             		if (values[i].trim().equals("")) {
 						errorMap.put(key, "請輸入銀行帳號");
 					}
-            	}	
+            	}
 			}
+            
+            //判斷遍歷到的 key 是不是 endBank
+            if ("endBank".equals(key)) {
+            	//獲取到 key 對應的 value; 注意:key是String型，value是String型數組, 所以這邊需要做強制轉型
+            	String[] values = (String[]) map.get(key);  
+            	//進行 endBank 值的判斷
+            	for(int i = 0; i < values.length; i++) {
+            		if (!values[i].matches("^[0-9]*$")) {
+            			errorMap.put(key, "請輸入數字");
+            		}
+            		if (values[i].trim().equals("")) {
+            			errorMap.put(key, "請輸入銀行帳號");
+            		}
+            	}
+            }
             
             
             //判斷遍歷到的 key 是不是 cmpMail
@@ -355,6 +384,7 @@ public class CompanyService {
             	}
 			}
             
+            
             //判斷遍歷到的 key 是不是 cmper
             if("cmper".equals(key)) {
             	//獲取到 key 對應的 value; 注意:key是String型，value是String型數組, 所以這邊需要做強制轉型
@@ -367,18 +397,23 @@ public class CompanyService {
             	}
             }
             
+            
+            
             //判斷遍歷到的 key 是不是 cmperTel
             if ("cmperTel".equals(key)) {
             	//獲取到 key 對應的 value; 注意:key是String型，value是String型數組, 所以這邊需要做強制轉型
             	String[] values = (String[]) map.get(key);  
             	//進行 cmperTel 值的判斷
             	for(int i = 0; i < values.length; i++) {
-//            		!values[i].matches("^[0-9]*$")
+            		if (!values[i].matches("^[0-9]*$")) {
+            			errorMap.put(key, "請輸入數字");
+            		}
             		if (values[i].trim().equals("")) {
 						errorMap.put(key, "請輸入手機號碼或電話號碼");
 					}
             	}
 			}
+            
             
             //判斷遍歷到的 key 是不是 cmpAccount
             if ("cmpAccount".equals(key)) {
@@ -396,6 +431,7 @@ public class CompanyService {
             	}
 			}
             
+            
             //判斷遍歷到的 key 是不是 cmpPassword
             if ("cmpPassword".equals(key)) {
             	//獲取到 key 對應的 value; 注意:key是String型，value是String型數組, 所以這邊需要做強制轉型
@@ -412,6 +448,7 @@ public class CompanyService {
             	}
 			}
             
+            
             //判斷遍歷到的 key 是不是 cmpIntroduce
             if ("cmpIntroduce".equals(key)) {
             	//獲取到 key 對應的 value; 注意:key是String型，value是String型數組, 所以這邊需要做強制轉型
@@ -423,6 +460,7 @@ public class CompanyService {
 					}
             	}
 			}
+            
             
             //判斷遍歷到的 key 是不是 checkinTime
             if ("checkinTime".equals(key)) {
@@ -448,11 +486,36 @@ public class CompanyService {
             	}
 			}
             
-            //判斷遍歷到的 key 是不是 location
-            if ("location".equals(key)) {
+            
+            //判斷遍歷到的 key 是不是 city
+            if ("city".equals(key)) {
             	//獲取到 key 對應的 value; 注意:key是String型，value是String型數組, 所以這邊需要做強制轉型
             	String[] values = (String[]) map.get(key);  
-            	//進行 location 值的判斷
+            	//進行 city 值的判斷
+            	for(int i = 0; i < values.length; i++) {
+            		if (values[i].trim().equals("")) {
+            			errorMap.put(key, "請輸入地址");
+            		}
+            	}
+            }
+            
+            //判斷遍歷到的 key 是不是 town
+            if ("town".equals(key)) {
+            	//獲取到 key 對應的 value; 注意:key是String型，value是String型數組, 所以這邊需要做強制轉型
+            	String[] values = (String[]) map.get(key);  
+            	//進行 town 值的判斷
+            	for(int i = 0; i < values.length; i++) {
+            		if (values[i].trim().equals("")) {
+            			errorMap.put(key, "請輸入地址");
+            		}
+            	}
+            }
+            
+            //判斷遍歷到的 key 是不是 road
+            if ("road".equals(key)) {
+            	//獲取到 key 對應的 value; 注意:key是String型，value是String型數組, 所以這邊需要做強制轉型
+            	String[] values = (String[]) map.get(key);  
+            	//進行 road 值的判斷
             	for(int i = 0; i < values.length; i++) {
             		if (values[i].trim().equals("")) {
             			errorMap.put(key, "請輸入地址");
@@ -484,12 +547,14 @@ public class CompanyService {
             	}
             }
         }
-		return errorMap;		
+        
+        
+        return errorMap;
 	}
-
-
-	//獲取圖片路徑
-	public static String getPath(MultipartFile uploadFile, HttpSession session, Company company) {
+	
+	
+	//獲取旅館登記證的保存路徑
+	public String savePath(Company company, MultipartFile serialNo, HttpSession session) {
 		//此時這裡的數據都是過濾好的
 		// 用於獲取需要保存的圖片路徑
 		String savePath = null;
@@ -498,21 +563,21 @@ public class CompanyService {
 
 		// 獲取圖片路徑
 		// 獲取上傳的文件的文件名
-		String fileName = uploadFile.getOriginalFilename();
-		System.out.println(fileName);
+		String fileName = serialNo.getOriginalFilename();
+//		System.out.println(fileName);
 		// 處理文件重名問題, 並拿到文件後綴名
 		String hzName = fileName.substring(fileName.lastIndexOf("."));
-		System.out.println(hzName);
+//		System.out.println(hzName);
 		// 將 UUID 和文件後綴名結合
 		fileName = UUID.randomUUID().toString() + hzName;
-		System.out.println(fileName);
+//		System.out.println(fileName);
 
 		
 		// 獲取服務器中 images 目錄的路徑;
 		ServletContext servletContext = session.getServletContext();
-		System.out.println(session.getServletContext().getRealPath("/"));
-		String imagePath = servletContext.getRealPath("/images");
-		System.out.println(imagePath);
+//		System.out.println(session.getServletContext().getRealPath(File.separator));
+		String imagePath = servletContext.getRealPath(File.separator + "images");
+//		System.out.println(imagePath);
 		File file = new File(imagePath);
 		if (!file.exists()) {
 			file.mkdirs();
@@ -521,7 +586,7 @@ public class CompanyService {
 		
 		// 廠商目錄: /images/Company
 		String companyPath = imagePath + File.separator + "Company";
-		System.out.println(companyPath);
+//		System.out.println(companyPath);
 		File file2 = new File(companyPath);
 		if (!file2.exists()) {
 			file2.mkdir();
@@ -537,7 +602,7 @@ public class CompanyService {
 		}
 
 		
-		// 圖片在服務器中的真實路徑
+		// 圖片在服務器中的真實路徑: /images/Company/廠商帳號/xxxxx.jpg
 		finalPath = cmpAccountPath + File.separator + fileName;
 		System.out.println(finalPath);
 		
@@ -548,18 +613,5 @@ public class CompanyService {
 		
 		return savePath;
 	}
-
-
-	//將字符串轉成int類型
-	public static int parseInt(String id, int defaultValue) {
-		try {
-			return Integer.parseInt(id);
-		} catch (Exception e) {}
-		//轉換失敗返回默認值
-		return defaultValue;
-	}
-
-
-
-
+	
 }

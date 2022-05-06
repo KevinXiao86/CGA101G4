@@ -21,7 +21,6 @@ public class RoomOrderMapperTest {
 
 	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 	RoomOrderMapper roomOrderMapper = context.getBean(RoomOrderMapper.class);
-
 	// 查詢所有訂單
 	@Test
 	public void test01() {
