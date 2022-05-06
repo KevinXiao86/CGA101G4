@@ -110,5 +110,11 @@ public class CustCoupon {
 				+ ", usedate=" + usedate + ", roomOrderId=" + roomOrderId + ", tktOrderId=" + tktOrderId + ", discount="
 				+ discount + ", status=" + status + "]";
 	}
-
+	// for join couponStatus from copId
+	public com.taiwan.beans.CouponVO getCouponVO() {
+		 com.taiwan.service.coupon.impl.CouponServiceImpl copSvcImpl = new com.taiwan.service.coupon.impl.CouponServiceImpl();
+		 com.taiwan.beans.CouponVO coupon = copSvcImpl.findById(copId);
+	    return coupon;
+    }
+	
 }

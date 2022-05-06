@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.taiwan.beans.EmployeeVO;
 import com.taiwan.service.employee.EmployeeService;
 
-@WebServlet("/AuthorityServlet")
-public class AuthorityServlet extends HttpServlet {
+@WebServlet("/Authority/AuthorityStatusChange")
+public class AuthorityStatusChange extends HttpServlet {
 
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -55,7 +55,7 @@ public class AuthorityServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/authority/authorityIndex.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -68,7 +68,7 @@ public class AuthorityServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/authority/authorityIndex.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}

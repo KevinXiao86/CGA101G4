@@ -3,14 +3,19 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mybatis.mapper.CustomerMapper">
-	
-	<!-- 根據 id 查詢會員 -->
-	<!-- public CustomerVO getCustomerVOByCustId(Integer custId); -->
-	<select id="getCustomerVOByCustId" resultType="com.taiwan.beans.CustomerVO">		
-		SELECT 	`cust_id`, `NAME`, `SEX`, `TEL`, `EMAIL`, `ADDRESS`, `ID_CARD`, 
-			`BIRTH`, `ACCOUNT`, `PASSWORD`, `IMG`, `cust_use`, `CARD`, `cust_right`
-	 	FROM  `Taiwan`.`CUSTOMER` 
-		WHERE `cust_id` = #{cust_id};
-	</select>
 
+	<!-- 這是使用第三方緩存 -->
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"></cache>
+
+
+<!-- 	public int insertCustomer(Customer customer); -->
+	<insert id="insertCustomer">
+		INSERT INTO `Taiwan`.`CUSTOMER` 
+			(`NAME`, `SEX`, `TEL`, `EMAIL`, `ADDRESS`, 
+			 `ID_CARD`, `BIRTH`, `ACCOUNT`, `PASSWORD`, `IMG`, 
+			 `CARD`)
+		VALUES
+			(#{name}, #{sex}, #{tel}, #{email}, #{address}, #{idCard}
+			, #{birth}, #{account}, #{password}, #{img}, #{card});
+	</insert>
 </mapper>

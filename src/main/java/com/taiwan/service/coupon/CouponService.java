@@ -2,8 +2,10 @@ package com.taiwan.service.coupon;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 import com.taiwan.beans.CouponVO;
+import com.taiwan.beans.CustCoupon;
 
 public interface CouponService {
 
@@ -32,5 +34,5 @@ public interface CouponService {
 
 	// 根據上架或下架做搜尋
 	public List<CouponVO> selectByStatus(String status);
-
+	
 }
