@@ -17,7 +17,7 @@ public class DbUtil {
 // 資料庫的使用者名稱
 	private static final String PASSWORD = "rootitri";
 // 資料庫的登入密碼
-	private static Connection conn = null;
+//	private static Connection conn = null;
 // 資料庫連線物件，採用單例模式。
 	static {
 		try {

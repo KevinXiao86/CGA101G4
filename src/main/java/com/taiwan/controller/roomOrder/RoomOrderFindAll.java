@@ -1,4 +1,4 @@
-package com.taiwan.controller.RoomOrder;
+package com.taiwan.controller.roomOrder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class RoomOrderFindAll extends HttpServlet {
 
 	RoomOrderMyService roomOrderMyService = ControllerUtil.getBean(RoomOrderMyService.class);
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<RoomOrder> roomOrders = new ArrayList<RoomOrder>();
 		roomOrders = roomOrderMyService.findAll();
@@ -30,10 +30,9 @@ public class RoomOrderFindAll extends HttpServlet {
 		rd.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
 
 }
-

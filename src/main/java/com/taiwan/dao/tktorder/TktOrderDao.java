@@ -7,10 +7,10 @@ import com.taiwan.beans.TktItem;
 import com.taiwan.beans.TktOrder;
 
 public interface TktOrderDao{
-	//新增一筆票券訂單(有使用優惠券)+同時新增訂單明細
-	public void insertTktOrderWithCoupon(TktOrder tktOrder, List<TktItem> tktItem_list);
+	//新增一筆票券訂單(有使用優惠券)+同時新增訂單明細 => 於controller能回傳訂單編號
+	public String insertTktOrderWithCoupon(TktOrder tktOrder, List<TktItem> tktItem_list);
 	//新增一筆票券訂單(未使用優惠券)+同時新增訂單明細
-	public void insertTktOrderNoCoupon(TktOrder tktOrder, List<TktItem> tktItem_list);
+	public String insertTktOrderNoCoupon(TktOrder tktOrder, List<TktItem> tktItem_list);
 	//查詢全部票券訂單
 	public List<TktOrder> queryAllTktOrder();
 	//根據會員Id查詢票券訂單

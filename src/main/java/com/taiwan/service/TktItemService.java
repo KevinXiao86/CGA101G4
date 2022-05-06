@@ -37,9 +37,17 @@ public class TktItemService {
 
 	}
 
-	// 根據票券訂單id及票券id來對票券評論及評分??
-	public void updateTktItemScoreContentByTktId(Integer tktOrderId, Integer tktId, Integer score, String content) {
+	// 根據票券訂單id及票券id來對票券評論及評分
+	public TktItem updateTktItemScoreContent(Integer tktOrderId, Integer tktId, Integer score, String content) {
+		
+		TktItem itemVO = new TktItem();
+		itemVO.setTktOrderId(tktOrderId);
+		itemVO.setTktId(tktId);
+		itemVO.setScore(score);
+		itemVO.setContent(content);
 		dao.updateTktItemScoreContentByTktId(tktOrderId, tktId, score, content);
+		
+		return itemVO;
 	}
 
 	// 查詢所有相同票券的評論

@@ -47,4 +47,13 @@ public class RoomItemServiceImpl implements RoomItemService {
 		RoomItemVO roomItemVO=dao.queryByRoomOrderId(roomOrderId);
 		return roomItemVO;
 	}
+	@Override
+	public RoomItemVO searchByItemId(Integer roomItemId) {
+		return dao.queryRoomItemByRoomItemId(roomItemId);
+	}
+
+	@Override
+	public List<RoomItemVO> searchByRoomId(Integer roomId) {
+		return dao.queryRoomItemByRoomId(roomId);
+	}
 }

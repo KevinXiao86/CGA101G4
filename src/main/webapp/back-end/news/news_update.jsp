@@ -53,9 +53,9 @@ img{
 				<span id="num_content">剩餘可輸入500字</span>
 			</div>
 			<div id="div5">
+			<input type="hidden" name="img" value="${news.img}">
 			<label>舊照片</label><br>
 			<img src="${news.img}"/><br>
-				${errorMsgs.updateFile}
 				<input name="updateFile" id="file1" type="file" accept=“image/*>
 				<img id="look_img" src="">
 			</div>

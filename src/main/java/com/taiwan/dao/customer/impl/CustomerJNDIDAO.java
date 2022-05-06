@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -34,6 +36,8 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 	private static final String GET_EMAIL = "SELECT EMAIL FROM CUSTOMER WHERE ACCOUNT=?;";
 	private static final String SET_CUST_RIGHT = "UPDATE CUSTOMER SET CUST_RIGHT =? WHERE CUST_ID =?;";
 	private static final String GET_LOGIN = "SELECT * FROM CUSTOMER WHERE ACCOUNT=? AND PASSWORD=?;";
+	private static final String GET_ALL_NOMATTERWHO = "select cust_Id,name,sex,tel,email,address,id_Card ,birth,account,password,img,cust_Use ,card,cust_Right "
+			+ "from CUSTOMER;";
 
 	@Override
 	public void setAll(CustomerVO customer) {
@@ -308,7 +312,7 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 			ps.setString(1, account);
 			ps.setString(2, password);
 			rs = ps.executeQuery();
-			
+
 			if (rs.next()) {
 				customerVO = new CustomerVO();
 				customerVO.setAccount(rs.getString("ACCOUNT"));
@@ -355,4 +359,62 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 		return customerVO;
 	}
 
+	public List<CustomerVO> getAllNoMatterWho() {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<CustomerVO> list = new ArrayList<CustomerVO>();
+
+		try {
+			conn = ds.getConnection();
+			ps = conn.prepareStatement(GET_ALL_NOMATTERWHO);
+			rs = ps.executeQuery();
+			CustomerVO customerVO = null;
+			while (rs.next()) {
+				customerVO = new CustomerVO();
+				customerVO.setCustId(rs.getInt("cust_Id"));
+				customerVO.setName(rs.getString("name"));
+				customerVO.setSex(rs.getString("sex"));
+				customerVO.setTel(rs.getString("tel"));
+				customerVO.setEmail(rs.getString("email"));
+				customerVO.setAddress(rs.getString("address"));
+				customerVO.setIdCard(rs.getString("id_Card"));
+				customerVO.setBirth(rs.getDate("birth"));
+				customerVO.setAccount(rs.getString("account"));
+				customerVO.setPassword(rs.getString("password"));
+				customerVO.setImg(rs.getString("img"));
+				customerVO.setCustUse(rs.getString("cust_Use"));
+				customerVO.setCard(rs.getString("card"));
+				customerVO.setCustRight(rs.getString("cust_Right"));
+				list.add(customerVO);
+			}
+			System.out.println(list);
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+		return list;
+	}
 }

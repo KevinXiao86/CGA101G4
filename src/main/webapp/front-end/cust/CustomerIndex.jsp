@@ -1,10 +1,7 @@
 <%@page import="com.taiwan.beans.CustomerVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-CustomerVO customerVO = (CustomerVO) request.getAttribute("customer");
-request.setAttribute("customer", customerVO);
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,19 +15,19 @@ request.setAttribute("customer", customerVO);
 		<input type="hidden" name="customer" value="${customer.custId}">
 	</form>
 
-	<form method="post" action="">	
+	<form method="post" action="cust/ShowFollow">	
 		<input type="submit" value="關注廠商">
 		<input type="hidden" name="customer" value="${customer.custId}">
 	</form>
-	<form method="post">
+	<form method="post" action="cust/ShowCustCoupon">
 		<input type="submit" value="管理優惠劵">
 	</form>
 	<form method="post" action="cust/showRepCmp">
 		<input type="submit" value="瀏覽檢舉">
 		<input type="hidden" name="customer" value="${customer.custId}">
 	</form>
-	<form method="post">
-		<input type="submit" value="常用旅伴">
+	<form method="post" action="cust/ShowEmail">
+		<input type="submit" value="訊息管理">
 	</form>
 	<form method="post">
 		<input type="submit" value="瀏覽訂單">

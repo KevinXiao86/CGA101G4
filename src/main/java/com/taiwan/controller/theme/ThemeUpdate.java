@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import org.apache.catalina.tribes.tipis.AbstractReplicatedMap.MapEntry;
-
 import com.taiwan.beans.Theme;
 import com.taiwan.service.theme.ThemeService;
 import com.taiwan.utils.ControllerUtil;
@@ -55,22 +53,23 @@ public class ThemeUpdate extends HttpServlet {
 			if (!fsaveDirectory.exists()) {
 				fsaveDirectory.mkdirs();
 			}
+			String dbPath=null;
 			// 取得上傳的檔案
 			Part part = request.getPart("updateFile");
 			// 判斷使用者有沒有上傳檔案
 			if (part.getHeader("content-disposition").contains("filename=\"\"")) {
-				errorMsgs.put("updateFile", "沒有傳入熱門活動的照片");
+//				errorMsgs.put("updateFile", "沒有傳入熱門活動的照片");
+				dbPath=request.getParameter(dbPath);
+			}else {
+				UUIDFileName uuidFileName = new UUIDFileName();
+				String filename = uuidFileName.getUUIDFileName(part);
+				part.write(realPath + "/" + filename);
+				// 傳入db的路徑前面不能再有斜槓，不然伺服器找的時候會跑一次阿飄路徑
+				String dbSaveDirectory = "images/theme";
+				// 要傳回數據庫的路徑
+				dbPath = dbSaveDirectory + "/" + filename;
 			}
-			UUIDFileName uuidFileName = new UUIDFileName();
-			String filename = uuidFileName.getUUIDFileName(part);
-			part.write(realPath + "/" + filename);
-			// 傳入db的路徑前面不能再有斜槓，不然伺服器找的時候會跑一次阿飄路徑
-			String dbSaveDirectory = "images/theme";
-			// 要傳回數據庫的路徑
-			String dbPath = dbSaveDirectory + "/" + filename;
 			// 把新的熱門活動資料封裝好
-			
-
 			theme.setTitle(title);
 			theme.setContent(content);
 			theme.setImg(dbPath);

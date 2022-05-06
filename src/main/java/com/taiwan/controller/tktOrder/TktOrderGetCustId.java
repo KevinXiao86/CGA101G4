@@ -12,13 +12,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.taiwan.beans.TicketVO;
 import com.taiwan.beans.TktOrder;
+import com.taiwan.service.TicketService;
 import com.taiwan.service.TktOrderService;
+import com.taiwan.service.impl.TicketServiceImpl;
+import com.taiwan.utils.ControllerUtil;
 
 @WebServlet("/tktOrder/getCustId")
 public class TktOrderGetCustId extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-      
+      	
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
 	}

@@ -20,11 +20,12 @@ public class CustPlatMailServiceImpl implements CustPlatMailService {
 	}
 
 	@Override
-	public CustPlatMailVO setCust_Plat_Mail(Integer custId, Integer empId, String msg) {
+	public CustPlatMailVO setCust_Plat_Mail(Integer custId, Integer empId, String msg, Integer who) {
 		CustPlatMailVO custPlatMailVO = new CustPlatMailVO();
 		custPlatMailVO.setCustId(custId);
 		custPlatMailVO.setEmpId(empId);
 		custPlatMailVO.setMsg(msg);
+		custPlatMailVO.setWho(who);
 		dao.setCust_Plat_Mail(custPlatMailVO);
 		return custPlatMailVO;
 	}
@@ -32,6 +33,11 @@ public class CustPlatMailServiceImpl implements CustPlatMailService {
 	@Override
 	public List<CustPlatMailVO> getAll() {
 		return dao.getAll();
-	};
+	}
+
+	@Override
+	public List<CustPlatMailVO> getAllByCustId(Integer custId) {
+		return dao.getAllByCustId(custId);
+	}
 
 }

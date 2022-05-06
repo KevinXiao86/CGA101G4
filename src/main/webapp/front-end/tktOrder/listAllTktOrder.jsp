@@ -78,6 +78,7 @@
 		<th>訂購日期</th>
 		<th>總金額</th>
 		<th>會員優惠券編號</th>
+		<th>詳情</th>
 	</tr>
 	<c:forEach var="tktOrder" items="${list}" >
 		
@@ -89,6 +90,13 @@
 			<td>${tktOrder.ttlPrice}</td>
 			<td>${tktOrder.custCopId}</td>
 <%-- 		<td>${empVO.deptno}-[${empVO.deptVO.dname}]</td> --%>
+<td>
+		  	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/tktItem/selectById" style="margin-bottom: 0px;">
+			     <input type="submit" value="查詢明細">
+			     <input type="hidden" name="tktOrderId" value="${tktOrder.tktOrderId}">
+			     <input type="hidden" name="action"	value="get_orderItem">
+		    </FORM>
+		</td>
 		</tr>
 	</c:forEach>
 </table>

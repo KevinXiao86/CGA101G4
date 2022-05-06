@@ -19,4 +19,10 @@ public interface RoomItemService {
 	
 	//根據roomOrderId查詢roomItem
 	public RoomItemVO findByOrderId(Integer roomOrderId);
+	/**********************用ID查詢訂單明細**********************/
+
+	public RoomItemVO searchByItemId(Integer roomItemId);
+	/**********************用房型查詢訂單明細**********************/
+
+	public  List<RoomItemVO> searchByRoomId(Integer roomId);
 }

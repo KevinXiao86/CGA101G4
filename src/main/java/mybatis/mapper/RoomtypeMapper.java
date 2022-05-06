@@ -32,4 +32,5 @@ public interface RoomtypeMapper {
 	// 修改房型
 	public int updateRoomtype(Roomtype roomtype);
 
+
 }

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.taiwan.beans.CustomerVO;
+import com.taiwan.beans.TicketVO;
 import com.taiwan.beans.TktOrder;
 
 public interface TktOrderMapper {
@@ -39,5 +41,11 @@ public interface TktOrderMapper {
 
 	// 根據訂單編號查詢
 	public TktOrder queryTktOrderByTktOrderId(Integer tktOrderId);
+	
+	//根據custId查詢資料
+//	public CustomerVO queryByCustId(Integer custId);
+//	
+//	//根據票券Id查詢資料
+//	public TicketVO queryByTktId(Integer tktId);
 
 }

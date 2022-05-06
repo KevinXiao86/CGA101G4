@@ -2,29 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="mybatis.mapper.TktOrderMapper">
 	<resultMap id="TktOrderMap" type="com.taiwan.beans.TktOrder">
-		<id property="tktOrderId" column="TKT_ORDER_ID" javaType="Integer"
-			jdbcType="INTEGER" />
-		<result property="custId" column="CUST_ID" javaType="Integer"
-			jdbcType="INTEGER" />
-		<result property="originalPrice" column="ORIGINAL_PRICE"
-			javaType="Integer" jdbcType="INTEGER" />
-		<result property="orderdate" column="ORDERDATE"
-			javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
-		<result property="ttlPrice" column="TTL_PRICE"
-			javaType="Integer" jdbcType="INTEGER" />
-		<result property="custCopId" column="CUST_COP_ID"
-			javaType="Integer" jdbcType="INTEGER" />
-		<result property="qrcode" column="QRCODE" javaType="String"
-			jdbcType="VARCHAR" />
+		<id property="tktOrderId" column="TKT_ORDER_ID" javaType="Integer" jdbcType="INTEGER" />
+		<result property="custId" column="CUST_ID" javaType="Integer" jdbcType="INTEGER" />
+		<result property="originalPrice" column="ORIGINAL_PRICE" javaType="Integer" jdbcType="INTEGER" />
+		<result property="orderdate" column="ORDERDATE" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+		<result property="ttlPrice" column="TTL_PRICE" javaType="Integer" jdbcType="INTEGER" />
+		<result property="custCopId" column="CUST_COP_ID" javaType="Integer" jdbcType="INTEGER" />
+		<result property="qrcode" column="QRCODE" javaType="String" jdbcType="VARCHAR" />
+		<result property="orderName" column="ORDER_NAME" javaType="String" jdbcType="VARCHAR" />
+		<result property="orderEmail" column="ORDER_EMAIL" javaType="String" jdbcType="VARCHAR" />
+		<result property="orderMobile" column="ORDER_MOBILE" javaType="String" jdbcType="VARCHAR" />
 	</resultMap>
 
-	<insert id="insertTktOrderWithCoupon" parameterType="com.taiwan.beans.TktOrder">
+	<insert id="insertTktOrderWithCoupon"
+		parameterType="com.taiwan.beans.TktOrder">
 		insert into
 		TKT_ORDER(CUST_ID,ORIGINAL_PRICE,TTL_PRICE,CUST_COP_ID,QRCODE)
 		values(#{custId},#{originalPrice},#{ttlPrice},#{custCopId},#{qrcode})
 	</insert>
 
-	<insert id="insertTktOrderNoCoupon" parameterType="com.taiwan.beans.TktOrder">
+	<insert id="insertTktOrderNoCoupon"
+		parameterType="com.taiwan.beans.TktOrder">
 		insert into
 		TKT_ORDER(CUST_ID,ORIGINAL_PRICE,TTL_PRICE,QRCODE)
 		values(#{custId},#{originalPrice},#{ttlPrice},#{qrcode})
@@ -42,21 +40,23 @@
 	<select id="queryTktOrderByDateToDate" parameterType="Integer"
 		resultMap="TktOrderMap">
 		select TKT_ORDER_ID,CUST_ID,ORIGINAL_PRICE,ORDERDATE,
-		TTL_PRICE,CUST_COP_ID,QRCODE from TKT_ORDER where ORDERDATE
-		between #{startdate} and #{enddate}
+		TTL_PRICE,CUST_COP_ID,QRCODE,ORDER_NAME,ORDER_EMAIL,ORDER_MOBILE from TKT_ORDER where ORDERDATE
+		between
+		#{startdate} and #{enddate}
 	</select>
 
 	<select id="queryTktOrderTtlPrice" resultType="int">
-			select sum(TTL_PRICE) as TTLPRICE from TKT_ORDER
+		select sum(TTL_PRICE) as TTLPRICE from TKT_ORDER
 	</select>
 
 	<select id="quertTktOrderTtlPriceById" parameterType="Integer"
 		resultType="int">
-			select sum(TTL_PRICE) as TTLPRICE from TKT_ORDER where CUST_ID=#{custId}
+		select sum(TTL_PRICE) as TTLPRICE from TKT_ORDER where CUST_ID=#{custId}
 	</select>
 
 	<select id="queryTktOrderTtlPriceByDateToDate" resultType="int">
-			select sum(TTL_PRICE) as TTLPRICE from TKT_ORDER where ORDERDATE between #{startdate} and #{enddate}
+		select sum(TTL_PRICE) as TTLPRICE from TKT_ORDER where ORDERDATE
+		between #{startdate} and #{enddate}
 	</select>
 
 	<select id="queryTktOrderByTktOrderId" parameterType="Integer"
@@ -65,6 +65,8 @@
 		TTL_PRICE,CUST_COP_ID,QRCODE from TKT_ORDER where
 		TKT_ORDER_ID=#{tktOrderId}
 	</select>
+
+
 
 
 
