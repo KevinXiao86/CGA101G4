@@ -78,5 +78,16 @@ public class RepCustServiceImpl implements RepCustService {
 		dao.updateRepCust(repCustVO);
 		return null;
 	}
+	@Override
+	public void cancelRepCust(Integer repCust) {
+		dao.deleteRepCust(repCust);
+	}
+//	public static void main(String[] args) {
+//		RepCustServiceImpl dao=new RepCustServiceImpl();
+//		List<RepCustVO> list=dao.searchRepCustByCmpId(20000);
+//		for (RepCustVO repCustVO : list) {
+//			System.out.println(repCustVO.getRepCustId());
+//		}
+//	}
 
 }

@@ -24,6 +24,8 @@ public interface RepCustService {
 	
 	public RepCustVO doRepCust(Integer repCustId,Integer empId ,String status ,String result);
 
+	public void cancelRepCust(Integer repCust);
+
 	
 
 

@@ -12,4 +12,7 @@ public class RoomtypeService12 {
 	public Roomtype searchRoomtype(Integer roomid) {
 		return dao.searchRoomtype(roomid);
 	}
+	public void addEvaluate(Integer roomId,Integer score) {
+		dao.addEvaluate(roomId, score);
+	}
 }
