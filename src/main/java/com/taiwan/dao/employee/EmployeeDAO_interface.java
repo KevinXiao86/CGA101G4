@@ -2,6 +2,7 @@ package com.taiwan.dao.employee;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 import com.taiwan.beans.EmployeeVO;
 
@@ -21,6 +22,10 @@ public interface EmployeeDAO_interface {
 	 public List<EmployeeVO> getAll();
 	 //刪除
 	public void delete(Integer empId);
+	//登入
+	public  EmployeeVO login(Integer empId,String empPassword);
+	
+	 public Set<EmployeeVO> getEmployeeNameByAuthority(Integer empId);
 }
 
 

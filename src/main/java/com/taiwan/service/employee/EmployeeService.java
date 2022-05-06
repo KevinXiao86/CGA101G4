@@ -62,5 +62,9 @@ public class EmployeeService {
 	public List<EmployeeVO> getAll() {
 		return dao.getAll();
 	}
+	public EmployeeVO login(Integer empId,String empPassword) {
+		
+		return dao.login(empId, empPassword);
+	};
 
 }

@@ -4,12 +4,17 @@
 <%@ page import="com.taiwan.dao.authority.impl.*"%>
 <%@ page import="com.taiwan.beans.*"%>
 <%@ page import="com.taiwan.service.authority.*"%>
+<%@ page import="com.taiwan.dao.employee.impl.*"%>
+<%@ page import="com.taiwan.service.employee.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
 AuthorityService atisvc = new AuthorityService();
+EmployeeService empSvc = new EmployeeService();
 List<AuthorityVO> list = atisvc.getAll();
 pageContext.setAttribute("list", list);
+List<EmployeeVO> list2 = empSvc.getAll();
+pageContext.setAttribute("list2",list2);
 %>
 
 
@@ -76,7 +81,7 @@ th, td {
 		<font style="color: red">請修正以下錯誤:</font>
 		<ul>
 			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message.key}: ${message.value}</li>
+				<li style="color: red">${message.key}:${message.value}</li>
 			</c:forEach>
 		</ul>
 	</c:if>
@@ -90,7 +95,7 @@ th, td {
 			<th>會員管理員權限</th>
 			<th>廠商管理員權限</th>
 			<th>網頁管理員權限</th>
-			
+
 		</tr>
 		<%@ include file="../page1.file"%>
 		<c:forEach var="authorityVO" items="${list}" begin="<%=pageIndex%>"
@@ -99,29 +104,54 @@ th, td {
 			<tr>
 				<td>${authorityVO.empId}</td>
 				<td>${authorityVO.empId}</td>
-				<td>${authorityVO.funcId}</td>
-				<td>${authorityVO.funcId}</td>
-				<td>${authorityVO.funcId}</td>
-				<td>${authorityVO.funcId}</td>
-				<td>${authorityVO.funcId}</td>
+				<td><FORM METHOD="post"
+						ACTION="<%=request.getContextPath()%>/EmployeeServlet"
+						style="margin-bottom: 0px;">
+						<input type="submit"
+							value="${(authorityVO.funcId==1)? '啟用':'未啟用' }">
+					</FORM></td>
+				<td><FORM METHOD="post"
+						ACTION="<%=request.getContextPath()%>/EmployeeServlet"
+						style="margin-bottom: 0px;">
+						<input type="submit"
+							value="${(authorityVO.funcId==2)? '啟用':'未啟用' }">
+					</FORM></td>
+				<td><FORM METHOD="post"
+						ACTION="<%=request.getContextPath()%>/EmployeeServlet"
+						style="margin-bottom: 0px;">
+						<input type="submit"
+							value="${(authorityVO.funcId==3)? '啟用':'未啟用' }">
+					</FORM></td>
+				<td><FORM METHOD="post"
+						ACTION="<%=request.getContextPath()%>/EmployeeServlet"
+						style="margin-bottom: 0px;">
+						<input type="submit"
+							value="${(authorityVO.funcId==4)? '啟用':'未啟用' }">
+					</FORM></td>
+				<td><FORM METHOD="post"
+						ACTION="<%=request.getContextPath()%>/EmployeeServlet"
+						style="margin-bottom: 0px;">
+						<input type="submit"
+							value="${(authorityVO.funcId==5)? '啟用':'未啟用' }">
+					</FORM></td>
 				
-<!-- 				<td> -->
-<!-- 					<FORM METHOD="post" -->
-<%-- 						ACTION="<%=request.getContextPath()%>/EmployeeServlet" --%>
-<!-- 						style="margin-bottom: 0px;"> -->
-<!-- 						<input type="submit" value="修改"> <input type="hidden" -->
-<%-- 							name="empId" value="${employeeVO.empId}"> <input --%>
-<!-- 							type="hidden" name="action" value="getOne_For_Update"> -->
-<!-- 					</FORM> -->
-<!-- 				</td> -->
-<!-- 				<td> -->
-<!-- 					<FORM METHOD="post" -->
-<%-- 						ACTION="<%=request.getContextPath()%>/EmployeeServlet" --%>
-<!-- 						style="margin-bottom: 0px;"> -->
-<!-- 						<input type="submit" value="刪除"> <input type="hidden" -->
-<%-- 							name="empId" value="${employeeVO.empId}"> <input --%>
-<!-- 							type="hidden" name="action" value="delete"> -->
-<!-- 					</FORM> -->
+				<!-- 				<td> -->
+				<!-- 					<FORM METHOD="post" -->
+				<%-- 						ACTION="<%=request.getContextPath()%>/EmployeeServlet" --%>
+				<!-- 						style="margin-bottom: 0px;"> -->
+				<!-- 						<input type="submit" value="修改"> <input type="hidden" -->
+				<%-- 							name="empId" value="${employeeVO.empId}"> <input --%>
+				<!-- 							type="hidden" name="action" value="getOne_For_Update"> -->
+				<!-- 					</FORM> -->
+				<!-- 				</td> -->
+				<!-- 				<td> -->
+				<!-- 					<FORM METHOD="post" -->
+				<%-- 						ACTION="<%=request.getContextPath()%>/EmployeeServlet" --%>
+				<!-- 						style="margin-bottom: 0px;"> -->
+				<!-- 						<input type="submit" value="刪除"> <input type="hidden" -->
+				<%-- 							name="empId" value="${employeeVO.empId}"> <input --%>
+				<!-- 							type="hidden" name="action" value="delete"> -->
+				<!-- 					</FORM> -->
 				</td>
 			</tr>
 		</c:forEach>

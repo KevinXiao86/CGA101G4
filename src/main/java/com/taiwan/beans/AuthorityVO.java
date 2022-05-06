@@ -1,5 +1,7 @@
 package com.taiwan.beans;
 
+import java.util.List;
+
 public class AuthorityVO {
 	private Integer empId;
 	private Integer funcId;
@@ -20,5 +22,10 @@ public class AuthorityVO {
 	public String toString() {
 		return "AuthorityVO [empId=" + empId + ", funcId=" + funcId + "]";
 	}
-	
+	public com.taiwan.beans.EmployeeVO getEmployeeVOs() {
+		com.taiwan.service.employee.EmployeeService empSvc = new com.taiwan.service.employee.EmployeeService();
+		com.taiwan.beans.EmployeeVO employeeVO=empSvc.getOneEmp(empId);
+	    return employeeVO;
+	    
+    }
 }

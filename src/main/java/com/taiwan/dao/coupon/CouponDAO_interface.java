@@ -3,8 +3,10 @@ package com.taiwan.dao.coupon;
 
 
 import java.util.List;
+import java.util.Set;
 
 import com.taiwan.beans.CouponVO;
+import com.taiwan.beans.CustCoupon;
 import com.taiwan.dao.Dao;
 
 
@@ -33,4 +35,7 @@ public interface CouponDAO_interface extends Dao<CouponVO, Integer>{
 	
 //	//更改狀態因時間過期的優惠券
 //	public int updateByEnddate();
+	
+	 //查詢某票券擁有的顧客(一對多)(回傳 Set)
+	public Set<CustCoupon> getCustByCopId(Integer copId);
 }

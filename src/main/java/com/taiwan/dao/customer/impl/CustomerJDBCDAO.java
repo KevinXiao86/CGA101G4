@@ -8,7 +8,9 @@ import java.sql.SQLException;
 
 import com.taiwan.beans.CustomerVO;
 import com.taiwan.dao.customer.CustomerDAO_interface;
-
+import static java.sql.Types.*;
+import java.util.Date;
+import javax.sql.DataSource;
 public class CustomerJDBCDAO implements CustomerDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
@@ -26,6 +28,8 @@ public class CustomerJDBCDAO implements CustomerDAO_interface {
 	private static final String GET_EMAIL = "SELECT EMAIL FROM CUSTOMER WHERE ACCOUNT=?;";
 	private static final String SET_CUST_RIGHT = "UPDATE CUSTOMER SET CUST_RIGHT =? WHERE CUST_ID =?;";
 	private static final String GET_LOGIN = "SELECT * FROM CUSTOMER WHERE ACCOUNT=? AND PASSWORD=?;";
+	private static final String REGIST = "INSERT INTO CUSTOMER(NAME,SEX,TEL,EMAIL,ADDRESS,ID_CARD,BIRTH,ACCOUNT,PASSWORD,IMG,CARD) "
+			+ "VALUES(?,?,?,?,?,?,?,?,?,?,?);";
 
 	@Override
 	public void setAll(CustomerVO customer) {
@@ -41,7 +45,7 @@ public class CustomerJDBCDAO implements CustomerDAO_interface {
 			ps.setString(4, customer.getEmail());
 			ps.setString(5, customer.getAddress());
 			ps.setString(6, customer.getIdCard());
-			ps.setDate(7, customer.getBirth());
+//			ps.setDate(7, customer.getBirth());
 			ps.setString(8, customer.getAccount());
 			ps.setString(9, customer.getPassword());
 			ps.setString(10, customer.getCustUse());
@@ -87,7 +91,7 @@ public class CustomerJDBCDAO implements CustomerDAO_interface {
 			ps.setString(4, customer.getEmail());
 			ps.setString(5, customer.getAddress());
 			ps.setString(6, customer.getIdCard());
-			ps.setDate(7, customer.getBirth());
+//			ps.setDate(7, customer.getBirth());
 			ps.setString(8, customer.getAccount());
 			ps.setString(9, customer.getPassword());
 			ps.setString(10, customer.getImg());
@@ -371,4 +375,62 @@ public class CustomerJDBCDAO implements CustomerDAO_interface {
 		return customerVO;
 	}
 
+	
+	@Override
+	public int regist(CustomerVO customer) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			ps = con.prepareStatement(REGIST);
+			ps.setString(1, customer.getName());
+			ps.setString(2, customer.getSex());
+			ps.setString(3, customer.getTel());
+			ps.setString(4, customer.getEmail());
+			if (customer.getAddress() == null) {
+				ps.setNull(5, VARCHAR);
+			} else {
+				ps.setString(5, customer.getAddress());
+			}
+			ps.setString(6, customer.getIdCard());
+//			ps.setDate(7, customer.getBirth());
+			ps.setString(8, customer.getAccount());
+			ps.setString(9, customer.getPassword());
+			if (customer.getImg() == null) {
+				ps.setNull(10, VARCHAR);
+			} else {
+				ps.setString(10, customer.getImg());
+			}
+			ps.setString(11, customer.getCard());
+			int count = ps.executeUpdate();
+			
+			
+			
+			
+			System.out.println(count + "success");
+			return count;
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+		
+	}
 }

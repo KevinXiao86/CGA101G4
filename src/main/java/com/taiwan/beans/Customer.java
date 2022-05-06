@@ -2,7 +2,7 @@ package com.taiwan.beans;
 
 import java.util.Date;
 
-public class CustomerVO extends Core {
+public class Customer {
 	private Integer custId;
 	private String name;
 	private String sex;
@@ -17,10 +17,10 @@ public class CustomerVO extends Core {
 	private String custUse;
 	private String card;
 	private String custRight;
-	public CustomerVO() {
+	public Customer() {
 		super();
 	}
-	public CustomerVO(Integer custId, String name, String sex, String tel, String email, String address, String idCard,
+	public Customer(Integer custId, String name, String sex, String tel, String email, String address, String idCard,
 			Date birth, String account, String password, String img, String custUse, String card, String custRight) {
 		super();
 		this.custId = custId;
@@ -124,9 +124,10 @@ public class CustomerVO extends Core {
 	}
 	@Override
 	public String toString() {
-		return "CustomerVO [custId=" + custId + ", name=" + name + ", sex=" + sex + ", tel=" + tel + ", email=" + email
+		return "Customer [custId=" + custId + ", name=" + name + ", sex=" + sex + ", tel=" + tel + ", email=" + email
 				+ ", address=" + address + ", idCard=" + idCard + ", birth=" + birth + ", account=" + account
 				+ ", password=" + password + ", img=" + img + ", custUse=" + custUse + ", card=" + card + ", custRight="
 				+ custRight + "]";
 	}
+	
 }
