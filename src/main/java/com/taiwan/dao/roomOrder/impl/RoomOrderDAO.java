@@ -10,7 +10,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.taiwan.beans.RoomItemVO;
 import com.taiwan.beans.RoomOrderVO;
+import com.taiwan.dao.custcoupon12.impl.CustcouponDao12;
+import com.taiwan.dao.roomItem.impl.RoomItemDAO;
 import com.taiwan.dao.roomOrder.RoomOrderDAO_interface;
 
 public class RoomOrderDAO implements RoomOrderDAO_interface {
@@ -21,6 +24,9 @@ public class RoomOrderDAO implements RoomOrderDAO_interface {
 	
 	private static final String insert =
 			"INSERT INTO Taiwan.ROOM_ORDER ( cust_id, room_order_price, checkin_date, checkout_date,total_price,cmp_id) VALUES ( ?, ?, ?, ?, ?,?)";
+	private static final String insert2 =
+			"INSERT INTO Taiwan.ROOM_ORDER ( cust_id, room_order_price, checkin_date, checkout_date,total_price,cmp_id,cust_cop_id) VALUES ( ?, ?, ?, ?, ?,?,?)";
+	
 	private static final String findDate= 
 	"SELECT * FROM Taiwan.ROOM_ORDER where room_order_date between ? and ?";
 	private static final String find= 
@@ -58,7 +64,7 @@ public class RoomOrderDAO implements RoomOrderDAO_interface {
 				roomOrderVO.setRoomOrderCheckoutDate(rs.getTimestamp("checkout_date"));
 				roomOrderVO.setRoomOrderStatus(rs.getString("room_order_status"));
 				roomOrderVO.setRoomOrderCancel(rs.getString("cancel"));
-				roomOrderVO.setRoomOrderPrice(rs.getInt("total_price"));
+				roomOrderVO.setRoomOrderTotalPrice(rs.getInt("total_price"));
 				roomOrderVO.setCustCopId(rs.getInt("cust_cop_id"));
 				roomOrderVO.setCmpId(rs.getInt("cmp_id"));
 			}
@@ -125,7 +131,7 @@ public class RoomOrderDAO implements RoomOrderDAO_interface {
 				roomOrderVO.setRoomOrderCheckoutDate(rs.getTimestamp("checkout_date"));
 				roomOrderVO.setRoomOrderStatus(rs.getString("room_order_status"));
 				roomOrderVO.setRoomOrderCancel(rs.getString("cancel"));
-				roomOrderVO.setRoomOrderPrice(rs.getInt("total_price"));
+				roomOrderVO.setRoomOrderTotalPrice(rs.getInt("total_price"));
 				roomOrderVO.setCustCopId(rs.getInt("cust_cop_id"));
 				roomOrderVO.setCmpId(rs.getInt("cmp_id"));
 
@@ -193,7 +199,7 @@ public class RoomOrderDAO implements RoomOrderDAO_interface {
 				roomOrderVO.setRoomOrderCheckoutDate(rs.getTimestamp("checkout_date"));
 				roomOrderVO.setRoomOrderStatus(rs.getString("room_order_status"));
 				roomOrderVO.setRoomOrderCancel(rs.getString("cancel"));
-				roomOrderVO.setRoomOrderPrice(rs.getInt("total"));
+				roomOrderVO.setRoomOrderTotalPrice(rs.getInt("total_price"));
 				roomOrderVO.setCustCopId(rs.getInt("cust_cop_id"));
 				roomOrderVO.setCmpId(rs.getInt("cmp_id"));
 
@@ -261,7 +267,7 @@ public class RoomOrderDAO implements RoomOrderDAO_interface {
 				roomOrderVO.setRoomOrderCheckoutDate(rs.getTimestamp("checkout_date"));
 				roomOrderVO.setRoomOrderStatus(rs.getString("room_order_status"));
 				roomOrderVO.setRoomOrderCancel(rs.getString("cancel"));
-				roomOrderVO.setRoomOrderPrice(rs.getInt("total"));
+				roomOrderVO.setRoomOrderTotalPrice(rs.getInt("total_price"));
 				roomOrderVO.setCustCopId(rs.getInt("cust_cop_id"));
 				roomOrderVO.setCmpId(rs.getInt("cmp_id"));
 
@@ -329,7 +335,7 @@ public class RoomOrderDAO implements RoomOrderDAO_interface {
 				roomOrderVO.setRoomOrderCheckoutDate(rs.getTimestamp("checkout_date"));
 				roomOrderVO.setRoomOrderStatus(rs.getString("room_order_status"));
 				roomOrderVO.setRoomOrderCancel(rs.getString("cancel"));
-				roomOrderVO.setRoomOrderPrice(rs.getInt("total"));
+				roomOrderVO.setRoomOrderTotalPrice(rs.getInt("total_price"));
 				roomOrderVO.setCustCopId(rs.getInt("cust_cop_id"));
 				roomOrderVO.setCmpId(rs.getInt("cmp_id"));
 
@@ -377,9 +383,9 @@ public class RoomOrderDAO implements RoomOrderDAO_interface {
 		Integer pk=null;
 
 		try {
-
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
+		
 			pstmt = con.prepareStatement(insert,Statement.RETURN_GENERATED_KEYS);
 
 			pstmt.setInt(1, roomOrderVO.getCustId());
@@ -395,13 +401,170 @@ public class RoomOrderDAO implements RoomOrderDAO_interface {
 			ResultSet getPK =pstmt.getGeneratedKeys();
 			getPK.next();
 			pk=getPK.getInt(1);
+			System.out.println("取得自增鍵"+pk);
 			getPK.close();
+		
+			
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
 					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
+		return pk;
+	}
+	@Override
+	public Integer insert(RoomOrderVO roomOrderVO,RoomItemVO roomItemVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		Integer pk=null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			// 1●設定於 pstm.executeUpdate()之前
+			con.setAutoCommit(false);
+			pstmt = con.prepareStatement(insert,Statement.RETURN_GENERATED_KEYS);
+
+			pstmt.setInt(1, roomOrderVO.getCustId());
+			pstmt.setInt(2, roomOrderVO.getRoomOrderPrice());
+			pstmt.setTimestamp(3, roomOrderVO.getRoomOrderCheckinDate());
+			pstmt.setTimestamp(4, roomOrderVO.getRoomOrderCheckoutDate());
+			pstmt.setInt(5, roomOrderVO.getRoomOrderTotalPrice());
+			pstmt.setInt(6,roomOrderVO.getCmpId());
+
+
+			pstmt.executeUpdate();
+			//抓自動生成的PK
+			ResultSet getPK =pstmt.getGeneratedKeys();
+			getPK.next();
+			pk=getPK.getInt(1);
+			System.out.println("取得自增鍵"+pk);
+			getPK.close();
+			RoomItemDAO roomItemDao = new RoomItemDAO();
+			roomItemVO.setRoomOrderId(pk);
+			roomItemDao.insertRoomItem(roomItemVO, con);
+			
+			// 2●設定於 pstm.executeUpdate()之後
+			con.commit();
+			con.setAutoCommit(true);
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-roomOrder");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
+		return pk;
+	}
+	@Override
+	public Integer insert2(RoomOrderVO roomOrderVO,RoomItemVO roomItemVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		Integer pk=null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			// 1●設定於 pstm.executeUpdate()之前
+			con.setAutoCommit(false);
+			pstmt = con.prepareStatement(insert2,Statement.RETURN_GENERATED_KEYS);
+
+			pstmt.setInt(1, roomOrderVO.getCustId());
+			pstmt.setInt(2, roomOrderVO.getRoomOrderPrice());
+			pstmt.setTimestamp(3, roomOrderVO.getRoomOrderCheckinDate());
+			pstmt.setTimestamp(4, roomOrderVO.getRoomOrderCheckoutDate());
+			pstmt.setInt(5, roomOrderVO.getRoomOrderTotalPrice());
+			pstmt.setInt(6,roomOrderVO.getCmpId());
+			pstmt.setInt(7,roomOrderVO.getCustCopId());
+
+
+
+			pstmt.executeUpdate();
+			//抓自動生成的PK
+			ResultSet getPK =pstmt.getGeneratedKeys();
+			getPK.next();
+			pk=getPK.getInt(1);
+			System.out.println("取得自增鍵"+pk);
+			getPK.close();
+			RoomItemDAO roomItemDao = new RoomItemDAO();
+			roomItemVO.setRoomOrderId(pk);
+			roomItemDao.insertRoomItem(roomItemVO, con);
+			
+				CustcouponDao12 custcopDao =new CustcouponDao12();
+				custcopDao.updateCustCouponStatusByRoomOrderId(roomOrderVO.getCustId(), pk,roomOrderVO.getCustCopId(), con);
+				
+			
+			// 2●設定於 pstm.executeUpdate()之後
+			con.commit();
+			con.setAutoCommit(true);
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-roomOrder");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
@@ -453,7 +616,7 @@ public class RoomOrderDAO implements RoomOrderDAO_interface {
 				roomOrderVO.setRoomOrderCheckoutDate(rs.getTimestamp("checkout_date"));
 				roomOrderVO.setRoomOrderStatus(rs.getString("room_order_status"));
 				roomOrderVO.setRoomOrderCancel(rs.getString("cancel"));
-				roomOrderVO.setRoomOrderPrice(rs.getInt("total"));
+				roomOrderVO.setRoomOrderTotalPrice(rs.getInt("total_price"));
 				roomOrderVO.setCustCopId(rs.getInt("cust_cop_id"));
 				roomOrderVO.setCmpId(rs.getInt("cmp_id"));
 

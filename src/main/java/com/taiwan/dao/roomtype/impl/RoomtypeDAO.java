@@ -14,7 +14,7 @@ public class RoomtypeDAO implements Roomtype_interface {
 	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "rootitri";
-	
+	private String update="UPDATE Taiwan.ROOMTYPE SET total_people = total_people+1,total_score= ?  WHERE roomtype_id = ?";
 	private String find ="SELECT * FROM Taiwan.ROOMTYPE ";
 	@Override
 	public Roomtype searchRoomtype(Integer roomid) {
@@ -81,5 +81,45 @@ public class RoomtypeDAO implements Roomtype_interface {
 		}
 		return roomtypeVO;
 	}
+	@Override
+	public void addEvaluate(Integer roomId, Integer score) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(update);
+			pstmt.setInt(1,score);
+			pstmt.setInt(2,roomId);
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+
+	
 
 }

@@ -1,10 +1,12 @@
+<%@page import="com.taiwan.service.customer.impl.CustomerServiceImpl"%>
+<%@page import="com.taiwan.service.coupon.CouponService"%>
 <%@page import="com.taiwan.service.roomtype.RoomtypeService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-	<%@ page import="com.taiwan.beans.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.taiwan.beans.*"%>
 <%@page import="com.taiwan.utils.ControllerUtil"%>
-<%@page import="com.taiwan.service.roomtype.*"%>	
+<%@page import="com.taiwan.service.roomtype.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,66 +14,90 @@
 <title>AddOrder</title>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%--@ include file="/common/head.jsp"--%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 </head>
 <body>
-	<%--
-		RoomtypeService roomtypeService = ControllerUtil.getBean(RoomtypeService.class);
-		request.setAttribute("roomtypeSVC", roomtypeService);
-		System.out.println(roomtypeService);
-	--%>
-	
-	 <FORM METHOD="post" ACTION="http://localhost:8081/CGA101G4/roomOrder"
+	<%
+		CouponService couponService = ControllerUtil.getBean(CouponService.class);
+		request.setAttribute("couponService", couponService);
+		System.out.println(couponService);
+	%>
+	<%
+//假設會員10000已登入
+int i = 10000;
+CustomerServiceImpl custSvc = new CustomerServiceImpl();
+CustomerVO custVO = custSvc.getAll(i);
+request.setAttribute("custVO", custVO);
+%>
+
+	<FORM METHOD="post"
+		ACTION="<%=request.getContextPath()%>/roomOrder12/roomOrder"
 		name="form1">
-	
-	 
+
+
 		<table>
+			<jsp:useBean id="RTSvc" scope="page" class="com.taiwan.service.impl.ReservationServiceImpl12" />
+			<jsp:useBean id="CustCouponSvc12" scope="page" class="com.taiwan.service.impl.CustCouponServiceImpl12" />
 			<%--<jsp:useBean id="cmpSvc" scope="page" class="com.taiwan.service.company.impl.CompanyServiceImpl12" />--%>
 			<tr>
 				<td>會員:</td>
-				<td><input type="TEXT" name="custId" size="45" 
-			 value="${param.custId}"/></td><td>${errorMsgs.custId}</td>
+				<td><input type="hidden" name="custId" size="45"
+					value="${custVO.custId}" /></td>
+				<td>${errorMsgs.custId}</td>
 			</tr>
-			
+
 			<tr>
 				<td>房型:</td>
 				<td><select name="roomId" onChange="renew(this.selectedIndex);">
-				<c:forEach var="roomtypeVO" items="${roomtypeVOs}">
-						<option  value="${roomtypeVO.roomtypeId }" 
-						${(param.roomId==roomtypeVO.roomtypeId)? 'selected':'' }>${roomtypeVO.roomtypeName}$${roomtypeVO.roomtypePrice}</option>
-				</c:forEach> 
-				</select></td><td>${errorMsgs.empName}</td>
+						<c:forEach var="roomtypeVO" items="${roomtypeVOs}">
+							<option value="${roomtypeVO.roomtypeId }"
+								${(param.roomId==roomtypeVO.roomtypeId)? 'selected':'' }>${roomtypeVO.roomtypeName}$${roomtypeVO.roomtypePrice}</option>
+						</c:forEach>
+				</select></td>
+				<td>${errorMsgs.empName}</td>
 			</tr>
 			<tr>
 				<td>房數:</td>
 				<td><select name="amount">
-				<c:forEach var="amount" begin="1" end="${roomtypeVOs[0].roomtypeAmount }">
-						<option  value="${amount}" ${(param.amount==amount)? 'selected':'' }>${amount}</option>
-				</c:forEach> 
-				</select></td><td>${errorMsgs.empName}</td>
-				<!-- 
-				<td><input type="TEXT" name="amount" size="45" 
-			 value="${param.amount}"/></td><td>${errorMsgs.empName}</td>
-				
-				 -->
+						<c:forEach var="amount" begin="1"
+							end="${roomtypeVOs[0].roomtypeAmount }">
+							<option value="${amount}"
+								${(param.amount==amount)? 'selected':'' }>${amount}</option>
+						</c:forEach>
+				</select></td>
+				<td>${errorMsgs.amount}</td>
 			</tr>
 			<tr>
 				<td>開始日期:</td>
-	<td><input type="date" id="ckin" name="ckin" value=""></td>
+				<td><input type="date" id="ckin" name="ckin"
+					value="${dateMap.ckin}"></td>
 				<td>${errorMsgs.ckin}</td>
 
 			</tr>
 			<tr>
 				<td>結束日期:</td>
-	<td><input type="date" id="ckout" name="ckout" value=""></td>
+				<td><input type="date" id="ckout" name="ckout"
+					value="${dateMap.ckout}"></td>
 
 				<td>${errorMsgs.ckout}</td>
+			</tr>
+			<tr>
+				<td>優惠券:</td>
+				<td><select name="custCopId">
+				<option value="0">請選擇優惠券</option>
+						<c:forEach var="CustCouponVO" items="${CustCouponSvc12.searchCustCoupon(custVO.custId)}">
+							<option value="${CustCouponVO.custCopId }"
+								${(param.copId==CustCouponVO.custCopId)? 'selected':'' }>${couponService.findById(CustCouponVO.copId).copName}$${couponService.findById(CustCouponVO.copId).discount}</option>
+						</c:forEach>
+				</select>
+				<td></td>
 			</tr>
 			<br>
 
 		</table>
-		<input type="hidden" name="cmpId" value="${list[0].getCmpId }"> 
+		<input type="hidden" name="cmpId" value="${list[0].getCmpId }">
 		<input type="submit" value="送出新增">
 	</FORM>
 </body>
@@ -88,29 +114,45 @@
 </style>
 
 
-	
+
 <script>
 amount=new Array();
-amount[0]=[1, 2, 3];	// 資訊系
-amount[1]=[1, 2, 3];	// 電機系
-amount[2]=[1, 2];			// 動機系
-amount[3]=[1,2,3,4];				// 工科系
-//var cmpRoomtype =0;
-//<c:forEach var="roomtypeVO" items="${list}">
-//cmpRoomtype=cmpRoomtype++;
-//</c:forEach> 
+<%--amount[0]=[1, 2, 3];	
+amount[1]=[1, 2, 3];	
+amount[2]=[1, 2];			
+amount[3]=[1,2,3,4];	--%>			
+var cmpRoomtype =0;
+<c:forEach var="roomtypeVO" items="${roomtypeVOs}">
+amount[cmpRoomtype]=[1];
 
-//for(var i=0;i<cmpRoomtype;i++){
-	//<c:forEach var="amount" begin="1" end="${roomtypeVO.roomtypeAmount }">
-//amount[i].push(${amount});
-	//		</c:forEach>
-//}
+	for(i=2;i<="${roomtypeVO.roomtypeAmount }";i++){
+		amount[cmpRoomtype].push(i);
+	}
+	<%--
+	<c:forEach var="i" begin="1" end="${roomtypeVO.roomtypeAmount }">
+	amount[cmpRoomtype].push(${i});
+	console.log(${i});
+	console.log(amount[cmpRoomtype]);
+	</c:forEach>
+	
+	--%>
+cmpRoomtype=cmpRoomtype+1;
+
+</c:forEach> 
+
+
 
 
 function renew(index){
+	console.log(index);
+	console.log(amount[0][1]);
+
+	console.log(amount[1]);
+
+	console.log(amount[index]);
 	for(var i=0;i<amount[index].length;i++)
-		document.form1.amount.options[i]=new Option(amount[index][i], amount[index][i]);	// 設定新選項
-	document.form1.amount.length=amount[index].length;	// 刪除多餘的選項
+		document.form1.amount.options[i]=new Option(amount[index][i], amount[index][i]);	<%--// 設定新選項--%>
+	document.form1.amount.length=amount[index].length;	<%--// 刪除多餘的選項--%>
 }
 </script>
 <script>
@@ -129,19 +171,52 @@ function renew(index){
 	        let today = year + "-" + month + "-" + day; 
 	        let lastmonth = year + "-" + month2 + "-" + day;  
 
-        
+            $('#ckin').attr('min', today);
+            $('#ckin').attr('max', lastmonth);
+
             
-            let start = new Date(Date.parse($('#ckin').val()) + 24*60*60*1000);
-            let startMonth = start.getMonth() +1;
+            let start;
+            let startMonth;
+            let startval;
+            let startDay;
+            
+                start = new Date(Date.parse($('#ckin').val()) + 24*60*60*1000);
+                startMonth = start.getMonth() +1;
+                startDay=start.getDate();
+                if (startMonth < 10)
+                	startMonth = "0" + startMonth;
+                if (startDay < 10)
+                	startDay = "0" + startDay;
+                startval = start.getFullYear() + "-" + startMonth + "-" + startDay;
+
+                    $('#ckout').attr('min', startval);
+                    $('#ckout').attr('max', lastmonth);
+
+                    
+               
+            $('#ckin').change(function(){
+            start = new Date(Date.parse($('#ckin').val()) + 24*60*60*1000);
+            startMonth = start.getMonth() +1;
+            startDay=start.getDate();
             if (startMonth < 10)
             	startMonth = "0" + startMonth;
-            let startval = start.getFullYear() + "-" + startMonth + "-" + start.getDate();
+            if (startDay < 10)
+            	startDay = "0" + startDay;
+            startval = start.getFullYear() + "-" + startMonth + "-" + startDay;
+       
+            })
             
             $('#ckin').blur(e => {
-                $('#ckout').attr({
-                    'min': startval,
-                     'max': lastmonth  
-                })
+            	console.log(start);
+            	console.log(startMonth);
+            	console.log(startval);
+            	console.log(lastmonth);
+            	
+
+                $('#ckout').attr('min', startval);
+                $('#ckout').attr('max', lastmonth);
+
+                
             })	
         });
     </script>

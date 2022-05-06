@@ -14,6 +14,7 @@ import com.taiwan.beans.RoomItemVO;
 import com.taiwan.dao.roomItem.RoomItemDAO_interface;
 
 public class RoomItemJNDIDAO implements RoomItemDAO_interface {
+	//未修改版
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
 	private static DataSource ds = null;
 	static {
@@ -30,7 +31,7 @@ public class RoomItemJNDIDAO implements RoomItemDAO_interface {
 	private static final String query = "select * from Taiwan.ROOM_ITEM where room_order_id = ?";
 
 	@Override
-	public List<RoomItemVO> queryRoomItemByRoomItemId(Integer roomItemId) {
+	public RoomItemVO queryRoomItemByRoomItemId(Integer roomItemId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -227,5 +228,54 @@ public class RoomItemJNDIDAO implements RoomItemDAO_interface {
 			}
 		}
 		return roomItemVO;
+	}
+	@Override
+	public void insertRoomItem(RoomItemVO roomItemVO,Connection con) {
+		 
+		PreparedStatement pstmt = null;
+
+		try {
+
+			pstmt = con.prepareStatement(insert);
+
+			pstmt.setInt(1, roomItemVO.getRoomId());
+			pstmt.setInt(2, roomItemVO.getRoomOrderId());
+			pstmt.setInt(3, roomItemVO.getRoomItemAmount());
+			pstmt.setInt(4, roomItemVO.getRoomItemPrice());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-roomItem");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		
+		}
+	}
+
+	@Override
+	public List<RoomItemVO> queryRoomItemByRoomId(Integer roomId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

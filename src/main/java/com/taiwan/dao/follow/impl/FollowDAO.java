@@ -23,7 +23,7 @@ public class FollowDAO implements FollowDAO_interface {
 	@Override
 	public List<FollowVO> queryFollowByCustId(Integer custId) {
 		List<FollowVO> list = new ArrayList<FollowVO>();
-		FollowVO FollowVO = null;
+		FollowVO followVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -39,11 +39,11 @@ public class FollowDAO implements FollowDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				FollowVO = new FollowVO();
-				FollowVO.setCustId(rs.getInt("cust_id"));
-				FollowVO.setCmpId(rs.getInt("cmp_id"));
+				followVO = new FollowVO();
+				followVO.setCustId(rs.getInt("cust_id"));
+				followVO.setCmpId(rs.getInt("cmp_id"));
 
-				list.add(FollowVO); // Store the row in the list
+				list.add(followVO); // Store the row in the list
 			}
 
 			// Handle any driver errors
