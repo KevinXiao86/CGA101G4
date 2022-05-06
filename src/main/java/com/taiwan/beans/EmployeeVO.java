@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
-public class EmployeeVO  implements java.io.Serializable {
+public class EmployeeVO  extends Core {
 	private Integer empId;
 	private String empName;
 	private String empPassword;

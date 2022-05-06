@@ -22,40 +22,84 @@ public class CouponSelectByStatus extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	CouponService couponService = ControllerUtil.getBean(CouponService.class);
 
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 		request.setAttribute("errorMsgs", errorMsgs);
 
+		
+		
+		
 		try {
 			String status = request.getParameter("status");
+		
 //			System.out.println(status);
 			List<CouponVO> ls = new ArrayList<CouponVO>();
 			ls = couponService.selectByStatus(status);
+		
 //			System.out.println(ls);
 			//判斷有沒有搜尋到資料
 			if(ls.isEmpty() || ls.size()==0) {
 				errorMsgs.put("list is null", "查無資料");
+				
+				System.out.println("第一個if-46");
 			}
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher rd = request.getRequestDispatcher("/back-end/coupon/cop_index.jsp");
-				rd.forward(request, response);
+				gotoFailedPage(request, response);
+				System.out.println("第二個if-50");
 				return;// 程式中斷
 			}
+			System.out.println("53行");
 			request.setAttribute("list", ls);
-//		System.out.println(ls);
-			RequestDispatcher rd = request.getRequestDispatcher("/back-end/coupon/cop_status.jsp");
+			System.out.println(ls);
+			RequestDispatcher rd = request.getRequestDispatcher("/front-end/getCoupon/cop_status.jsp");
 			rd.forward(request, response);
+			System.out.println("第二個if-58");
 		} catch (ServletException e) {
 			errorMsgs.put("發生異常錯誤", e.getMessage());
-			RequestDispatcher rd=request.getRequestDispatcher("/back-end/coupon/cop_index.jsp");
-			rd.forward(request, response);
+			gotoFailedPage(request, response);
 		}
 	}
-
+	
+	
+	
+	private void gotoFailedPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		RequestDispatcher rd = request.getRequestDispatcher("/front-end/getCoupon/getCouponSelect_page.jsp");
+		rd.forward(request, response);                        
+	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

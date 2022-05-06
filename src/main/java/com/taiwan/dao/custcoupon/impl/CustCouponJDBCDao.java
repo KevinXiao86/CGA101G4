@@ -148,7 +148,30 @@ public class CustCouponJDBCDao implements CustCoupon_interface{
 		return count;
 	}
 
-
-	
-
+	@Override
+	public List<CustCoupon> getAll() {
+		List<CustCoupon> ls=new ArrayList<CustCoupon>();
+		String sql="select cust_cop_id,cust_id,cop_id,getdate,usedate,room_order_id,tkt_order_id,discount,status from CUST_COUPON order by cust_id;";
+		try (Connection conn=DbUtil.getConnection();
+				PreparedStatement prep=conn.prepareStatement(sql);){
+			
+			ResultSet rs=prep.executeQuery();
+			while(rs.next()) {
+				Integer custCopId=rs.getInt("cust_cop_id");
+				Integer custId=rs.getInt("cust_id");
+				Integer copId=rs.getInt("cop_id");
+				Timestamp getDate=rs.getObject("getdate",Timestamp.class);
+				Timestamp useDate=rs.getObject("usedate",Timestamp.class);
+				Integer roomOrderId=rs.getInt("room_order_id");
+				Integer tktOrderId=rs.getInt("tkt_order_id");
+				Integer discount=rs.getInt("discount");
+				String status=rs.getString("status");
+				CustCoupon couponVO=new CustCoupon(custCopId, custId, copId, getDate, useDate, roomOrderId, tktOrderId, discount, status);
+				ls.add(couponVO);					
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ls;
+	}
 }

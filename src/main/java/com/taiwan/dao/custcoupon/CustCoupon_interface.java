@@ -19,5 +19,6 @@ public interface CustCoupon_interface{
 	public int updateCustCouponStatusByRoomOrderId(Integer custId,Integer roomOrderId,String status);
 	//因使用期限已過而更改優惠券的狀態(未完成Join)
 	public int updateCustCouponStatusByEnddate(Integer custId,Timestamp enddate,String status);
-
+	//查詢全部
+	public List<CustCoupon> getAll();
 }

@@ -452,8 +452,8 @@ public class AuthorityJDBCDAO implements AuthorityDAO_interface {
 //		AuthorityJDBCDAO dao = new AuthorityJDBCDAO();
 //		// 新增
 //				AuthorityVO authority1 = new AuthorityVO();
-//				authority1.setEmpId(30000);
-//				authority1.setFuncId(3);
+//				authority1.setEmpId(30012);
+//				authority1.setFuncId(2);
 //				System.out.println("");
 //				dao.insert(authority1);
 ////		 刪除

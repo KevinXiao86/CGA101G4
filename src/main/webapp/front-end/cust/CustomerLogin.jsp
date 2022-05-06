@@ -12,6 +12,7 @@
 	<form method="post" action="cust/CustomerLogin">
 		<label>帳號: </label><input type="text" placeholder="輸入帳號"
 			name="account" value="${customer.account}"> <br> <label>密碼:
+		
 		</label><input type="text" placeholder="輸入密碼" name="password"
 			value="${customer.password}"> <br> <input type="submit"
 			value="登入"><br> ${customer.message}<input type="hidden"
