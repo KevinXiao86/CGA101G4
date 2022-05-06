@@ -11,7 +11,25 @@
 <script src="front-end/cust/datetimepicker/jquery.js"></script>
 <script
 	src="front-end/cust/datetimepicker/jquery.datetimepicker.full.js"></script>
-
+<style>
+body{
+width:80%;
+margin:0 auto;
+}
+form{
+display:block;
+width:60%;
+margin:0 auto;
+}
+input {
+	height: 30px;
+	margin:15px 0;
+	}
+select{
+height:30px;
+width:40px;
+}	
+</style>
 </head>
 
 <body>
