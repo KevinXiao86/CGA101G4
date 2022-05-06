@@ -14,14 +14,15 @@ import com.taiwan.dao.tktitem.impl.TktItemJDBCDao;
 import com.taiwan.dao.tktorder.TktOrderDao;
 import com.taiwan.utils.DbUtil;
 
+
 public class TktOrderJDBCDao implements TktOrderDao {
-	
+
 	@Override
-	public void insertTktOrderWithCoupon(TktOrder tktOrder, List<TktItem> tktItem_list) {
+	public String insertTktOrderWithCoupon(TktOrder tktOrder, List<TktItem> tktItem_list) {
 		Connection conn = null;
 		PreparedStatement prep = null;
-		String sql = "insert into TKT_ORDER(cust_id,original_price,ttl_price,cust_cop_id,qrcode)"
-				+ " values(?,?,?,?,?);";
+		String sql = "insert into TKT_ORDER(cust_id,original_price,ttl_price,cust_cop_id,qrcode,order_name,order_email,order_mobile)"
+				+ " values(?,?,?,?,?,?,?,?);";
 		try {
 			conn = DbUtil.getConnection();
 			conn.setAutoCommit(false);
@@ -34,6 +35,9 @@ public class TktOrderJDBCDao implements TktOrderDao {
 			prep.setInt(3, tktOrder.getTtlPrice());
 			prep.setInt(4, tktOrder.getCustCopId());
 			prep.setString(5, tktOrder.getQrcode());
+			prep.setString(6, tktOrder.getOrderName());
+			prep.setString(7, tktOrder.getOrderEmail());
+			prep.setString(8, tktOrder.getOrderMobile());
 			
 			prep.executeUpdate();
 			
@@ -41,7 +45,7 @@ public class TktOrderJDBCDao implements TktOrderDao {
 			String next_tktOrderId = null;
 			ResultSet rs = prep.getGeneratedKeys();
 			if(rs.next()) {
-				next_tktOrderId = rs.getString(1);
+				next_tktOrderId = rs.getString(1);  //關鍵，取得PK
 				tktOrder.setTktOrderId(new Integer(next_tktOrderId));
 				System.out.println("自增主鍵值= " + next_tktOrderId + "剛新增成功的訂單編號");
 			} else {
@@ -53,14 +57,15 @@ public class TktOrderJDBCDao implements TktOrderDao {
 			TktItemJDBCDao tktItemDAO = new TktItemJDBCDao();
 			System.out.println("tktItem_list.size()= " + tktItem_list.size());
 			for (TktItem tktItem : tktItem_list) {
-				tktItem.setTktOrderId(new Integer(next_tktOrderId));
+				tktItem.setTktOrderId(new Integer(next_tktOrderId));  //關鍵
 				tktItemDAO.insertTktItem(tktItem, conn);
 			}
 			// 2.設定於 pstmt.executeUpdate()之後
 			conn.commit();
-			conn.setAutoCommit(true);
+			conn.setAutoCommit(true); 
 			System.out.println("新增訂單編號" + next_tktOrderId + "時,共有" + tktItem_list.size()
-					+ "筆訂單明細同時被新增");				
+					+ "筆訂單明細同時被新增");		
+			return next_tktOrderId;
 				
 		} catch (SQLException se) {
 			if (conn != null) {
@@ -94,10 +99,10 @@ public class TktOrderJDBCDao implements TktOrderDao {
 	}
 
 	@Override
-	public void insertTktOrderNoCoupon(TktOrder tktOrder, List<TktItem> tktItem_list) {
+	public String insertTktOrderNoCoupon(TktOrder tktOrder, List<TktItem> tktItem_list) {
 		Connection conn =null;
 		PreparedStatement prep = null;
-		String sql = "insert into TKT_ORDER(cust_id,original_price,ttl_price,qrcode)" + " values(?,?,?,?);";
+		String sql = "insert into TKT_ORDER(cust_id,original_price,ttl_price,qrcode,order_name,order_email,order_mobile)" + " values(?,?,?,?,?,?,?);";
 		try {
 			conn = DbUtil.getConnection();
 			conn.setAutoCommit(false);
@@ -109,6 +114,9 @@ public class TktOrderJDBCDao implements TktOrderDao {
 			prep.setInt(2, tktOrder.getOriginalPrice());
 			prep.setInt(3, tktOrder.getTtlPrice());
 			prep.setString(4, tktOrder.getQrcode());
+			prep.setString(5, tktOrder.getOrderName());
+			prep.setString(6, tktOrder.getOrderEmail());
+			prep.setString(7, tktOrder.getOrderMobile());
 			
 			prep.executeUpdate();
 			
@@ -137,6 +145,8 @@ public class TktOrderJDBCDao implements TktOrderDao {
 			System.out.println("新增訂單編號" + next_tktOrderId + "時,共有" + tktItem_list.size()
 					+ "筆訂單明細同時被新增");				
 				
+			return next_tktOrderId;
+			
 		} catch (SQLException se) {
 			if (conn != null) {
 				try {
@@ -172,7 +182,7 @@ public class TktOrderJDBCDao implements TktOrderDao {
 	public List<TktOrder> queryAllTktOrder() {
 		List<TktOrder> ls = new ArrayList<TktOrder>();
 		String sql = "select tkt_order_id,cust_id,original_price,orderdate,"
-				+ "ttl_price,cust_cop_id,qrcode from TKT_ORDER;";
+				+ "ttl_price,cust_cop_id,qrcode,order_name,order_email,order_mobile from TKT_ORDER;";
 		try (Connection conn = DbUtil.getConnection();
 				PreparedStatement prep = conn.prepareStatement(sql)) {
 			ResultSet rs = prep.executeQuery();
@@ -184,8 +194,11 @@ public class TktOrderJDBCDao implements TktOrderDao {
 				Integer ttlPrice = rs.getInt("ttl_price");
 				Integer custCopId = rs.getInt("cust_cop_id");
 				String qrcode = rs.getString("qrcode");
+				String orderName = rs.getString("order_name");
+				String orderEmail = rs.getString("order_email");
+				String orderMobile = rs.getString("order_mobile");
 				TktOrder tktOrderVO = new TktOrder(tktOrderId, custId, originalPrice, orderdate, ttlPrice, custCopId,
-						qrcode);
+						qrcode, orderName, orderEmail, orderMobile);
 				ls.add(tktOrderVO);
 			}
 		} catch (SQLException e) {
@@ -198,7 +211,7 @@ public class TktOrderJDBCDao implements TktOrderDao {
 	public List<TktOrder> queryTktOrderByCustId(Integer custId) {
 		List<TktOrder> ls = new ArrayList<TktOrder>();
 		String sql = "select tkt_order_id,cust_id,original_price,orderdate,"
-				+ "ttl_price,cust_cop_id,qrcode from TKT_ORDER where cust_id=?;";
+				+ "ttl_price,cust_cop_id,qrcode,order_name,order_email,order_mobile from TKT_ORDER where cust_id=?;";
 		try (Connection conn = DbUtil.getConnection();
 				PreparedStatement prep = conn.prepareStatement(sql)) {
 			prep.setInt(1, custId);
@@ -211,8 +224,11 @@ public class TktOrderJDBCDao implements TktOrderDao {
 				Integer ttlPrice = rs.getInt("ttl_price");
 				Integer custCopId = rs.getInt("cust_cop_id");
 				String qrcode = rs.getString("qrcode");
+				String orderName = rs.getString("order_name");
+				String orderEmail = rs.getString("order_email");
+				String orderMobile = rs.getString("order_mobile");
 				TktOrder tktOrderVO = new TktOrder(tktOrderId, querycustId, originalPrice, orderdate, ttlPrice,
-						custCopId, qrcode);
+						custCopId, qrcode, orderName, orderEmail, orderMobile);
 				ls.add(tktOrderVO);
 			}
 		} catch (SQLException e) {
@@ -226,7 +242,7 @@ public class TktOrderJDBCDao implements TktOrderDao {
 		List<TktOrder> ls = new ArrayList<TktOrder>();
 		String date = "";
 		String sql = "select tkt_order_id,cust_id,original_price,orderdate,"
-				+ "ttl_price,cust_cop_id,qrcode from TKT_ORDER where orderdate like=?;";
+				+ "ttl_price,cust_cop_id,qrcode,order_name,order_email,order_mobile from TKT_ORDER where orderdate like=?;";
 		try (Connection conn = DbUtil.getConnection();
 				PreparedStatement prep = conn.prepareStatement(sql)) {
 			prep.setString(1, "%" + date + "%");
@@ -239,8 +255,11 @@ public class TktOrderJDBCDao implements TktOrderDao {
 				Integer ttlPrice = rs.getInt("ttl_price");
 				Integer custCopId = rs.getInt("cust_cop_id");
 				String qrcode = rs.getString("qrcode");
+				String orderName = rs.getString("order_name");
+				String orderEmail = rs.getString("order_email");
+				String orderMobile = rs.getString("order_mobile");
 				TktOrder tktOrderVO = new TktOrder(tktOrderId, querycustId, originalPrice, orderdate, ttlPrice,
-						custCopId, qrcode);
+						custCopId, qrcode,orderName,orderEmail,orderMobile);
 				ls.add(tktOrderVO);
 			}
 		} catch (SQLException e) {
@@ -253,7 +272,7 @@ public class TktOrderJDBCDao implements TktOrderDao {
 	public List<TktOrder> queryTktOrderByDateToDate(Timestamp startdate, Timestamp enddate) {
 		List<TktOrder> ls = new ArrayList<TktOrder>();
 		String sql = "select tkt_order_id,cust_id,original_price,orderdate,"
-				+ "ttl_price,cust_cop_id,qrcode from TKT_ORDER where orderdate between ? and ?;";
+				+ "ttl_price,cust_cop_id,qrcode,order_name,order_email,order_mobile from TKT_ORDER where orderdate between ? and ?;";
 		try (Connection conn = DbUtil.getConnection();
 				PreparedStatement prep = conn.prepareStatement(sql)) {
 			prep.setObject(1, startdate);
@@ -267,8 +286,11 @@ public class TktOrderJDBCDao implements TktOrderDao {
 				Integer ttlPrice = rs.getInt("ttl_price");
 				Integer custCopId = rs.getInt("cust_cop_id");
 				String qrcode = rs.getString("qrcode");
+				String orderName = rs.getString("order_name");
+				String orderEmail = rs.getString("order_email");
+				String orderMobile = rs.getString("order_mobile");
 				TktOrder tktOrderVO = new TktOrder(tktOrderId, querycustId, originalPrice, orderdate, ttlPrice,
-						custCopId, qrcode);
+						custCopId, qrcode,orderName,orderEmail,orderMobile);
 				ls.add(tktOrderVO);
 			}
 		} catch (SQLException e) {
@@ -332,7 +354,7 @@ public class TktOrderJDBCDao implements TktOrderDao {
 	public TktOrder queryTktOrderByTktOrderId(Integer tktOrderId) {
 		TktOrder tktOrder = null;
 		String sql = "select tkt_order_id,cust_id,original_price,orderdate,"
-				+ "ttl_price,cust_cop_id,qrcode from TKT_ORDER where tkt_order_id=?;";
+				+ "ttl_price,cust_cop_id,qrcode,order_name,order_email,order_mobile from TKT_ORDER where tkt_order_id=?;";
 		try (Connection conn = DbUtil.getConnection();
 				PreparedStatement prep = conn.prepareStatement(sql)) {
 			prep.setInt(1, tktOrderId);
@@ -345,8 +367,11 @@ public class TktOrderJDBCDao implements TktOrderDao {
 				Integer ttlPrice = rs.getInt("ttl_price");
 				Integer custCopId = rs.getInt("cust_cop_id");
 				String qrcode = rs.getString("qrcode");
+				String orderName = rs.getString("order_name");
+				String orderEmail = rs.getString("order_email");
+				String orderMobile = rs.getString("order_mobile");
 				tktOrder = new TktOrder(querytktOrderId, querycustId, originalPrice, orderdate, ttlPrice, custCopId,
-						qrcode);
+						qrcode,orderName,orderEmail,orderMobile);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -377,27 +402,29 @@ public class TktOrderJDBCDao implements TktOrderDao {
 	public static void main(String[] args) {
 		
 		TktOrderJDBCDao dao = new TktOrderJDBCDao();
-//		
-//		TktOrder tktOrder = new TktOrder();
-//		tktOrder.setCustId(10027);
-//		tktOrder.setOriginalPrice(1598);
-//		tktOrder.setTtlPrice(1498);
-//		tktOrder.setCustCopId(4);
-//		tktOrder.setQrcode("wrewerewrewr");
-//		
-//		List<TktItem> list = new ArrayList<TktItem>();
-//		TktItem tktItem1 = new TktItem();
-//		tktItem1.setTktId(11);
-//		tktItem1.setAmount(1);
-//		
-//		TktItem tktItem2 = new TktItem();
-//		tktItem2.setTktId(12);
-//		tktItem2.setAmount(1);
-//		
-//		list.add(tktItem1);
-//		list.add(tktItem2);
-//		
-//		dao.insertTktOrderWithCoupon(tktOrder, list);
-		System.out.println(dao.queryTktOrderByTktOrderId(1));
+		
+		TktOrder tktOrder = new TktOrder();
+		tktOrder.setCustId(10027);
+		tktOrder.setOriginalPrice(1598);
+		tktOrder.setTtlPrice(1498);
+		tktOrder.setCustCopId(4);
+		tktOrder.setQrcode("wrewerewrewr");
+		tktOrder.setOrderName("Alex");
+		tktOrder.setOrderEmail("wre826@gmail.com");
+		tktOrder.setOrderMobile("0928945311");
+		
+		List<TktItem> list = new ArrayList<TktItem>();
+		TktItem tktItem1 = new TktItem();
+		tktItem1.setTktId(11);
+		tktItem1.setAmount(1);
+		
+		TktItem tktItem2 = new TktItem();
+		tktItem2.setTktId(12);
+		tktItem2.setAmount(1);
+		
+		list.add(tktItem1);
+		list.add(tktItem2);
+		
+		dao.insertTktOrderWithCoupon(tktOrder, list);
 	}
 }
