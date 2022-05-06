@@ -1,5 +1,9 @@
 package com.taiwan.beans;
 
+import com.taiwan.service.TicketService;
+import com.taiwan.service.impl.TicketServiceImpl;
+import com.taiwan.utils.ControllerUtil;
+
 public class TktItem {
 	private Integer tktId;
 	private Integer tktOrderId;

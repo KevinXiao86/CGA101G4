@@ -7,7 +7,9 @@ import com.taiwan.beans.CustPlatMailVO;
 public interface CustPlatMailService {
 	public List<CustPlatMailVO> getCust_Plat_Mail(Integer rowNum, Integer offset);
 
-	public CustPlatMailVO setCust_Plat_Mail(Integer custId, Integer empId, String msg);
+	public CustPlatMailVO setCust_Plat_Mail(Integer custId, Integer empId, String msg, Integer who);
 
-	List<CustPlatMailVO> getAll();
+	public List<CustPlatMailVO> getAll();
+
+	public List<CustPlatMailVO> getAllByCustId(Integer custId);
 }

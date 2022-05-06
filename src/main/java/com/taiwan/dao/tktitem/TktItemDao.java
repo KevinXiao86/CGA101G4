@@ -8,7 +8,7 @@ import com.taiwan.beans.TktItem;
 
 public interface TktItemDao {
 	
-	//新增一筆票券訂單明細
+	//新增一筆票券訂單明細，Connection是從TktOrder傳來的，在TktItem新增完畢後回傳回去給TktOrder才commit
 	public int insertTktItem(TktItem tktItem, Connection con);
 	//根據訂單Id取出所有的票券訂單明細
 	public List<TktItem> queryTktItemByTktOrderId(Integer tktOrderId);

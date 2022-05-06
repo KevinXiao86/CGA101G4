@@ -32,4 +32,5 @@ public interface RepCustDAO_interface {
 
 		// �B�z�|�����|
 		public RepCustVO updateRepCust(RepCustVO repCustVO);
+		public void deleteRepCust(Integer repCustId);
 }

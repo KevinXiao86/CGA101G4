@@ -6,27 +6,49 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="/common/head.jsp"%>
+<style type="text/css">
+table {
+	margin: 20px auto; //
+	border-collapse: collapse;
+}
+
+table tr {
+	background: repeating-linear-gradient(0, #c0c000 0%, #cfcf00 1%, #f0f000 2%, #f9f900
+		3%, #ff0 4%, #ff3 5%, #ffc 6%, #ffc 100%); //
+	border-bottom: 1px solid black;
+}
+
+table th {
+	padding: 15px;
+}
+
+table td {
+	display: inline-block;
+	padding: 10px;
+}
+</style>
 </head>
 <body>
 	<div
 		style="display: inline-block; border: 2px solid blue; vertical-align: middle">
 		<form method="post" action="cust/CustomerInformation">
 			<input type="submit" value="會員基本資料"> <input type="hidden"
-			name="customer" value="${customer.custId}">
+				name="customer" value="${customer.custId}">
 		</form>
-		<form method="post">
-			<input type="submit" value="關注廠商">
+		<form method="post" action="cust/ShowFollow">
+			<input type="submit" value="關注廠商"> <input type="hidden"
+				name="customer" value="${customer.custId}">
 		</form>
-		<form method="post">
+		<form method="post" action="cust/ShowCustCoupon">
 			<input type="submit" value="管理優惠劵">
 		</form>
-		
+
 		<form method="post" action="cust/showRepCmp">
-			<input type="submit" value="瀏覽檢舉">
-			<input type="hidden" name="customer" value="${customer.custId}">
-	    </form>
-		<form method="post">
-			<input type="submit" value="常用旅伴">
+			<input type="submit" value="瀏覽檢舉"> <input type="hidden"
+				name="customer" value="${customer.custId}">
+		</form>
+		<form method="post" action="cust/ShowEmail">
+			<input type="submit" value="訊息管理">
 		</form>
 		<form method="post">
 			<input type="submit" value="瀏覽訂單">
@@ -76,7 +98,8 @@
 			</tr>
 			<tr>
 				<th>圖片</th>
-				<td><img src="${customer.img}"></td>
+				<td style="height: 80px"><img style="height: 100%;"
+					src="${customer.img}"></td>
 			</tr>
 			<tr>
 				<th>信用卡卡號</th>

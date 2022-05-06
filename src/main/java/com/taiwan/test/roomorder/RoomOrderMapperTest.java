@@ -13,6 +13,9 @@ import mybatis.mapper.RoomOrderMapper;
 public class RoomOrderMapperTest {
 	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 	RoomOrderMapper roomOrderMapper = context.getBean(RoomOrderMapper.class);
+
+	// 查詢所有訂單
+
 //	@Test
 //	public void test() {
 //		
@@ -22,6 +25,7 @@ public class RoomOrderMapperTest {
 //		}
 //	}
 	
+
 	@Test
 	public void test01() {
 		RoomOrder roomOrder=new RoomOrder();

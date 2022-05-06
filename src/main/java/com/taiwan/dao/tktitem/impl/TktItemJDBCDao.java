@@ -184,7 +184,7 @@ public class TktItemJDBCDao implements TktItemDao {
 			if(rs.next()) {
 				ttlPeople=rs.getInt("ttlPeople");
 			}
-		}  catch (SQLException se) {
+		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 		}finally {
@@ -205,7 +205,7 @@ public class TktItemJDBCDao implements TktItemDao {
 		}
 		return ttlPeople;
 	}
-
+	
 	//test
 	public static void main(String[] args) {
 		TktItemJDBCDao dao = new TktItemJDBCDao();
@@ -221,4 +221,5 @@ public class TktItemJDBCDao implements TktItemDao {
 			System.out.println(t);
 		}
 	}
+
 }

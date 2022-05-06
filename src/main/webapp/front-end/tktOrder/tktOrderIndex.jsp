@@ -38,8 +38,11 @@
 <h3>資料查詢:</h3>
 
 <ul>
-  <li><a href='front-end/tktOrder/listAllTktOrder.jsp'>List</a> all Ticket Order.  <br><br></li>
-  
+  <li>
+		<Form action="tktOrder/getAll" method="post">
+	  		<input type="submit" value="all Ticket Orders.">  <br><br>
+	  	</Form>
+  	</li>
   
   <li>
     <FORM METHOD="post" ACTION="tktOrder/selectById" >
@@ -50,7 +53,6 @@
     </FORM>
   </li>
   
-<!--  開發中 會員id-->
   <li>
     <FORM METHOD="post" ACTION="tktOrder/getCustId" >
         <b>輸入會員編號:</b><font color=red>${errorMsgs.custId}</font><br>
@@ -72,9 +74,12 @@
     </FORM>
   </li>
 </ul>
-
-
 <h3>訂單管理</h3>
+
+<ul>
+  <li><a href="front-end/tktOrder/addTktOrder.jsp">Add</a> a new Order.</li>
+</ul>
+
 
 	<script>
 		$(function(){

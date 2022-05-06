@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.taiwan.beans.CustomerVO;
 import com.taiwan.service.customer.CustomerService;
@@ -42,8 +43,10 @@ public class CustomerLogin extends HttpServlet {
 				if (!customerVO.isSuccessful()) {
 					RequestDispatcher failureView = request.getRequestDispatcher(customerVO.getUrl());
 					failureView.forward(request, response);
-					
+
 				} else {
+					HttpSession session = request.getSession();
+					session.setAttribute("customer", customerVO);
 					RequestDispatcher successView = request.getRequestDispatcher("/front-end/cust/CustomerIndex.jsp");
 					successView.forward(request, response);
 				}

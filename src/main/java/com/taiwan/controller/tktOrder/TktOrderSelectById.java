@@ -80,14 +80,9 @@ public class TktOrderSelectById extends HttpServlet {
 			CustomerService custSvc = new CustomerServiceImpl();
 			CustomerVO customerVO = custSvc.getAll(custId);
 			
+			
 //			System.out.println(custId);
 //			System.out.println(customerVO);
-			
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/tktOrder/tktOrderIndex.jsp");
-				failureView.forward(req, res);
-				return;
-			}
 			
 			/********************3.查詢完成，設定參數，送出成功頁面********************/
 			req.setAttribute("tktOrder", tktOrder);

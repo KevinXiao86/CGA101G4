@@ -29,7 +29,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 
 	}
 	private static final String GET_PEP_CMP_BY_CUST_ID = "SELECT REP_CMP_ID ,CUST_ID ,ROOM_ID ,EMP_ID ,REASON,"
-			+ "REP_CMP_DATE ,STATUS,RESULT " + "FROM REP_CMP WHERE CUST_ID =?;";
+			+ "REP_CMP_DATE ,STATUS,RESULT " + "FROM REP_CMP WHERE CUST_ID =? ORDER BY REP_CMP_DATE DESC;";
 	private static final String SET_REP_CMP = "INSERT INTO REP_CMP (CUST_ID,ROOM_ID,REASON) " + "VALUES(?,?,?);";
 	private static final String DELETE_REP_CMP = "DELETE FROM REP_CMP WHERE REP_CMP_ID=?;";
 	private static final String SET_REP_CMP_RESULT = "UPDATE REP_CMP SET EMP_ID=?,STATUS=?,RESULT=? WHERE REP_CMP_ID=?;";

@@ -90,8 +90,8 @@ public class CustomerJDBCDAO implements CustomerDAO_interface {
 			ps.setDate(7, customer.getBirth());
 			ps.setString(8, customer.getAccount());
 			ps.setString(9, customer.getPassword());
-			ps.setString(10, customer.getImg());		
-			ps.setString(11, customer.getCard());			
+			ps.setString(10, customer.getImg());
+			ps.setString(11, customer.getCard());
 			ps.setInt(12, customer.getCustId());
 			int count = ps.executeUpdate();
 			System.out.println(count + "success");

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.ReservationMapper">
+
+	<!-- 根據訂單編號找到訂單詳情中的房型編號 -->
+	<!-- public int queryRoomtypeId(Integer roomtypeId); -->
+	<select id="queryRoomtypeId" resultType="_int">
+		SELECT 	`room_id`
+	 	FROM  `Taiwan`.`ROOM_ITEM` 
+		WHERE `room_order_id` = #{roomtpyeId};
+	</select>
+	
+	
+	<!-- 查找該房型編號的當天日期查詢往後30天的所有預約紀錄 -->
+	<!-- public List<Reservation> getAllReservationsByNow(Integer roomtypeId); -->
+	<select id="getAllReservationsByNow" resultType="com.taiwan.beans.Reservation">
+		SELECT `reservation_id`, `roomtype_id`, `reserve_date`, `roomtype_amount`, `reserve_amount`
+		FROM `Taiwan`.`RESERVATION`
+		WHERE `reserve_date` BETWEEN DATE_SUB(NOW(), INTERVAL 1 DAY) AND DATE_ADD(DATE_SUB(NOW(), INTERVAL 1 DAY), INTERVAL 30 DAY)
+		AND `roomtype_id` = #{roomtypeId}
+		ORDER BY `reserve_date`;
+	</select>
+	
+	
+	<!-- 根據日期查詢往後30天的所有預約紀錄 -->
+	<!-- public List<Reservation> getAllReservationsByDate(Date date); -->
+	<select id="getAllReservationsByDate" resultType="com.taiwan.beans.Reservation">
+		SELECT `reservation_id`, `roomtype_id`, `reserve_date`, `roomtype_amount`, `reserve_amount`
+		FROM `Taiwan`.`RESERVATION` 
+		WHERE `reserve_date` BETWEEN #{date} AND DATE_ADD(#{date}, INTERVAL 30 DAY);
+	</select>
+	
+</mapper>

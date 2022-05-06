@@ -23,6 +23,7 @@ public class CustPlatMailJDBCDAO implements CustPlatMailDao_interface {
 			+ " FROM CUST_PLAT_MAIL LIMIT ? OFFSET ? ;";
 	private static final String SET_CUST_PLAT_MAIL = "INSERT INTO CUST_PLAT_MAIL(CUST_ID,EMP_ID,MSG,WHO) VALUES(?,?,?,?);";
 	private static final String GET_ALL = "SELECT * FROM CUST_PLAT_MAIL;";
+	private static final String GET_ALL_BY_CUSTID = "SELECT * FROM CUST_PLAT_MAIL WHERE CUST_ID=? ORDER BY CUST_PLAT_TIME DESC;";
 
 	@Override
 	public List<CustPlatMailVO> getCust_Plat_Mail(Integer rowNum, Integer offset) {
@@ -145,6 +146,59 @@ public class CustPlatMailJDBCDAO implements CustPlatMailDao_interface {
 				custPlatMailVO.setWho(rs.getInt("WHO"));
 				list.add(custPlatMailVO);
 
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<CustPlatMailVO> getAllByCustId(Integer custId) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<CustPlatMailVO> list = new ArrayList<CustPlatMailVO>();
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			ps = con.prepareStatement(GET_ALL_BY_CUSTID);
+			ps.setInt(1, custId);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				CustPlatMailVO custPlatMailVO = new CustPlatMailVO();
+				custPlatMailVO.setCustPlatId(rs.getInt("CUST_PLAT_ID"));
+				custPlatMailVO.setCustId(rs.getInt("CUST_ID"));
+				custPlatMailVO.setEmpId(rs.getInt("EMP_ID"));
+				custPlatMailVO.setMsg(rs.getString("MSG"));
+				custPlatMailVO.setCustPlatTime(rs.getTimestamp("CUST_PLAT_TIME"));
+				custPlatMailVO.setWho(rs.getInt("WHO"));
+				list.add(custPlatMailVO);
 			}
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());

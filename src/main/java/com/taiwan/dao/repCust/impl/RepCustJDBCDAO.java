@@ -10,7 +10,6 @@ import java.util.List;
 
 import com.taiwan.beans.RepCustVO;
 import com.taiwan.dao.repCust.RepCustDAO_interface;
-
 import java.sql.Timestamp;
 
 
@@ -23,6 +22,7 @@ public class RepCustJDBCDAO implements RepCustDAO_interface {
 
 	private static final String insert = "INSERT INTO Taiwan.REP_CUST (CUST_ID, CMP_ID, REP_CUST_REASON) VALUES (?, ?, ?) ";
 	private static final String update = "UPDATE Taiwan.REP_CUST SET EMP_ID = ?, REP_CUST_STATUS = ?, REP_CUST_RESULT = ? WHERE REP_CUST_ID = ?";
+	private static final String delete = "DELETE FROM Taiwan.REP_CUST WHERE REP_CUST_ID = ?";
 	private static final String find = "SELECT * FROM Taiwan.REP_CUST ";
 	private static final String findFrom = "SELECT * FROM Taiwan.REP_CUST where ";
 
@@ -595,7 +595,58 @@ public class RepCustJDBCDAO implements RepCustDAO_interface {
 		}
 		return repCustVO;
 	}
+//	public static void main(String[] args) {
+//		RepCustDAO dao=new RepCustDAO();
+//		List<RepCustVO> list=dao.queryRepCustByCmpId(20000);
+//	for (RepCustVO repCustVO : list) {
+//		System.out.println(repCustVO.getRepCustId());
+//	}
+//	}
 
+	@Override
+	public void deleteRepCust(Integer repCustId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(delete);
+
+			pstmt.setInt(1, repCustId);
+		
+		
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
 
 	
 	

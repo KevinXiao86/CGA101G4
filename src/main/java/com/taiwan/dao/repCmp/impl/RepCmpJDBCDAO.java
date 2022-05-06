@@ -19,7 +19,7 @@ public class RepCmpJDBCDAO implements RepCmpDao_interface {
 	String passwd = "rootitri";
 
 	private static final String GET_PEP_CMP_BY_CUST_ID = "SELECT REP_CMP_ID ,CUST_ID ,ROOM_ID ,EMP_ID ,REASON,"
-			+ "REP_CMP_DATE ,STATUS,RESULT " + "FROM REP_CMP WHERE CUST_ID =?;";
+			+ "REP_CMP_DATE ,STATUS,RESULT " + "FROM REP_CMP WHERE CUST_ID =? ORDER BY REP_CMP_DATE DESC;";
 	private static final String SET_REP_CMP = "INSERT INTO REP_CMP (CUST_ID,ROOM_ID,REASON) " + "VALUES(?,?,?);";
 	private static final String DELETE_REP_CMP = "DELETE FROM REP_CMP WHERE REP_CMP_ID=?;";
 	private static final String SET_REP_CMP_RESULT = "UPDATE REP_CMP SET EMP_ID=?,STATUS=?,RESULT=? WHERE REP_CMP_ID=?;";
@@ -228,12 +228,10 @@ public class RepCmpJDBCDAO implements RepCmpDao_interface {
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -259,7 +257,7 @@ public class RepCmpJDBCDAO implements RepCmpDao_interface {
 			}
 		}
 		return repCmpVO;
-	
+
 	}
 
 	@Override
@@ -277,7 +275,6 @@ public class RepCmpJDBCDAO implements RepCmpDao_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(findFrom + "room_id = ? ");
 			pstmt.setInt(1, roomId);
-			
 
 			rs = pstmt.executeQuery();
 
@@ -297,12 +294,10 @@ public class RepCmpJDBCDAO implements RepCmpDao_interface {
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -327,7 +322,7 @@ public class RepCmpJDBCDAO implements RepCmpDao_interface {
 				}
 			}
 		}
-		return list;	
+		return list;
 	}
 
 	@Override
@@ -345,7 +340,6 @@ public class RepCmpJDBCDAO implements RepCmpDao_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(findFrom + "emp_id = ? ");
 			pstmt.setInt(1, empId);
-			
 
 			rs = pstmt.executeQuery();
 
@@ -365,12 +359,10 @@ public class RepCmpJDBCDAO implements RepCmpDao_interface {
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -395,8 +387,8 @@ public class RepCmpJDBCDAO implements RepCmpDao_interface {
 				}
 			}
 		}
-		return list;	
-		}
+		return list;
+	}
 
 	@Override
 	public List<RepCmpVO> queryRepCmpByRepCmpDate(Timestamp startDate, Timestamp endDate) {
@@ -415,8 +407,6 @@ public class RepCmpJDBCDAO implements RepCmpDao_interface {
 			pstmt.setTimestamp(1, startDate);
 			pstmt.setTimestamp(2, endDate);
 
-			
-
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -435,12 +425,10 @@ public class RepCmpJDBCDAO implements RepCmpDao_interface {
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -483,7 +471,6 @@ public class RepCmpJDBCDAO implements RepCmpDao_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(findFrom + "status = ? ");
 			pstmt.setString(1, status);
-			
 
 			rs = pstmt.executeQuery();
 
@@ -504,12 +491,10 @@ public class RepCmpJDBCDAO implements RepCmpDao_interface {
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -550,7 +535,6 @@ public class RepCmpJDBCDAO implements RepCmpDao_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(find);
-			
 
 			rs = pstmt.executeQuery();
 			List<RepCmpVO> list = new ArrayList<RepCmpVO>();
@@ -567,16 +551,14 @@ public class RepCmpJDBCDAO implements RepCmpDao_interface {
 
 				list.add(repCmpVO); // Store the row in the list
 			}
-			
+
 			return list;
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -615,21 +597,18 @@ public class RepCmpJDBCDAO implements RepCmpDao_interface {
 			pstmt = con.prepareStatement(update);
 
 			pstmt.setInt(1, repCmpVO.getEmpId());
-			pstmt.setString(2,repCmpVO.getStatus());
+			pstmt.setString(2, repCmpVO.getStatus());
 			pstmt.setString(3, repCmpVO.getResult());
 			pstmt.setInt(4, repCmpVO.getRepCmpId());
-		
 
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -662,20 +641,17 @@ public class RepCmpJDBCDAO implements RepCmpDao_interface {
 			pstmt = con.prepareStatement(insert);
 
 			pstmt.setInt(1, repCmpVO.getCustId());
-			pstmt.setInt(2,repCmpVO.getRoomId());
+			pstmt.setInt(2, repCmpVO.getRoomId());
 			pstmt.setString(3, repCmpVO.getReason());
-		
 
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
