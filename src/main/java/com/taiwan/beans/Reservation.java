@@ -1,7 +1,6 @@
 package com.taiwan.beans;
 
 import java.util.Date;
-import java.util.List;
 
 public class Reservation {
 	private Integer reservationId;
@@ -24,7 +23,6 @@ public class Reservation {
 		this.roomtypeAmount = roomtypeAmount;
 		this.reserveAmount = reserveAmount;
 	}
-
 	public Reservation(Integer reservationId, Integer roomtypeId, Date reserveDate, Integer roomtypeAmount,
 			Integer reserveAmount, String dateString) {
 		super();
@@ -35,7 +33,6 @@ public class Reservation {
 		this.reserveAmount = reserveAmount;
 		this.dateString = dateString;
 	}
-
 	public Integer getReservationId() {
 		return reservationId;
 	}

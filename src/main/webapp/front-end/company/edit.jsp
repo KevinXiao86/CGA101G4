@@ -13,7 +13,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>後台 - 查看廠商詳情頁面</title>
+        <title>台玩旅遊平台 - 廠商修改頁面</title>
 
         <!-- Bootstrap Core CSS -->
         <link href="front-end/company/css/bootstrap.min.css" rel="stylesheet">
@@ -231,7 +231,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1 class="page-header">審核廠商頁面</h1>
+                            <h1 class="page-header">廠商修改頁面</h1>
                         </div>
                         <!-- /.col-lg-12 -->
                     </div>
@@ -247,120 +247,87 @@
                                         <div class="col-lg-6">
                                             <form role="form">
                                                 <!-- 因為修改操作都需要 id, 所以使用隱藏域直接帶上 id -->
-					                            <input type="hidden" name="cmpId" value="${requestScope.detailCompany.cmpId}">
+					                            <input type="hidden" name="cmpId" value="${sessionScope.editCompany.cmpId}">
 
                                                 <div class="form-group">
                                                     <label for="cmpName">廠商名稱</label>
                                                     <span>${requestScope.errorInfo.cmpName}</span>
-                                                    <input class="form-control" type="text" id="cmpName" name="cmpName" required="required" value="${requestScope.detailCompany.cmpName}"/>
+                                                    <input class="form-control" type="text" id="cmpName" name="cmpName" required="required" value="${sessionScope.editCompany.cmpName}"/>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="cmpTel">廠商電話</label>
                                                     <span>${requestScope.errorInfo.cmpTel}</span>
-                                                    <input class="form-control" type="text" id="cmpTel" name="cmpTel" required="required" value="${requestScope.detailCompany.cmpTel}"/>
+                                                    <input class="form-control" type="text" id="cmpTel" name="cmpTel" required="required" value="${sessionScope.editCompany.cmpTel}"/>
                                                 </div> 
 
                                                 <div class="form-group">
                                                     <label for="bankAccount">銀行帳號</label>
                                                     <span>${requestScope.errorInfo.headBank}${requestScope.errorInfo.endBank}</span><br>
                                                     <input type="text" id="headBank" name="headBank" placeholder="銀行代號" required style="margin-bottom: 10px;"
-                                                            value="${requestScope.detailCompany.bankAccount.substring(0, 3)}" /><br>
+                                                            value="${sessionScope.editCompany.bankAccount.substring(0, 3)}" /><br>
                                                     <input type="text" name="endBank" id="endBank" placeholder="銀行帳號" required
-                                                        value="${requestScope.detailCompany.bankAccount.substring(4)}" /><br>
+                                                        value="${sessionScope.editCompany.bankAccount.substring(4)}" /><br>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="cmpMail">信箱</label>
                                                     <span>${requestScope.errorInfo.cmpMail}</span><br>
-                                                    <input type="text" id="cmpMail" name="cmpMail" required="required" value="${requestScope.detailCompany.cmpMail}" />
+                                                    <input type="text" id="cmpMail" name="cmpMail" required="required" value="${sessionScope.editCompany.cmpMail}" />
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="cmper">廠商負責人</label>
                                                     <span>${requestScope.errorInfo.cmper}</span><br>
-                                                    <input type="text" id="cmper" name="cmper" required="required" value="${requestScope.detailCompany.cmper}"/>
+                                                    <input type="text" id="cmper" name="cmper" required="required" value="${sessionScope.editCompany.cmper}"/>
                                                 </div>
                                                 
                                                 <div class="form-group">
                                                     <label for="serialNo">旅宿登記證</label><br>
-						                            <img  src="${requestScope.detailCompany.serialNo}" width="120" height="120">
+						                            <img  src="${sessionScope.editCompany.serialNo}" width="120" height="120">
                                                 </div>
                                                 
 
                                                 <div class="form-group">
                                                     <label for="cmpIntroduce">飯店介紹</label>
                                                     <span>${requestScope.errorInfo.cmpIntroduce}</span><br>
-                                                    <textarea rows="6" cols="40" name="cmpIntroduce" id="cmpIntroduce" required>${requestScope.detailCompany.cmpIntroduce}</textarea>
+                                                    <textarea rows="6" cols="40" name="cmpIntroduce" id="cmpIntroduce" required>${sessionScope.editCompany.cmpIntroduce}</textarea>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="checkinTime">入住時間</label> 
                                                     <span>${requestScope.errorInfo.checkinTime}</span><br>
-                                                    <input type="time" id="checkinTime" name="checkinTime" min="00:00" max="24:00" required="required" value="${requestScope.detailCompany.checkinTime}"/>
+                                                    <input type="time" id="checkinTime" name="checkinTime" min="00:00" max="24:00" required="required" value="${sessionScope.editCompany.checkinTime}"/>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="checkoutTime">退房時間</label> 
                                                     <span>${requestScope.errorInfo.checkoutTime}</span><br>
-                                                    <input type="time" id="checkoutTime" name="checkoutTime" min="00:00" max="24:00" required="required" value="${requestScope.detailCompany.checkoutTime}"/>
+                                                    <input type="time" id="checkoutTime" name="checkoutTime" min="00:00" max="24:00" required="required" value="${sessionScope.editCompany.checkoutTime}"/>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label>地點</label> 
                                                     <span>${requestScope.errorInfo.city}${requestScope.errorInfo.town}${requestScope.errorInfo.road}</span><br>
-                                                    <input type="text" id="city" name="city" placeholder="縣市" required="required" style="margin-bottom: 10px;" value="${requestScope.detailCompany.location.substring(0, 3)}" /><br>
-                                                    <input type="text" id="town" name="town" placeholder="城鎮" required="required" style="margin-bottom: 10px;" value="${requestScope.detailCompany.location.substring(3, 6)}"/><br> 
-                                                    <input type="text" id="road" name="road" placeholder="街道" required="required" style="margin-bottom: 10px;" value="${requestScope.detailCompany.location.substring(6)}"/>
+                                                    <input type="text" id="city" name="city" placeholder="縣市" required="required" style="margin-bottom: 10px;" value="${sessionScope.editCompany.location.substring(0, 3)}" /><br>
+                                                    <input type="text" id="town" name="town" placeholder="城鎮" required="required" style="margin-bottom: 10px;" value="${sessionScope.editCompany.location.substring(3, 6)}"/><br> 
+                                                    <input type="text" id="road" name="road" placeholder="街道" required="required" style="margin-bottom: 10px;" value="${sessionScope.editCompany.location.substring(6)}"/>
                                                 </div>
                                                 
                                                 <div class="form-group">
                                                     <label for="notice">購買須知</label>
                                                     <span>${requestScope.errorInfo.notice}</span><br>
-                                                    <textarea rows="6" cols="40" name="notice" id="notice" required>${requestScope.detailCompany.notice}</textarea>
+                                                    <textarea rows="6" cols="40" name="notice" id="notice" required>${sessionScope.editCompany.notice}</textarea>
                                                     <br>
                                                 </div>
                                                 
                                                 <div class="form-group">
                                                     <label for="canx">取消政策</label><br>
                                                     <span>${requestScope.errorInfo.canx}</span>
-                                                    <textarea rows="6" cols="40" name="canx" id="canx" required>${requestScope.detailCompany.canx}</textarea>
+                                                    <textarea rows="6" cols="40" name="canx" id="canx" required>${sessionScope.editCompany.canx}</textarea>
                                                     <br>
                                                 </div>
                                                 
-                                                <c:choose>
-        											<c:when test="${requestScope.detailCompany.auditStatus == '待審核'}">
-        												<a href="manager/company/audit?cmpId=${requestScope.detailCompany.cmpId}&auditStatus=審核通過" 
-                                                   		   style="background-color: gray; color: white; padding: 5px 5px; 
-                                                            text-decoration: none; display: inline-block;">
-                                                    		審核通過
-                                                		</a>        	
-                                                												
-        												<a href="manager/company/audit?cmpId=${requestScope.detailCompany.cmpId}&auditStatus=審核未通過" 
-                                                   		   style="background-color: gray; color: white; padding: 5px 5px; 
-                                                            text-decoration: none; display: inline-block;">
-                                                    		審核未通過
-                                                		</a>        											
-<%--             											<a href="manager/company/audit?cmpId=${requestScope.detailCompany.cmpId}&auditStatus=審核通過"></a> --%>
-<%--             											<a href="manager/company/audit?cmpId=${requestScope.detailCompany.cmpId}&auditStatus=審核未通過">審核未通過</a> --%>
-        											</c:when>
-
-        											<c:when test="${requestScope.detailCompany.auditStatus == '審核通過'}">
-														<a href="#" 
-                                                   		   style="background-color: gray; color: white; padding: 5px 5px; 
-                                                            text-decoration: none; display: inline-block; cursor: not-allowed;">
-                                                    		審核完成
-                                                		</a>         											
-        											</c:when>
-
-        											<%--有時間在做這個功能 --%>
-        											<c:when test="${requestScope.detailCompany.auditStatus == '審核未通過'}">
-        												<a href="manager/company/sendEmail?cmpId=${requestScope.detailCompany.cmpId}" 
-                                                   		   style="background-color: gray; color: white; padding: 5px 5px; 
-                                                            text-decoration: none; display: inline-block;">
-                                                    		告知補件
-                                                		</a>
-        											</c:when>
-    											</c:choose>
+                                                <button type="submit" class="btn btn-default">提交修改</button> 
                                             </form>
                                         </div>
                                     </div>

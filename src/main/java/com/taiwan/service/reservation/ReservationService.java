@@ -3,12 +3,9 @@ package com.taiwan.service.reservation;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -16,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mysql.cj.util.Base64Decoder.IntWrapper;
 import com.taiwan.beans.Reservation;
-import com.taiwan.utils.CommonUtils;
 
 import mybatis.mapper.ReservationMapper;
 
@@ -30,7 +25,7 @@ public class ReservationService {
 
 	// 沒有選擇日期, 默認就是當天日期
 	@Transactional
-	public List<Reservation> getReservationsByRoomtypeId(Integer roomtypeId, Integer roomtypeAmount) throws ParseException {
+	public List<Reservation> getReservationsByRoomtypeId(Integer roomtypeId, Integer roomtypeAmount) throws ParseException{
 		// 創建解析器
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		// 設置時區
@@ -78,71 +73,5 @@ public class ReservationService {
 		}
 
 		return reservations;
-	}
-
-	// 判斷日期
-	public static int judgeDate(String yearStr, String month) {
-		int totalDay = 0;
-		switch (month) {
-		case "12":
-			totalDay = 31;
-			break;
-
-		case "11":
-			totalDay = 30;
-			break;
-
-		case "10":
-			totalDay = 31;
-			break;
-
-		case "09":
-			totalDay = 30;
-			break;
-
-		case "08":
-			totalDay = 31;
-			break;
-
-		case "07":
-			totalDay = 31;
-			break;
-
-		case "06":
-			totalDay = 30;
-			break;
-
-		case "05":
-			totalDay = 31;
-			break;
-
-		case "04":
-			totalDay = 30;
-			break;
-
-		case "03":
-			totalDay = 31;
-			break;
-
-		case "02":
-			int year = CommonUtils.parseInt(yearStr, 0);
-			// 判斷是否為閏年
-			if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
-				totalDay = 29;
-			} else {
-				totalDay = 28;
-			}
-			break;
-
-		case "01":
-			totalDay = 31;
-			break;
-
-		default:
-			System.out.println("輸入的數值有誤, 月份應在 1 ~ 12");
-			break;
-		}
-
-		return totalDay;
 	}
 }
