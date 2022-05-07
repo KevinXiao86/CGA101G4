@@ -27,10 +27,11 @@ public class CouponDelete extends HttpServlet {
 		try {
 			//接收要刪除的copId
 			Integer custId=Integer.valueOf(request.getParameter("copId"));
+			String whichPage=request.getParameter("whichPage");
 			//開始刪除資料
 			couponService.delete(custId);
 			//刪除成功，準備請求轉向
-			RequestDispatcher rd=request.getRequestDispatcher("/coupon/findAll");
+			RequestDispatcher rd=request.getRequestDispatcher("/coupon/findAll?whichPage="+whichPage);
 			rd.forward(request, response);
 			//其他錯誤處理
 		}catch(Exception e) {

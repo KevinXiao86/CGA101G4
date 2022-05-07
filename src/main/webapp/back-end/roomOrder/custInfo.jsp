@@ -38,18 +38,22 @@
             text-decoration: none;
         }
         #pre{
-        	margin-left: 20%;
+        	margin-left: 30%;
         }
         
-/*         img{ */
-/*         	width: 150px; */
-/*         	height: 150px; */
-/*         } */
+         img{ 
+         	width: 200px; 
+         	height: 200px; 
+        } 
         
         #img_div{
 			position:absolute;
 			right: 50%;
 			top :10%;
+		}
+		input[type="text"]{
+			margin-left: 50px;		
+		
 		}
 
 </style>
@@ -66,41 +70,38 @@
 				</div>
 			</div>
 				<div id="custInfo">
-						<label for="cust_id">會員編號:</label>
-						<input type="text" name="custId" id="cust_id" value="${customer.custId}" readonly="readonly"><br>
-		
-						<label for="cust_name">會員姓名:</label>
-						<input type="text" name="name" id="cust_name" value="${customer.name}" readonly="readonly"><br>
-		
-<!-- 		<label for="cust_status">會員狀態:</label> -->
-<%-- 		<input type="text" name="custStatus" id="cust_status" value="${customer.custStatus}" readonly="readonly"><br> --%>
-
-						<label for="cust_tel">會員電話:</label>
-						<input type="tel" name="tel" id="cust_tel" value="${customer.tel}" readonly="readonly"><br>
-				
-<!-- 		<label for="bank_account">銀行帳號:</label> -->
-<%-- 		<input type="tel" name="bankAccount" id="bank_account" value="${customer.bankAccount}" readonly="readonly"><br> --%>
-		
-						<label for="cust_mail">會員電子信箱:</label>
-						<input type="email" name="email" id="cust_mail" value="${customer.email}" readonly="readonly"><br>
-		
-						<label for="address">聯絡地址:</label>
-						<input type="text" name="address" id="address" value="${customer.address}" readonly="readonly"><br>
-				
-						<label for="idCard">身分證字號:</label>
-						<input type="text" name="idCard" id="idCard" value="${customer.idCard}" readonly="readonly"><br>
-						
-						<label for="cust_account">帳號:</label>
-						<input type="text" name="account" id="cust_account" value="${customer.account}" readonly="readonly"><br>
-						
-<!-- 						<label for="img">大頭貼:</label> -->
-						<div id="img_div">
-							<img id="img" alt="" src="${customer.img}"/><br>
-						</div>
-						
-						
+					<div class="form-group">
+						<label for="cmpName">會員編號:</label><br> 
+						<input  type="text" id="cmpName" name="cmpName" readonly="readonly" value="${customer.custId}" />
+					</div>
+					<div class="form-group">
+						<label for="cmpName">會員姓名:</label><br>
+						<input  type="text" id="cmpName" name="cmpName" readonly="readonly" value="${customer.name}" />
+					</div>
+					<div class="form-group">
+						<label for="cmpName">會員電話:</label> <br>
+						<input  type="text" id="cmpName" name="cmpName" readonly="readonly" value="${customer.tel}" />
+					</div>
+					<div class="form-group">
+						<label for="cmpName">會員電子信箱:</label> <br>
+						<input  type="text" id="cmpName" name="cmpName" readonly="readonly" value="${customer.email}" />
+					</div>
+					<div class="form-group">
+						<label for="cmpName">聯絡地址:</label> <br>
+						<input  type="text" id="cmpName" name="cmpName" readonly="readonly" value="${customer.address}" />
+					</div>
+					<div class="form-group">
+						<label for="cmpName">身分證字號:</label> <br>
+						<input  type="text" id="cmpName" name="cmpName" readonly="readonly" value="${customer.idCard}" />
+					</div>
+					<div class="form-group">
+						<label for="cmpName">帳號:</label> <br>
+						<input  type="text" id="cmpName" name="cmpName" readonly="readonly" value="${customer.account}" />
+					</div>
+					<div id="img_div">
+						<img id="img" alt="" src="${customer.img}"/><br>
+					</div>
 						<button id="pre">上一頁</button>
-
 					</div>
 				</div>
 			</div>

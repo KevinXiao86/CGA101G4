@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.taiwan.beans.News;
 import com.taiwan.service.news.NewsService;
@@ -22,15 +23,18 @@ public class News2Update extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session=request.getSession();
 		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 		request.setAttribute("errorMsgs", errorMsgs);
 		try {
 			// 接收請求參數
 			Integer newsId = Integer.valueOf(request.getParameter("newsId"));
+			String whichPage=request.getParameter("whichPage");
 			// 獲取查詢的結果
 			News news = newsService.findById(newsId);
 			// 對request域塞資料
 			request.setAttribute("news", news);
+			session.setAttribute("whichPage", whichPage);
 			// 請求轉發到/news/news.update.jsp
 			RequestDispatcher rd = request.getRequestDispatcher("/back-end/news/news_update.jsp");
 			rd.forward(request, response);

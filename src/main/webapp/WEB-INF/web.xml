@@ -67,4 +67,14 @@
     <filter-name>SetCharacterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FontTheme</display-name>
+    <servlet-name>FontTheme</servlet-name>
+    <servlet-class>com.taiwan.controller.theme.FontTheme</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FontTheme</servlet-name>
+    <url-pattern>/FontTheme</url-pattern>
+  </servlet-mapping>
 </web-app>

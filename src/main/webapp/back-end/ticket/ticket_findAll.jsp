@@ -89,18 +89,21 @@ img {
 							<FORM METHOD="post" ACTION="ticket/tktStatusChange"	style="margin-bottom: 0px;">
 								<input type="submit" name="status" value="${ticketVO.status}">
 								<input type="hidden" name="tktId" value="${ticketVO.tktId}">
+								<input type="hidden" name="whichPage" value="<%=whichPage %>">
 							</FORM>
 						</td>
 						<td>
 							<FORM METHOD="post" ACTION="ticket/tkt2Update" style="margin-bottom: 0px;">
 								<input type="submit" value="修改票券"> 
 								<input type="hidden" name="tktId" value="${ticketVO.tktId}">
+								<input type="hidden" name="whichPage" value="<%=whichPage %>">
 							</FORM>
 						</td>
 						<td>
 							<FORM METHOD="post" ACTION="ticket/tktDelete" style="margin-bottom: 0px;">
 								<input type="submit" value="刪除"> 
 								<input type="hidden" name="tktId" value="${ticketVO.tktId}">
+								<input type="hidden" name="whichPage" value="<%=whichPage %>">
 							</FORM>
 						</td>
 					</tr>

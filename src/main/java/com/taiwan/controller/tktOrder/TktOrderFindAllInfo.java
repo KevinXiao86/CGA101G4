@@ -15,10 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.taiwan.beans.TktItem;
 import com.taiwan.service.TktItemService;
+import com.taiwan.service.tktItem.TktItemMyService;
+import com.taiwan.utils.ControllerUtil;
 
 @WebServlet("/tktOrder/findAllInfo")
 public class TktOrderFindAllInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	TktItemMyService tktItemMyService=ControllerUtil.getBean(TktItemMyService.class);
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
@@ -29,9 +33,10 @@ public class TktOrderFindAllInfo extends HttpServlet {
 			// 將參數轉成Integer
 			Integer tktOrderId = Integer.valueOf(tktOrderString);
 			// 查詢資料
-			TktItemService tktItemService = new TktItemService();
+//			TktItemService tktItemService = new TktItemService();
 			List<TktItem> tktItems = new ArrayList<TktItem>();
-			tktItems = tktItemService.getTktItemByTktOrderId(tktOrderId);
+			tktItems = tktItemMyService.selectById(tktOrderId);
+			System.out.println(tktItems);
 			// 把查詢的資料放進request域中
 			request.setAttribute("tktItems", tktItems);
 			// 進行請求轉向

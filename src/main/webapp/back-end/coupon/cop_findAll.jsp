@@ -84,8 +84,7 @@ img {
 					<th>刪除</th>
 				</tr>
 				<%@ include file="page1.file"%>
-				<c:forEach items="${list}" var="couponVO" begin="<%=pageIndex%>"
-					end="<%=pageIndex+rowsPerPage-1%>">
+				<c:forEach items="${list}" var="couponVO" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 					<tr>
 						<td>${couponVO.copId}</td>
 						<td>${couponVO.copName}</td>
@@ -99,18 +98,21 @@ img {
 								style="margin-bottom: 0px;">
 								<input type="submit" name="status" value="${couponVO.status}" ${(couponVO.status == "已過期")? "disabled='disabled'":"" }>
 								<input type="hidden" name="copId" value="${couponVO.copId}">
+								<input type="hidden" name="whichPage" value="<%=whichPage %>">
 							</FORM>
 						</td>
 						<td>
 							<FORM METHOD="post" ACTION="coupon/cop2Update" style="margin-bottom: 0px;">
 								<input id="change_button" type="submit" value="修改" ${(couponVO.status == "已過期")? "disabled='disabled'":"" }> 
 								<input type="hidden" name="copId" value="${couponVO.copId}">
+								<input type="hidden" name="whichPage" value="<%=whichPage %>">
 							</FORM>
 						</td>
 						<td>
 							<FORM METHOD="post" ACTION="coupon/copDelete" style="margin-bottom: 0px;">
 								<input type="submit" value="刪除" class="delete"> 
 								<input type="hidden"	name="copId" value="${couponVO.copId}">
+								<input type="hidden" name="whichPage" value="<%=whichPage %>">
 							</FORM>
 						</td>
 					</tr>

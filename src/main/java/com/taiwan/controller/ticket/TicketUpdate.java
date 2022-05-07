@@ -165,8 +165,8 @@ public class TicketUpdate extends HttpServlet {
 				rd.forward(request, response);
 				return;
 			}
-
-			RequestDispatcher rd = request.getRequestDispatcher("/back-end/ticket/ticket_index.jsp");
+			String whichPage=(String)request.getSession().getAttribute("whichPage");
+			RequestDispatcher rd = request.getRequestDispatcher("/ticket/findAll?whichPage="+whichPage);
 			rd.forward(request, response);
 		} catch (Exception e) {
 			errorMsgs.put("anotherError", e.getMessage());

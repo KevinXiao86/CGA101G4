@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.taiwan.beans.TicketVO;
 import com.taiwan.beans.TktImgVO;
@@ -25,11 +26,13 @@ public class Ticket2Update extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session=request.getSession();
 		Map<String, String> errorMsgs=new LinkedHashMap<String, String>();
 		request.setAttribute("errorMsgs", errorMsgs);
 		try {
 			//獲得請求參數
 			Integer tktId=Integer.valueOf(request.getParameter("tktId"));
+			String whichPage=request.getParameter("whichPage");
 			//獲取請求查詢的結果
 			TicketVO ticketVO=ticketService.findById(tktId);
 //			System.out.println(ticketVO);
@@ -58,6 +61,7 @@ public class Ticket2Update extends HttpServlet {
 						 "&kind="   +ticketVO.getKind();
 			String url="/back-end/ticket/ticket_update.jsp"+param;
 			request.setAttribute("tktImgVOs", tktImgVOs);
+			session.setAttribute("whichPage", whichPage);
 			RequestDispatcher rd=request.getRequestDispatcher(url);
 			rd.forward(request, response);
 		}catch (Exception e) {

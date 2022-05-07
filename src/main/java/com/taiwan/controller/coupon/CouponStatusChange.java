@@ -30,15 +30,16 @@ public class CouponStatusChange extends HttpServlet {
 			String status=request.getParameter("status");
 			//判斷 一開始是下架的話，按下按鈕變改成上架
 			//並重新導回搜尋頁面
+			String whichPage=request.getParameter("whichPage");
 			if(status.equals("下架")) {
 				couponService.updateStatus(copId, "上架");
-				RequestDispatcher rd=request.getRequestDispatcher("/coupon/findAll");
+				RequestDispatcher rd=request.getRequestDispatcher("/coupon/findAll?whichPage="+whichPage);
 				rd.forward(request, response);
 //				response.sendRedirect(request.getHeader("Referer"));
 				
 			}else {
 				couponService.updateStatus(copId, "下架");
-				RequestDispatcher rd=request.getRequestDispatcher("/coupon/findAll");
+				RequestDispatcher rd=request.getRequestDispatcher("/coupon/findAll?whichPage="+whichPage);
 				rd.forward(request, response);
 //				response.sendRedirect(request.getHeader("Referer"));
 			}

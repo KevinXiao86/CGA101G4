@@ -25,13 +25,14 @@ public class TicketStatusChange extends HttpServlet {
 		try {
 			Integer tktId=Integer.valueOf(request.getParameter("tktId"));
 			String status=request.getParameter("status");
+			String whichPage=request.getParameter("whichPage");
 			if(status.equals("下架")) {
 				ticketService.updateStatus(tktId, "上架");
-				RequestDispatcher rd=request.getRequestDispatcher("/ticket/findAll");
+				RequestDispatcher rd=request.getRequestDispatcher("/ticket/findAll?whichPage="+whichPage);
 				rd.forward(request, response);
 			}else {
 				ticketService.updateStatus(tktId, "下架");
-				RequestDispatcher rd=request.getRequestDispatcher("/ticket/findAll");
+				RequestDispatcher rd=request.getRequestDispatcher("/ticket/findAll?whichPage="+whichPage);
 				rd.forward(request, response);
 			}
 			

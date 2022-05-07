@@ -25,10 +25,11 @@ public class ThemeDelete extends HttpServlet {
 		try {
 			//接收要刪除的themeId
 			Integer themeId=Integer.valueOf(request.getParameter("themeId"));
+			String whichPage=request.getParameter("whichPage");
 			//開始刪除資料
 			themeService.delete(themeId);
 			//刪除成功，準備請求轉向
-			RequestDispatcher rd=request.getRequestDispatcher("/theme/findAll");
+			RequestDispatcher rd=request.getRequestDispatcher("/theme/findAll?whichPage="+whichPage);
 			rd.forward(request, response);
 			
 			

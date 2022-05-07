@@ -87,7 +87,8 @@ public class ThemeUpdate extends HttpServlet {
 			// 開始新增資料
 			themeService.update(themeId, title, content, dbPath);
 			// 新增完成，請求轉發到theme首頁
-			RequestDispatcher rd = request.getRequestDispatcher("/back-end/theme/theme_index.jsp");
+			String whichPage=(String)request.getSession().getAttribute("whichPage");
+			RequestDispatcher rd = request.getRequestDispatcher("/theme/findAll?whichPage="+whichPage);
 			rd.forward(request, response);
 			// 其他錯誤處理
 		} catch (Exception e) {

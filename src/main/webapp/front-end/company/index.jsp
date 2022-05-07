@@ -7,6 +7,19 @@
 <title>廠商首頁</title>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%@ include file="/common/head.jsp"%>
+
+<style type="text/css">
+.xdsoft_datetimepicker .xdsoft_datepicker {
+	width: 300px; /* width:  300px; */
+}
+
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+	height: 151px; /* height:  151px; */
+}
+
+</style>
+
+
 </head>
 <body>
 
@@ -45,6 +58,35 @@
 			<input type="submit" value="送出">
 		</FORM>
 	</div>
+	
+	
+	<script src="datetimepicker/jquery.datetimepicker.full.js"></script>
+
+<script type="text/javascript">
+$.datetimepicker.setLocale('zh'); // kr ko ja en
+$(function(){
+	 $('#start_date').datetimepicker({
+	  format:'Y-m-d',
+	  onShow:function(){
+	   this.setOptions({
+	    maxDate:$('#end_date').val()?$('#end_date').val():false
+	   })
+	  },
+	  timepicker:false
+	 });
+	 
+	 $('#end_date').datetimepicker({
+	  format:'Y-m-d',
+	  onShow:function(){
+	   this.setOptions({
+	    minDate:$('#start_date').val()?$('#start_date').val():false
+	   })
+	  },
+	  timepicker:false
+	 });
+});
+
+</script>
 
 </body>
 </html>

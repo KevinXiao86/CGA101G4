@@ -24,10 +24,11 @@ public class NewsDelete extends HttpServlet {
 		try {
 			//接收要刪除的newsId
 			Integer newsId=Integer.valueOf(request.getParameter("newsId"));
+			String whichPage=request.getParameter("whichPage");
 			//開始刪除資料
 			newsService.delete(newsId);
 			//刪除成功，準備請求轉向
-			RequestDispatcher rd=request.getRequestDispatcher("/news/findAll");
+			RequestDispatcher rd=request.getRequestDispatcher("/news/findAll?whichPage="+whichPage);
 			rd.forward(request, response);
 			
 			
