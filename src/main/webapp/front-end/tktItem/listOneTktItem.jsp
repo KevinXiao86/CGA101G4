@@ -65,17 +65,15 @@ th, td {
 				<td><input type="submit" value="立即給予評分" onclick="show()">
 				</td>
 			</tr>
-		</c:forEach>
-	</table>
-	<div id="showdiv" style="display: none">
+			<div id="showdiv" style="display: none">
 		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/tktItem/content" style="margin-bottom: 0px;">
 			評分:<div>${errorMsgs.score}</div>
 			<input type="text" name="score" required>${param.score}<br>
-			<input type="radio" name="rating" value="1" class="star">
-            <input type="radio" name="rating" value="2" class="star">
-            <input type="radio" name="rating" value="3" class="star">
-            <input type="radio" name="rating" value="4" class="star">
-            <input type="radio" name="rating" value="5" class="star">
+<!-- 			<input type="radio" name="rating" value="1" class="star"> -->
+<!--             <input type="radio" name="rating" value="2" class="star"> -->
+<!--             <input type="radio" name="rating" value="3" class="star"> -->
+<!--             <input type="radio" name="rating" value="4" class="star"> -->
+<!--             <input type="radio" name="rating" value="5" class="star"> -->
             
 			評價內容:<div>${errorMsgs.content}</div>
 			<textarea name="content" placeholder="請輸入500字以內" required>${param.content}</textarea>
@@ -86,6 +84,9 @@ th, td {
 			<input type="submit" value="送出新增">
 		</FORM>
 	</div>
+		</c:forEach>
+	</table>
+	
 	<script>
 		function show() {
 			if (document.getElementById('showdiv').style.display == 'none') {

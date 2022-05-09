@@ -67,4 +67,14 @@
     <filter-name>SetCharacterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TicketSelectByScore</display-name>
+    <servlet-name>TicketSelectByScore</servlet-name>
+    <servlet-class>com.taiwan.controller.ticket.TicketSelectByScore</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TicketSelectByScore</servlet-name>
+    <url-pattern>/TicketSelectByScore</url-pattern>
+  </servlet-mapping>
 </web-app>

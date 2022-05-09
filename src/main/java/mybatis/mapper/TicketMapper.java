@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.taiwan.beans.TicketVO;
+import com.taiwan.beans.TktImgVO;
 
 public interface TicketMapper {
 	
@@ -35,5 +36,7 @@ public interface TicketMapper {
 	public TicketVO queryOInfoById(Integer tktId);
 	//找到最新的Id
 	public int queryMax();
+	//根據票券id查找票券圖片資料
+	public TktImgVO queryImgByTicket(Integer tktId);
 	
 }

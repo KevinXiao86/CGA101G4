@@ -12,6 +12,8 @@ public interface TktItemDao {
 	public int insertTktItem(TktItem tktItem, Connection con);
 	//根據訂單Id取出所有的票券訂單明細
 	public List<TktItem> queryTktItemByTktOrderId(Integer tktOrderId);
+	//根據票券Id取出所有的票券訂單明細
+	public List<TktItem> queryTktItemByTktId(Integer tktId);
 	//根據票券訂單id及票券id來更改票券訂單明細的使用數量
 	public int updateTktItemUsedByTKTId(Integer tktOrderId,Integer tktId,Integer used);
 	//根據票券訂單id及票券id來對票券評論及評分

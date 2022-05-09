@@ -26,9 +26,9 @@ public class TicketJDBCDAO implements TicketDAO_interface {
 	private static final String GET_BYTKTID = 
 			"SELECT tkt_id, tkt_name, original_amount, price, startdate, enddate, ttl_score, ttl_people, location, instruction, address, notice, howuse, canxpolicy, status, sold_amount, kind FROM TICKET WHERE tkt_id=?";
 	private static final String GET_BYSCORE = 
-			"SELECT tkt_name, location, instruction, kind FROM TICKET ORDER BY ttl_score DESC LIMIT 3";
-	private static final String GET_BYPEOPLE =    //?要的欄位
-			"SELECT tkt_name, location, instruction, kind FROM TICKET ORDER BY ttl_people DESC LIMIT 3";
+			"SELECT tkt_id, tkt_name, location, instruction, kind FROM TICKET ORDER BY ttl_score DESC LIMIT 3";
+	private static final String GET_BYPEOPLE = 
+			"SELECT tkt_id, tkt_name, location, instruction, kind FROM TICKET ORDER BY ttl_people DESC LIMIT 3";
 	private static final String GET_BYTKTNAME = 
 			"SELECT tkt_id, tkt_name, original_amount, price, startdate, enddate, ttl_score, ttl_people, location, instruction, status, sold_amount, kind FROM TICKET WHERE tkt_name LIKE ?";
 	private static final String GET_BYKIND =
@@ -267,10 +267,11 @@ public class TicketJDBCDAO implements TicketDAO_interface {
 
 			while(rs.next()) {
 				ticketVO = new TicketVO();
-				ticketVO.setTktName(rs.getString(1));
-				ticketVO.setLocation(rs.getString(2));
-				ticketVO.setInstruction(rs.getString(3));
-				ticketVO.setKind(rs.getString(4));
+				ticketVO.setTktId(rs.getInt(1));
+				ticketVO.setTktName(rs.getString(2));
+				ticketVO.setLocation(rs.getString(3));
+				ticketVO.setInstruction(rs.getString(4));
+				ticketVO.setKind(rs.getString(5));
 				list.add(ticketVO);
 			}
 			
@@ -315,9 +316,10 @@ public class TicketJDBCDAO implements TicketDAO_interface {
 
 			while(rs.next()) {
 				ticketVO = new TicketVO();
-				ticketVO.setTktName(rs.getString(1));
-				ticketVO.setLocation(rs.getString(2));
-				ticketVO.setInstruction(rs.getString(3));
+				ticketVO.setTktId(rs.getInt(1));
+				ticketVO.setTktName(rs.getString(2));
+				ticketVO.setLocation(rs.getString(3));
+				ticketVO.setInstruction(rs.getString(4));
 				ticketVO.setKind(rs.getString(4));
 				list.add(ticketVO);
 			}

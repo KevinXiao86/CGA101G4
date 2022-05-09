@@ -461,3 +461,14 @@ table {
   display: inline-flex;
   margin-left: 18%;
 }
+
+#continueShop {
+	width:30%;
+	display:inline-block;
+	margin-left:200px;
+}
+
+#nextStep{
+	width:30%;
+	margin-right:200px;
+}

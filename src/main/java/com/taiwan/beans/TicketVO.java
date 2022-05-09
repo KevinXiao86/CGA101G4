@@ -2,7 +2,10 @@ package com.taiwan.beans;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
+
+import com.taiwan.service.TktImgService;
 
 public class TicketVO implements Serializable {
 	private Integer tktId;
@@ -11,7 +14,7 @@ public class TicketVO implements Serializable {
 	private Integer price;
 	private Timestamp startdate;
 	private Timestamp enddate;
-	private Integer ttlScore;  // join
+	private Integer ttlScore; // join
 	private Integer ttlPeople; // join
 	private String location;
 	private String instruction;
@@ -22,6 +25,7 @@ public class TicketVO implements Serializable {
 	private String status;
 	private Integer soldAmount;
 	private String kind;
+	private TktImgVO tktImgVO;
 
 	public TicketVO() {
 		super();
@@ -30,7 +34,8 @@ public class TicketVO implements Serializable {
 
 	public TicketVO(Integer tktId, String tktName, Integer originalAmount, Integer price, Timestamp startdate,
 			Timestamp enddate, Integer ttlScore, Integer ttlPeople, String location, String instruction, String address,
-			String notice, String howuse, String canxpolicy, String status, Integer soldAmount, String kind) {
+			String notice, String howuse, String canxpolicy, String status, Integer soldAmount, String kind,
+			TktImgVO tktImgVO) {
 		super();
 		this.tktId = tktId;
 		this.tktName = tktName;
@@ -49,6 +54,16 @@ public class TicketVO implements Serializable {
 		this.status = status;
 		this.soldAmount = soldAmount;
 		this.kind = kind;
+		this.tktImgVO = tktImgVO;
+	}
+
+	@Override
+	public String toString() {
+		return "TicketVO [tktId=" + tktId + ", tktName=" + tktName + ", originalAmount=" + originalAmount + ", price="
+				+ price + ", startdate=" + startdate + ", enddate=" + enddate + ", ttlScore=" + ttlScore
+				+ ", ttlPeople=" + ttlPeople + ", location=" + location + ", instruction=" + instruction + ", address="
+				+ address + ", notice=" + notice + ", howuse=" + howuse + ", canxpolicy=" + canxpolicy + ", status="
+				+ status + ", soldAmount=" + soldAmount + ", kind=" + kind + ", tktImgVO=" + tktImgVO + "]";
 	}
 
 	public Integer getTktId() {
@@ -187,30 +202,13 @@ public class TicketVO implements Serializable {
 		this.kind = kind;
 	}
 
-	@Override
-	public String toString() {
-		return "TicketVO [tktId=" + tktId + ", tktName=" + tktName + ", originalAmount=" + originalAmount + ", price="
-				+ price + ", startdate=" + startdate + ", enddate=" + enddate + ", ttlScore=" + ttlScore
-				+ ", ttlPeople=" + ttlPeople + ", location=" + location + ", instruction=" + instruction + ", address="
-				+ address + ", notice=" + notice + ", howuse=" + howuse + ", canxpolicy=" + canxpolicy + ", status="
-				+ status + ", soldAmount=" + soldAmount + ", kind=" + kind + "]";
+	public TktImgVO getTktImgVO() {
+		return tktImgVO;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(tktName);
+	public void setTktImgVO(TktImgVO tktImgVO) {
+		this.tktImgVO = tktImgVO;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		TicketVO other = (TicketVO) obj;
-		return Objects.equals(tktName, other.tktName);
-	}
-	
+
 }

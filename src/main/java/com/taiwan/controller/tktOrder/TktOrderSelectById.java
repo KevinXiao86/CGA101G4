@@ -75,7 +75,7 @@ public class TktOrderSelectById extends HttpServlet {
 			}
 			
 	
-			//加入會員名字 (not yet)
+			//加入會員名字
 			Integer custId = tktOrder.getCustId();
 			CustomerService custSvc = new CustomerServiceImpl();
 			CustomerVO customerVO = custSvc.getAll(custId);

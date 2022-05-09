@@ -150,8 +150,8 @@
 		<div class="progressbar">
 			<div class="progress" id="progress"></div>
 			<div class="progress-step progress-step-active" data-title="商品確認"></div>
-			<div class="progress-step" data-title="填寫資料"></div>
-			<div class="progress-step" data-title="訂單確認"></div>
+			<div class="progress-step progress-step-active" data-title="填寫資料"></div>
+			<div class="progress-step progress-step-active" data-title="訂單確認"></div>
 		</div>
 		<div class="form-step">
 			<div>
@@ -163,38 +163,44 @@
 	<!-- ORDER DETAIL -->
 	<div class="order-detail">
 		<div class="your-order">
-			<h3>訂單成立</h3>
+			<h3>訂單成立 <i style="font-size:14px;color:#c06b81;"> 請查看電子信箱 <i class="fa-solid fa-square-envelope"></i></i></h3>
 			<div class="your-order-table table-responsive">
 				<table>
 					<thead>
 						<tr>
-							<th class="product-name">Product</th>
-							<th class="product-total">Total</th>
+							<th class="product-name">訂單編號</th>
+							<th class="product-total"></th>
 						</tr>
 					</thead>
 					<tbody>
-
 						<tr class="cart_item">
-							<td class="product-name">Vestibulum dictum magna<strong
-								class="product-quantity">× 1</strong></td>
-							<td class="product-total"><span class="amount">£50.00</span></td>
+							<td class="product-name">訂購人</td>
+							<td class="product-total"></td>
+						</tr>
+						<tr class="cart_item">
+							<td class="product-name">連絡電話</td>
+							<td class="product-total"></td>
+						</tr>
+						<tr class="cart_item">
+							<td class="product-name">電子信箱</td>
+							<td class="product-total"></td>
 						</tr>
 					</tbody>
 					<tfoot>
-						<tr class="cart-subtotal">
-							<th>Cart Subtotal</th>
-							<td><span class="amount">£215.00</span></td>
-						</tr>
+<!-- 						<tr class="cart-subtotal"> -->
+<!-- 							<th>Cart Subtotal</th> -->
+<!-- 							<td><span class="amount">£215.00</span></td> -->
+<!-- 						</tr> -->
 						<tr class="order-total">
-							<th>Order Total</th>
-							<td><strong><span class="amount">£215.00</span></strong></td>
+							<th>總金額</th>
+							<td><strong><span class="amount">$</span></strong></td>
 						</tr>
 					</tfoot>
 				</table>
 			</div>
 
 			<div class="order-button-payment">
-				<input type="submit" value="Place order" />
+				<input type="submit" value="查看訂單" />
 			</div>
 
 		</div>
@@ -216,6 +222,7 @@
 		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule
 		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<script	src="<%=request.getContextPath()%>/static/js/front-main/active.js"></script>
 
 
 	<script>

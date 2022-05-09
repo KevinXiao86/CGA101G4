@@ -49,6 +49,12 @@ public interface TicketService {
 			Timestamp enddate, String location, String instruction, String address, String notice, String howuse,
 			String canxpolicy, String kind);
 	
+	//查詢總評分最高前三
+	public List<TicketVO> findTicketByScore (); 
+	
+	//查詢評分總人數最高前三
+	public List<TicketVO> findTicketByPeople ();
+	
 
 
 }

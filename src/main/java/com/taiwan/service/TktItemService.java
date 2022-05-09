@@ -31,6 +31,11 @@ public class TktItemService {
 		return dao.queryTktItemByTktOrderId(tktOrderId);
 	}
 
+	// 根據票券Id取出所有的票券訂單明細
+	public List<TktItem> getTktItemByTktId(Integer tktId) {
+		return dao.queryTktItemByTktId(tktId);
+	}
+	
 	// 根據票券訂單id及票券id來更改票券訂單明細的使用數量??
 	public void updateTktItemUsed(Integer tktOrderId, Integer tktId, Integer used) {
 		dao.updateTktItemUsedByTKTId(tktOrderId, tktId, used);

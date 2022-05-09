@@ -27,6 +27,8 @@ import com.taiwan.dao.tktorder.TktOrderDao;
 import com.taiwan.dao.tktorder.impl.TktOrderJDBCDao;
 import com.taiwan.service.CartService;
 import com.taiwan.service.TktOrderService;
+import com.taiwan.service.customer.CustomerService;
+import com.taiwan.service.customer.impl.CustomerServiceImpl;
 
 @WebServlet("/tktOrder/creator")
 public class TktOrderCreator extends HttpServlet {
@@ -77,6 +79,9 @@ public class TktOrderCreator extends HttpServlet {
 	//			}
 				
 				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("name", orderName);
+					req.setAttribute("email", orderEmail);
+					req.setAttribute("tel", orderMobile);
 					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/cart/checkout.jsp");
 					failureView.forward(req, res);
 					return;
@@ -119,12 +124,15 @@ public class TktOrderCreator extends HttpServlet {
 					}
 				}
 				
+				//有使用優惠券的
+				//變數price是票券一張的價格
+				
 				//沒有使用優惠券的
 				TktOrder tktOrder = new TktOrder();
 				tktOrder.setCustId(Integer.valueOf(custId));
-				tktOrder.setOriginalPrice(price);
+				tktOrder.setOriginalPrice(total);
 				tktOrder.setTtlPrice(total);
-				tktOrder.setQrcode("");
+				tktOrder.setQrcode(""); 
 				tktOrder.setOrderName(orderName);
 				tktOrder.setOrderEmail(orderEmail);
 				tktOrder.setOrderMobile(orderMobile);
@@ -141,10 +149,18 @@ public class TktOrderCreator extends HttpServlet {
 				List<String> cart = CartService.getCartList(custId.toString());
 				CartService.deleteCartListbyTktId(custId.toString(), cart, tktId.toString());
 										
-				/*******************4.設定參數，送出成功頁面********************/ 
+				/*******************4.設定參數，送出成功頁面********************/ 	
 				req.setAttribute("newOrderId", newOrderId);
 				req.setAttribute("tktOrder", tktOrder);
 				req.setAttribute("orders", orders);
+				
+				//寄發mail
+				
+				
+				
+				
+				
+				
 				RequestDispatcher success = req.getRequestDispatcher("/front-end/cart/confirmOrder.jsp");
 				success.forward(req, res);
 				

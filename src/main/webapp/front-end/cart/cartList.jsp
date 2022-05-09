@@ -27,6 +27,23 @@
 	rel="stylesheet" />
 <script src="https://kit.fontawesome.com/c95ced1229.js"
 	crossorigin="anonymous"></script>
+<style>
+	#scrollUp {
+    text-decoration: none;
+    bottom: 60px;
+    right: 60px;
+    font-size: 13px;
+    text-align: center;
+    color: #878787;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #878787;
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    line-height: 1;
+}
+</style>
 <body>
 	<%
 	List<TicketVO> cartlist = (List<TicketVO>) session.getAttribute("tktlist");
@@ -175,15 +192,14 @@
 		</div>
 	</form>
 
-	<form action="<%=request.getContextPath()%>/front-end/homepage/index.jsp" method="get">
+	<form action="<%=request.getContextPath()%>/front-end/homepage/index.jsp" method="get"  style="width:30%;display:inline-block;margin-left:200px; margin-bottom:50px;">
 		<div class="col-12">
 			<button type="submit" class="btn original-btn">繼續購物</button>
 		</div>
 	</form>
-	<form  action="cart/do" method="post">
-		<div class="col-12">
+	<form  action="cart/do" method="post" style="width:30%;float:right;">
+		<div class="col-12" >
 			<input type="hidden" name="action" value="checkout">
-			<input type="hidden" name="custId" value="">
 			<button type="submit" class="btn original-btn">下一步</button>
 		</div>
 	</form>
@@ -209,10 +225,9 @@
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<!-- ionicon link -->
-	<script type="module"
-		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-	<script nomodule
-		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<script	src="<%=request.getContextPath()%>/static/js/front-main/active.js"></script>
 
 
 	<script>

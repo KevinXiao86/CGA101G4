@@ -1,8 +1,18 @@
+<%@page import="java.util.List"%>
+<%@page import="com.taiwan.beans.TktItem"%>
+<%@page import="com.taiwan.beans.CustomerVO"%>
+<%@page import="com.taiwan.beans.TktOrder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
+
+<%
+	List<TktItem> tktItemList = (List<TktItem>)request.getAttribute("tktItemList");
+	List<TktOrder> tktOrderList = (List<TktOrder>)request.getAttribute("tktOrderList");
+	List<CustomerVO> customerList = (List<CustomerVO>)request.getAttribute("customerList");
+%>
 <head>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%@ include file="/common/head.jsp"%>
@@ -65,8 +75,8 @@
 		<!-- Single Blog Area  -->
 		<div class="single-blog-area blog-style-2 mb-50">
 			<div class="single-blog-thumbnail" style="margin-top: 70px;">
-				<img src="<%=request.getContextPath()%>/static/img/bg-img/h1.jpg"
-					alt="">
+				<img src="<%=request.getContextPath()%>/${tktImgVO.img}"
+					style="height:535.6px">
 			</div>
 			<div id="productNum">商品編號 #${tktVO.tktId}</div>
 		</div>
@@ -84,8 +94,8 @@
 							<div class="post-tag">Lifestyle</div>
 							<h4>
 								<div class="post-headline mb-0">${tktVO.tktName} | 大人小孩都適合</div>
-								<!--                                 <i class="fa-regular fa-heart" aria-hidden="true" style="--fa-inverse: #1da1f2;" -->
-								<!--                                     id="love"></i> -->
+<!--                                 <i class="fa-regular fa-heart" aria-hidden="true" style="--fa-inverse: #1da1f2;" -->
+<!--                                     id="love"></i> -->
 							</h4>
 							<div class="post-meta mb-50">
 								<p>
@@ -110,7 +120,7 @@
 
 
 					<!-- Comment Area Start -->
-					<hr>
+					<hr id="comment">
 					<div class="comment_area clearfix mt-70">
 						<h4 class="title">
 							<i class="fa-solid fa-earth-asia"
@@ -118,29 +128,41 @@
 						</h4>
 
 						<ol>
-							<c:forEach var="tktItem" items="${tktItemList}">
+<%-- 							<c:forEach var="tktItem" items="${tktItemList}"> --%>
+						<%
+							for(int index = 0; index < tktItemList.size(); index++){
+								TktItem tktItem = tktItemList.get(index);
+								TktOrder tktOrder = tktOrderList.get(index);
+								CustomerVO customerVO = customerList.get(index);
+								
+						%>
+							<c:if test="<%= tktItem.getContent() != null%>">
 								<li class="single_comment_area">
 									<div class="comment-content d-flex">
 										<div class="comment-author">
-											<img src="#" alt="author">
+											<img src="<%= customerVO.getImg()%>" alt="author">
 										</div>
 										<div class="comment-meta">
-											<a href="#" class="post-date">March 12</a>
+											<a href="#" class="post-date"><%= tktOrder.getOrderdate()%></a>
 											<p>
-												<a href="#" class="post-author">陳學有</a>
+												<a href="#" class="post-author"><%= customerVO.getName()%></a>
 											</p>
-											<p>${tktItem.content}</p>
+											<p><%= tktItem.getContent()%></p>
 										</div>
 									</div>
 								</li>
-							</c:forEach>
+								</c:if>
+						<%
+							}
+						%>
+<%-- 							</c:forEach> --%>
 							<div>更多評價</div>
 						</ol>
 					</div>
 
 					<!-- About product -->
 					<!-- 特別注意是用comment的class -->
-					<div class="comment_area clearfix mt-70">
+					<div class="comment_area clearfix mt-70"  id="canxpolicy">
 						<div class="author-info">
 							<!-- <div class="line"></div> -->
 							<h4 class="title">
@@ -151,14 +173,14 @@
 								<p>${tktVO.canxpolicy}</p>
 							</div>
 							<div>
-								<c:forEach var="tktImgVO" items="${imgList}">
+								<c:forEach var="tktImgVO" items="${imgList}" begin="1">
 									<img src="${tktImgVO.img}" style="margin-bottom: 20px" />
 								</c:forEach>
 							</div>
 						</div>
 					</div>
 
-					<div class="comment_area clearfix mt-70">
+					<div class="comment_area clearfix mt-70"  id="notice">
 						<div class="author-info">
 							<h4 class="title">
 								<i class="fa-solid fa-earth-asia"
@@ -170,7 +192,7 @@
 						</div>
 					</div>
 
-					<div class="comment_area clearfix mt-70">
+					<div class="comment_area clearfix mt-70"  id="howuse">
 						<div class="author-info">
 							<h4 class="title">
 								<i class="fa-solid fa-earth-asia"
@@ -183,8 +205,8 @@
 					</div>
 
 
-					<div class="comment_area clearfix mt-70">
-						<div class="author-info">
+					<div class="comment_area clearfix mt-70" id="loc">
+						<div class="author-info" >
 							<h4 class="title">
 								<i class="fa-solid fa-earth-asia"
 									style="color: rgb(107, 150, 207);"></i> 體驗地點
@@ -199,41 +221,41 @@
 					</div>
 
 					<!-- 留言區 -->
-					<div class="post-a-comment-area mt-70">
-						<h5>Leave a reply</h5>
-						<!-- Reply Form -->
-						<form action="#" method="post">
-							<div class="row">
-								<div class="col-12 col-md-6">
-									<div class="group">
-										<input type="text" name="name" id="name" required> <span
-											class="highlight"></span> <span class="bar"></span> <label>Name</label>
-									</div>
-								</div>
-								<div class="col-12 col-md-6">
-									<div class="group">
-										<input type="email" name="email" id="email" required>
-										<span class="highlight"></span> <span class="bar"></span> <label>Email</label>
-									</div>
-								</div>
-								<div class="col-12">
-									<div class="group">
-										<input type="text" name="subject" id="subject" required>
-										<span class="highlight"></span> <span class="bar"></span> <label>Subject</label>
-									</div>
-								</div>
-								<div class="col-12">
-									<div class="group">
-										<textarea name="message" id="message" required></textarea>
-										<span class="highlight"></span> <span class="bar"></span> <label>Comment</label>
-									</div>
-								</div>
-								<div class="col-12">
-									<button type="submit" class="btn original-btn">Reply</button>
-								</div>
-							</div>
-						</form>
-					</div>
+<!-- 					<div class="post-a-comment-area mt-70"> -->
+<!-- 						<h5>Leave a reply</h5> -->
+<!-- 						Reply Form -->
+<!-- 						<form action="#" method="post"> -->
+<!-- 							<div class="row"> -->
+<!-- 								<div class="col-12 col-md-6"> -->
+<!-- 									<div class="group"> -->
+<!-- 										<input type="text" name="name" id="name" required> <span -->
+<!-- 											class="highlight"></span> <span class="bar"></span> <label>Name</label> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 								<div class="col-12 col-md-6"> -->
+<!-- 									<div class="group"> -->
+<!-- 										<input type="email" name="email" id="email" required> -->
+<!-- 										<span class="highlight"></span> <span class="bar"></span> <label>Email</label> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 								<div class="col-12"> -->
+<!-- 									<div class="group"> -->
+<!-- 										<input type="text" name="subject" id="subject" required> -->
+<!-- 										<span class="highlight"></span> <span class="bar"></span> <label>Subject</label> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 								<div class="col-12"> -->
+<!-- 									<div class="group"> -->
+<!-- 										<textarea name="message" id="message" required></textarea> -->
+<!-- 										<span class="highlight"></span> <span class="bar"></span> <label>Comment</label> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 								<div class="col-12"> -->
+<!-- 									<button type="submit" class="btn original-btn">Reply</button> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</form> -->
+<!-- 					</div> -->
 				</div>
 
 				<!-- Widget Area -->
@@ -250,7 +272,7 @@
 								<i class="fas fa-cart-plus"></i> 加入購物車
 							</button>
 						</div>
-						<div class="product-qty">
+						<div>
 							<button id="decrement">
 								<ion-icon name="remove-outline"></ion-icon>
 							</button>
@@ -265,6 +287,16 @@
 						<input type="hidden" name="price" value="${tktVO.price}"> 
 						<input type="hidden" name="action" value="add">
 					</form>
+					<div style="position:sticky; top:100px;">
+						<ul>
+							<li><div style="margin-top:50px;"></div></li>
+							<li><a href="<%=request.getContextPath() %>/ticket/selectId#comment" style="font-size:20px;">旅客評價</a></li>
+							<li><a href="<%=request.getContextPath() %>/ticket/selectId#canxPolicy" style="font-size:20px;">商品說明</a></li>
+							<li><a href="<%=request.getContextPath() %>/ticket/selectId#notice" style="font-size:20px;">購買須知</a></li>
+							<li><a href="<%=request.getContextPath() %>/ticket/selectId#howuse" style="font-size:20px;">如何使用</a></li>
+							<li><a href="<%=request.getContextPath() %>/ticket/selectId#loc" style="font-size:20px;">體驗地點</a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -372,14 +404,9 @@
 	</div>
 	<!-- ##### Instagram Feed Area End ##### -->
 
-
-
-	<!-- Footer Section Start -->
-	<%-- <%@ include file= "/front-end/framework/footer.file" %> --%>
-
-
 	<!-- #### Footer start #### -->
 	<jsp:include page="/front-end/homepage/footer.jsp"></jsp:include>
+	
 
 	<!-- jQuery (Necessary for All JavaScript Plugins) -->
 	<script

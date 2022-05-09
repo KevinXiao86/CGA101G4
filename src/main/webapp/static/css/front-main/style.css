@@ -9,16 +9,16 @@
 
 @font-face {
   font-family: "helveticaneuebold";
-  src: url("../fonts/helvetica_neu_bold-webfont.woff2") format("woff2"),
-    url("../fonts/helvetica_neu_bold-webfont.woff") format("woff");
+  src: url("../../../fonts/helvetica_neu_bold-webfont.woff2") format("woff2"),
+    url("../../../fonts/helvetica_neu_bold-webfont.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "helveticaneuemedium";
-  src: url("../fonts/helveticaneue_medium-webfont.woff2") format("woff2"),
-    url("../fonts/helveticaneue_medium-webfont.woff") format("woff");
+  src: url("../../../fonts/helveticaneue_medium-webfont.woff2") format("woff2"),
+    url("../../../fonts/helveticaneue_medium-webfont.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -558,7 +558,7 @@ img {
 }
 #clas ul{
 	margin-bottom:0px;
-	margin-left:20%;
+	margin-left:23%;
 }
 .header-area {
   position: relative;
@@ -1236,12 +1236,12 @@ img {
   color: #000000;
 }
 
-.sidebar-widget-area .single-blog-post .post-content h4 {
+.sidebar-widget-area .single-blog-post .post-content h6 {
   margin-bottom: 10px;
   line-height: 1;
 }
 
-.sidebar-widget-area .single-blog-post .post-content h4 .post-headline {
+.sidebar-widget-area .single-blog-post .post-content h6 .post-headline {
   font-size: 16px;
   color: #000000;
 }

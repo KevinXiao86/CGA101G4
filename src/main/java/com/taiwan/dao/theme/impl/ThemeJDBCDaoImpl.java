@@ -17,7 +17,7 @@ public class ThemeJDBCDaoImpl implements ThemeDao {
 	@Override
 	public List<Theme> queryAll() {
 		List<Theme> ls = new ArrayList<Theme>();
-		String sql = "select theme_id,title,content,create_date,img from THEME;";
+		String sql = "select theme_id,title,content,create_date,img from THEME order by theme_id desc;";
 		try (Connection conn = DbUtil.getConnection(); 
 				PreparedStatement prep = conn.prepareStatement(sql)) {
 			ResultSet rs = prep.executeQuery();

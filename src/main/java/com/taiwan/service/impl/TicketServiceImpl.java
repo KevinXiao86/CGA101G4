@@ -139,5 +139,15 @@ public class TicketServiceImpl implements TicketService {
 		ticketVO.setKind(kind);
 		return dao.update(ticketVO)>0;
 	}
+	@Override
+	public List<TicketVO> findTicketByScore() {
+		List<TicketVO> ls=mapper.getTicketByScore();
+		return ls;
+	}
+	@Override
+	public List<TicketVO> findTicketByPeople() {
+		List<TicketVO> ls=mapper.getTicketByPeople();
+		return ls;
+	}
 
 }

@@ -35,6 +35,9 @@
 			javaType="Integer" jdbcType="INTEGER" />
 		<result property="kind" column="KIND" javaType="String"
 			jdbcType="VARCHAR" />
+			
+		<association property="tktImgVO" select="mybatis.mapper.TicketMapper.queryImgByTicket" column="tkt_id"></association>
+			
 	</resultMap>
 
 	<insert id="insert" parameterType="com.taiwan.beans.TicketVO">
@@ -73,10 +76,8 @@
 	</update>
 
 	<select id="queryById" parameterType="Integer"
-		resultType="com.taiwan.beans.TicketVO">
-		select TKT_NAME tktName, ORIGINAL_AMOUNT originalAmount,
-		PRICE, STARTDATE, ENDDATE,
-		LOCATION, INSTRUCTION, ADDRESS, NOTICE, HOWUSE, CANXPOLICY, KIND
+		resultMap="TicketMap">
+		select *
 		from TICKET
 		where TKT_ID = #{tktId}
 	</select>
@@ -118,14 +119,12 @@
 	</select>
 
 	<select id="getTicketByScore" resultMap="TicketMap">
-		select TKT_NAME,
-		LOCATION, INSTRUCTION, KIND from TICKET ORDER BY TTK_SCORE DESC LIMIT
-		3
+		select * from TICKET ORDER BY TTL_SCORE DESC LIMIT 3
 	</select>
 
 	<select id="getTicketByPeople" resultMap="TicketMap">
-		select TKT_NAME,
-		LOCATION, INSTRUCTION, KIND from TICKET ORDER BY TTK_PEOPLE DESC LIMIT
+		select TKT_ID tktId, TKT_NAME,
+		LOCATION, INSTRUCTION, KIND from TICKET ORDER BY TTL_PEOPLE DESC LIMIT
 		3
 	</select>
 
@@ -135,10 +134,8 @@
 	</update>
 	
 	<select id="queryOInfoById" parameterType="Integer"
-		resultType="com.taiwan.beans.TicketVO">
-		select TKT_ID tktId,TKT_NAME tktName, ORIGINAL_AMOUNT originalAmount,
-		PRICE, STARTDATE, ENDDATE, TTL_SCORE ttlScore ,TTL_PEOPLE ttlPeople,STATUS,
-		LOCATION, INSTRUCTION, ADDRESS, NOTICE, HOWUSE, CANXPOLICY,SOLD_AMOUNT soldAmount ,KIND
+		resultMap="TicketMap">
+		select *
 		from TICKET
 		where TKT_ID = #{tktId}
 	</select>
@@ -146,6 +143,10 @@
 	
 	<select id="queryMax" resultType="Integer">
 		select max(TKT_ID) from TICKET
+	</select>
+	
+	<select id="queryImgByTicket" resultType="com.taiwan.beans.TktImgVO">
+		select * from TKT_IMG where TKT_ID = #{tktId} limit 1
 	</select>
 
 

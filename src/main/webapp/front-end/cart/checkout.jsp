@@ -32,7 +32,9 @@
 <body>
 
 	<%
+	List<String> list = (List<String>) session.getAttribute("list");
 	List<TicketVO> cartlist = (List<TicketVO>) session.getAttribute("tktlist");
+	List<Integer> amountList = (List<Integer>) session.getAttribute("amountList");
 	%>
 
 	<!-- Preloader -->
@@ -73,11 +75,11 @@
 		<div class="progressbar">
 			<div class="progress" id="progress"></div>
 			<div class="progress-step progress-step-active" data-title="商品確認"></div>
-			<div class="progress-step" data-title="填寫資料"></div>
+			<div class="progress-step progress-step-active" data-title="填寫資料"></div>
 			<div class="progress-step" data-title="訂單確認"></div>
 		</div>
 	</form>
-	<!-- <main class="container"> -->
+	
 	<div class="item-flex">
 		<!--checkout section-->
 		<section class="checkout">
@@ -139,8 +141,9 @@
 								</div>
 							</div>
 							<div class="col-12">
-								<input type="hidden" name="action" value="insert_order">
 								<button type="submit" class="btn original-btn">送出訂單</button>
+						        <input type="hidden" name="action" value="insert_order">
+								<input type="hidden" name="custId" value="">
 							</div>
 						</div>
 					</form>
@@ -161,7 +164,7 @@
 							src="<%=request.getContextPath()%>/static/img/cart/green-tomatoes.jpg"
 							class="product-img" style="margin: 0 -40px 0 -10px;"></td>
 						<td><%=order.getTktName()%></td>
-						<td>${amount}張</td>
+						<td><%=amountList.get(index) %>張</td>
 						<td><%=order.getPrice()%>元</td>
 					</tr>
 					<%
@@ -179,12 +182,19 @@
 			</div>
 		</section>
 	</div>
-	<div class="btns-group">
-		<a href="" class="btn btn-prev">返回</a>
-		<button type="submit" class="btn original-btn" id="sendOrder">送出訂單</button>
-		<!--                 <input type="hidden" name="action" value="insert_order"> -->
-		<!-- 				<input type="hidden" name="custId" value=""> -->
-	</div>
+<%-- 	<form action="<%=request.getContextPath()%>/tktOrder/creator" method="post"> --%>
+<!-- 	<div class="col-12"> -->
+<!-- 		<button type="submit" class="btn original-btn">送出訂單</button> -->
+<!--         <input type="hidden" name="action" value="insert_order"> -->
+<!-- 		<input type="hidden" name="custId" value=""> -->
+<!-- 	</div> -->
+<!-- 	</form> -->
+<!-- 	<div class="btns-group"> -->
+<!-- 		<a href="" class="btn btn-prev">返回</a> -->
+<!-- 		<button type="submit" class="btn original-btn" id="sendOrder">送出訂單</button> -->
+<!--                 <input type="hidden" name="action" value="insert_order"> -->
+<!-- 				<input type="hidden" name="custId" value=""> -->
+<!-- 	</div> -->
 
 
 	<!-- #### Footer start #### -->
@@ -210,16 +220,17 @@
 		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule
 		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<script	src="<%=request.getContextPath()%>/static/js/front-main/active.js"></script>
 
 
 	<script>
         $(function () {
             $("#sendOrder").click(function () {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: '訂單已成立'
-                })
+//                 Swal.fire({
+//                     position: 'center',
+//                     icon: 'success',
+//                     title: '訂單已成立'
+//                 })
                 // Swal.fire({
                 //     title: 'Custom width, padding, color, background.',
                 //     width: 600,
@@ -232,6 +243,36 @@
                 //                 no-repeat
                 //               `
                 // })
+                let timerInterval;
+                Swal.fire({
+                  title: "Auto close alert!",
+                  html: "I will close in <b></b> milliseconds.",
+                  timer: 2000,
+                  timerProgressBar: true,
+                  didOpen: () => {
+                    Swal.showLoading();
+                    const b = Swal.getHtmlContainer().querySelector("b");
+                    timerInterval = setInterval(() => {
+                      b.textContent = Swal.getTimerLeft();
+                    }, 100);
+                  },
+                  willClose: () => {
+                    clearInterval(timerInterval);
+                    Swal.fire({
+                      position: "center",
+                      icon: "success",
+                      title: "訂單成立",
+                      showConfirmButton: false,
+                      timer: 1500
+                    });
+                  }
+                }).then((result) => {
+                  /* Read more about handling dismissals below */
+                  if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log("I was closed by the timer");
+                  }
+                });
+
             });
         });
 

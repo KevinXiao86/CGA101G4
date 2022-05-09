@@ -75,7 +75,6 @@
 		     <input type="hidden" name="tktOrderId" value="${tktOrder.tktOrderId}">
 		     <input type="hidden" name="action"	value="get_orderItem"></FORM>
 		</td>
-<%-- 		<td>${empVO.deptno}-[${empVO.deptVO.dname}]</td> --%>
 	</tr>
 </table>
 

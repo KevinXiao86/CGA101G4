@@ -137,6 +137,7 @@ public class CartServlet extends HttpServlet {
 //			req.setAttribute("amount", amount);  
 			
 			session.setAttribute("amountList", amountList);
+			session.setAttribute("list", list);
 			session.setAttribute("tktlist", tktlist);
 			session.setAttribute("total", total);
 			RequestDispatcher rd = req.getRequestDispatcher("/front-end/cart/cartList.jsp");
@@ -166,17 +167,25 @@ public class CartServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
+			
+//			double ttl = cartList.stream()
+//								 .mapToDouble(book->book.getPrice()*book.getQuantity())
+//								 .sum();
+			
+			
+			 
 
 			// 結帳頁面checkout.jsp 自動導入資料
 			Integer custid = Integer.valueOf(custId);
 			CustomerService customerService = new CustomerServiceImpl();
 			CustomerVO customerVO = customerService.getAll(custid);
 
-			req.setAttribute("total", String.valueOf(total));
-			req.setAttribute("amount", String.valueOf(amount)); 
+//			req.setAttribute("customerVO", customerVO);
 			req.setAttribute("name", customerVO.getName());
 			req.setAttribute("email", customerVO.getEmail());
 			req.setAttribute("tel", customerVO.getTel());
+			req.setAttribute("total", String.valueOf(total));
+			req.setAttribute("amount", String.valueOf(amount)); 
 			RequestDispatcher success = req.getRequestDispatcher("/front-end/cart/checkout.jsp");
 			success.forward(req, res);
 		}
