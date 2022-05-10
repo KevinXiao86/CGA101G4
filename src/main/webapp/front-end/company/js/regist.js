@@ -1,10 +1,21 @@
 //頁面加載完成
 $(() => {
-
+	//獲取令牌
+	$.ajax({
+		url: "http://localhost:8081/CGA101G4/company/getToken",
+		type: "get",
+		//如果返回的內容是 JSON，jQuery 會自動幫你解析成一個 JavaScript object
+		dataType: "json",
+		success: function(resp) {
+			$("#token").val(resp);
+		}
+	});
+	
+	
     $("#cmpAccount").blur(() => {
         var cmpAccount = $("#cmpAccount").val();
         $.ajax({
-            url: "http://localhost:8081/metamorphosis/company/existsCmpAccount",
+            url: "http://localhost:8081/CGA101G4/company/existsCmpAccount",
             method: "get",
             //如果返回的內容是 JSON，jQuery 會自動幫你解析成一個 JavaScript object
             dataType: "json",

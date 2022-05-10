@@ -31,6 +31,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
+	<!-- 根據廠商編號獲取所有房型, 並按照價格排序 -->
+	<!-- public List<Roomtype> queryAllRoomtypesOrderByPrice(Integer cmpId); -->
+	<select id="queryAllRoomtypesOrderByPrice" resultMap="roomtype">
+		SELECT 	`roomtype_id`, `cmp_id`, `roomtype_name`, `roomtype_amount`, 
+			`roomtype_people`, `total_score`, `total_people`, `roomtype_price`, 
+			`roomtype_status`, `roomtype_area`
+	 	FROM `Taiwan`.`ROOMTYPE` 
+	 	WHERE `cmp_id` = #{cmpId}
+	 	AND `roomtype_status` = '上架'
+	 	ORDER BY roomtype_price;;
+	</select>
+	
 	
 	<!-- 根據房型編號和廠商編號修改狀態 -->
 	<!-- public int updateStatusByRoomtypeIdAndCmpId(@Param("cmpId")Integer cmpId, 
@@ -122,6 +134,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	AND `roomtype_status` = #{roomtypeStatus}
 	</select>	
 
+	
+	
+	<!-- 根據廠商編號求房型總紀錄數 -->
+	<!-- public Integer queryForPageTotalCountByCmpId(Integer cmpId); -->
+	<select id="queryForPageTotalCountByCmpId" resultType="_int">
+		SELECT COUNT(*) FROM `Taiwan`.`ROOMTYPE`
+		WHERE `cmp_id` = #{cmpId};
+	</select>
+
+	<!-- 根據廠商編號求出當前頁數據 -->
+	<!-- public List<Roomtype> queryForPageItemsByCmpId(@Param("cmpId")Integer cmpId,
+		 @Param("begin") Integer begin, @Param("pageSize") Integer pageSize); -->
+	<select id="queryForPageItemsByCmpId" resultMap="roomtype">
+		SELECT 	`roomtype_id`, `cmp_id`, `roomtype_name`, `roomtype_amount`, `roomtype_people`, 
+			`total_score`, `total_people`, `roomtype_price`, `roomtype_status`, `roomtype_area`, `roomtype_introduce`
+		FROM `Taiwan`.`ROOMTYPE`
+		WHERE `cmp_id` = #{cmpId}
+		LIMIT #{begin}, #{pageSize}
+	</select>
 	
 	
 </mapper>

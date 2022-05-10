@@ -22,10 +22,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.taiwan.beans.Company;
+import com.taiwan.beans.Page;
 import com.taiwan.utils.CommonUtils;
 
 import mybatis.mapper.CompanyMapper;
@@ -36,6 +36,21 @@ public class CompanyService {
 	@Autowired
 	private CompanyMapper companyMapper;
 
+	
+	//獲取所有廠商
+	@Transactional
+	public List<Company> getAllCompanies(){
+		List<Company> companies = companyMapper.getAllCompanies();
+		return companies;
+	}
+	
+	
+	//根據地點獲取廠商
+	public List<Company> getAllCompaniesByLocation(String location){
+		List<Company> companies = companyMapper.getAllCompaniesByLocation(location);
+		return companies;
+	}
+	
 	
 	//登入
 	@Transactional(readOnly = true)
@@ -142,37 +157,21 @@ public class CompanyService {
 		}else {
 			company.setMessage("註冊成功");
 			company.setSuccessful(true);
-			company.setUrl("/front-end/company/regist_success.jsp");
+			company.setUrl("/front-end/company/regist_success.jsp");			
 			return company;	
 		}
 	}
 
 	
 	//根據廠商帳號和廠商密碼來查詢廠商(配合 @ModelAttribute 使用的)
-	public Company getCompanyByCmpAccountAndCmpPassword(String cmpAccount, String cmpPassword) {
-		Company company = companyMapper.queryCompanyByCmpAccountAndCmpPassword(cmpAccount, cmpPassword);
-		return company;
-	}
-	//審核未通過的廠商修改廠商訊息
-	public Company updateRegistCompany(Company company) {
-		int result = companyMapper.updateCompanyByCmpId(company);
-		
-		
-		if (result == 0) {
-			company.setSuccessful(false);
-			company.setMessage("修改資料失敗");
-		}else {
-			company.setSuccessful(true);
-			company.setMessage("修改資料成功");
-		}
-		
-		company.setUrl("/front-end/company/edit.jsp");
-		
-		return company;
-	}
+//	public Company getCompanyByCmpAccountAndCmpPassword(String cmpAccount, String cmpPassword) {
+//		Company company = companyMapper.queryCompanyByCmpAccountAndCmpPassword(cmpAccount, cmpPassword);
+//		return company;
+//	}
+
 	
 	//根據廠商編號查詢廠商
-	@Transactional
+	@Transactional(readOnly = true)
 	public Company getCompanyByCmpId(String cmpId) {
 		Integer id = CommonUtils.parseInt(cmpId, 0);
 		if (id == 0) {
@@ -180,6 +179,123 @@ public class CompanyService {
 		}
 		Company company = companyMapper.queryCompanyByCmpId(id);
 		return company;
+	}
+	//審核未通過的廠商修改廠商訊息
+	//修改廠商訊息
+	@Transactional
+	public Company updateRegistCompany(Company company) {
+		//調用業務方法
+		int result = companyMapper.updateCompanyByCmpId(company);
+		
+		Company editCompany = companyMapper.queryCompanyByCmpId(company.getCmpId());
+		
+		if("待審核".equals(company.getAuditStatus())){
+			//說明是審核未通過的, 所以當提交完之後就要回到註冊成功頁面
+			editCompany.setUrl("/front-end/company/regist_success.jsp");
+			editCompany.setSuccessful(false);
+		}else if (result != 0) {			
+			// 說明修改成功
+			editCompany.setMessage("修改資料成功");
+			editCompany.setSuccessful(true);
+			editCompany.setUrl("/front-end/company/edit.jsp");
+		}else {			
+			// 說明修改失敗
+			editCompany.setMessage("修改資料失敗");
+			editCompany.setSuccessful(true);
+			editCompany.setUrl("/front-end/company/edit.jsp");
+		}
+		
+		return editCompany;
+	}
+	
+	//分頁
+	public Page<Company> page(int pageNo, int pageSize) {
+		//pageNo, pageSize都是從頁面傳遞過來的,所以我們這邊只需要獲取,pageTotal, pageTotalCount, items
+		
+		// 1.先創建page對象
+		Page<Company> page = new Page<Company>();
+		
+		// 3.設置每頁顯示數量
+		page.setPageSize(pageSize);
+		
+		// 4.設置總紀錄數
+		Integer pageTotalCount = companyMapper.queryForPageTotalCount();
+		page.setPageTotalCount(pageTotalCount);
+		
+		// 5.設置總頁碼 [總頁碼 = 總紀錄數 / 每頁顯示數量 , 如果有餘數則總頁碼 + 1]
+		Integer pageTotal = pageTotalCount / pageSize ;	
+		
+		if (pageTotalCount % pageSize > 0) {
+			pageTotal += 1;
+		}
+		
+		page.setPageTotal(pageTotal);
+		
+		
+		// 2.設置當前頁碼
+		// 注意!!必須在這裡設置當前頁碼,因為這樣在setPageNo()方法裡面的pageTotal才會有值
+		// 這樣才不會報空指針異常
+		page.setPageNo(pageNo);	
+		
+
+		// 6.設置當前頁數據
+		int begin = (page.getPageNo() - 1) * pageSize;
+		List<Company> companies = companyMapper.queryForPageItems(begin, pageSize);
+		page.setItems(companies);
+		
+		return page;
+	}
+
+	
+	//根據審核狀態進行分頁
+	public Page<Company> pageByAuditStatus(String auditStatus, int pageNo, int pageSize) {
+		//pageNo, pageSize都是從頁面傳遞過來的,所以我們這邊只需要獲取,pageTotal, pageTotalCount, items
+		System.out.println("CompanyService 1 pageNo: " + pageNo);
+		
+		// 1.先創建page對象
+		Page<Company> page = new Page<Company>();
+		
+		// 3.設置每頁顯示數量
+		page.setPageSize(pageSize);
+		
+		// 4.設置總紀錄數
+		Integer pageTotalCount = companyMapper.queryForPageTotalCountByAuditStatus(auditStatus);		
+		page.setPageTotalCount(pageTotalCount);
+		
+		// 5.設置總頁碼 [總頁碼 = 總紀錄數 / 每頁顯示數量 , 如果有餘數則總頁碼 + 1]
+		Integer pageTotal = pageTotalCount / pageSize ;	
+		
+		if (pageTotalCount % pageSize > 0) {
+			pageTotal += 1;
+		}
+		
+		page.setPageTotal(pageTotal);
+		
+		
+		// 2.設置當前頁碼
+		// 注意!!必須在這裡設置當前頁碼,因為這樣在setPageNo()方法裡面的pageTotal才會有值
+		// 這樣才不會報空指針異常
+		System.out.println("CompanyService 2 pageNo: " + pageNo);
+		
+		page.setPageNo(pageNo);
+		
+
+		// 6.設置當前頁數據
+		int begin = (page.getPageNo() - 1) * pageSize;
+		System.out.println("CompanyService 3 begin:" + begin);
+		List<Company> companies = companyMapper.queryForPageItemsByAuditStatus(auditStatus, begin, pageSize);
+		page.setItems(companies);
+		
+		return page;
+	}
+	
+	
+	
+	//根據廠商編號和審核狀態查詢廠商
+	@Transactional(readOnly = true)
+	public List<Company> getCompaniesByAuditStatus(String auditStatus){
+		List<Company> companies = companyMapper.queryCompanyByAuditStatus(auditStatus);
+		return companies;
 	}
 	
 	

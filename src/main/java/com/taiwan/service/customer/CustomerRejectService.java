@@ -47,8 +47,8 @@ public class CustomerRejectService {
 //		}
 
 		// 數據校驗完成之後, 就可以調用 dao 層跟數據庫做互動
-		int result = customerMapper.insertCustomer(customer);
-
+//		int result = customerMapper.insertCustomer(customer);
+		int result = 0;
 		if (result == 0) {
 			customer.setMessage("註冊失敗");
 			customer.setSuccessful(false);

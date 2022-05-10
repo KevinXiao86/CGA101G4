@@ -38,7 +38,7 @@ public class CmpFindOrder extends HttpServlet {
 			// 把廠商的Id值從company拿出
 			Integer cmpId=company.getCmpId();
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher rd = request.getRequestDispatcher("/front-end/company/cmp_index.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/front-end/company/index.jsp");
 				rd.forward(request, response);
 				return;
 			}
@@ -49,7 +49,7 @@ public class CmpFindOrder extends HttpServlet {
 				errorMsgs.put("roomOrder", "查無資料");
 			}
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher rd = request.getRequestDispatcher("/front-end/company/cmp_index.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/front-end/company/index.jsp");
 				rd.forward(request, response);
 				return;
 			}
@@ -70,7 +70,7 @@ public class CmpFindOrder extends HttpServlet {
 
 		} catch (Exception e) {
 			errorMsgs.put("其他錯誤發生", e.getMessage());
-			RequestDispatcher rd = request.getRequestDispatcher("/front-end/company/cmp_index.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/front-end/company/index.jsp");
 			rd.forward(request, response);
 		}
 

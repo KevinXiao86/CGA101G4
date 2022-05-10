@@ -27,6 +27,10 @@ public class RoomtypeMapperTest {
 		List<Roomtype> roomtypes = roomtypeMapper.queryAllRoomtypes(20011);
 		for(Roomtype roomtype : roomtypes) {
 			System.out.println(roomtype);
+			for(RoomImg roomImg : roomtype.getRoomImgs()) {
+				System.out.println(roomImg);
+			}
+			System.out.println("-----------------------------------------");
 		}
 	}
 	
@@ -102,6 +106,37 @@ public class RoomtypeMapperTest {
 		System.out.println("--------------------------------");
 		for(RoomImg img : roomtype.getRoomImgs()) {
 			System.out.println(img);
+		}
+	}
+	
+	
+	@Test
+	public void test07() {
+		int count = roomtypeMapper.queryForPageTotalCountByCmpId(20011);
+		System.out.println("totalCount: " + count);
+	}
+	
+	
+	@Test
+	public void test08() {
+		List<Roomtype> roomtypes = roomtypeMapper.queryForPageItemsByCmpId(20011, 0, 3);
+		for(Roomtype roomtype : roomtypes) {
+			System.out.println(roomtype.getRoomtypeName());
+			for(RoomImg roomImg : roomtype.getRoomImgs()) {
+				System.out.println(roomImg.getRoomImg());
+			}
+		}
+	}
+	
+	
+	@Test
+	public void test09() {
+		List<Roomtype> roomtypes = roomtypeMapper.queryAllRoomtypesOrderByPrice(20011);
+		for(Roomtype roomtype : roomtypes) {
+			System.out.println("房型名稱: " + roomtype.getRoomtypeName());
+			for(RoomImg roomImg : roomtype.getRoomImgs()) {
+				System.out.println(roomImg);
+			}
 		}
 	}
 }

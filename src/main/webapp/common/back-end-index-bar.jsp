@@ -88,7 +88,7 @@
                                     <a href="#">廠商檢舉管理</a>
                                 </li>
                                 <li>
-                                    <a href="#">廠商資料管理</a>
+                                    <a href="manager/company/getCompaniesByPage">廠商資料管理</a>
                                 </li>
                                 <li>
                                     <a href="back-end/roomOrder/roomOrder_index.jsp">訂房訂單管理</a>

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 
 
 		<%-- 分頁條的開始 --%>
@@ -7,8 +7,8 @@
 			注意:請將表達式寫在{}裡面,因為我自己很常寫成 => ${requestScope.page.pageNo} > 1
 			--%>
 			<c:if test="${requestScope.page.pageNo > 1}">
-				<a href="${requestScope.page.url}&pageNo=1">首頁</a>
-				<a href="${requestScope.page.url}&pageNo=${requestScope.page.pageNo-1}">上一頁</a>
+				<a href="${requestScope.page.url}pageNo=1">首頁</a>
+				<a href="${requestScope.page.url}pageNo=${requestScope.page.pageNo-1}">上一頁</a>
 			</c:if>
 
 
@@ -56,7 +56,7 @@
 				</c:if>
 				
 				<c:if test="${i != requestScope.page.pageNo }">
-					<a href="${requestScope.page.url}&pageNo=${i}"> ${i} </a>
+					<a href="${requestScope.page.url}pageNo=${i}"> ${i} </a>
 				</c:if>
 				
 			</c:forEach>
@@ -66,39 +66,12 @@
 			
 			<%-- 如果已經是最後一頁,則不顯示下一頁,末頁 --%>
 			<c:if test="${requestScope.page.pageNo < requestScope.page.pageTotal}">
-				<a href="${requestScope.page.url}&pageNo=${requestScope.page.pageNo+1}">下一頁</a>
-				<a href="${requestScope.page.url}&pageNo=${requestScope.page.pageTotal}">末頁</a>
+				<a href="${requestScope.page.url}pageNo=${requestScope.page.pageNo+1}">下一頁</a>
+				<a href="${requestScope.page.url}pageNo=${requestScope.page.pageTotal}">末頁</a>
 			</c:if>
 			 
 			共${ requestScope.page.pageTotal }頁，${ requestScope.page.pageTotalCount }條紀錄
-			到第<input value="${requestScope.page.pageNo}" name="pn" id="pn_input" />頁 
-			<input id="searchPageBtn" type="button" value="確定">
 			
-			<script type="text/javascript">
-				$(function(){
-					//跳到指定的頁碼
-					$("#searchPageBtn").click(function(){
-						
-						var pageNo = $("#pn_input").val();
-						var pageTotal = ${requestScope.page.pageTotal};
-						
-						if(pageNo < 0){
-							pageNo = 1;
-						}
-						if(pageNo > pageTotal){
-							pageNo = pageTotal;
-						}
-						/*
-						javascript語言中有一個location地址欄對象
-						他有一個屬性叫做href,他可以獲取瀏覽器地址欄中的地址
-						href屬性可讀,可寫
-						賦值就是頁面跳轉的操作
-						*/
-						location.href = "${pageScope.basePath}${requestScope.page.url}&pageNo="
-								+ pageNo;
-					});
-				});
-			</script>
 		</div>
 		<%-- 分頁條的結束 --%>
 

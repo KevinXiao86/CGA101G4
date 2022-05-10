@@ -4,12 +4,16 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.taiwan.beans.Company;
 import com.taiwan.beans.Roomtype;
 
 public interface RoomtypeMapper {
 
 	// 根據廠商編號獲取所有房型
 	public List<Roomtype> queryAllRoomtypes(Integer cmpId);
+	
+	// 根據廠商編號獲取所有房型, 並按照價格排序
+	public List<Roomtype> queryAllRoomtypesOrderByPrice(Integer cmpId);
 
 	// 根據房型編號和廠商編號修改狀態
 	public int updateStatusByRoomtypeIdAndCmpId(@Param("cmpId") Integer cmpId, @Param("roomtypeId") Integer roomtypeId,
@@ -33,4 +37,9 @@ public interface RoomtypeMapper {
 	public int updateRoomtype(Roomtype roomtype);
 
 
+	// 根據廠商編號求房型總紀錄數
+	public Integer queryForPageTotalCountByCmpId(Integer cmpId);
+
+	// 根據廠商編號求出當前頁數據
+	public List<Roomtype> queryForPageItemsByCmpId(@Param("cmpId")Integer cmpId, @Param("begin") Integer begin, @Param("pageSize") Integer pageSize);
 }

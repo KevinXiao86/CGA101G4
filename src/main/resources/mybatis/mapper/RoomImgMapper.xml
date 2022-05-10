@@ -4,33 +4,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mybatis.mapper.RoomImgMapper">
 
-	
+
 	<!-- 根據房型編號查找圖片 -->
 	<!-- public List<RoomImg> queryRoomImgsByRoomtypeId(Integer rootypeId); -->
-	<select id="queryRoomImgsByRoomtypeId" resultType="com.taiwan.beans.RoomImg">
-		SELECT 	`room_img_id`, `roomtype_id`, `room_img`
-	 	FROM  `Taiwan`.`ROOM_IMG` 
+	<select id="queryRoomImgsByRoomtypeId"
+		resultType="com.taiwan.beans.RoomImg">
+		SELECT `room_img_id`, `roomtype_id`, `room_img`
+		FROM `Taiwan`.`ROOM_IMG`
 		WHERE `roomtype_id` = #{roomtypeId};
 	</select>
-	
+
 	<!-- 新增房型圖片 -->
 	<!-- public int insertRoomImg(@Param("roomImgs")List<RoomImg> roomImgs); -->
 	<insert id="insertRoomImg">
-		INSERT INTO `Taiwan`.`ROOM_IMG` 
-			(`roomtype_id`, `room_img`)
-		VALUES	
-		<foreach collection="roomImgs" item="RoomImg" separator="," >
-		 		(#{RoomImg.roomtypeId}, #{RoomImg.roomImg})
-		</foreach>	
+		INSERT INTO `Taiwan`.`ROOM_IMG`
+		(`roomtype_id`, `room_img`)
+		VALUES
+		<foreach collection="roomImgs" item="RoomImg" separator=",">
+			(#{RoomImg.roomtypeId}, #{RoomImg.roomImg})
+		</foreach>
 	</insert>
-	
+
 	<!-- 根據流水號刪除圖片 -->
 	<!-- public int deleteRoomImgByRoomImgId(@Param("roomImgIds")Integer[] roomImgIds); -->
 	<delete id="deleteRoomImgByRoomImgId">
-		<foreach collection="roomImgIds" item="roomImgId" separator=";">
-			DELETE FROM `Taiwan`.`ROOM_IMG` 
+		<foreach collection="roomImgIds" item="roomImgId"
+			separator=";">
+			DELETE FROM `Taiwan`.`ROOM_IMG`
 			WHERE `room_img_id` = #{roomImgId}
 		</foreach>
 	</delete>
-	
+
+	<!-- 根據流水號查詢圖片 -->
+	<!-- public int queryRoomImgByRoomImgId(Integer roomImgId); -->
+	<select id="queryRoomImgByRoomImgId"
+		resultType="com.taiwan.beans.RoomImg" useCache="false">
+		SELECT `room_img_id`,
+		`roomtype_id`, `room_img`
+		FROM `Taiwan`.`ROOM_IMG`
+		WHERE `room_img_id` = #{roomImgId};
+	</select>
 </mapper>

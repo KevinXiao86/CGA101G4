@@ -34,7 +34,7 @@ $(() => {
         
         //檢查完數據之後, 把數據回傳給服務器
         $.ajax({
-            url: "http://localhost:8081/metamorphosis/company/login",
+            url: "http://localhost:8081/CGA101G4/company/login",
             method: "get",
             //如果返回的內容是 JSON，jQuery 會自動幫你解析成一個 JavaScript object
             dataType: "json",
@@ -44,7 +44,7 @@ $(() => {
             },
             success: function (resp) {
                 if (resp.successful) {
-                    location.href = "http://localhost:8081/metamorphosis/" + resp.url;
+                    location.href = "http://localhost:8081/CGA101G4/" + resp.url;
                 } else {
                     //回顯錯誤訊息
                     $("span.errorMsg").text(resp.message);
