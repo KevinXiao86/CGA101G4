@@ -14,11 +14,11 @@
 </head>
 <body>
 <!-- 		圖片顯示區及刪除 -->
-	<form action="">
-		<c:forEach items="${roomtype.roomImgs}" var="RoomImg">
-			<img src="${RoomImg.roomImg}" height="128px" width="128px">
-			<input type="checkbox" name="roomImgId" value="${RoomImg.roomImgId}" class="delete_checkbox">
-		</c:forEach>
-	</form>
+	<form action="company/doFormServlet.do" method="post">
+        <!-- 隐藏域保存服务端token -->
+        <input type="hidden" name="token" value="<%=session.getAttribute("token")%>" />
+        姓名：<input type="text" name="username" />
+        <input id="submitBtn" type="submit" value="提交">
+    </form>
 </body>
 </html>

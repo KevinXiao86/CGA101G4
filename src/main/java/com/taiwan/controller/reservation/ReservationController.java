@@ -1,7 +1,10 @@
 package com.taiwan.controller.reservation;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -36,13 +39,28 @@ public class ReservationController {
 		return "/front-end/reservation/list.jsp";
 	}
 
-	
 	@RequestMapping("/getReservation")
-	public String getReservation(HttpServletRequest request, Model model) throws ParseException{
+	public String getReservation(HttpServletRequest request, Model model) throws ParseException {
 		Integer roomtypeId = CommonUtils.parseInt(request.getParameter("roomtypeId"), 0);
 		Integer rootypeAmount = CommonUtils.parseInt(request.getParameter("roomtypeAmount"), 0);
 		List<Reservation> reservations = reservationService.getReservationsByRoomtypeId(roomtypeId, rootypeAmount);
 		model.addAttribute("reservations", reservations);
+		return "/front-end/reservation/reservation.jsp";
+	}
+
+	@RequestMapping("/getReservationByDate")
+	public String getReservationByDate(HttpServletRequest request, Model model) throws ParseException {
+		Integer roomtypeId = CommonUtils.parseInt(request.getParameter("roomtypeId"), 0);
+		Integer rootypeAmount = CommonUtils.parseInt(request.getParameter("roomtypeAmount"), 0);
+
+		String startDate = request.getParameter("start_date");
+		String endDate = request.getParameter("end_date");
+
+		List<Reservation> reservations = reservationService.getReservationsByDate(roomtypeId, rootypeAmount, startDate, endDate);
+		
+		model.addAttribute("reservations", reservations);
+		model.addAttribute("startDate", startDate);
+		model.addAttribute("endDate", endDate);
 		return "/front-end/reservation/reservation.jsp";
 	}
 }

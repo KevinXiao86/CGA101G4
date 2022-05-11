@@ -109,7 +109,6 @@ public class ROSelectCmp extends HttpServlet {
 		}
 		//存入日期
 		String ckin = req.getParameter("ckin").trim();
-
 		String ckout = req.getParameter("ckout").trim();
 		Map<String, String> map = new HashMap<>();
 		map.put("ckin", ckin);

@@ -68,4 +68,15 @@
 		<!-- exceptionAttribute 屬性設置一個屬性名, 將出現的異常信息放在請求域中共享 -->
 		<property name="exceptionAttribute" value="ex"></property>
 	</bean>
+	
+	
+	<!-- 配置攔截器 -->
+<!-- 	<mvc:interceptors> -->
+		<!-- 配置某一個攔截器 -->
+<!-- 		<mvc:interceptor> -->
+			<!-- 對那些資源執行攔截操作, 默認是攔截所有請求的 -->
+<!-- 			<mvc:mapping path="/front-end/company/**" /> -->
+<!-- 			<bean class="com.taiwan.interceptor.CompanyInterceptor"></bean> -->
+<!-- 		</mvc:interceptor> -->
+<!-- 	</mvc:interceptors> -->
 </beans>

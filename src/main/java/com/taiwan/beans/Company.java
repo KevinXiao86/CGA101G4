@@ -2,6 +2,7 @@ package com.taiwan.beans;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -29,6 +30,8 @@ public class Company extends Core {
 	private String notice;
 	private String canx;
 	private String bankAccount;
+	
+	private List<Roomtype> roomtypes;
 
 	public Company() {
 		super();
@@ -57,6 +60,31 @@ public class Company extends Core {
 		this.notice = notice;
 		this.canx = canx;
 		this.bankAccount = bankAccount;
+	}
+	public Company(Integer cmpId, String cmpName, String cmpTel, String cmpMail, String cmper, String cmperTel,
+			String cmpStatus, String auditStatus, String serialNo, String cmpAccount, String cmpPassword,
+			String cmpIntroduce, String checkinTime, String checkoutTime, String location, String notice, String canx,
+			String bankAccount, List<Roomtype> roomtypes) {
+		super();
+		this.cmpId = cmpId;
+		this.cmpName = cmpName;
+		this.cmpTel = cmpTel;
+		this.cmpMail = cmpMail;
+		this.cmper = cmper;
+		this.cmperTel = cmperTel;
+		this.cmpStatus = cmpStatus;
+		this.auditStatus = auditStatus;
+		this.serialNo = serialNo;
+		this.cmpAccount = cmpAccount;
+		this.cmpPassword = cmpPassword;
+		this.cmpIntroduce = cmpIntroduce;
+		this.checkinTime = checkinTime;
+		this.checkoutTime = checkoutTime;
+		this.location = location;
+		this.notice = notice;
+		this.canx = canx;
+		this.bankAccount = bankAccount;
+		this.roomtypes = roomtypes;
 	}
 
 	public Integer getCmpId() {
@@ -205,6 +233,13 @@ public class Company extends Core {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public List<Roomtype> getRoomtypes() {
+		return roomtypes;
+	}
+
+	public void setRoomtypes(List<Roomtype> roomtypes) {
+		this.roomtypes = roomtypes;
 	}
 
 	@Override

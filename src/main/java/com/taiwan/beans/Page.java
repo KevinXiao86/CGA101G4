@@ -2,30 +2,29 @@ package com.taiwan.beans;
 
 import java.util.List;
 
-public class Page <E> {
-	
-	//將每頁顯示數量定義為常量
-	public static final Integer PAGE_SIZE = 4; 
-	
-	//當前頁碼
+public class Page<E> {
+
+	// 將每頁顯示數量定義為常量
+	public static final Integer PAGE_SIZE = 3;
+
+	// 當前頁碼
 	private Integer pageNo;
-	
-	//總頁碼
+
+	// 總頁碼
 	private Integer pageTotal;
-	
-	//當前頁顯示數量
+
+	// 當前頁顯示數量
 	private Integer pageSize = PAGE_SIZE;
-	
-	//總紀錄數
+
+	// 總紀錄數
 	private Integer pageTotalCount;
-	
-	//當前頁數據
-	//將集合裡面的元素設計成泛型,這樣的擴展性比較高
+
+	// 當前頁數據
+	// 將集合裡面的元素設計成泛型,這樣的擴展性比較高
 	private List<E> items;
-	
-	//分頁條的請求地址
+
+	// 分頁條的請求地址
 	private String url;
-	
 
 	public Page() {
 		super();
@@ -44,15 +43,21 @@ public class Page <E> {
 		return pageNo;
 	}
 
+//	public void setPageNo(Integer pageNo) {
+//		System.out.println("PAGE 1 pageNo:" + pageNo);
+//		if (pageNo < 1) {
+//			System.out.println("PAGE 2 pageNo:" + pageNo);
+//			pageNo = 1;
+//		}
+//		if (pageNo > pageTotal) {
+//			pageNo = pageTotal;
+//		}
+//		
+//		System.out.println("PAGE 3 pageNo:" + pageNo);
+//		this.pageNo = pageNo;
+//	}
+
 	public void setPageNo(Integer pageNo) {
-		
-		if (pageNo < 1) {
-			pageNo = 1;
-		}
-		if (pageNo > pageTotal) {
-			pageNo = pageTotal;
-		}
-		
 		this.pageNo = pageNo;
 	}
 
@@ -101,8 +106,4 @@ public class Page <E> {
 		return "Page [pageNo=" + pageNo + ", pageTotal=" + pageTotal + ", pageSize=" + pageSize + ", pageTotalCount="
 				+ pageTotalCount + ", items=" + items + ", url=" + url + "]";
 	}
-	
-
-	
-	
 }

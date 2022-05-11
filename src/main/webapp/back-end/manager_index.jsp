@@ -9,6 +9,7 @@
 	<%@ include file="/common/head.jsp"%>
 </head>
 <body>
-	<a href="manager/company/companies">後臺廠商首頁</a>
+<!-- 	<a href="manager/company/companies">後臺廠商首頁</a> -->
+	<a href="manager/company/getCompaniesByPage">後臺廠商首頁</a>
 </body>
 </html>

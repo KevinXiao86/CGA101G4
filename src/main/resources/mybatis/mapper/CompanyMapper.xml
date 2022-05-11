@@ -4,98 +4,129 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mybatis.mapper.CompanyMapper">
 
-	<!-- 這是使用第三方緩存 -->
-	<cache type="org.mybatis.caches.ehcache.EhcacheCache"></cache>
-
-	<!-- 根據 cmp_account 和 cmp_password 查詢廠商 -->
-	<!-- public Company queryCompanyByAccountAndPassword(@Param("account")String account, @Param("password")String password); -->
-	<select id="queryCompanyByAccountAndPassword" resultType="com.taiwan.beans.Company">
-		SELECT 	`cmp_id`, `cmp_name`, `cmp_tel`, `cmp_mail`, `cmper`, `cmper_tel`, `cmp_status`, `audit_status`, 
-			`serial_no`, `cmp_account`, `cmp_password`, `cmp_introduce`, `checkin_time`, `checkout_time`, 
-			`location`, `notice`, `canx`, `bank_account`
-	 	FROM `Taiwan`.`COMPANY`
-		WHERE `cmp_account` = #{account}
-		AND `cmp_password` = #{password};
+	<resultMap type="com.taiwan.beans.Company" id="company">
+		<id column="cmp_id" property="cmpId"/>
+		<result column="cmp_name" property="cmpName"/>
+		<result column="cmp_tel" property="cmpTel"/>
+		<result column="cmp_mail" property="cmpMail"/>
+		<result column="cmper" property="cmper"/>
+		<result column="cmper_tel" property="cmperTel"/>
+		<result column="cmp_status" property="cmpStatus"/>
+		<result column="audit_status" property="auditStatus"/>
+		<result column="serial_no" property="serialNo"/>
+		<result column="cmp_account" property="cmpAccount"/>
+		<result column="cmp_password" property="cmpPassword"/>
+		<result column="cmp_introduce" property="cmpIntroduce"/>
+		<result column="checkin_time" property="checkinTime"/>
+		<result column="checkout_time" property="checkoutTime"/>
+		<result column="location" property="location"/>
+		<result column="notice" property="notice"/>
+		<result column="canx" property="canx"/>
+		<result column="bank_account" property="bankAccount"/>
+		
+		<collection property="roomtypes" select="mybatis.mapper.RoomtypeMapper.queryAllRoomtypesOrderByPrice"
+			column="cmp_id">
+		</collection>
+	</resultMap>
+	
+	<!-- 查詢所有廠商 -->
+	<!-- public List<Company> getAllCompanies(); -->
+	<select id="getAllCompanies" resultMap="company">
+		SELECT 	`cmp_id`, `cmp_name`, `cmp_tel`, `cmp_mail`, `cmper`, `cmper_tel`, 
+			`cmp_status`, `audit_status`, `serial_no`, `cmp_account`, `cmp_password`, 
+			`cmp_introduce`, `checkin_time`, `checkout_time`, `location`, 
+			`notice`, `canx`, `bank_account`
+	 	FROM `Taiwan`.`COMPANY` 
 	</select>
 	
+	<!-- 根據地點來查詢廠商 -->
+	<!-- public List<Company> getAllCompaniesByLocation(String location); -->
+	<select id="getAllCompaniesByLocation" resultMap="company">
+		SELECT 	`cmp_id`, `cmp_name`, `cmp_tel`, `cmp_mail`, `cmper`, `cmper_tel`, 
+			`cmp_status`, `audit_status`, `serial_no`, `cmp_account`, `cmp_password`, 
+			`cmp_introduce`, `checkin_time`, `checkout_time`, `location`, 
+			`notice`, `canx`, `bank_account`
+	 	FROM `Taiwan`.`COMPANY` 
+	 	WHERE `location` like "%"#{location}"%"
+	</select>
+	
+	
+	
+	<!-- 根據廠商帳號和廠商密碼來獲取廠商 -->
+	<!-- public Company queryCompanyByCmpAccountAndCmpPassword( @Param("cmpAccount")String 
+		cmpAccount, @Param("cmpPassword")String cmpPassword); -->
+	<select id="queryCompanyByCmpAccountAndCmpPassword"
+		resultType="com.taiwan.beans.Company">
+		SELECT `cmp_id`, `cmp_name`, `cmp_tel`, `cmp_mail`,
+		`cmper`, `cmper_tel`, `cmp_status`, `audit_status`,
+		`serial_no`, `cmp_account`, `cmp_password`, `cmp_introduce`, `checkin_time`,
+		`checkout_time`,
+		`location`, `notice`, `canx`, `bank_account`
+		FROM `Taiwan`.`COMPANY`
+		WHERE `cmp_account` = #{cmpAccount}
+		AND `cmp_password` = #{cmpPassword}
+	</select>
 
-	<!-- 新增一筆廠商資料 -->
+
+	<!-- 新增廠商 -->
 	<!-- public int insertCompany(Company company); -->
 	<insert id="insertCompany">
-	INSERT INTO `Taiwan`.`COMPANY` 
-		( `cmp_name`, `cmp_tel`, `cmp_mail`, `cmper`, `cmper_tel`,`serial_no`, `cmp_account`,
-		 `cmp_password`, `cmp_introduce`, `checkin_time`, `checkout_time`, `location`, `notice`, `canx`, `bank_account`)
-	VALUES ( #{cmpName}, #{cmpTel}, #{cmpMail}, #{cmper}, #{cmperTel} , #{serialNo}, #{cmpAccount},
-	 #{cmpPassword}, #{cmpIntroduce}, #{checkinTime}, #{checkoutTime}, #{location}, #{notice}, #{canx}, #{bankAccount});
+		INSERT INTO `Taiwan`.`COMPANY`
+		( `cmp_name`, `cmp_tel`, `cmp_mail`, `cmper`, `cmper_tel`,`serial_no`,`cmp_account`,`cmp_password`, 
+		`cmp_introduce`, `checkin_time`, `checkout_time`, `location`,`notice`, `canx`, `bank_account`)
+		VALUES ( #{cmpName}, #{cmpTel}, #{cmpMail}, #{cmper}, #{cmperTel} , #{serialNo}, #{cmpAccount},
+		#{cmpPassword}, #{cmpIntroduce}, #{checkinTime}, #{checkoutTime},
+		#{location}, #{notice}, #{canx}, #{bankAccount})
 	</insert>
 	
 	
 	<!-- 根據廠商帳號查詢廠商 -->
 	<!-- public Company queryCompanyByCmpAccount(String cmpAccount); -->
 	<select id="queryCompanyByCmpAccount" resultType="com.taiwan.beans.Company">
-		SELECT 	`cmp_id`, `cmp_name`, `cmp_tel`, `cmp_mail`, `cmper`, `cmper_tel`, `cmp_status`, `audit_status`, 
-			`serial_no`, `cmp_account`, `cmp_password`, `cmp_introduce`, `checkin_time`, `checkout_time`, 
-			`location`, `notice`, `canx`, `bank_account`
-	 	FROM `Taiwan`.`COMPANY`
-		WHERE `cmp_account` = #{account};	
+			SELECT `cmp_id`, `cmp_name`, `cmp_tel`, `cmp_mail`,`cmper`, `cmper_tel`, `cmp_status`, `audit_status`,
+				`serial_no`, `cmp_account`, `cmp_password`, `cmp_introduce`, `checkin_time`,`checkout_time`,
+				`location`, `notice`, `canx`, `bank_account`
+			FROM `Taiwan`.`COMPANY`
+			WHERE `cmp_account` = #{cmpAccount}
 	</select>
 	
-	
-	<!-- 根據廠商帳號更新廠商營業登記證圖片路徑 -->
-	<!-- public int updateSerialNoByCmpAccount(@Param("cmpAccount")String cmpAccount, @Param("serialNo")String serialNo); -->
-	<update id="updateSerialNoByCmpAccount">
+	<!-- 根據廠商編號修改廠商資料 -->
+	<!-- public int updateCompanyByCmpId(Company company); -->
+	<update id="updateCompanyByCmpId">
 		UPDATE `Taiwan`.`COMPANY` 
-		SET `serial_no` = #{serialNo}
-		WHERE`cmp_account` = #{cmpAccount} ;
+			SET
+			`cmp_id` = #{cmpId}, 
+			`cmp_name` = #{cmpName}, 
+			`cmp_tel` = #{cmpTel}, 
+			`cmp_mail` = #{cmpMail}, 
+			`cmper` = #{cmper}, 
+			`cmper_tel` = #{cmperTel}, 
+			`cmp_status` = #{cmpStatus}, 
+			`audit_status` = #{auditStatus}, 
+			`serial_no` = #{serialNo}, 
+			`cmp_account` = #{cmpAccount}, 
+			`cmp_password` = #{cmpPassword}, 
+			`cmp_introduce` = #{cmpIntroduce}, 
+			`checkin_time` = #{checkinTime}, 
+			`checkout_time` = #{checkoutTime}, 
+			`location` = #{location}, 
+			`notice` = #{notice}, 
+			`canx` = #{canx}, 
+			`bank_account` = #{bankAccount}
+		WHERE
+			`cmp_id` = #{cmpId} 
 	</update>
 	
 	
 	<!-- 根據廠商編號查詢廠商(管理員, 用戶) -->
 	<!-- public Company queryCompanyByCmpId(Integer cmpId); -->
-	<select id="queryCompanyByCmpId" resultType="com.taiwan.beans.Company">
+	<select id="queryCompanyByCmpId" resultType="com.taiwan.beans.Company" useCache="false">
 		SELECT 	`cmp_id`, `cmp_name`, `cmp_tel`, `cmp_mail`, `cmper`, `cmper_tel`, `cmp_status`, `audit_status`, 
 			`serial_no`, `cmp_account`, `cmp_password`, `cmp_introduce`, `checkin_time`, `checkout_time`, 
 			`location`, `notice`, `canx`, `bank_account`
 	 	FROM `Taiwan`.`COMPANY`
-		WHERE `cmp_id` = #{cmpId};
+		WHERE `cmp_id` = #{cmpId}
 	</select>
-	
-	
-	<!-- 根據廠商編號修改廠商資料 -->
-	<!-- public int updateCompanyByCmpId(Company company); -->
-	<update id="updateCompanyByCmpId">
-		UPDATE `Taiwan`.`COMPANY`
-		<trim prefix="SET" suffixOverrides=",">
-			<if test="cmpTel != null">
-				`cmp_tel` = #{cmpTel}, 
-			</if>
-			<if test="cmpMail != null">
-				`cmp_mail` = #{cmpMail}, 
-			</if>			
-			<if test="cmpIntroduce != null">
-				`cmp_introduce` = #{cmpIntroduce}, 
-			</if>
-			<if test="checkinTime != null">
-				 `checkin_time` = #{checkinTime}, 
-			</if>
-			<if test="checkoutTime != null">
-				 `checkout_time` = #{checkoutTime}, 
-			</if>
-			<if test="location != null">
-				 `location` = #{location}, 
-			</if>
-			<if test="notice != null">
-				 `notice` = #{notice}, 
-			</if>
-			<if test="canx != null and canx.trim() != ''">
-				 `canx` = #{canx}, 
-			</if>
-			<if test="bankAccount != null and bankAccount.trim() != ''">
-				 `bank_account` = #{bankAccount}, 
-			</if>
-		</trim>
-		WHERE `cmp_id` = #{cmpId} ;
-	</update>
 	
 	
 	<!-- 查詢所有廠商資料(管理員) -->
@@ -104,17 +135,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT 	`cmp_id`, `cmp_name`, `cmp_tel`, `cmp_mail`, `cmper`, `cmper_tel`, `cmp_status`, `audit_status`, 
 			`serial_no`, `cmp_account`, `cmp_password`, `cmp_introduce`, `checkin_time`, `checkout_time`, 
 			`location`, `notice`, `canx`, `bank_account`
-	 	FROM `Taiwan`.`COMPANY`;
+	 	FROM `Taiwan`.`COMPANY`
 	</select>
-	
-	
-	<!-- 根據廠商編號修改審核狀態為審核通過(管理員) -->
-	<!-- public int updateAuditStatusByCmpId(@Param("cmpId")Integer cmpId,@Param("auditStatus")String auditStatus); -->
-	<update id="updateAuditStatusByCmpId">
-		UPDATE `Taiwan`.`COMPANY` 
-		SET `audit_status` = #{auditStatus}
-		WHERE `cmp_id` = #{cmpId};
-	</update>
 	
 	
 	<!-- 根據廠商編號修改廠商狀態(管理員) -->
@@ -122,8 +144,66 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateStatusByCmpId">
 		UPDATE `Taiwan`.`COMPANY` 
 		SET `cmp_status` = #{status}
-		WHERE `cmp_id` = #{cmpId} ;
+		WHERE `cmp_id` = #{cmpId}
 	</update>
 	
+	
+	<!-- 根據廠商編號修改審核狀態(管理員) -->
+	<!-- public int updateAuditStatusByCmpId(@Param("cmpId")Integer cmpId,@Param("auditStatus")String auditStatus); -->
+	<update id="updateAuditStatusByCmpId">
+		UPDATE `Taiwan`.`COMPANY` 
+		SET `audit_status` = #{auditStatus}
+		WHERE `cmp_id` = #{cmpId}
+	</update>
+	
+	
+	<!-- 根據廠商編號和審核狀態查詢廠商 -->
+	<!-- public List<Company> queryCompanyByAuditStatus(String auditStatus);-->
+	<select id="queryCompanyByAuditStatus" resultType="com.taiwan.beans.Company">
+		SELECT 	`cmp_id`, `cmp_name`, `cmp_tel`, `cmp_mail`, `cmper`, `cmper_tel`, `cmp_status`, 
+			`audit_status`, `serial_no`, `cmp_account`, `cmp_password`, `cmp_introduce`, 
+			`checkin_time`, `checkout_time`, `location`, `notice`, `canx`, `bank_account`
+		FROM  `Taiwan`.`COMPANY` 
+	 	WHERE `audit_status` = #{auditStatus}
+	</select>
+	
+	
+	<!-- 求總紀錄數 -->
+	<!-- public Integer queryForPageTotalCount(); -->
+	<select id="queryForPageTotalCount" resultType="_int">
+		SELECT COUNT(*) FROM `Taiwan`.`COMPANY`
+	</select>
+	
+	
+	<!-- 求出當前頁數據 -->
+	<!-- public List<Company> queryForPageItems(@Param("begin")Integer begin, @Param("pageSize")Integer pageSize); -->
+	<select id="queryForPageItems" resultType="com.taiwan.beans.Company">
+		SELECT 	`cmp_id`, `cmp_name`, `cmp_tel`, `cmp_mail`, `cmper`, `cmper_tel`, `cmp_status`, 
+			`audit_status`, `serial_no`, `cmp_account`, `cmp_password`, `cmp_introduce`, 
+			`checkin_time`, `checkout_time`, `location`, `notice`, `canx`, `bank_account`
+		FROM  `Taiwan`.`COMPANY` 
+		LIMIT #{begin}, #{pageSize}
+	</select>
+	
+<!-- 求根據審核狀態查出的總紀錄數 -->
+<!-- public Integer queryForPageTotalCountByAuditStatus(String auditStatus); -->
+	<select id="queryForPageTotalCountByAuditStatus" resultType="_int">
+		SELECT COUNT(*) FROM `Taiwan`.`COMPANY` 
+		WHERE `audit_status` = #{auditStatus}
+	</select>
+
+<!-- 求根據審核狀態查出的當前頁數據 -->
+<!-- public List<Company> queryForPageItemsByAuditStatus(@Param("auditStatus")String auditStatus, -->
+<!-- 	@Param("begin") Integer begin, @Param("pageSize") Integer pageSize); -->
+<!-- 		SELECT 	`cmp_id`, `cmp_name`, `cmp_tel`, `cmp_mail`, `cmper`, `cmper_tel`, `cmp_status`,  -->
+<!-- 			`audit_status`, `serial_no`, `cmp_account`, `cmp_password`, `cmp_introduce`,  -->
+<!-- 			`checkin_time`, `checkout_time`, `location`, `notice`, `canx`, `bank_account` -->
+<!-- 		FROM  `Taiwan`.`COMPANY`  -->
+<!-- 		WHERE `audit_status` = ${auditStatus} -->
+<!-- 		LIMIT #{begin}, #{pageSize} -->
+	<select id="queryForPageItemsByAuditStatus" resultType="com.taiwan.beans.Company">
+		SELECT * FROM `Taiwan`.`COMPANY` WHERE `audit_status` = #{auditStatus} LIMIT #{begin}, #{pageSize}
+	</select>
+
 	
 </mapper>

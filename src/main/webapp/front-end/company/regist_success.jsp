@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,17 +7,22 @@
 <title>廠商註冊成功頁面</title>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%@ include file="/common/head.jsp"%>
-	<link rel="stylesheet" href="front-end/company/css/style.css">
-    <style type="text/css">
-        h1 {
-            text-align: center;
-            margin-top: 200px;
-        }
-        
-        h1 a {
-            color:red;
-        }
-    </style>
+<link rel="stylesheet" href="front-end/company/css/style.css">
+<style type="text/css">
+h1 {
+	text-align: center;
+	margin-top: 200px;
+}
+
+h1 a {
+	color: red;
+}
+</style>
+<script type="text/javascript">
+	// 	$(() => {
+	// 		$(".um_span").html("");
+	// 	});
+</script>
 </head>
 <body>
 		<div id="header">

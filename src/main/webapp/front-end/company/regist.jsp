@@ -32,6 +32,9 @@ span{
 			<div class="form-content">
 			
 				<form action="company/regist" method="post" enctype="multipart/form-data">
+					<!-- 隐藏域保存服务端token -->
+					<input type="hidden" id="token" name="token" ${sessionScope.token}/>
+					
 					<div class="form-group">
 						<label for="cmpName">廠商名稱</label> 
 						<span>${requestScope.errorInfo.cmpName}</span>
@@ -48,10 +51,10 @@ span{
 						<label for="bankAccount">銀行帳號</label> 
 						<span>${requestScope.errorInfo.headBank}</span>
 						<input type="text" id="headBank" name="headBank" placeholder="銀行代號" required style="margin-bottom: 10px;"
-							value="${sessionScope.editCompany.bankAccount.substring(0, 3)}"> 
+							value="${requestScope.registCompany.bankAccount.substring(0, 3)}"> 
 						<span>${requestScope.errorInfo.endBank}</span>
 						<input type="text" name="endBank" id="endBank" placeholder="銀行帳號" required 
-							value="${sessionScope.editCompany.bankAccount.substring(4)}">
+							value="${requestScope.registCompany.bankAccount.substring(4)}">
 					</div>
 					
 					<div class="form-group">

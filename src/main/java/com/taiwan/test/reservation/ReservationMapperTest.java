@@ -47,6 +47,17 @@ public class ReservationMapperTest {
 		System.out.println(judgeDate(dateStr.substring(0, 4), dateStr.substring(5, 7)));
 	}
 	
+	
+	@Test
+	public void test04() {
+		List<Reservation> reservations = reservationMapper.getAllReservationsByDate("2022-05-08", "2", 1);
+		for(Reservation reservation : reservations) {
+			System.out.println(reservation);
+		}
+	}
+	
+	
+	
 	//判斷日期
 	public static int judgeDate(String yearStr, String month) {
 		int totalDay = 0;
