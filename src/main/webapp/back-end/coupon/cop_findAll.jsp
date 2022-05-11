@@ -23,29 +23,51 @@ pageContext.setAttribute("list", list);
 
 <style>
 #page-wrapper {
-    background-color: rgb(221, 221, 241) !important;
-/*     height: 600px;   */
+	/*     background-color: rgb(221, 221, 241) !important; */
+	/*     height: 600px;   */
+	
 }
 
 table {
 	width: 1100px;
-	background-color: rgb(221, 221, 241) !important;
+	background-color: #ced7e8 !important;
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
 
 table, th, td {
-	border: 3px solid #CCCCFF;
+	/* 	border: 3px solid #CCCCFF; */
+	
 }
 
 th, td {
 	padding: 5px;
-	text-align: center;
 }
 
 img {
-	width: 150px;
-	height: 150px;
+	width: 100px;
+	height: 100px;
+}
+
+input[type="submit"] {
+	box-shadow: inset 0px 1px 0px 0px #ffffff;
+	background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	background-color: #ffffff;
+	border-radius: 6px;
+	border: 1px solid #dcdcdc;
+	display: inline-block;
+	cursor: pointer;
+	color: #666666;
+	font-family: Arial;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 6px 24px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #ffffff;
+}
+
+input[type="submit"]:hover {
+	background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
 }
 </style>
 </head>
@@ -70,7 +92,8 @@ img {
 					</c:forEach>
 				</ul>
 			</c:if>
-			<table>
+   			<table border="2px" class="table table-striped table-hover">
+				<thead>
 				<tr>
 					<th>優惠券編號</th>
 					<th>優惠券名稱</th>
@@ -84,8 +107,11 @@ img {
 					<th>發放</th>
 					<th>刪除</th>
 				</tr>
+				</thead>
 				<%@ include file="page1.file"%>
+				<tbody>
 				<c:forEach items="${list}" var="couponVO" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+					
 					<tr>
 						<td>${couponVO.copId}</td>
 						<td>${couponVO.copName}</td>
@@ -124,14 +150,16 @@ img {
 							</FORM>
 						</td>
 					</tr>
+					
 				</c:forEach>
+				</tbody>
 			</table>
+			</div>
 			<%@ include file="page2.file"%>
 			<div>
 				<a href='back-end/coupon/cop_index.jsp'>回到優惠券首頁</a>
 			</div>
 		</div>
-	</div>
 	
 	<script type="text/javascript">
 // 	  let deleteBtn = document.querySelectorAll(".delete");

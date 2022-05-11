@@ -17,36 +17,29 @@
 }
 
 #page-wrapper {
-	background-color: rgb(221, 221, 241) ;
+	background-color: #ced7e8 !important;
 	height: 800px;
 }
 
 input[type="submit"] {
-	box-shadow: inset 0px 0px 11px 0px #bbdaf7;
-	background: linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
-	background-color: #79bbff;
-	border-radius: 20px;
+	box-shadow: inset 0px 1px 0px 0px #ffffff;
+	background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	background-color: #ffffff;
+	border-radius: 6px;
+	border: 1px solid #dcdcdc;
 	display: inline-block;
 	cursor: pointer;
-	color: black;
+	color: #666666;
 	font-family: Arial;
-	font-size: 14px;
+	font-size: 15px;
 	font-weight: bold;
-	font-style: italic;
-	padding: 12px 35px;
+	padding: 6px 24px;
 	text-decoration: none;
-	text-shadow: 5px 7px 0px #528ecc;
-	border: none;
+	text-shadow: 0px 1px 0px #ffffff;
 }
 
 input[type="submit"]:hover {
-	background: linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
-	background-color: #378de5;
-}
-
-input[type="submit"]:active {
-	position: relative;
-	top: 1px;
+	background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
 }
 
 b {

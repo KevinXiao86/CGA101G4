@@ -9,7 +9,8 @@
 	<%@ include file="/common/head.jsp"%>
 </head>
 <body>
-	<a href="cmp_login/login.jsp">從首頁跳轉到廠商登陸頁面</a><br>
-	<a href="cmp_login/regist.jsp">從首頁跳轉到廠商註冊頁面</a><br>
+<!-- 	<a href="cmp_login/login.jsp">從首頁跳轉到廠商登陸頁面</a><br> -->
+<!-- 	<a href="cmp_login/regist.jsp">從首頁跳轉到廠商註冊頁面</a><br> -->
+<jsp:forward page="front-end/homepage/index.jsp"></jsp:forward>
 </body>
 </html>

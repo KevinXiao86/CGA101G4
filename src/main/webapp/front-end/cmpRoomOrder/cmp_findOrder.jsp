@@ -132,6 +132,16 @@ img {
 						<h1 class="page-header">搜尋全部訂房訂單</h1>
 					</div>
 				</div>
+				<div>
+                    <FORM METHOD="post" ACTION="roomOrder/selectByDate">
+                        <b>根據日期來做查詢來做查詢:</b> <br>
+                        <label for="from">From</label>
+						<input type="text"  name="startdate" id="start_date">
+						<label for="to">to</label>
+						<input type="text"  name="enddate" id="end_date">
+                        <input type="submit" value="送出">
+                    </FORM>
+                </div>
 
 				<%--錯誤列表 --%>
 				<c:if test="${not empty errorMsgs}">
@@ -227,5 +237,33 @@ img {
 			});
 		});
 	</script>
+	
+	<script src="datetimepicker/jquery.datetimepicker.full.js"></script>
+
+<script type="text/javascript">
+$.datetimepicker.setLocale('zh'); // kr ko ja en
+$(function(){
+	 $('#start_date').datetimepicker({
+	  format:'Y-m-d',
+	  onShow:function(){
+	   this.setOptions({
+	    maxDate:$('#end_date').val()?$('#end_date').val():false
+	   })
+	  },
+	  timepicker:false
+	 });
+	 
+	 $('#end_date').datetimepicker({
+	  format:'Y-m-d',
+	  onShow:function(){
+	   this.setOptions({
+	    minDate:$('#start_date').val()?$('#start_date').val():false
+	   })
+	  },
+	  timepicker:false
+	 });
+});
+
+</script>
 </body>
 </html>

@@ -154,6 +154,31 @@ textarea:valid ~ label {
   font-size: 12px;
   color: #30336b;
 }
+#page-wrapper {
+/*     background-color: rgb(221, 221, 241) !important; */
+/*     height: 1000px;  */
+}
+
+table {
+	width: 1100px;
+	background-color: #ced7e8 !important;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+table, th, td {
+/* 	border: 3px solid #CCCCFF; */
+}
+
+th, td {
+	padding: 5px;
+	text-align: center;
+}
+
+img {
+	width: 150px;
+	height: 150px;
+}
 </style>
 </head>
 <body>
@@ -166,7 +191,7 @@ textarea:valid ~ label {
                 <div class="row">
                  	<div class="col-lg-12" style="margin-top:40px;">
                     	
-                    	<table>
+                    	<table border="2px" class="table table-striped table-hover">
 							<thead>
 								<tr>	
 									<th>寄件人</th>

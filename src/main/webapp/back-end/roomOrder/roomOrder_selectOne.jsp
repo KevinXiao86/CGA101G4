@@ -12,19 +12,19 @@
 <title>所有訂房訂單資料 RoomOrderFindAll</title>
 <style>
 #page-wrapper {
-    background-color: rgb(221, 221, 241) !important;
-    height: 600px; 
+/*     background-color: rgb(221, 221, 241) !important; */
+/*     height: 600px;  */
 }
 
 table {
 	width: 1100px;
-	background-color: rgb(221, 221, 241) !important;
+	background-color: #ced7e8 !important;
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
 
 table, th, td {
-	border: 3px solid #CCCCFF;
+/* 	border: 3px solid #CCCCFF; */
 }
 
 th, td {
@@ -58,7 +58,7 @@ img {
 				</ul>
 			</c:if>
 
-			<table>
+			<table border="2px" class="table table-striped table-hover">
 				<tr>
 					<th>訂房訂單編號</th>
 					<th>訂房會員姓名</th>

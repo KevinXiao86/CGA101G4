@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>後臺廠商</title>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
-<%@ include file="/common/head.jsp"%>
+<%@ include file="back-end-index.jsp"%>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,7 +47,6 @@
 				<div class="navbar-default sidebar" role="navigation">
 					<div class="sidebar-nav navbar-collapse">
 						<ul class="nav" id="side-menu">
-							<%@ include file="/common/back-end-index-bar.jsp"%>
 						</ul>
 					</div>
 				</div>

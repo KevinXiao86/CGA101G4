@@ -15,7 +15,7 @@ CouponVO couponVO = (CouponVO) request.getAttribute("couponVO");
 <title>優惠券資料修改</title>
 <style>
         #page-wrapper {
-            background-color: rgb(221, 221, 241) !important;
+/*             background-color: rgb(221, 221, 241) !important; */
 /*             height: 600px;  */
         }
 
