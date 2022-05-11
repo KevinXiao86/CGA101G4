@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script
@@ -18,7 +19,7 @@
 		request.setAttribute("cmpSVC", companyService);
 		System.out.println(companyService);
 	%>
-	<FORM METHOD="post" ACTION="http://localhost:8081/CGA101G4/roomOrder12/ROSelectCmp"
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/roomOrder12/ROSelectCmp"
 		name="form1">
 		<table>
 <%-- 			<jsp:useBean id="cmpSvc" scope="page" --%>

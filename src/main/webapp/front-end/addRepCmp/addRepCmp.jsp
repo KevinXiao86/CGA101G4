@@ -17,7 +17,7 @@ request.setAttribute("custVO", custVO);
 </head>
 <body>
 	<FORM METHOD="post"
-		ACTION="http://localhost:8081/CGA101G4/addRepCmp/addRepCmp"
+		ACTION="<%=request.getContextPath()%>/addRepCmp/addRepCmp"
 		name="form1">
 		<table>
 			<tr>

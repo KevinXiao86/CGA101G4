@@ -44,7 +44,7 @@ public class RoomtypeDAO implements Roomtype_interface {
 				roomtypeVO.setRoomtypePrice(rs.getInt("roomtype_price"));
 				roomtypeVO.setRoomtypeStatus(rs.getString("roomtype_status"));
 				roomtypeVO.setRoomtypeArea(rs.getInt("roomtype_area"));
-//				roomtypeVO.setRoomtypeIntroduce(rs.getString("roomtype_introduce"));
+				roomtypeVO.setRoomtypeIntroduce(rs.getString("roomtype_introduce"));
 			}
 
 			// Handle any driver errors

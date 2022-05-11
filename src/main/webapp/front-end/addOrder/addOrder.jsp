@@ -84,6 +84,20 @@ request.setAttribute("custVO", custVO);
 				<td>${errorMsgs.ckout}</td>
 			</tr>
 			<tr>
+				<td>開始日期:</td>
+				<td><input type="date" class="ckin2" name="ckin2"
+					value="${dateMap.ckin}"></td>
+				<td>${errorMsgs.ckin}</td>
+
+			</tr>
+			<tr>
+				<td>結束日期:</td>
+				<td><input type="date" class="ckin2" name="ckout2"
+					value="${dateMap.ckout}"></td>
+
+				<td>${errorMsgs.ckout}</td>
+			</tr>
+			<tr>
 				<td>優惠券:</td>
 				<td><select name="custCopId">
 				<option value="0">請選擇優惠券</option>
@@ -203,7 +217,7 @@ function renew(index){
             if (startDay < 10)
             	startDay = "0" + startDay;
             startval = start.getFullYear() + "-" + startMonth + "-" + startDay;
-       
+            $('.ckin2').val($('#ckin').val());
             })
             
             $('#ckin').blur(e => {
