@@ -29,14 +29,16 @@ public class ShowFollow extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+		//取得會員Id
 		HttpSession session = request.getSession();
 		CustomerVO customerVO = (CustomerVO) session.getAttribute("customer");
 		Integer custId = customerVO.getCustId();
 		System.out.println("custId="+custId);
+		//到資料庫抓這個會員關注廠商的資料
 		FollowServiceImpl followServiceImpl = new FollowServiceImpl();
 		List<FollowVO> list = followServiceImpl.searchAllFollow(custId);
 		System.out.println(list);
+		//把關注廠商的資料存入request中，轉送前端
 		request.setAttribute("list", list);
 		RequestDispatcher successView = request.getRequestDispatcher("/front-end/cust/showFollow.jsp");
 		successView.forward(request, response);
