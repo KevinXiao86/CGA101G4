@@ -9,7 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.taiwan.beans.CustomerVO;
 import com.taiwan.beans.RepCmpVO;
 import com.taiwan.service.repCmp.impl.RepCmpServiceImpl;
 
@@ -27,11 +29,16 @@ public class showRepCmp extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		Integer custId = Integer.valueOf(request.getParameter("customer"));System.out.println("custId="+custId);
+		// 取得會員Id
+		HttpSession session = request.getSession();
+		CustomerVO customerVO = (CustomerVO) session.getAttribute("customer");
+		Integer custId = customerVO.getCustId();
+		System.out.println("custId=" + custId);
 		// 去資料庫抓這個會員的所有檢舉廠商資料
 		RepCmpServiceImpl repCmpServiceImpl = new RepCmpServiceImpl();
-		List<RepCmpVO> list = repCmpServiceImpl.getRepCmpByCustId(custId);System.out.println(list);
+		List<RepCmpVO> list = repCmpServiceImpl.getRepCmpByCustId(custId);
+		System.out.println(list);
+		// 把資料存入request，轉送前端
 		request.setAttribute("list", list);
 		RequestDispatcher successView = request.getRequestDispatcher("/front-end/cust/showRepCmp.jsp");
 		successView.forward(request, response);

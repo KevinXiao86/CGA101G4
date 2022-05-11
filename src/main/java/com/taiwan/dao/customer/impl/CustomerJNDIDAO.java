@@ -52,7 +52,7 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 			ps.setString(4, customer.getEmail());
 			ps.setString(5, customer.getAddress());
 			ps.setString(6, customer.getIdCard());
-//			ps.setDate(7, customer.getBirth());
+			ps.setDate(7, customer.getBirth());
 			ps.setString(8, customer.getAccount());
 			ps.setString(9, customer.getPassword());
 			ps.setString(10, customer.getCustUse());
@@ -94,7 +94,7 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 			ps.setString(4, customer.getEmail());
 			ps.setString(5, customer.getAddress());
 			ps.setString(6, customer.getIdCard());
-//			ps.setDate(7, customer.getBirth());
+			ps.setDate(7, customer.getBirth());
 			ps.setString(8, customer.getAccount());
 			ps.setString(9, customer.getPassword());
 			ps.setString(10, customer.getImg());
@@ -416,5 +416,11 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 
 		}
 		return list;
+	}
+
+	@Override
+	public int regist(CustomerVO customer) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

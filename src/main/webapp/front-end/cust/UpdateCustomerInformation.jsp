@@ -71,10 +71,6 @@ width:40px;
 	</form>
 
 </body>
-<link rel="stylesheet" type="text/css"
-	href="datetimepicker/jquery.datetimepicker.css" />
-<script src="datetimepicker/jquery.js"></script>
-<script src="datetimepicker/jquery.datetimepicker.full.js"></script>
 <style>
 .xdsoft_datetimepicker .xdsoft_datepicker {
 	width: 300px; /* width:  300px; */

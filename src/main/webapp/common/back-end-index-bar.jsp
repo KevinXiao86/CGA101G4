@@ -110,13 +110,13 @@
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i>會員管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">會員資料管理</a>
+                                    <a href="back-end/customer/custInfoManage.jsp">會員資料管理</a>
                                 </li>
                                 <li>
-                                    <a href="#">會員檢舉管理</a>
+                                    <a href="custManage/ShowRepCmpManage">會員檢舉管理</a>
                                 </li>
                                 <li>
-                                    <a href="#">會員訊息管理</a>
+                                    <a href="back-end/customer/custPlatMailManage.jsp">會員訊息管理</a>
                                 </li>                 
                             </ul>
                         </li>

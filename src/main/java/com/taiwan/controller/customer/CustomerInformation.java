@@ -28,12 +28,30 @@ public class CustomerInformation extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("customerInformation");
-		Integer custId = Integer.valueOf(request.getParameter("customer"));
-		CustomerServiceImpl customerServiceImpl = new CustomerServiceImpl();
-		CustomerVO customerVO = customerServiceImpl.getAll(custId);
-		request.setAttribute("customer", customerVO);
-		RequestDispatcher successView = request.getRequestDispatcher("/front-end/cust/CustomerInformation.jsp");
+		System.out.println("CustomerInformation");
+		// 取得session中的customerVO
+		HttpSession session = request.getSession();
+		CustomerVO customerVO = (CustomerVO) session.getAttribute("customer");
+		// 把可能是null的欄位處理一下，避免在修改資料的表單input裡直接顯示null
+		String address = "";
+		if (customerVO.getAddress() != null) {
+			address = customerVO.getAddress();
+		}
+		String img = "";
+		if (customerVO.getImg() != null) {
+			img = customerVO.getImg();
+		}
+		String card = "";
+		if (customerVO.getCard() != null) {
+			card = customerVO.getCard();
+		}
+		// 把請求參數接在網址後面，轉送到前端，修改基本資料表單要用
+		String param = "?name=" + customerVO.getName() + "&sex=" + customerVO.getSex() + "&tel=" + customerVO.getTel()
+				+ "&email=" + customerVO.getEmail() + "&address=" + address + "&idCard=" + customerVO.getIdCard()
+				+ "&birth=" + customerVO.getBirth() + "&account=" + customerVO.getAccount() + "&password="
+				+ customerVO.getPassword() + "&imgOrigin=" + img + "&card=" + card + "&custId="
+				+ customerVO.getCustId();
+		RequestDispatcher successView = request.getRequestDispatcher("/front-end/cust/CustomerInformation.jsp" + param);
 		successView.forward(request, response);
 	}
 

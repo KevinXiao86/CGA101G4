@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
@@ -52,6 +53,9 @@ public class SubmitCustomerInformation extends HttpServlet {
 			errorMsgs.put("email", "電子郵件格式有誤");
 		}
 		String address = request.getParameter("address").trim();
+		if ("".equals(address)) {
+			address = null;
+		}
 		String idCard = request.getParameter("idCard").trim().toUpperCase();
 		if (!idCard.matches("^[A-Z]\\d{9}$")) {
 			errorMsgs.put("idCard", "身份證字號格式有誤");
@@ -74,8 +78,7 @@ public class SubmitCustomerInformation extends HttpServlet {
 			errorMsgs.put("password", "此為必填欄位");
 		}
 		if (!errorMsgs.isEmpty()) {
-			RequestDispatcher failureView = request
-					.getRequestDispatcher("/front-end/cust/UpdateCustomerInformation.jsp");
+			RequestDispatcher failureView = request.getRequestDispatcher("/front-end/cust/CustomerInformation.jsp");
 			failureView.forward(request, response);
 			return;
 		}
@@ -113,13 +116,19 @@ public class SubmitCustomerInformation extends HttpServlet {
 		}
 
 		String card = request.getParameter("card").trim();
+		if ("".equals(card)) {
+			card = null;
+		}
 		Integer custId = Integer.valueOf(request.getParameter("custId"));
-
+		// 把要修改的資料送到資料庫修改
 		CustomerServiceImpl customerServiceImpl = new CustomerServiceImpl();
 		CustomerVO customerVO = customerServiceImpl.setUpdate(name, sex, tel, email, address, idCard, birth, account,
 				password, img, card, custId);
-		request.setAttribute("customer", customerVO);
-		RequestDispatcher successView = request.getRequestDispatcher("/front-end/cust/CustomerInformation.jsp");
+		// 取得session，把修改後回傳的customerVO存入session，轉送前端
+		HttpSession session = request.getSession();
+		session.setAttribute("customer", customerVO);
+		RequestDispatcher successView = request
+				.getRequestDispatcher("/front-end/cust/CustomerInformation.jsp?imgOrigin=" + img);
 		successView.forward(request, response);
 	}
 

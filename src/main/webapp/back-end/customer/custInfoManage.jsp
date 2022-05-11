@@ -64,12 +64,11 @@
                        				<th>性別</th>
                        				<th>電話</th>
                        				<th>電子信箱</th>
-                       				<th>身分證字號</th>
-                       				<th>生日</th>
-                       				<th>帳號</th>
-                       				<th>圖片</th>
+                       				<th>身分證字號</th>                       			
+                       				<th>帳號</th>                       				
                        				<th>會員權限</th>
                        				<th>查詢會員資料</th>
+                       				<th>查看優惠券</th>
                        			</tr>
                        		</thead>
                        		<tbody>
@@ -81,12 +80,30 @@
 						   			<td>${(customerVO.sex=='f')?'女':'男'}</td>
 						   			<td>${customerVO.tel}</td>
 						   			<td>${customerVO.email}</td>
-						   			<td>${customerVO.idCard}</td>
-						   			<td>${customerVO.birth}</td>
-						   			<td>${customerVO.account}</td>
-						   			<td><img src="${customerVO.img}"></td>
-						   			<td><form method="post" action="custManage/CustInfoManage"><input type="submit" name="custRight" value="${(customerVO.custRight=='正常')?'停權':'復權'}"><input type="hidden" name="custId" value="${customerVO.custId}"><input type="hidden" name="action" value="setCustRight"></form></td>
-						   			<td><form method="post" action="custManage/CustInfoManage"><input type="submit" value="查詢"><input type="hidden" name="custId" value="${customerVO.custId}"><input type="hidden" name="action" value="showCustomerInformation"></form></td>
+						   			<td>${customerVO.idCard}</td>						   	
+						   			<td>${customerVO.account}</td>						  
+						   			<td>
+						   				<form method="post" action="custManage/CustInfoManage">
+						   					<input type="submit" name="custRight" value="${(customerVO.custRight=='正常')?'停權':'復權'}">
+						   					<input type="hidden" name="custId" value="${customerVO.custId}">
+						   					<input type="hidden" name="action" value="setCustRight">
+						   				</form>
+						   			</td>
+						   			<td>
+						   				<form method="post" action="custManage/CustInfoManage">
+						   					<input type="submit" value="查詢基本資料">
+						   					<input type="hidden" name="custId" value="${customerVO.custId}">
+						   					<input type="hidden" name="action" value="showCustomerInformation">
+						   				</form>
+						   			</td>
+							   		<td>
+							   			<form method="post" action="custManage/CustInfoManage">
+							   				<input type="submit" value="查看優惠券">
+							   				<input type="hidden" name="custId" value="${customerVO.custId}">
+							   				<input type="hidden" name="account" value="${customerVO.account}">
+							   				<input type="hidden" name="action" value="showCustCoupon">
+							   			</form>
+							   		</td>
 						   		<tr>
 						  		</c:forEach>
 					  		</tbody>

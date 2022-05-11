@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.taiwan.beans.CustomerVO;
 import com.taiwan.service.customer.impl.CustomerServiceImpl;
+import com.taiwan.test.news.newsTest;
 
 @WebServlet("/cust/UpdateCustomerInformation")
 public class UpdateCustomerInformation extends HttpServlet {
@@ -26,10 +28,10 @@ public class UpdateCustomerInformation extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		Integer custId = Integer.valueOf(request.getParameter("customer"));
-		CustomerServiceImpl customerServiceImpl = new CustomerServiceImpl();
-		CustomerVO customerVO = customerServiceImpl.getAll(custId);
+		// 從session中取得customerVO
+		HttpSession session = request.getSession();
+		CustomerVO customerVO = (CustomerVO) session.getAttribute("customer");
+		// 把可能是null的欄位處理一下，避免在修改資料的表單input裡直接顯示null
 		String address = "";
 		if (customerVO.getAddress() != null) {
 			address = customerVO.getAddress();
@@ -42,6 +44,7 @@ public class UpdateCustomerInformation extends HttpServlet {
 		if (customerVO.getCard() != null) {
 			card = customerVO.getCard();
 		}
+		// 把請求參數串成字串，接到要轉送的網址後面，再轉送前端
 		String param = "?name=" + customerVO.getName() + "&sex=" + customerVO.getSex() + "&tel=" + customerVO.getTel()
 				+ "&email=" + customerVO.getEmail() + "&address=" + address + "&idCard=" + customerVO.getIdCard()
 				+ "&birth=" + customerVO.getBirth() + "&account=" + customerVO.getAccount() + "&password="
