@@ -77,4 +77,14 @@
     <servlet-name>TicketSelectByScore</servlet-name>
     <url-pattern>/TicketSelectByScore</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CouponUse</display-name>
+    <servlet-name>CouponUse</servlet-name>
+    <servlet-class>com.taiwan.controller.cart.CouponUse</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CouponUse</servlet-name>
+    <url-pattern>/CouponUse</url-pattern>
+  </servlet-mapping>
 </web-app>

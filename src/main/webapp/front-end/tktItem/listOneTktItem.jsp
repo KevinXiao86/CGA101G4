@@ -49,7 +49,7 @@ th, td {
 	<table>
 		<tr>
 			<th>票券訂單編號</th>
-			<th>票券</th>
+			<th>票券編號</th>
 			<th>購買數量</th>
 			<th>評價分數</th>
 			<th>評價內文</th>
@@ -62,28 +62,25 @@ th, td {
 				<td>${tktItem.amount}</td>
 				<td>${tktItem.score}</td>
 				<td>${tktItem.content}</td>
-				<td><input type="submit" value="立即給予評分" onclick="show()">
-				</td>
+				<c:if test="${tktItem.score == 0}">
+				<td><input type="submit" value="立即給予評分" onclick="show()"></td>
+				</c:if>
 			</tr>
+		
 			<div id="showdiv" style="display: none">
-		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/tktItem/content" style="margin-bottom: 0px;">
-			評分:<div>${errorMsgs.score}</div>
-			<input type="text" name="score" required>${param.score}<br>
-<!-- 			<input type="radio" name="rating" value="1" class="star"> -->
-<!--             <input type="radio" name="rating" value="2" class="star"> -->
-<!--             <input type="radio" name="rating" value="3" class="star"> -->
-<!--             <input type="radio" name="rating" value="4" class="star"> -->
-<!--             <input type="radio" name="rating" value="5" class="star"> -->
-            
-			評價內容:<div>${errorMsgs.content}</div>
-			<textarea name="content" placeholder="請輸入500字以內" required>${param.content}</textarea>
-			
-			<input type="hidden" name="tktOrderId" value="${tktItem.tktOrderId}">
-			<input type="hidden" name="tktId" value="${tktItem.tktId}">
-			<input type="hidden" name="action" value="insert">
-			<input type="submit" value="送出新增">
-		</FORM>
-	</div>
+				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/tktItem/content" style="margin-bottom: 0px;">
+					評分:<div>${errorMsgs.score}</div>
+					<input type="number" value="1" min="1" max="5" name="score" required>${param.score}<br>
+		            
+					評價內容:<div>${errorMsgs.content}</div>
+					<textarea name="content" placeholder="請輸入500字以內" required>${param.content}</textarea>
+					
+					<input type="hidden" name="tktOrderId" value="${tktItem.tktOrderId}">
+					<input type="hidden" name="tktId" value="${tktItem.tktId}">
+					<input type="hidden" name="action" value="insert">
+					<input type="submit" value="送出新增">
+				</FORM>
+			</div>
 		</c:forEach>
 	</table>
 	

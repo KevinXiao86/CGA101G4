@@ -12,230 +12,252 @@
 
 <title>台玩</title>
 <link rel="icon" href="<%=request.getContextPath()%>/static/img/core-img/favicon.ico">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/front-main/style.css">
 <link href="<%=request.getContextPath()%>/static/css/front-main/bootstrap.min.css">
 <link href="<%=request.getContextPath()%>/static/css/front-main/bootstrap.min2.css">
 <script src="https://kit.fontawesome.com/c95ced1229.js" crossorigin="anonymous"></script>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
+.classynav ul li a {
+    padding: 0 12px;
+    display: block;
+    height: 35px;
+    font-size: 14px;
+    line-height: 34px;
 }
-body {
-	font-family: "helveticaneuemedium";
-	background-color: #ffffff;
+.classynav ul li {
+    display: inline-block;
+    clear: both;
+    position: inherit;
+    z-index: 10;
 }
+/* * { */
+/*   margin: 0; */
+/*   padding: 0; */
+/* } */
+/* body { */
+/* 	font-family: "helveticaneuemedium"; */
+/* 	background-color: #ffffff; */
+/* } */
 
-#preloader {
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	-ms-grid-row-align: center;
-	align-items: center;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	background-color: #0d0d0d;
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	z-index: 1000000;
-}
+/* #preloader { */
+/* 	display: -webkit-box; */
+/* 	display: -ms-flexbox; */
+/* 	display: flex; */
+/* 	-webkit-box-align: center; */
+/* 	-ms-flex-align: center; */
+/* 	-ms-grid-row-align: center; */
+/* 	align-items: center; */
+/* 	-webkit-box-pack: center; */
+/* 	-ms-flex-pack: center; */
+/* 	justify-content: center; */
+/* 	background-color: #0d0d0d; */
+/* 	position: fixed; */
+/* 	width: 100%; */
+/* 	height: 100%; */
+/* 	z-index: 1000000; */
+/* } */
 
-#original-load {
-	width: 70px;
-	height: 70px;
-	border-radius: 50%;
-	border: 3px;
-	border-style: solid;
-	border-color: transparent;
-	border-top-color: #f1f1f1;
-	-webkit-animation: original 2400ms linear infinite;
-	animation: original 2400ms linear infinite;
-	z-index: 999;
-}
+/* #original-load { */
+/* 	width: 70px; */
+/* 	height: 70px; */
+/* 	border-radius: 50%; */
+/* 	border: 3px; */
+/* 	border-style: solid; */
+/* 	border-color: transparent; */
+/* 	border-top-color: #f1f1f1; */
+/* 	-webkit-animation: original 2400ms linear infinite; */
+/* 	animation: original 2400ms linear infinite; */
+/* 	z-index: 999; */
+/* } */
 
-#original-load:before {
-	content: "";
-	position: absolute;
-	top: 7.5px;
-	left: 7.5px;
-	right: 7.5px;
-	bottom: 7.5px;
-	border-radius: 50%;
-	border: 3px;
-	border-style: solid;
-	border-color: transparent;
-	border-top-color: #f1f1f1;
-	-webkit-animation: original 2700ms linear infinite;
-	animation: original 2700ms linear infinite;
-}
+/* #original-load:before { */
+/* 	content: ""; */
+/* 	position: absolute; */
+/* 	top: 7.5px; */
+/* 	left: 7.5px; */
+/* 	right: 7.5px; */
+/* 	bottom: 7.5px; */
+/* 	border-radius: 50%; */
+/* 	border: 3px; */
+/* 	border-style: solid; */
+/* 	border-color: transparent; */
+/* 	border-top-color: #f1f1f1; */
+/* 	-webkit-animation: original 2700ms linear infinite; */
+/* 	animation: original 2700ms linear infinite; */
+/* } */
 
-#original-load:after {
-	content: "";
-	position: absolute;
-	top: 20px;
-	left: 20px;
-	right: 20px;
-	bottom: 20px;
-	border-radius: 50%;
-	border: 3px;
-	border-style: solid;
-	border-color: transparent;
-	border-top-color: #f1f1f1;
-	-webkit-animation: original 1800ms linear infinite;
-	animation: original 1800ms linear infinite;
-}
+/* #original-load:after { */
+/* 	content: ""; */
+/* 	position: absolute; */
+/* 	top: 20px; */
+/* 	left: 20px; */
+/* 	right: 20px; */
+/* 	bottom: 20px; */
+/* 	border-radius: 50%; */
+/* 	border: 3px; */
+/* 	border-style: solid; */
+/* 	border-color: transparent; */
+/* 	border-top-color: #f1f1f1; */
+/* 	-webkit-animation: original 1800ms linear infinite; */
+/* 	animation: original 1800ms linear infinite; */
+/* } */
 
-@
--webkit-keyframes original { 0% {
-	-webkit-transform: rotate(0deg);
-	transform: rotate(0deg);
-}
+/* @ */
+/* -webkit-keyframes original { 0% { */
+/* 	-webkit-transform: rotate(0deg); */
+/* 	transform: rotate(0deg); */
+/* } */
 
-100
-%
-{
--webkit-transform
-:
-rotate(
-360deg
-);
-transform
-:
-rotate(
-360deg
-);
-}
-}
-@
-keyframes original { 0% {
-	-webkit-transform: rotate(0deg);
-	transform: rotate(0deg);
-}
+/* 100 */
+/* % */
+/* { */
+/* -webkit-transform */
+/* : */
+/* rotate( */
+/* 360deg */
+/* ); */
+/* transform */
+/* : */
+/* rotate( */
+/* 360deg */
+/* ); */
+/* } */
+/* } */
+/* @ */
+/* keyframes original { 0% { */
+/* 	-webkit-transform: rotate(0deg); */
+/* 	transform: rotate(0deg); */
+/* } */
 
-100
-%
-{
--webkit-transform
-:
-rotate(
-360deg
-);
-transform
-:
-rotate(
-360deg
-);
-}
-}
-.header-area {
-	position: relative;
-	width: 100%;
-	z-index: 100;
-	-webkit-transition-duration: 500ms;
-	transition-duration: 500ms;
-}
+/* 100 */
+/* % */
+/* { */
+/* -webkit-transform */
+/* : */
+/* rotate( */
+/* 360deg */
+/* ); */
+/* transform */
+/* : */
+/* rotate( */
+/* 360deg */
+/* ); */
+/* } */
+/* } */
+/* #clas{ */
+/* 	display:contents; */
+/* } */
+/* #clas ul{ */
+/* 	margin-bottom:0px; */
+/* 	margin-left:33%; */
+/*     font-weight: bold; */
+/* } */
+/* .header-area { */
+/* 	position: relative; */
+/* 	width: 100%; */
+/* 	z-index: 100; */
+/* 	-webkit-transition-duration: 500ms; */
+/* 	transition-duration: 500ms; */
+/* } */
 
-.header-area .top-header {
-	height: 65px;
-}
+/* .header-area .top-header { */
+/* 	height: 65px; */
+/* } */
 
-@media only screen and (max-width: 767px) {
-	.header-area .top-header {
-		height: 90px;
-	}
-}
+/* @media only screen and (max-width: 767px) { */
+/* 	.header-area .top-header { */
+/* 		height: 90px; */
+/* 	} */
+/* } */
 
-@media only screen and (min-width: 576px) and (max-width: 767px) {
-	.header-area .top-header {
-		height: 70px;
-	}
-}
+/* @media only screen and (min-width: 576px) and (max-width: 767px) { */
+/* 	.header-area .top-header { */
+/* 		height: 70px; */
+/* 	} */
+/* } */
 
-.header-area .top-header .top-social-area {
-	text-align: right;
-}
+/* .header-area .top-header .top-social-area { */
+/* 	text-align: right; */
+/* } */
 
-@media only screen and (max-width: 767px) {
-	.header-area .top-header .top-social-area {
-		text-align: left;
-	}
-}
+/* @media only screen and (max-width: 767px) { */
+/* 	.header-area .top-header .top-social-area { */
+/* 		text-align: left; */
+/* 	} */
+/* } */
 
-.header-area .top-header .top-social-area a {
-	display: inline-block;
-	padding: 5px 15px;
-	color: #000000;
-	font-size: 13px;
-}
+/* .header-area .top-header .top-social-area a { */
+/* 	display: inline-block; */
+/* 	padding: 5px 15px; */
+/* 	color: #000000; */
+/* 	font-size: 13px; */
+/* } */
 
-.header-area .top-header .top-social-area ul {
-	display: inline-block;
-}
+/* .header-area .top-header .top-social-area ul { */
+/* 	display: inline-block; */
+/* } */
 
-.header-area .top-header .top-social-area li {
-	display: inline-block;
-}
+/* .header-area .top-header .top-social-area li { */
+/* 	display: inline-block; */
+/* } */
 
-.header-area .top-header .top-social-area a:hover, .header-area .top-header .top-social-area a:focus
-	{
-	color: #444788;
-}
+/* .header-area .top-header .top-social-area a:hover, .header-area .top-header .top-social-area a:focus */
+/* 	{ */
+/* 	color: #444788; */
+/* } */
 
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-	.header-area .top-header .top-social-area a {
-		padding: 5px 7px;
-	}
-}
+/* @media only screen and (min-width: 768px) and (max-width: 991px) { */
+/* 	.header-area .top-header .top-social-area a { */
+/* 		padding: 5px 7px; */
+/* 	} */
+/* } */
 
-@media only screen and (max-width: 767px) {
-	.header-area .top-header .top-social-area a {
-		padding: 5px 7px;
-	}
-}
+/* @media only screen and (max-width: 767px) { */
+/* 	.header-area .top-header .top-social-area a { */
+/* 		padding: 5px 7px; */
+/* 	} */
+/* } */
 
-@media only screen and (min-width: 576px) and (max-width: 767px) {
-	.header-area .top-header .top-social-area a {
-		padding: 5px 4px;
-	}
-}
+/* @media only screen and (min-width: 576px) and (max-width: 767px) { */
+/* 	.header-area .top-header .top-social-area a { */
+/* 		padding: 5px 4px; */
+/* 	} */
+/* } */
 
-.header-area .logo-area {
-	height: 170px;
-	border-top: 1px solid #e1e1e1;
-	border-bottom: 1px solid #e1e1e1;
-}
+/* .header-area .logo-area { */
+/* 	height: 170px; */
+/* 	border-top: 1px solid #e1e1e1; */
+/* 	border-bottom: 1px solid #e1e1e1; */
+/* } */
 
-@media only screen and (max-width: 767px) {
-	.header-area .logo-area {
-		height: 100px;
-	}
-}
+/* @media only screen and (max-width: 767px) { */
+/* 	.header-area .logo-area { */
+/* 		height: 100px; */
+/* 	} */
+/* } */
 
-#headerFixed {
-	background-color: #ffffff;
-	margin-top: 0;
-	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-	position: fixed;
-	width: 100%;
-	height: 70px;
-	top: 0;
-	left: 0;
-	right: 0;
-	z-index: 900;
-}
-ul,
-ol {
-  margin: 0;
-}
+/* #headerFixed { */
+/* 	background-color: #ffffff; */
+/* 	margin-top: 0; */
+/* 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); */
+/* 	position: fixed; */
+/* 	width: 100%; */
+/* 	height: 70px; */
+/* 	top: 0; */
+/* 	left: 0; */
+/* 	right: 0; */
+/* 	z-index: 900; */
+/* } */
+/* ul, */
+/* ol { */
+/*   margin: 0; */
+/* } */
 
-ul li,
-ol li {
-  list-style: none;
-}
+/* ul li, */
+/* ol li { */
+/*   list-style: none; */
+/* } */
 
 </style>
 <body>
@@ -254,16 +276,29 @@ ol li {
 		<div class="top-header" id="headerFixed">
 			<div class="container h-100">
 				<div class="row h-100 align-items-center">
-					<a href="<%=request.getContextPath()%>/front-end/homepage/index.jsp">
-						<img src="<%=request.getContextPath()%>/static/img/ticket-img/logo.jpg"
-							alt="" id="bear" style="height: 65px;">
-					</a>
+					<a href="<%=request.getContextPath() %>/front-end/homepage/index.jsp"></a><img src="<%=request.getContextPath()%>/static/img/ticket-img/logo.jpg"
+						id="bear" style="height: 65px;"></a>
 
 					<!-- Top Social Area -->
+					<!-- Nav Start -->
+					<div class="classynav" id="clas">
+						<ul style="display: flex;">
+							<li><a href="<%=request.getContextPath() %>/front-end/????">票券</a></li>
+							<li><a href="<%=request.getContextPath() %>/front-end/????">住宿</a></li>
+						</ul>
 
-					<div class="col-sm-2" style="position: absolute; right: 90px">
+						<!-- Search Form  -->
+<!-- 						<div id="search-wrapper"> -->
+<!-- 							<form action="#"> -->
+<!-- 								<input type="text" id="search" placeholder="Search something..."> -->
+<!-- 								<div id="close-icon"></div> -->
+<!-- 								<input class="d-none" type="submit" value=""> -->
+<!-- 							</form> -->
+<!-- 						</div> -->
+					</div>
+					<div class="col-sm-2" style="position:absolute;right:90px" >
 						<div class="top-social-area">
-							<a href="#" data-toggle="tooltip" data-placement="bottom"
+							<a href="<%=request.getContextPath()%>/front-end/cart/cartList.jsp" data-toggle="tooltip" data-placement="bottom"
 								title="購物車"> <i class="fa-solid fa-cart-shopping"
 								aria-hidden="true"></i></a> <a href="#" data-toggle="tooltip"
 								data-placement="bottom" title="登入"> <i

@@ -328,3 +328,7 @@ input {
   font-weight: 900;
   color: #202020;
 }
+#sendOrder:hover{
+	background-color:#c06b81;
+	
+}

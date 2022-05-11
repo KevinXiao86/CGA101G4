@@ -44,12 +44,7 @@ public class TktItemAddContent extends HttpServlet {
 				errorMsgs.put("content","內容請勿空白");
 			}
 			
-			Integer score = null;
-			try {
-				score = Integer.valueOf(req.getParameter("score"));
-			} catch (NumberFormatException e) {
-				errorMsgs.put("score","評分請填數字");
-			}
+			Integer score = Integer.valueOf(req.getParameter("score"));
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {

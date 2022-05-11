@@ -85,4 +85,9 @@ public class TktOrderService {
 	public TktOrder getTktOrderByTktOrderId(Integer tktOrderId) {
 		return dao.queryTktOrderByTktOrderId(tktOrderId);
 	}
+	
+	//更新qrcode
+	public void updateQrcode(String qrcode, Integer tktOrderId) {
+		dao.updateQrcode(qrcode, tktOrderId);
+	}
 }

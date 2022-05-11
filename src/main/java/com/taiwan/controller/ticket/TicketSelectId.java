@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.taiwan.beans.CouponVO;
+import com.taiwan.beans.CustCoupon;
 import com.taiwan.beans.CustomerVO;
 import com.taiwan.beans.TicketVO;
 import com.taiwan.beans.TktImgVO;
@@ -22,6 +24,9 @@ import com.taiwan.service.TicketService;
 import com.taiwan.service.TktImgService;
 import com.taiwan.service.TktItemService;
 import com.taiwan.service.TktOrderService;
+import com.taiwan.service.coupon.CouponService;
+import com.taiwan.service.coupon.impl.CouponServiceImpl;
+import com.taiwan.service.customer.CustCouponService;
 import com.taiwan.service.customer.CustomerService;
 import com.taiwan.service.customer.impl.CustomerServiceImpl;
 import com.taiwan.service.impl.TicketServiceImpl;
@@ -136,14 +141,16 @@ public class TicketSelectId extends HttpServlet {
 			TktImgService imgSvc = new TktImgService();
 			//商品圖
 			List<TktImgVO> imgList = imgSvc.getByTktId(tktId);
+			
+			//不能這樣寫，如果尚未新增圖片會跳出IndexOutOfBound Exception~
 			//首圖
-			TktImgVO tktImgVO = imgList.get(0);
-
+//			TktImgVO tktImgVO = imgList.get(0);
+			
+			
 			/********************** 3.查詢完成，設定參數，送出成功頁面 **********************/
 			req.setAttribute("tktVO", tktVO);
 			req.setAttribute("tktItemList", tktItemList);
 			req.setAttribute("imgList", imgList);
-			req.setAttribute("tktImgVO", tktImgVO);
 			req.setAttribute("tktOrderList", tktOrderList);
 			req.setAttribute("customerList", customerList);
 			RequestDispatcher success = req.getRequestDispatcher("/front-end/ticket11/ticketpost.jsp");

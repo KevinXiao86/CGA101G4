@@ -37,36 +37,8 @@
 	List<Integer> amountList = (List<Integer>) session.getAttribute("amountList");
 	%>
 
-	<!-- Preloader -->
-	<div id="preloader">
-		<div class="preload-content">
-			<div id="original-load"></div>
-		</div>
-	</div>
-
-	<!-- ##### Header Area Start ##### -->
-	<header class="header-area">
-
-		<!-- Top Header Area -->
-		<div class="top-header" id="headerFixed">
-			<div class="container h-100">
-				<div class="row h-100 align-items-center">
-					<img
-						src="<%=request.getContextPath()%>/static/img/ticket-img/logo.jpg"
-						alt="" id="bear" style="height: 65px;">
-					<div class="col-12 col-sm-5" style="margin-left: 480px">
-						<div class="top-social-area">
-							<a href="#" data-toggle="tooltip" data-placement="bottom"
-								title="購物車"> <i class="fa-solid fa-cart-shopping"
-								aria-hidden="true"></i></a> <a href="#" data-toggle="tooltip"
-								data-placement="bottom" title="登入"> <i
-								class="fa-regular fa-user" aria-hidden="true"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>
+	<!-- Header -->
+	<jsp:include page="/front-end/homepage/header.jsp"></jsp:include>
 
 	<!-- 頁面 -->
 	<form action="#" class="form">
@@ -91,11 +63,7 @@
 						<span>Credit Card</span>
 						<ion-icon class="checkmark fill" name="checkmark-circle"></ion-icon>
 					</button>
-					<button class="method">
-						<ion-icon name="logo-paypal"></ion-icon>
-						<span>PayPal</span>
-						<ion-icon class="checkmark" name="checkmark-circle-outline"></ion-icon>
-					</button>
+					
 				</div>
 				<div class="post-a-comment-area mt-70">
 					<form action="<%=request.getContextPath()%>/tktOrder/creator" method="post" novalidate>
@@ -124,26 +92,35 @@
 								<div class="group"
 									style="display: inline-flex; position: relative;">
 									<input type="text" name="card" class="card" maxlength="4"
-										style="width: 150px; text-align: center;"> － <input
+										style="width: 138px; text-align: center;"> － <input
 										type="text" name="card" class="card" maxlength="4"
-										style="width: 150px; text-align: center;"> － <input
+										style="width: 138px; text-align: center;"> － <input
 										type="text" name="card" class="card" maxlength="4"
-										style="width: 150px; text-align: center;"> － <input
+										style="width: 138px; text-align: center;"> － <input
 										type="text" name="card" class="card" maxlength="4"
-										style="width: 150px; text-align: center;"> <span
+										style="width: 138px; text-align: center;"> <span
 										class="highlight"></span> <span class="bar"></span> <label>信用卡卡號</label>${errorMsgs.card}
 								</div>
 							</div>
 							<div class="col-12 col-md-6">
 								<div class="group">
-									<input type="text" name="cvv" id="cvv"> <span
+									<input type="text" name="expire" placeholder="MM / YYYY" class="expire"> <span
+										class="highlight"></span> <span class="bar"></span> <label>到期日</label>${errorMsgs.cvv}
+								</div>
+							</div>
+							<div class="col-12 col-md-6">
+								<div class="group">
+									<input type="text" name="cvv" placeholder="CVC" maxlength="3" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> <span
 										class="highlight"></span> <span class="bar"></span> <label>安全碼</label>${errorMsgs.cvv}
 								</div>
 							</div>
 							<div class="col-12">
-								<button type="submit" class="btn original-btn">送出訂單</button>
+								<button type="submit" class="btn original-btn" id="sendOrder" style="color: white; line-height: inherit; margin-left:365px;background-color:black;"><b>送出訂單</b></button>
 						        <input type="hidden" name="action" value="insert_order">
-								<input type="hidden" name="custId" value="">
+								<input type="hidden" name="orderName" value="${name}">
+								<input type="hidden" name="orderMobile" value="${tel}">
+								<input type="hidden" name="orderEmail" value="${email}">
+								<input type="hidden" name="orderEmail" value="${email}">
 							</div>
 						</div>
 					</form>
@@ -245,9 +222,9 @@
                 // })
                 let timerInterval;
                 Swal.fire({
-                  title: "Auto close alert!",
-                  html: "I will close in <b></b> milliseconds.",
-                  timer: 2000,
+                  title: "資料驗證中 థ౪థ",
+                  html: "請勿關閉視窗",
+                  timer: 5000,
                   timerProgressBar: true,
                   didOpen: () => {
                     Swal.showLoading();
@@ -263,7 +240,7 @@
                       icon: "success",
                       title: "訂單成立",
                       showConfirmButton: false,
-                      timer: 1500
+                      timer: 2000
                     });
                   }
                 }).then((result) => {
@@ -276,54 +253,6 @@
             });
         });
 
-
-        const prevBtns = document.querySelectorAll(".btn-prev");
-        const nextBtns = document.querySelectorAll(".btn-next");
-        const progress = document.getElementById("progress");
-        const formSteps = document.querySelectorAll(".form-step");
-        const progressSteps = document.querySelectorAll(".progress-step");
-
-        let formStepsNum = 0;
-
-        nextBtns.forEach((btn) => {
-            btn.addEventListener("click", () => {
-                formStepsNum++;
-                updateFormSteps();
-                updateProgressbar();
-            });
-        });
-
-        prevBtns.forEach((btn) => {
-            btn.addEventListener("click", () => {
-                formStepsNum--;
-                updateFormSteps();
-                updateProgressbar();
-            });
-        });
-
-        function updateFormSteps() {
-            formSteps.forEach((formStep) => {
-                formStep.classList.contains("form-step-active") &&
-                    formStep.classList.remove("form-step-active");
-            });
-
-            formSteps[formStepsNum].classList.add("form-step-active");
-        }
-
-        function updateProgressbar() {
-            progressSteps.forEach((progressStep, idx) => {
-                if (idx < formStepsNum + 1) {
-                    progressStep.classList.add("progress-step-active");
-                } else {
-                    progressStep.classList.remove("progress-step-active");
-                }
-            });
-
-            const progressActive = document.querySelectorAll(".progress-step-active");
-
-            progress.style.width =
-                ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
-        }
 
         // 信用卡
         $("input.card").on("keydown", function (e) {
@@ -348,6 +277,25 @@
             }
 
         });
+        
+      //信用卡到期日
+        $(".expire").keypress(function(event){
+          if(event.charCode >= 48 && event.charCode <= 57){
+            if($(this).val().length === 1){
+                $(this).val($(this).val() + event.key + " / ");
+            }else if($(this).val().length === 0){
+              if(event.key == 1 || event.key == 0){
+                month = event.key;
+                return event.charCode;
+              }else{
+                $(this).val(0 + event.key + " / ");
+              }
+            }else if($(this).val().length > 2 && $(this).val().length < 9){
+              return event.charCode;
+            }
+          }
+          return false;
+      });
     </script>
 
 </body>

@@ -27,7 +27,7 @@ import javax.mail.internet.AddressException;
 
 public class MailQrCode11 {
 	
-	public void SendMail(String customer, String subject, String msgtxt) {
+	public void SendMail(String customer, String subject, String msgtxt, String qrcodePath) {
 		//連線設定
 		Properties prop = new Properties();
 		//設定連線方式為smtp
@@ -72,8 +72,10 @@ public class MailQrCode11 {
 			Multipart multipart = new MimeMultipart();
 			multipart.addBodyPart(messageBody);
 
+			
+			
 //          second part (the image) 可根據自己需要決定是否要加這段
-			File file = new File("picture/20211214151834.jpg");
+			File file = new File(qrcodePath);
 			MimeBodyPart messageImgBody = new MimeBodyPart();
 			DataSource fds = new FileDataSource(file);
 

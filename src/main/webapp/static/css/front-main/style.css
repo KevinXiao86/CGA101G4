@@ -558,7 +558,8 @@ img {
 }
 #clas ul{
 	margin-bottom:0px;
-	margin-left:23%;
+	margin-left:33%;
+    font-weight: bold;
 }
 .header-area {
   position: relative;

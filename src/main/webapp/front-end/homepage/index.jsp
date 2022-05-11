@@ -103,7 +103,7 @@
 <!-- 							</form> -->
 <!-- 						</div> -->
 					</div>
-					<div class="col-sm-2" style="position:absolute;right:90px" >
+					<div class="col-sm-2" style="position:absolute;right:73px" >
 						<div class="top-social-area">
 							<a href="#" data-toggle="tooltip" data-placement="bottom"
 								title="購物車"> <i class="fa-solid fa-cart-shopping"

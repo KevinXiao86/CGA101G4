@@ -64,6 +64,7 @@
 	<tr>
 		<td>${tktOrder.tktOrderId}</td>
 		<td>${tktOrder.custId}</td>
+		<td>${tktOrder.custId}</td>
 		<td>${customerVO.name}</td>
 		<td>${tktOrder.originalPrice}</td>
 		<td><fmt:formatDate value="${tktOrder.orderdate}" pattern="yyyy-MM-dd HH:mm"/></td>

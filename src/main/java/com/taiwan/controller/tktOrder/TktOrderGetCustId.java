@@ -12,10 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.taiwan.beans.CustomerVO;
 import com.taiwan.beans.TicketVO;
 import com.taiwan.beans.TktOrder;
 import com.taiwan.service.TicketService;
 import com.taiwan.service.TktOrderService;
+import com.taiwan.service.customer.CustomerService;
+import com.taiwan.service.customer.impl.CustomerServiceImpl;
 import com.taiwan.service.impl.TicketServiceImpl;
 import com.taiwan.utils.ControllerUtil;
 

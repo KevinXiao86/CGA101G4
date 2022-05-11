@@ -378,6 +378,22 @@ public class TktOrderJDBCDao implements TktOrderDao {
 		} 
 		return tktOrder;
 	}
+	
+	@Override
+	public int updateQrcode(String qrcode, Integer tktOrderId) {
+		int count=0;
+		String sql = "UPDATE TKT_ORDER set qrcode = ? WHERE TKT_ORDER_ID = ?;";
+		try (Connection conn = DbUtil.getConnection(); 
+				PreparedStatement prep = conn.prepareStatement(sql)) {
+			prep.setString(1, qrcode);
+			prep.setInt(2,tktOrderId);
+			count=prep.executeUpdate();
+			System.out.println("success "+count);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
 //	//未完成
 //	@Override
 //	public List<TktOrder> queryXX(Integer tktOrderId, Integer custId, Timestamp orderDate) {
@@ -403,28 +419,33 @@ public class TktOrderJDBCDao implements TktOrderDao {
 		
 		TktOrderJDBCDao dao = new TktOrderJDBCDao();
 		
-		TktOrder tktOrder = new TktOrder();
-		tktOrder.setCustId(10027);
-		tktOrder.setOriginalPrice(1598);
-		tktOrder.setTtlPrice(1498);
-		tktOrder.setCustCopId(4);
-		tktOrder.setQrcode("wrewerewrewr");
-		tktOrder.setOrderName("Alex");
-		tktOrder.setOrderEmail("wre826@gmail.com");
-		tktOrder.setOrderMobile("0928945311");
+//		TktOrder tktOrder = new TktOrder();
+//		tktOrder.setCustId(10027);
+//		tktOrder.setOriginalPrice(1598);
+//		tktOrder.setTtlPrice(1498);
+//		tktOrder.setCustCopId(4);
+//		tktOrder.setQrcode("wrewerewrewr");
+//		tktOrder.setOrderName("Alex");
+//		tktOrder.setOrderEmail("wre826@gmail.com");
+//		tktOrder.setOrderMobile("0928945311");
+//		
+//		List<TktItem> list = new ArrayList<TktItem>();
+//		TktItem tktItem1 = new TktItem();
+//		tktItem1.setTktId(11);
+//		tktItem1.setAmount(1);
+//		
+//		TktItem tktItem2 = new TktItem();
+//		tktItem2.setTktId(12);
+//		tktItem2.setAmount(1);
+//		
+//		list.add(tktItem1);
+//		list.add(tktItem2);
+//		
+//		dao.insertTktOrderWithCoupon(tktOrder, list);
 		
-		List<TktItem> list = new ArrayList<TktItem>();
-		TktItem tktItem1 = new TktItem();
-		tktItem1.setTktId(11);
-		tktItem1.setAmount(1);
-		
-		TktItem tktItem2 = new TktItem();
-		tktItem2.setTktId(12);
-		tktItem2.setAmount(1);
-		
-		list.add(tktItem1);
-		list.add(tktItem2);
-		
-		dao.insertTktOrderWithCoupon(tktOrder, list);
+//		TktOrder tktOrder = new TktOrder();
+//		dao.updateQrcode("12345", 15);
 	}
+
+	
 }

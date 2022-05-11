@@ -17,15 +17,17 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.taiwan.beans.TktOrder;
+import com.taiwan.service.TktOrderService;
 
 public class Qrcode_11 {
 	
 	// 掛上兩個jar檔
 	// 1. zxing-core
 	// 2. zxing-javase
-	
-	public static void main(String[] args) throws IOException, WriterException {
-		String text = "https://www.google.com";
+
+	public void createQrcode(Integer tktOrderId, String filImgPath, String fileName) throws IOException, WriterException {
+		String text =  "http://localhost:8081/CGA101G4/front-end/homepage/index.jsp";
 		int width = 300;
 		int height = 300;
 		String format = "jpg";
@@ -33,10 +35,11 @@ public class Qrcode_11 {
 		Hashtable<EncodeHintType, Object> hints = new Hashtable<>();
 		hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
 		hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
-		// 設置QRCode的存放目錄、檔名與圖片格式
-		String filePath = "C:\\qrcode";
-		String fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date()) + ".jpg";
-		Path path = FileSystems.getDefault().getPath(filePath, fileName);
+		
+//		// 設置QRCode的存放目錄、檔名與圖片格式		
+//		String filePath = filImgPath;  //阿飄路徑
+//		String fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date()) + ".jpg";
+		Path path = FileSystems.getDefault().getPath(filImgPath, fileName);
 		// 開始產生QRCode
 		BitMatrix matrix = new MultiFormatWriter().encode(text, BarcodeFormat.QR_CODE, width, height, hints);
 		// 把產生的QRCode存到指定的目錄
@@ -46,8 +49,11 @@ public class Qrcode_11 {
 		File file = new File(path.toString());
 		InputStream input = new FileInputStream(file);
 		String result = new Qrcode_11().convert2Byte(input);
-//		System.out.println("result=" + result);
-//		file.delete();
+		
+		//更改qrcode路徑至資料庫
+		text = "images/qrcode/"+fileName;
+		TktOrderService tktOrderService = new TktOrderService();
+		tktOrderService.updateQrcode(text, tktOrderId);
 	}
 
 	private String convert2Byte(InputStream input) throws IOException {

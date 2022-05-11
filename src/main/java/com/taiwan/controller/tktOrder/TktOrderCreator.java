@@ -1,7 +1,9 @@
 package com.taiwan.controller.tktOrder;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -29,6 +31,8 @@ import com.taiwan.service.CartService;
 import com.taiwan.service.TktOrderService;
 import com.taiwan.service.customer.CustomerService;
 import com.taiwan.service.customer.impl.CustomerServiceImpl;
+import com.taiwan.utils.MailQrCode11;
+import com.taiwan.utils.Qrcode_11;
 
 @WebServlet("/tktOrder/creator")
 public class TktOrderCreator extends HttpServlet {
@@ -153,13 +157,30 @@ public class TktOrderCreator extends HttpServlet {
 				req.setAttribute("newOrderId", newOrderId);
 				req.setAttribute("tktOrder", tktOrder);
 				req.setAttribute("orders", orders);
+				req.setAttribute("total", total);
 				
-				//寄發mail
+				/*********************** 寄發mail ************************/ 
 				
+				// 設置QRCode的存放目錄、檔名與圖片格式
+				String saveDirectory = "/images/qrcode/";
+				// 找到阿飄路徑
+				String realPath = getServletContext().getRealPath(saveDirectory);
+				// 再如果阿飄路徑下沒有這個資料夾就創造，有就不用
+				File fsaveDirectory = new File(realPath);
+				if (!fsaveDirectory.exists()) {
+					fsaveDirectory.mkdirs();
+				}
+				String fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date()) + ".jpg";
 				
+				Qrcode_11 quQrcode = new Qrcode_11();
+				quQrcode.createQrcode(Integer.valueOf(newOrderId),realPath,fileName);
 				
-				
-				
+				MailQrCode11 mail = new MailQrCode11();
+				String subject = "台玩 | 謝謝您，您所購買的票券訂單已成立拉！！！！！";
+				String msgtxt = orderName + "您好: " + "\n" + "訂單編號" + newOrderId  + "已成立。請注意： 使用票券請出示Qr code方便店家進行掃描，台玩祝您旅途愉快~~";
+				String qrcodePath = realPath + fileName;
+				mail.SendMail(orderEmail, subject, msgtxt, qrcodePath);
+				System.out.println("already send ticket order mail");
 				
 				RequestDispatcher success = req.getRequestDispatcher("/front-end/cart/confirmOrder.jsp");
 				success.forward(req, res);

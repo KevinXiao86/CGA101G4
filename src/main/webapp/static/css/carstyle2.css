@@ -361,7 +361,6 @@ table {
 
 .amount {
   padding: 40px 60px;
-  width: 40%;
 }
 
 .amount>div {
@@ -471,4 +470,22 @@ table {
 #nextStep{
 	width:30%;
 	margin-right:200px;
+}
+.order-button-payment input {
+    background: #232323 none repeat scroll 0 0;
+    border: medium none;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    height: 50px;
+    margin: 20px 0 0;
+    padding: 0;
+    text-transform: uppercase;
+    transition: all 0.3s ease 0s;
+    width: 40%;
+    
+}
+
+.order-button-payment input:hover {
+    background: #c06b81
 }

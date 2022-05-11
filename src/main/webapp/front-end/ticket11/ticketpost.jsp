@@ -1,3 +1,4 @@
+<%@page import="com.taiwan.beans.CouponVO"%>
 <%@page import="java.util.List"%>
 <%@page import="com.taiwan.beans.TktItem"%>
 <%@page import="com.taiwan.beans.CustomerVO"%>
@@ -5,6 +6,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 
@@ -36,38 +38,9 @@
 </head>
 
 <body>
-	<!-- Preloader -->
-	<div id="preloader">
-		<div class="preload-content">
-			<div id="original-load"></div>
-		</div>
-	</div>
-
-	<!-- ##### Header Area Start ##### -->
-	<header class="header-area">
-
-		<!-- Top Header Area -->
-		<div class="top-header" id="headerFixed">
-			<div class="container h-100">
-				<div class="row h-100 align-items-center">
-					<img
-						src="<%=request.getContextPath()%>/static/img/ticket-img/logo.jpg"
-						alt="" id="bear" style="height: 65px;">
-					<!-- Top Social Area -->
-					<div class="col-12 col-sm-5" style="margin-left: 490px">
-						<div class="top-social-area">
-							<a href="#" data-toggle="tooltip" data-placement="bottom"
-								title="購物車"> <i class="fa-solid fa-cart-shopping"
-								aria-hidden="true"></i></a> <a href="#" data-toggle="tooltip"
-								data-placement="bottom" title="登入"> <i
-								class="fa-regular fa-user" aria-hidden="true"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>
-	<!-- ##### Header Area End ##### -->
+	
+	<!-- Header -->
+	<jsp:include page="/front-end/homepage/header.jsp"></jsp:include>
 
 	<!-- ##### Single Blog Area Start ##### -->
 	<div class="single-blog-wrapper section-padding-0-100">
@@ -75,8 +48,9 @@
 		<!-- Single Blog Area  -->
 		<div class="single-blog-area blog-style-2 mb-50">
 			<div class="single-blog-thumbnail" style="margin-top: 70px;">
-				<img src="<%=request.getContextPath()%>/${tktImgVO.img}"
-					style="height:535.6px">
+			<c:forEach var="tktImgVO" items="${imgList}" begin="0" end="0">
+				<img src="<%=request.getContextPath()%>/${tktImgVO.img}" style="height:535.6px">
+			</c:forEach>
 			</div>
 			<div id="productNum">商品編號 #${tktVO.tktId}</div>
 		</div>
@@ -116,11 +90,12 @@
 							</p>
 							<p>${tktVO.instruction}</p>
 						</div>
+						<div id="comment"></div>
 					</div>
 
 
 					<!-- Comment Area Start -->
-					<hr id="comment">
+					<hr>
 					<div class="comment_area clearfix mt-70">
 						<h4 class="title">
 							<i class="fa-solid fa-earth-asia"
@@ -143,9 +118,9 @@
 											<img src="<%= customerVO.getImg()%>" alt="author">
 										</div>
 										<div class="comment-meta">
-											<a href="#" class="post-date"><%= tktOrder.getOrderdate()%></a>
+											<a class="post-date"><fmt:formatDate value="<%= tktOrder.getOrderdate()%>" pattern="yyyy-MM-dd HH:mm"/></a>
 											<p>
-												<a href="#" class="post-author"><%= customerVO.getName()%></a>
+												<a class="post-author"><%= customerVO.getName()%></a>
 											</p>
 											<p><%= tktItem.getContent()%></p>
 										</div>
@@ -158,11 +133,12 @@
 <%-- 							</c:forEach> --%>
 							<div>更多評價</div>
 						</ol>
+						<div id="canxpolicy"></div>
 					</div>
 
 					<!-- About product -->
 					<!-- 特別注意是用comment的class -->
-					<div class="comment_area clearfix mt-70"  id="canxpolicy">
+					<div class="comment_area clearfix mt-70" >
 						<div class="author-info">
 							<!-- <div class="line"></div> -->
 							<h4 class="title">
@@ -178,9 +154,10 @@
 								</c:forEach>
 							</div>
 						</div>
+						<div id="notice"></div>
 					</div>
 
-					<div class="comment_area clearfix mt-70"  id="notice">
+					<div class="comment_area clearfix mt-70"  >
 						<div class="author-info">
 							<h4 class="title">
 								<i class="fa-solid fa-earth-asia"
@@ -190,9 +167,10 @@
 								<p>${tktVO.notice}</p>
 							</div>
 						</div>
+						<div id="howuse"></div>
 					</div>
 
-					<div class="comment_area clearfix mt-70"  id="howuse">
+					<div class="comment_area clearfix mt-70" >
 						<div class="author-info">
 							<h4 class="title">
 								<i class="fa-solid fa-earth-asia"
@@ -202,10 +180,11 @@
 								<p>${tktVO.howuse}</p>
 							</div>
 						</div>
+						<div id="loc"></div>
 					</div>
 
 
-					<div class="comment_area clearfix mt-70" id="loc">
+					<div class="comment_area clearfix mt-70" >
 						<div class="author-info" >
 							<h4 class="title">
 								<i class="fa-solid fa-earth-asia"
@@ -272,26 +251,21 @@
 								<i class="fas fa-cart-plus"></i> 加入購物車
 							</button>
 						</div>
-						<div>
-							<button id="decrement">
-								<ion-icon name="remove-outline"></ion-icon>
-							</button>
-							<span id="quantity">1</span>
-							<button id="increment">
-								<ion-icon name="add-outline"></ion-icon>
-							</button>
-						</div>
+						<input id="min" name="" type="button" value="-" />
+						<input id="quantity" name="" type="text" value="1" />
+						<input id="add" name="" type="button" value="+" />
+						
 						<input type="hidden" name="amount" size="3" value=1> 
 						<input type="hidden" name="tktName" value="${tktVO.tktName}"> 
 						<input type="hidden" name="tktId" value="${tktVO.tktId}"> 
 						<input type="hidden" name="price" value="${tktVO.price}"> 
 						<input type="hidden" name="action" value="add">
 					</form>
-					<div style="position:sticky; top:100px;">
-						<ul>
+					<div class="sideList" style="position:sticky; top:100px; line-height: 2;">
+						<ul style="margin: 0 80px;"> 
 							<li><div style="margin-top:50px;"></div></li>
 							<li><a href="<%=request.getContextPath() %>/ticket/selectId#comment" style="font-size:20px;">旅客評價</a></li>
-							<li><a href="<%=request.getContextPath() %>/ticket/selectId#canxPolicy" style="font-size:20px;">商品說明</a></li>
+							<li><a href="<%=request.getContextPath() %>/ticket/selectId#canxpolicy" style="font-size:20px;">商品說明</a></li>
 							<li><a href="<%=request.getContextPath() %>/ticket/selectId#notice" style="font-size:20px;">購買須知</a></li>
 							<li><a href="<%=request.getContextPath() %>/ticket/selectId#howuse" style="font-size:20px;">如何使用</a></li>
 							<li><a href="<%=request.getContextPath() %>/ticket/selectId#loc" style="font-size:20px;">體驗地點</a></li>
@@ -424,7 +398,29 @@
 	<script nomodule
 		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
-
+	<script>
+	$(function(){
+		var t = $("#quantity");
+		$("#add").click(function(){
+			t.val(parseInt(t.val())+1);
+			$("#min").removeAttr("disabled");                 //當按加1時，解除$("#min")不可讀狀態
+			setTotal();
+		})
+		$("#min").click(function(){
+	               if (parseInt(t.val())>1) {                     //判斷數量值大於1時才可以減少
+	                t.val(parseInt(t.val())-1)
+	                }else{
+	                $("#min").attr("disabled","disabled")        //當$("#min")為1時，$("#min")不可讀狀態
+	               }
+			setTotal();
+		})
+		function setTotal(){
+			$("#total").html((parseInt(t.val())*3.95).toFixed(2));
+		}
+		setTotal();
+	})
+	</script>	
+	
 </body>
 
 </html>

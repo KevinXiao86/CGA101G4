@@ -17,10 +17,14 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.taiwan.beans.CouponVO;
+import com.taiwan.beans.CustCoupon;
 import com.taiwan.beans.CustomerVO;
 import com.taiwan.beans.TicketVO;
 import com.taiwan.service.CartService;
 import com.taiwan.service.TicketService;
+import com.taiwan.service.coupon.CouponService;
+import com.taiwan.service.customer.CustCouponService;
 import com.taiwan.service.customer.CustomerService;
 import com.taiwan.service.customer.impl.CustomerServiceImpl;
 import com.taiwan.utils.ControllerUtil;
@@ -29,6 +33,7 @@ import com.taiwan.utils.ControllerUtil;
 public class CartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	TicketService ticketService = ControllerUtil.getBean(TicketService.class);
+	CouponService couponService = ControllerUtil.getBean(CouponService.class);
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
@@ -102,8 +107,36 @@ public class CartServlet extends HttpServlet {
 						}
 					}
 				}
+				
 			}
+			/******************************* 優惠券相關 ********************************/
+			//根據會員id取得所擁有的會員優惠券物件
+			CustCouponService custCouponService = new CustCouponService();
+			List<CustCoupon> custCouponList = custCouponService.queryCustCouponById(10000); //custId 記得改
+			//取得所擁有的優惠券編號
+			List<Integer> copIds = new ArrayList<Integer>();
+			for(CustCoupon custCoupon : custCouponList) {
+				String status = "未使用";
+				if(custCoupon.getStatus().equals(status)) {
+					copIds.add(custCoupon.getCopId());					
+				}
+			}
+//			System.out.println("copIds = " +copIds);
 			
+			//根據優惠券編號取得優惠券名稱
+			List<CouponVO> couponList = new ArrayList<CouponVO>();
+			for(Integer copId : copIds) {
+				CouponVO couponVO = couponService.findById(copId);
+				couponList.add(couponVO);
+			}
+//			System.out.println("couponList = " + couponList);
+			
+			req.setAttribute("couponList", couponList);
+			
+//			Integer discount = Integer.valueOf(req.getParameter("discount"));
+//			req.setAttribute("discount", discount);			
+			
+			/************************************************************************/
 			//取出購物車清單
 			List<String> list = CartService.getCartList(custId);
 			//目的為取得票券資料
@@ -168,12 +201,11 @@ public class CartServlet extends HttpServlet {
 				}
 			}
 			
+			
 //			double ttl = cartList.stream()
 //								 .mapToDouble(book->book.getPrice()*book.getQuantity())
 //								 .sum();
 			
-			
-			 
 
 			// 結帳頁面checkout.jsp 自動導入資料
 			Integer custid = Integer.valueOf(custId);
