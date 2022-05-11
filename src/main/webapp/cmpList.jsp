@@ -17,10 +17,10 @@ if (location == null) {
 	List<Company> list = companyService.getAllCompanies();
 	pageContext.setAttribute("list", list);
 }else{
-	String startDate = request.getParameter("startDate");
-	request.setAttribute("startDate", startDate);
-	String endDate = request.getParameter("endDate");
-	request.setAttribute("endDate", endDate);
+	String ckin = request.getParameter("ckin");
+	request.setAttribute("ckin", ckin);
+	String ckout = request.getParameter("ckout");
+	request.setAttribute("ckout", ckout);
 	
 	CompanyService companyService = ControllerUtil.getBean(CompanyService.class);
 	List<Company> list = companyService.getAllCompaniesByLocation(location);
@@ -101,9 +101,9 @@ if (location == null) {
 		<FORM METHOD="post" name="form1" ACTION="cmpList.jsp">
 			<b>所在地點:</b> <input name="location" id="location" type="text" style="width:90px;" value="${requestScope.location}">  
 <!-- 			<b>開始日期:</b> <input name="start_date" id="start_date" type="text" style="width:90px;">  -->
-			<b>開始日期:</b> <input type="date" name="startDate" style="width:90px;" value="${requestScope.startDate}">
+			<b>開始日期:</b> <input type="date" name="ckin" style="width:90px;" value="${requestScope.ckin}">
 <!-- 			<b>結束日期:</b> <input name="end_date" id="end_date" type="text" style="width:90px;">  -->
-			<b>結束日期:</b> <input type="date" name="endDate" style="width:90px;" value="${requestScope.endDate}">
+			<b>結束日期:</b> <input type="date" name="ckout" style="width:90px;" value="${requestScope.ckout}">
 			<input type="submit" value="送出">
 		</FORM>
 
@@ -156,10 +156,10 @@ if (location == null) {
 															<span class="price">
 
 
-																<FORM METHOD="post" ACTION="#" style="margin-bottom: 0px;">
+																<FORM METHOD="post" ACTION="roomOrder12/ROSelectCmp" style="margin-bottom: 0px;">
 																	<input type="hidden" name="cmpId" value="${Company.cmpId}">
-																	<input type="hidden" name="startDate" value="${requestScope.startDate}">
-																	<input type="hidden" name="endDate" value="${requestScope.endDate}">
+																	<input type="hidden" name="ckin" value="${requestScope.ckin}">
+																	<input type="hidden" name="ckout" value="${requestScope.ckout}">
 																	<input type="submit" value="詳情"> 
 																</FORM>
 

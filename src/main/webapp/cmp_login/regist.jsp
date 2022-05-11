@@ -14,8 +14,8 @@ span{
 }
 </style>
 
-<link rel="stylesheet" href="front-end/company/css/login.css">
-<script src="front-end/company/js/regist.js"></script>
+<link rel="stylesheet" href="cmp_login/css/login.css">
+<script src="cmp_login/js/regist.js"></script>
 </head>
 <body>
 	<div class="form">
@@ -145,7 +145,7 @@ span{
 		</div>
 	</div>
 
-	<script src='front-end/company/js/jquery.min.js'></script>
-	<script src="front-end/company/js/script.js"></script>
+	<script src='cmp_login/js/jquery.min.js'></script>
+	<script src="cmp_login/js/script.js"></script>
 </body>
 </html>
