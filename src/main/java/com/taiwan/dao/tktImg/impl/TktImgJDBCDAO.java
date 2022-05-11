@@ -28,7 +28,7 @@ public class TktImgJDBCDAO implements TktImgDAO_interface{
 	private static final String GET_ALL =
 			"SELECT tkt_img_id, img, tkt_id FROM TKT_IMG";
 	private static final String GET_BYTKTID =
-			"SELECT tkt_img_id, img FROM TKT_IMG  WHERE tkt_id=?";
+			"SELECT tkt_img_id, img FROM TKT_IMG WHERE tkt_id=?";
 	
 	@Override
 	public int insert(TktImgVO tktImgVO) {
@@ -155,7 +155,7 @@ public class TktImgJDBCDAO implements TktImgDAO_interface{
 	}
 
 	@Override
-	public TktImgVO queryById(Integer tktId) {
+	public TktImgVO queryById(Integer tktImgId) {
 		
 		TktImgVO tktImgVO = null;
 		Connection con = null;
@@ -167,7 +167,7 @@ public class TktImgJDBCDAO implements TktImgDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			ps = con.prepareStatement(GET_BYTKTIMGID);
 			
-			ps.setInt(1, tktId);
+			ps.setInt(1, tktImgId);
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {

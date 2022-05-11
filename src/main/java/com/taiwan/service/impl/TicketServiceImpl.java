@@ -18,12 +18,13 @@ import mybatis.mapper.TicketMapper;
 public class TicketServiceImpl implements TicketService {
 	@Autowired
 	private TicketMapper mapper;
-	
+
 	private TicketDAO_interface dao;
-	
+
 	public TicketServiceImpl() {
-		dao=new TicketJDBCDAO();
+		dao = new TicketJDBCDAO();
 	}
+
 	@Transactional
 	@Override
 	public List<TicketVO> findAll() {
@@ -66,38 +67,44 @@ public class TicketServiceImpl implements TicketService {
 	@Transactional
 	@Override
 	public TicketVO findById(Integer tktId) {
-		TicketVO ticketVO=mapper.queryOInfoById(tktId);
+		TicketVO ticketVO = mapper.queryOInfoById(tktId);
 		return ticketVO;
 	}
+
 	@Transactional
 	@Override
 	public List<TicketVO> findByName(String tktName) {
-		List<TicketVO> ls=mapper.queryTicketByTktName(tktName);
+		List<TicketVO> ls = mapper.queryTicketByTktName(tktName);
 		return ls;
 	}
+
 	@Transactional
 	@Override
 	public List<TicketVO> findByStatus(String status) {
-		List<TicketVO> ls=mapper.queryTicketByStatus(status);
+		List<TicketVO> ls = mapper.queryTicketByStatus(status);
 		return ls;
 	}
+
 	@Transactional
 	@Override
 	public List<TicketVO> findByLoc(String location) {
-		List<TicketVO> ls=mapper.queryTicketByLocation(location);
+		List<TicketVO> ls = mapper.queryTicketByLocation(location);
 		return ls;
 	}
+
 	@Transactional
 	@Override
 	public List<TicketVO> findBykind(String kind) {
-		List<TicketVO> ls=mapper.queryTicketByKind(kind);
+		List<TicketVO> ls = mapper.queryTicketByKind(kind);
 		return ls;
 	}
+
 	@Transactional
 	@Override
 	public int findTktId() {
 		return mapper.queryMax();
 	}
+
 	@Transactional
 	@Override
 	public boolean updateTkt(Integer tktId, String tktName, Integer originalAmount, Integer price, Timestamp startdate,
@@ -117,8 +124,9 @@ public class TicketServiceImpl implements TicketService {
 		ticketVO.setHowuse(howuse);
 		ticketVO.setCanxpolicy(canxpolicy);
 		ticketVO.setKind(kind);
-		return mapper.update(ticketVO)>0;
+		return mapper.update(ticketVO) > 0;
 	}
+
 	@Override
 	public boolean update(Integer tktId, String tktName, Integer originalAmount, Integer price, Timestamp startdate,
 			Timestamp enddate, String location, String instruction, String address, String notice, String howuse,
@@ -137,11 +145,24 @@ public class TicketServiceImpl implements TicketService {
 		ticketVO.setHowuse(howuse);
 		ticketVO.setCanxpolicy(canxpolicy);
 		ticketVO.setKind(kind);
-		return dao.update(ticketVO)>0;
+		return dao.update(ticketVO) > 0;
 	}
+
 	@Override
 	public List<TicketVO> findByThree(String status, String location, String tktName) {
 		return mapper.queryLocName(status, location, tktName);
+	}
+
+	@Override
+	public List<TicketVO> findTicketByScore() {
+		List<TicketVO> ls = mapper.getTicketByScore();
+		return ls;
+	}
+
+	@Override
+	public List<TicketVO> findTicketByPeople() {
+		List<TicketVO> ls = mapper.getTicketByPeople();
+		return ls;
 	}
 
 }

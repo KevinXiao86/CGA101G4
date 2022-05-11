@@ -74,12 +74,6 @@
     </FORM>
   </li>
 </ul>
-<h3>訂單管理</h3>
-
-<ul>
-  <li><a href="front-end/tktOrder/addTktOrder.jsp">Add</a> a new Order.</li>
-</ul>
-
 
 	<script>
 		$(function(){

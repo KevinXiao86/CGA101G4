@@ -63,7 +63,7 @@
 
 	<select id="queryTktItemTtlPeopleByTktId" resultType="int">
 		select
-		count(*) as
+		count(SCORE) as
 		TTLPEOPLE from TKT_ITEM where TKT_ID=#{tktId}
 	</select>
 	

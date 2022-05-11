@@ -1,9 +1,33 @@
+<%@page import="com.taiwan.service.TktImgService"%>
+<%@page import="com.taiwan.beans.News"%>
+<%@page import="com.taiwan.service.news.NewsService"%>
+<%@page import="mybatis.mapper.TicketMapper"%>
+<%@page import="com.taiwan.beans.TktImgVO"%>
+<%@page import="com.taiwan.service.theme.ThemeService"%>
+<%@page import="com.taiwan.beans.Theme"%>
+<%@page import="com.taiwan.utils.ControllerUtil"%>
+<%@page import="com.taiwan.service.TicketService"%>
+<%@page import="com.taiwan.beans.TicketVO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html>
-<html lang="en">
+<%
+    TicketService ticketService = ControllerUtil.getBean(TicketService.class);
+	List<TicketVO> tktList = ticketService.findTicketByScore();
+	pageContext.setAttribute("tktList", tktList);
+	
+	ThemeService themeService = ControllerUtil.getBean(ThemeService.class);
+	List<Theme> themeList = themeService.findAll();
+	pageContext.setAttribute("themeList", themeList);
+	
+	NewsService newsService = ControllerUtil.getBean(NewsService.class);
+	List<News> newsList = newsService.findAll();
+	pageContext.setAttribute("newsList", newsList);
+%>
 
+
+<html lang="en">
 <head>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 	<%@ include file="/common/head.jsp"%>
@@ -66,22 +90,20 @@
 					<!-- Nav Start -->
 					<div class="classynav" id="clas">
 						<ul>
-							<li><a href="#alllisttitle">熱門票券</a></li>
-							<li><a href="#rooms">推薦住宿</a></li>
-							<li><a href="#avtivity">最新消息</a></li>
-							<li><a href="#avtivity">活動主題</a></li>
+							<li><a href="<%=request.getContextPath() %>/front-end/????">票券</a></li>
+							<li><a href="<%=request.getContextPath() %>/front-end/????">住宿</a></li>
 						</ul>
 
 						<!-- Search Form  -->
-						<div id="search-wrapper">
-							<form action="#">
-								<input type="text" id="search" placeholder="Search something...">
-								<div id="close-icon"></div>
-								<input class="d-none" type="submit" value="">
-							</form>
-						</div>
+<!-- 						<div id="search-wrapper"> -->
+<!-- 							<form action="#"> -->
+<!-- 								<input type="text" id="search" placeholder="Search something..."> -->
+<!-- 								<div id="close-icon"></div> -->
+<!-- 								<input class="d-none" type="submit" value=""> -->
+<!-- 							</form> -->
+<!-- 						</div> -->
 					</div>
-					<div class="col-sm-2" style="position:absolute;right:90px" >
+					<div class="col-sm-2" style="position:absolute;right:73px" >
 						<div class="top-social-area">
 							<a href="#" data-toggle="tooltip" data-placement="bottom"
 								title="購物車"> <i class="fa-solid fa-cart-shopping"
@@ -106,10 +128,10 @@
 							<div class="col-12">
 								<div class="slide-content text-center">
 									<div class="post-tag">
-										<a href="#" data-animation="fadeInUp">lifestyle</a>
+										<a href="#" data-animation="fadeInUp" style="font-size:20px;">lifestyle</a>
 									</div>
 									<h2 data-animation="fadeInUp" data-delay="250ms">
-										<a href="single-post.html">Let's go on a journey!</a>
+										<a href="#">Let's go on a journey!</a>
 									</h2>
 								</div>
 							</div>
@@ -124,10 +146,10 @@
 							<div class="col-12">
 								<div class="slide-content text-center">
 									<div class="post-tag">
-										<a href="#" data-animation="fadeInUp">lifestyle</a>
+										<a href="#" data-animation="fadeInUp" style="font-size:20px;">lifestyle</a>
 									</div>
 									<h2 data-animation="fadeInUp" data-delay="250ms">
-										<a href="single-post.html">Let's go on a journey!</a>
+										<a href="#">Let's go on a journey!</a>
 									</h2>
 								</div>
 							</div>
@@ -142,10 +164,10 @@
 							<div class="col-12">
 								<div class="slide-content text-center">
 									<div class="post-tag">
-										<a href="#" data-animation="fadeInUp">lifestyle</a>
+										<a href="#" data-animation="fadeInUp" style="font-size:20px;">lifestyle</a>
 									</div>
 									<h2 data-animation="fadeInUp" data-delay="250ms">
-										<a href="single-post.html">Let's go on a journey!</a>
+										<a href="#">Let's go on a journey!</a>
 									</h2>
 								</div>
 							</div>
@@ -334,69 +356,26 @@
 		style="padding-top: 10px; margin-bottom: -100px;">
 		<div class="container" style="height: 480px;">
 			<div class="row" style="height: 480px;">
+			
 				<!-- Single Blog Area  -->
-				<div class="col-12 col-md-6 col-lg-4">
-					<div class="single-blog-area blog-style-2 mb-100">
-						<div class="single-blog-thumbnail">
-							<img
-								src="<%=request.getContextPath()%>/static/img/blog-img/t2.jpg"
-								style="height: 218px;" alt="">
-							<div class="post-date">
-								<a href="#">2022 <span>march</span></a>
+				<c:forEach var="ticketVO" items="${tktList}">
+					<div class="col-12 col-md-6 col-lg-4">
+						<div class="single-blog-area blog-style-2 mb-100">
+							<div class="single-blog-thumbnail">	
+								<img src="${ticketVO.tktImgVO.img}"
+									style="height: 180px;">
+							</div>
+							<div class="single-blog-content mt-30" style="margin-top: 5;">
+								<a href="#" class="post-tag">Lifestyle</a> 
+								<h3>
+									<a href="#" class="post-headline">${ticketVO.tktName}</a>
+								</h3>
+								<p style="height: 60px;overflow: hidden;">${ticketVO.instruction}</p>
+<!-- 									text-overflow: ellipsis; white-space: nowrap; -->
 							</div>
 						</div>
-						<!-- Blog Content -->
-						<div class="single-blog-content mt-30" style="margin-top: 5;">
-							<a href="#" class="post-tag">Lifestyle</a>
-							<h3>
-								<a href="#" class="post-headline">【櫻花祭】台中 | 武陵農場</a>
-							</h3>
-							<p>最美的櫻花祭，大人小孩千萬不要錯過</p>
-						</div>
 					</div>
-				</div>
-				<!-- Single Blog Area  -->
-				<div class="col-12 col-md-6 col-lg-4">
-					<div class="single-blog-area blog-style-2 mb-100">
-						<div class="single-blog-thumbnail">
-							<img
-								src="<%=request.getContextPath()%>/static/img/blog-img/t1.jpg"
-								alt="">
-							<div class="post-date">
-								<a href="#">2022 <span>march</span></a>
-							</div>
-						</div>
-						<!-- Blog Content -->
-						<div class="single-blog-content mt-30" style="margin-top: 5;">
-							<a href="#" class="post-tag">Lifestyle</a>
-							<h3>
-								<a href="#" class="post-headline">【澎湖花火節】熱門獨木舟</a>
-							</h3>
-							<p>立即體驗絕美的獨木舟，拍出網美照</p>
-						</div>
-					</div>
-				</div>
-				<!-- Single Blog Area  -->
-				<div class="col-12 col-md-6 col-lg-4">
-					<div class="single-blog-area blog-style-2 mb-100">
-						<div class="single-blog-thumbnail">
-							<img
-								src="<%=request.getContextPath()%>/static/img/blog-img/t3.jpg"
-								alt="">
-							<div class="post-date">
-								<a href="#">10 <span>march</span></a>
-							</div>
-						</div>
-						<!-- Blog Content -->
-						<div class="single-blog-content mt-30" style="margin-top: 5;">
-							<a href="#" class="post-tag">Lifestyle</a>
-							<h3>
-								<a href="#" class="post-headline">【大家都愛】台東 | 初鹿牧場</a>
-							</h3>
-							<p>不論親子旅遊或情侶都喜愛的項目，還不快來體驗看看!</p>
-						</div>
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
@@ -597,110 +576,35 @@
 					<h3>
 						<b>活動主題</b>
 					</h3>
+					
 					<!-- Single Blog Area  -->
-					<div class="single-blog-area blog-style-2 mb-50 wow fadeInUp">
-						<div class="row align-items-center">
-							<div class="col-12 col-md-6">
-								<div class="single-blog-thumbnail">
-									<img
-										src="<%=request.getContextPath()%>/static/img/blog-img/a2.jpeg"
-										alt="">
-									<div class="post-date">
-										<a href="#">12 <span>march</span></a>
+					<c:forEach var="theme" items="${themeList}" begin="0" end="2">
+						<div class="single-blog-area blog-style-2 mb-50 wow fadeInUp">
+							<div class="row align-items-center">
+								<div class="col-12 col-md-6">
+									<div class="single-blog-thumbnail">
+										<img src="${theme.img}" style="width:372px;height:250px;">
+										<div class="post-date">
+											<a href="#">12 <span>march</span></a>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-12 col-md-6">
-								<!-- Blog Content -->
-								<div class="single-blog-content">
-									<div class="line"></div>
-									<a href="#" class="post-tag">Lifestyle</a>
-									<h3>
-										<a href="#" class="post-headline">澎湖花火節開跑！</a>
-									</h3>
-									<p>Curabitur venenatis efficitur lorem sed tempor. Integer
-										aliquet tempor cursus. Nullam vestibulum convallis risus vel
-										condimentum. Nullam auctor lorem in libero luctus, vel
-										volutpat quam tincidunt.</p>
-									<div class="post-meta">
-										<p>
-											By <a href="#">james smith</a>
-										</p>
+								<div class="col-12 col-md-6">
+									<!-- Blog Content -->
+									<div class="single-blog-content">
+										<div class="line"></div>
+										<a href="#" class="post-tag">Lifestyle</a>
+										<h3>
+											<a href="#" class="post-headline">${theme.title}</a>
+										</h3>
+										<p>${theme.content}</p>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</c:forEach>
 
-					<!-- Single Blog Area  -->
-					<div class="single-blog-area blog-style-2 mb-50 wow fadeInUp">
-						<div class="row align-items-center">
-							<div class="col-12 col-md-6">
-								<div class="single-blog-thumbnail">
-									<img
-										src="<%=request.getContextPath()%>/static/img/blog-img/a1.jpg"
-										alt="">
-									<div class="post-date">
-										<a href="#">12 <span>march</span></a>
-									</div>
-								</div>
-							</div>
-							<div class="col-12 col-md-6">
-								<!-- Blog Content -->
-								<div class="single-blog-content">
-									<div class="line"></div>
-									<a href="#" class="post-tag">Lifestyle</a>
-									<h3>
-										<a href="#" class="post-headline">適合親子度假</a>
-									</h3>
-									<p>Curabitur venenatis efficitur lorem sed tempor. Integer
-										aliquet tempor cursus. Nullam vestibulum convallis risus vel
-										condimentum. Nullam auctor lorem in libero luctus, vel
-										volutpat quam tincidunt.</p>
-									<div class="post-meta">
-										<p>
-											By <a href="#">james smith</a>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<!-- Single Blog Area  -->
-					<div class="single-blog-area blog-style-2 mb-50 wow fadeInUp">
-						<div class="row align-items-center">
-							<div class="col-12 col-md-6">
-								<div class="single-blog-thumbnail">
-									<img
-										src="<%=request.getContextPath()%>/static/img/blog-img/a1.jpg"
-										alt="">
-									<div class="post-date">
-										<a href="#">12 <span>march</span></a>
-									</div>
-								</div>
-							</div>
-							<div class="col-12 col-md-6">
-								<!-- Blog Content -->
-								<div class="single-blog-content">
-									<div class="line"></div>
-									<a href="#" class="post-tag">Lifestyle</a>
-									<h3>
-										<a href="#" class="post-headline">夏水趣</a>
-									</h3>
-									<p>Curabitur venenatis efficitur lorem sed tempor. Integer
-										aliquet tempor cursus. Nullam vestibulum convallis risus vel
-										condimentum. Nullam auctor lorem in libero luctus, vel
-										volutpat quam tincidunt.</p>
-									<div class="post-meta">
-										<p>
-											By <a href="#">james smith</a>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					
 					<!-- Load More -->
 					<div class="load-more-btn mt-100 wow fadeInUp">
 						<a href="#" class="btn original-btn" style="margin-top: -40px;">Read
@@ -721,96 +625,26 @@
 							<div class="widget-content">
 
 								<!-- Single Blog Post -->
-								<div
-									class="single-blog-post d-flex align-items-center widget-post">
-									<!-- Post Thumbnail -->
-									<div class="post-thumbnail">
-										<img
-											src="<%=request.getContextPath()%>/static/img/blog-img/lp1.jpg"
-											alt="">
-									</div>
-									<!-- Post Content -->
-									<div class="post-content">
-										<a href="#" class="post-tag">Lifestyle</a>
-										<h4>
-											<a href="#" class="post-headline">領取優惠券</a>
-										</h4>
-										<div class="post-meta">
-											<p>
-												<a href="#">票券皆可使用</a>
-											</p>
+								<c:forEach var="news" items="${newsList}" begin="0" end="3">
+									<div class="single-blog-post d-flex align-items-center widget-post">
+										<!-- Post Thumbnail -->
+										<div class="post-thumbnail">
+											<img src="${news.img}">
+										</div>
+										<!-- Post Content -->
+										<div class="post-content">
+											<a href="#" class="post-tag">Lifestyle</a>
+											<h6>
+												<a href="#" class="post-headline" style="font-size:14px;">${news.title}</a>
+											</h6>
+<!-- 											<div class="post-meta"> -->
+<!-- 												<p> -->
+<%-- 													<a href="#" style="overflow:hidden;text-overflow: ellipsis; white-space: nowrap;">${news.content}</a> --%>
+<!-- 												</p> -->
+<!-- 											</div> -->
 										</div>
 									</div>
-								</div>
-
-								<!-- Single Blog Post -->
-								<div
-									class="single-blog-post d-flex align-items-center widget-post">
-									<!-- Post Thumbnail -->
-									<div class="post-thumbnail">
-										<img
-											src="<%=request.getContextPath()%>/static/img/blog-img/lp2.jpg"
-											alt="">
-									</div>
-									<!-- Post Content -->
-									<div class="post-content">
-										<a href="#" class="post-tag">Lifestyle</a>
-										<h4>
-											<a href="#" class="post-headline">系統維護</a>
-										</h4>
-										<div class="post-meta">
-											<p>
-												<a href="#">110/05/20早上3點至5點將維護系統</a>
-											</p>
-										</div>
-									</div>
-								</div>
-
-								<!-- Single Blog Post -->
-								<div
-									class="single-blog-post d-flex align-items-center widget-post">
-									<!-- Post Thumbnail -->
-									<div class="post-thumbnail">
-										<img
-											src="<%=request.getContextPath()%>/static/img/blog-img/lp3.jpg"
-											alt="">
-									</div>
-									<!-- Post Content -->
-									<div class="post-content">
-										<a href="#" class="post-tag">全台最奢華防疫旅館</a>
-										<h4>
-											<a href="#" class="post-headline">先訂先贏，唯一一家</a>
-										</h4>
-										<div class="post-meta">
-											<p>
-												<a href="#">5/2</a>
-											</p>
-										</div>
-									</div>
-								</div>
-
-								<!-- Single Blog Post -->
-								<div
-									class="single-blog-post d-flex align-items-center widget-post">
-									<!-- Post Thumbnail -->
-									<div class="post-thumbnail">
-										<img
-											src="<%=request.getContextPath()%>/static/img/blog-img/lp4.jpg"
-											alt="">
-									</div>
-									<!-- Post Content -->
-									<div class="post-content">
-										<a href="#" class="post-tag">台玩正式上線囉</a>
-										<h4>
-											<a href="#" class="post-headline">將帶給大家旅遊及訂房服務</a>
-										</h4>
-										<div class="post-meta">
-											<p>
-												<a href="#">5/1正式上線</a>
-											</p>
-										</div>
-									</div>
-								</div>
+								</c:forEach>
 							</div>
 						</div>
 
@@ -917,7 +751,7 @@
 			<div class="single-insta-feed">
 				<img
 					src="<%=request.getContextPath()%>/static/img/instagram-img/f7.jpg"
-					alt="">
+					style="height:168.45px;">
 				<!-- Hover Effects -->
 				<div class="hover-effects">
 					<a href="#"
@@ -929,52 +763,52 @@
 	</div>
 	<!-- ##### Instagram Feed Area End ##### -->
 	
-	<jsp:include page="footer.jsp"></jsp:include>
-<!-- 	<footer class="footer"> -->
-<!-- 		<div class="container"> -->
-<!-- 			<div class="row"> -->
-<!-- 				<div class="footer-col"> -->
-<!-- 					 <h4>台玩</h4> -->
-<!--                     <ul> -->
-<!--                         <li><a href="#">關於台玩</a></li> -->
-<!--                         <li><a href="#">使用者條款</a></li> -->
-<!--                         <li><a href="#">隱私權保護政策</a></li> -->
-<!--                     </ul> -->
-<!--                 </div> -->
-<!--                 <div class="footer-col"> -->
-<!-- 					<h4>旅人&合作夥伴</h4> -->
-<!-- 					<ul> -->
-<!-- 						<li><a href="#">關於合作夥伴</a></li> -->
-<!-- 						<li><a href="#">成為供應商</a></li> -->
-<!-- 						<li><a href="#">供應商登入</a></li> -->
-<!-- 						<li><a href="#">人才招募</a></li> -->
-<!-- 					</ul> -->
-<!-- 				</div> -->
-<!-- 				<div class="footer-col"> -->
-<!-- 					<h4>常見問題</h4> -->
-<!-- 					<ul> -->
-<!-- 						<li><a href="#">FAQ</a></li> -->
-<!-- 						<li><a href="#">三大保證</a></li> -->
-<!-- 						<li><a href="#">聯絡客服</a></li> -->
-<!-- 					</ul> -->
-<!-- 				</div> -->
-<!-- 				<div class="footer-col"> -->
-<!-- 					<h4>關注我們</h4> -->
-<!-- 					<div class="social-links"> -->
-<!-- 						<a href="#"><i class="fab fa-facebook-f"></i></a> -->
-<!-- 						<a href="#"><i class="fab fa-instagram"></i></a>  -->
-<!-- 						<a href="#"><i class="fa-brands fa-line"></i></a>  -->
-<!-- 						<a href="#"><i class="fab fa-github"></i></a> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 		<div id="copyright"> -->
-<!-- 			Copyright &copy; 2022 All rights reserved | This template is made -->
-<!-- 			with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a -->
-<!-- 				href="https://colorlib.com" target="_blank">Colorlib</a> -->
-<!-- 		</div> -->
-<!-- 	</footer> -->
+<%-- 	<jsp:include page="footer.jsp"></jsp:include> --%>
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="footer-col">
+					 <h4>台玩</h4>
+                    <ul>
+                        <li><a href="#">關於台玩</a></li>
+                        <li><a href="#">使用者條款</a></li>
+                        <li><a href="#">隱私權保護政策</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+					<h4>旅人&合作夥伴</h4>
+					<ul>
+						<li><a href="#">關於合作夥伴</a></li>
+						<li><a href="#">成為供應商</a></li>
+						<li><a href="#">供應商登入</a></li>
+						<li><a href="#">人才招募</a></li>
+					</ul>
+				</div>
+				<div class="footer-col">
+					<h4>常見問題</h4>
+					<ul>
+						<li><a href="#">FAQ</a></li>
+						<li><a href="#">三大保證</a></li>
+						<li><a href="#">聯絡客服</a></li>
+					</ul>
+				</div>
+				<div class="footer-col">
+					<h4>關注我們</h4>
+					<div class="social-links">
+						<a href="#"><i class="fab fa-facebook-f"></i></a>
+						<a href="#"><i class="fab fa-instagram"></i></a> 
+						<a href="#"><i class="fa-brands fa-line"></i></a> 
+						<a href="#"><i class="fab fa-github"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="copyright">
+			Copyright &copy; 2022 All rights reserved | This template is made
+			with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
+				href="https://colorlib.com" target="_blank">Colorlib</a>
+		</div>
+	</footer>
 	<!-- ##### Footer Area End ##### -->
 
 

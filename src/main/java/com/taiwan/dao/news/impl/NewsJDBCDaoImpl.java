@@ -17,7 +17,7 @@ public class NewsJDBCDaoImpl implements NewsDao {
 	@Override
 	public List<News> queryAll() {
 		List<News> ls = new ArrayList<News>();
-		String sql = "select news_id,title,content,create_date,img from NEWS;";
+		String sql = "select news_id,title,content,create_date,img from NEWS order by news_id desc;";
 		try (Connection conn = DbUtil.getConnection();
 				PreparedStatement prep = conn.prepareStatement(sql)) {
 			ResultSet rs = prep.executeQuery();

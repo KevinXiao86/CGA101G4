@@ -28,6 +28,8 @@ public interface TktOrderDao{
 	public int queryTktOrderTtlPriceByDateToDate(Timestamp stardate,Timestamp enddate);
 	//根據訂單編號查詢
 	public TktOrder queryTktOrderByTktOrderId(Integer tktOrderId);
+	//更新qrcode
+	public int updateQrcode(String qrcode, Integer tktOrderId);
 	//訂單複合查詢(未完成)
     //public List<TktOrder> queryXX(Integer tktOrderId,Integer custId,Timestamp orderDate);
 }

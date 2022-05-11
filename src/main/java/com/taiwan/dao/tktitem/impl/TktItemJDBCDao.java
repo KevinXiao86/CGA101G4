@@ -75,6 +75,31 @@ public class TktItemJDBCDao implements TktItemDao {
 		}
 		return ls;
 	}
+	
+	@Override
+	public List<TktItem> queryTktItemByTktId(Integer tktId) {
+		List<TktItem> ls=new ArrayList<TktItem>();
+		String sql = "select tkt_id,tkt_order_id,amount,used,score,content from TKT_ITEM where tkt_id=?";
+		try (Connection conn = DbUtil.getConnection(); 
+				PreparedStatement prep = conn.prepareStatement(sql)) {
+			prep.setInt(1, tktId);
+			ResultSet rs=prep.executeQuery();
+			while(rs.next()) {
+				Integer querytktId=rs.getInt("tkt_id");
+				Integer tktOrderId=rs.getInt("tkt_order_id");
+				Integer amout=rs.getInt("amount");
+				Integer used=rs.getInt("used");
+				Integer score=rs.getInt("score");
+				String content=rs.getString("content");
+				TktItem tktItemVO=new TktItem(querytktId, tktOrderId, amout, used, score, content);
+				ls.add(tktItemVO);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ls;
+	}
 
 	@Override
 	public int updateTktItemUsedByTKTId(Integer tktOrderId, Integer tktId, Integer used) {
@@ -173,7 +198,7 @@ public class TktItemJDBCDao implements TktItemDao {
 	@Override
 	public int queryTktItemTtlPeopleByTktId(Integer tktId) {
 		int ttlPeople=0;
-		String sql = "select count(*) as ttlPeople from TKT_ITEM where tkt_id=?;";
+		String sql = "select count(score) as ttlPeople from TKT_ITEM where tkt_id=?;";
 		Connection conn = null;
 		PreparedStatement prep = null;
 		try {

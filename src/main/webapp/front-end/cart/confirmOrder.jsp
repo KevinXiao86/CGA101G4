@@ -112,36 +112,9 @@
 </style>
 
 <body>
-	<!-- Preloader -->
-	<div id="preloader">
-		<div class="preload-content">
-			<div id="original-load"></div>
-		</div>
-	</div>
-
-	<!-- ##### Header Area Start ##### -->
-	<header class="header-area">
-
-		<!-- Top Header Area -->
-		<div class="top-header" id="headerFixed">
-			<div class="container h-100">
-				<div class="row h-100 align-items-center">
-					<img
-						src="<%=request.getContextPath()%>/static/img/ticket-img/logo.jpg"
-						alt="" id="bear" style="height: 65px;">
-					<div class="col-12 col-sm-5" style="margin-left: 480px">
-						<div class="top-social-area">
-							<a href="#" data-toggle="tooltip" data-placement="bottom"
-								title="購物車"> <i class="fa-solid fa-cart-shopping"
-								aria-hidden="true"></i></a> <a href="#" data-toggle="tooltip"
-								data-placement="bottom" title="登入"> <i
-								class="fa-regular fa-user" aria-hidden="true"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>
+	
+	<!-- Header -->
+	<jsp:include page="/front-end/homepage/header.jsp"></jsp:include>
 
 	<!-- 頁面 -->
 	<form action="#" class="form" style="margin:70px 36px;">
@@ -150,8 +123,8 @@
 		<div class="progressbar">
 			<div class="progress" id="progress"></div>
 			<div class="progress-step progress-step-active" data-title="商品確認"></div>
-			<div class="progress-step" data-title="填寫資料"></div>
-			<div class="progress-step" data-title="訂單確認"></div>
+			<div class="progress-step progress-step-active" data-title="填寫資料"></div>
+			<div class="progress-step progress-step-active" data-title="訂單確認"></div>
 		</div>
 		<div class="form-step">
 			<div>
@@ -163,38 +136,45 @@
 	<!-- ORDER DETAIL -->
 	<div class="order-detail">
 		<div class="your-order">
-			<h3>訂單成立</h3>
+			<h3>訂單成立<i class="fa-solid fa-ballot-check"></i> <i style="font-size:14px;color:#c06b81;"> 請查看電子信箱 <i class="fa-solid fa-square-envelope"></i></i></h3>
 			<div class="your-order-table table-responsive">
 				<table>
+				
 					<thead>
 						<tr>
-							<th class="product-name">Product</th>
-							<th class="product-total">Total</th>
+							<th class="product-name">訂單編號</th>
+							<th class="product-total">${newOrderId}</th>
 						</tr>
 					</thead>
 					<tbody>
-
 						<tr class="cart_item">
-							<td class="product-name">Vestibulum dictum magna<strong
-								class="product-quantity">× 1</strong></td>
-							<td class="product-total"><span class="amount">£50.00</span></td>
+							<td class="product-name">訂購人</td>
+							<td class="product-total">${tktOrder.orderName}</td>
+						</tr>
+						<tr class="cart_item">
+							<td class="product-name">連絡電話</td>
+							<td class="product-total">${tktOrder.orderMobile}</td>
+						</tr>
+						<tr class="cart_item">
+							<td class="product-name">電子信箱</td>
+							<td class="product-total">${tktOrder.orderEmail}</td>
 						</tr>
 					</tbody>
 					<tfoot>
-						<tr class="cart-subtotal">
-							<th>Cart Subtotal</th>
-							<td><span class="amount">£215.00</span></td>
-						</tr>
+<!-- 						<tr class="cart-subtotal"> -->
+<!-- 							<th>Cart Subtotal</th> -->
+<!-- 							<td><span class="amount">£215.00</span></td> -->
+<!-- 						</tr> -->
 						<tr class="order-total">
-							<th>Order Total</th>
-							<td><strong><span class="amount">£215.00</span></strong></td>
+							<th>總金額</th>
+							<td><strong><span class="amount">$${total}</span></strong></td>
 						</tr>
 					</tfoot>
 				</table>
 			</div>
 
 			<div class="order-button-payment">
-				<input type="submit" value="Place order" />
+				<input type="submit" value="查看訂單"/>
 			</div>
 
 		</div>
@@ -216,6 +196,7 @@
 		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule
 		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<script	src="<%=request.getContextPath()%>/static/js/front-main/active.js"></script>
 
 
 	<script>
@@ -242,88 +223,7 @@
         });
 
 
-        const prevBtns = document.querySelectorAll(".btn-prev");
-        const nextBtns = document.querySelectorAll(".btn-next");
-        const progress = document.getElementById("progress");
-        const formSteps = document.querySelectorAll(".form-step");
-        const progressSteps = document.querySelectorAll(".progress-step");
-
-        let formStepsNum = 0;
-
-        nextBtns.forEach((btn) => {
-            btn.addEventListener("click", () => {
-                formStepsNum++;
-                updateFormSteps();
-                updateProgressbar();
-            });
-        });
-
-        prevBtns.forEach((btn) => {
-            btn.addEventListener("click", () => {
-                formStepsNum--;
-                updateFormSteps();
-                updateProgressbar();
-            });
-        });
-
-        function updateFormSteps() {
-            formSteps.forEach((formStep) => {
-                formStep.classList.contains("form-step-active") &&
-                    formStep.classList.remove("form-step-active");
-            });
-
-            formSteps[formStepsNum].classList.add("form-step-active");
-        }
-
-        function updateProgressbar() {
-            progressSteps.forEach((progressStep, idx) => {
-                if (idx < formStepsNum + 1) {
-                    progressStep.classList.add("progress-step-active");
-                } else {
-                    progressStep.classList.remove("progress-step-active");
-                }
-            });
-
-            const progressActive = document.querySelectorAll(".progress-step-active");
-
-            progress.style.width =
-                ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
-        }
-
-        // 信用卡
-        $("input.card").on("keydown", function (e) {
-            //console.log(e.which);
-            if ((e.which >= 48 && e.which <= 57) || e.which == 8) {
-
-                //console.log(e.target.value.length);
-
-                if (e.target.value.length == 0 && e.which == 8) {
-                    $(this).prev().focus();
-                }
-
-            } else {
-                e.preventDefault();
-            }
-        });
-
-        $("input.card").on("keyup", function (e) {
-
-            // \D 代表非數字字元，g 代表全域尋找
-            //let str = e.target.value;
-            //console.log(e.target.value);
-
-            let str = (e.target.value).replace(/\D/g, "");
-            //console.log(str);
-
-            $(this).val(str);
-
-            //console.log(str.length);
-
-            if (str.length == 4) {
-                $(this).next().focus();
-            }
-
-        });
+     
     </script>
 
 </body>

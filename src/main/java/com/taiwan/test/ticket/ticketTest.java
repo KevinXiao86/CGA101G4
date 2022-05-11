@@ -37,11 +37,50 @@ public class ticketTest {
 //		System.out.println(ticketVOs);
 //	}
 	
+//	@Test
+//	public void test04() {
+//		TicketVO ticketVO=new TicketVO();
+//		ticketVO.setTktId(58);
+//		ticketVO.setOriginalAmount(1000);
+//	}
+	
+//	
+//	@Test
+//	public void test05() {
+//		System.out.println(ticketService.findById(4));
+//	}
+//	
 	@Test
-	public void test04() {
-		TicketVO ticketVO=new TicketVO();
-		ticketVO.setTktId(58);
-		ticketVO.setOriginalAmount(1000);
+	public void test06() {
+		System.out.println(mapper.queryImgByTicket(4));
+	}
+	
+//	@Test
+//	public void test07() {
+//		System.out.println(mapper.queryById(4));
+//	}
+	
+//	@Test
+//	public void test08() {
+//		System.out.println(mapper.queryAll());
+//	}
+//	@Test
+//	public void test09() {
+//		System.out.println(ticketService.findAll());
+//	}
+	
+//	@Test 
+//	public void test10() {
+//		System.out.println(mapper.getTicketByScore());
+//	}
+	
+//	@Test
+//	public void test11() {
+//		System.out.println(ticketService.findTicketByScore());
+//	}
+	@Test
+	public void test12() {
+		System.out.println(mapper.queryOInfoById(4));
 	}
 	
 	

@@ -21,7 +21,21 @@ ul li, ol li {
 ul{
 padding:0;
 }
-
+#scrollUp {
+    text-decoration: none;
+    bottom: 60px;
+    right: 60px;
+    font-size: 13px;
+    text-align: center;
+    color: #878787;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #878787;
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    line-height: 1;
+}
 /* footer */
 .footer {
 	background-color: #f2f2f2;
@@ -172,7 +186,9 @@ a:focus {
 
 	</footer>
 	<!-- ##### Footer Area End ##### -->
-
+	
+	
+	<script	src="<%=request.getContextPath()%>/static/js/front-main/active.js"></script>
 
 
 
