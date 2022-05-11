@@ -81,6 +81,7 @@ img {
 					<th>圖片</th>
 					<th>狀態</th>
 					<th>修改</th>
+					<th>發放</th>
 					<th>刪除</th>
 				</tr>
 				<%@ include file="page1.file"%>
@@ -104,6 +105,13 @@ img {
 						<td>
 							<FORM METHOD="post" ACTION="coupon/cop2Update" style="margin-bottom: 0px;">
 								<input id="change_button" type="submit" value="修改" ${(couponVO.status == "已過期")? "disabled='disabled'":"" }> 
+								<input type="hidden" name="copId" value="${couponVO.copId}">
+								<input type="hidden" name="whichPage" value="<%=whichPage %>">
+							</FORM>
+						</td>
+						<td>
+							<FORM METHOD="post" ACTION="coupon/get" style="margin-bottom: 0px;">
+								<input type="submit" value="發放" class="send" ${(couponVO.status == "已過期")? "disabled='disabled'":"" }> 
 								<input type="hidden" name="copId" value="${couponVO.copId}">
 								<input type="hidden" name="whichPage" value="<%=whichPage %>">
 							</FORM>

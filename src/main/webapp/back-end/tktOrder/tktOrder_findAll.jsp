@@ -79,7 +79,8 @@ img {
 					<th>會員優惠券編號</th>
 					<th>訂單詳情</th>
 				</tr>
-				<c:forEach var="tktOrder" items="${list}">
+				<%@ include file="page1.file" %>
+				<c:forEach var="tktOrder" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
 					<tr>
 						<td>${tktOrder.tktOrderId}</td>
@@ -99,7 +100,8 @@ img {
 					</tr>
 				</c:forEach>
 			</table>
-
+			<%@ include file="page2.file"%>
+			
 		</div>
 	</div>
 

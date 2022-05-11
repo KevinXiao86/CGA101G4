@@ -1,12 +1,20 @@
 package com.taiwan.service.customer.impl;
 
 import java.sql.Date;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.taiwan.beans.Customer;
 import com.taiwan.beans.CustomerVO;
 import com.taiwan.dao.customer.CustomerDAO_interface;
 import com.taiwan.dao.customer.impl.CustomerJNDIDAO;
 import com.taiwan.service.customer.CustomerService;
 
+import mybatis.mapper.CustomerMapper;
+@Service
 public class CustomerServiceImpl implements CustomerService {
 	private CustomerDAO_interface dao;
 
@@ -103,6 +111,31 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		customerVO.setSuccessful(true);
 		return customerVO;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Autowired
+	CustomerMapper customerMapper;
+	
+	@Transactional
+	@Override
+	public List<Customer> findAll() {
+		return customerMapper.queryAll();
 	}
 	
 

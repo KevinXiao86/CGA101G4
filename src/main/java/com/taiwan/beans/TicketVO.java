@@ -2,215 +2,236 @@ package com.taiwan.beans;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
+import com.taiwan.service.TktImgService;
+
 public class TicketVO implements Serializable {
-	private Integer tktId;
-	private String tktName;
-	private Integer originalAmount;
-	private Integer price;
-	private Timestamp startdate;
-	private Timestamp enddate;
-	private Integer ttlScore;  // join
-	private Integer ttlPeople; // join
-	private String location;
-	private String instruction;
-	private String address;
-	private String notice;
-	private String howuse;
-	private String canxpolicy;
-	private String status;
-	private Integer soldAmount;
-	private String kind;
+ private Integer tktId;
+ private String tktName;
+ private Integer originalAmount;
+ private Integer price;
+ private Timestamp startdate;
+ private Timestamp enddate;
+ private Integer ttlScore; // join
+ private Integer ttlPeople; // join
+ private String location;
+ private String instruction;
+ private String address;
+ private String notice;
+ private String howuse;
+ private String canxpolicy;
+ private String status;
+ private Integer soldAmount;
+ private String kind;
+ private TktImgVO tktImgVO;
 
-	public TicketVO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+ public TicketVO() {
+  super();
+  // TODO Auto-generated constructor stub
+ }
 
-	public TicketVO(Integer tktId, String tktName, Integer originalAmount, Integer price, Timestamp startdate,
-			Timestamp enddate, Integer ttlScore, Integer ttlPeople, String location, String instruction, String address,
-			String notice, String howuse, String canxpolicy, String status, Integer soldAmount, String kind) {
-		super();
-		this.tktId = tktId;
-		this.tktName = tktName;
-		this.originalAmount = originalAmount;
-		this.price = price;
-		this.startdate = startdate;
-		this.enddate = enddate;
-		this.ttlScore = ttlScore;
-		this.ttlPeople = ttlPeople;
-		this.location = location;
-		this.instruction = instruction;
-		this.address = address;
-		this.notice = notice;
-		this.howuse = howuse;
-		this.canxpolicy = canxpolicy;
-		this.status = status;
-		this.soldAmount = soldAmount;
-		this.kind = kind;
-	}
+ public TicketVO(Integer tktId, String tktName, Integer originalAmount, Integer price, Timestamp startdate,
+   Timestamp enddate, Integer ttlScore, Integer ttlPeople, String location, String instruction, String address,
+   String notice, String howuse, String canxpolicy, String status, Integer soldAmount, String kind,
+   TktImgVO tktImgVO) {
+  super();
+  this.tktId = tktId;
+  this.tktName = tktName;
+  this.originalAmount = originalAmount;
+  this.price = price;
+  this.startdate = startdate;
+  this.enddate = enddate;
+  this.ttlScore = ttlScore;
+  this.ttlPeople = ttlPeople;
+  this.location = location;
+  this.instruction = instruction;
+  this.address = address;
+  this.notice = notice;
+  this.howuse = howuse;
+  this.canxpolicy = canxpolicy;
+  this.status = status;
+  this.soldAmount = soldAmount;
+  this.kind = kind;
+  this.tktImgVO = tktImgVO;
+ }
 
-	public Integer getTktId() {
-		return tktId;
-	}
+ @Override
+ public String toString() {
+  return "TicketVO [tktId=" + tktId + ", tktName=" + tktName + ", originalAmount=" + originalAmount + ", price="
+    + price + ", startdate=" + startdate + ", enddate=" + enddate + ", ttlScore=" + ttlScore
+    + ", ttlPeople=" + ttlPeople + ", location=" + location + ", instruction=" + instruction + ", address="
+    + address + ", notice=" + notice + ", howuse=" + howuse + ", canxpolicy=" + canxpolicy + ", status="
+    + status + ", soldAmount=" + soldAmount + ", kind=" + kind + ", tktImgVO=" + tktImgVO + "]";
+ }
 
-	public void setTktId(Integer tktId) {
-		this.tktId = tktId;
-	}
+ public Integer getTktId() {
+  return tktId;
+ }
 
-	public String getTktName() {
-		return tktName;
-	}
+ public void setTktId(Integer tktId) {
+  this.tktId = tktId;
+ }
 
-	public void setTktName(String tktName) {
-		this.tktName = tktName;
-	}
+ public String getTktName() {
+  return tktName;
+ }
 
-	public Integer getOriginalAmount() {
-		return originalAmount;
-	}
+ public void setTktName(String tktName) {
+  this.tktName = tktName;
+ }
 
-	public void setOriginalAmount(Integer originalAmount) {
-		this.originalAmount = originalAmount;
-	}
+ public Integer getOriginalAmount() {
+  return originalAmount;
+ }
 
-	public Integer getPrice() {
-		return price;
-	}
+ public void setOriginalAmount(Integer originalAmount) {
+  this.originalAmount = originalAmount;
+ }
 
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
+ public Integer getPrice() {
+  return price;
+ }
 
-	public Timestamp getStartdate() {
-		return startdate;
-	}
+ public void setPrice(Integer price) {
+  this.price = price;
+ }
 
-	public void setStartdate(Timestamp startdate) {
-		this.startdate = startdate;
-	}
+ public Timestamp getStartdate() {
+  return startdate;
+ }
 
-	public Timestamp getEnddate() {
-		return enddate;
-	}
+ public void setStartdate(Timestamp startdate) {
+  this.startdate = startdate;
+ }
 
-	public void setEnddate(Timestamp enddate) {
-		this.enddate = enddate;
-	}
+ public Timestamp getEnddate() {
+  return enddate;
+ }
 
-	public Integer getTtlScore() {
-		return ttlScore;
-	}
+ public void setEnddate(Timestamp enddate) {
+  this.enddate = enddate;
+ }
 
-	public void setTtlScore(Integer ttlScore) {
-		this.ttlScore = ttlScore;
-	}
+ public Integer getTtlScore() {
+  return ttlScore;
+ }
 
-	public Integer getTtlPeople() {
-		return ttlPeople;
-	}
+ public void setTtlScore(Integer ttlScore) {
+  this.ttlScore = ttlScore;
+ }
 
-	public void setTtlPeople(Integer ttlPeople) {
-		this.ttlPeople = ttlPeople;
-	}
+ public Integer getTtlPeople() {
+  return ttlPeople;
+ }
 
-	public String getLocation() {
-		return location;
-	}
+ public void setTtlPeople(Integer ttlPeople) {
+  this.ttlPeople = ttlPeople;
+ }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+ public String getLocation() {
+  return location;
+ }
 
-	public String getInstruction() {
-		return instruction;
-	}
+ public void setLocation(String location) {
+  this.location = location;
+ }
 
-	public void setInstruction(String instruction) {
-		this.instruction = instruction;
-	}
+ public String getInstruction() {
+  return instruction;
+ }
 
-	public String getAddress() {
-		return address;
-	}
+ public void setInstruction(String instruction) {
+  this.instruction = instruction;
+ }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+ public String getAddress() {
+  return address;
+ }
 
-	public String getNotice() {
-		return notice;
-	}
+ public void setAddress(String address) {
+  this.address = address;
+ }
 
-	public void setNotice(String notice) {
-		this.notice = notice;
-	}
+ public String getNotice() {
+  return notice;
+ }
 
-	public String getHowuse() {
-		return howuse;
-	}
+ public void setNotice(String notice) {
+  this.notice = notice;
+ }
 
-	public void setHowuse(String howuse) {
-		this.howuse = howuse;
-	}
+ public String getHowuse() {
+  return howuse;
+ }
 
-	public String getCanxpolicy() {
-		return canxpolicy;
-	}
+ public void setHowuse(String howuse) {
+  this.howuse = howuse;
+ }
 
-	public void setCanxpolicy(String canxpolicy) {
-		this.canxpolicy = canxpolicy;
-	}
+ public String getCanxpolicy() {
+  return canxpolicy;
+ }
 
-	public String getStatus() {
-		return status;
-	}
+ public void setCanxpolicy(String canxpolicy) {
+  this.canxpolicy = canxpolicy;
+ }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+ public String getStatus() {
+  return status;
+ }
 
-	public Integer getSoldAmount() {
-		return soldAmount;
-	}
+ public void setStatus(String status) {
+  this.status = status;
+ }
 
-	public void setSoldAmount(Integer soldAmount) {
-		this.soldAmount = soldAmount;
-	}
+ public Integer getSoldAmount() {
+  return soldAmount;
+ }
 
-	public String getKind() {
-		return kind;
-	}
+ public void setSoldAmount(Integer soldAmount) {
+  this.soldAmount = soldAmount;
+ }
 
-	public void setKind(String kind) {
-		this.kind = kind;
-	}
+ public String getKind() {
+  return kind;
+ }
 
-	@Override
-	public String toString() {
-		return "TicketVO [tktId=" + tktId + ", tktName=" + tktName + ", originalAmount=" + originalAmount + ", price="
-				+ price + ", startdate=" + startdate + ", enddate=" + enddate + ", ttlScore=" + ttlScore
-				+ ", ttlPeople=" + ttlPeople + ", location=" + location + ", instruction=" + instruction + ", address="
-				+ address + ", notice=" + notice + ", howuse=" + howuse + ", canxpolicy=" + canxpolicy + ", status="
-				+ status + ", soldAmount=" + soldAmount + ", kind=" + kind + "]";
-	}
+ public void setKind(String kind) {
+  this.kind = kind;
+ }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(tktName);
-	}
+ public TktImgVO getTktImgVO() {
+  return tktImgVO;
+ }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		TicketVO other = (TicketVO) obj;
-		return Objects.equals(tktName, other.tktName);
-	}
-	
+ public void setTktImgVO(TktImgVO tktImgVO) {
+  this.tktImgVO = tktImgVO;
+ }
+
+public TicketVO(Integer tktId, String tktName, Integer originalAmount, Integer price, Timestamp startdate,
+		Timestamp enddate, Integer ttlScore, Integer ttlPeople, String location, String instruction, String address,
+		String notice, String howuse, String canxpolicy, String status, Integer soldAmount, String kind) {
+	super();
+	this.tktId = tktId;
+	this.tktName = tktName;
+	this.originalAmount = originalAmount;
+	this.price = price;
+	this.startdate = startdate;
+	this.enddate = enddate;
+	this.ttlScore = ttlScore;
+	this.ttlPeople = ttlPeople;
+	this.location = location;
+	this.instruction = instruction;
+	this.address = address;
+	this.notice = notice;
+	this.howuse = howuse;
+	this.canxpolicy = canxpolicy;
+	this.status = status;
+	this.soldAmount = soldAmount;
+	this.kind = kind;
+}
+
+
 }

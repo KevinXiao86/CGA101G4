@@ -35,4 +35,7 @@ public interface CouponService {
 	// 根據上架或下架做搜尋
 	public List<CouponVO> selectByStatus(String status);
 	
+	//新增全部會員優惠券
+	public boolean addCustCoupon(Integer copId,Integer custId,Integer discount);
+	
 }
