@@ -27,12 +27,13 @@ public class TicketDelete extends HttpServlet {
 		try {
 			// 獲取請求參數
 			Integer tktId = Integer.valueOf(request.getParameter("tktId"));
+			String whichPage=request.getParameter("whichPage");
 			// 開始刪除
 			tktImgService.deleteById(tktId);
 			ticketService.deleteTkt(tktId);
 			
 			// 開始請求導向(導回搜尋全部那隻servlet)
-			RequestDispatcher rd = request.getRequestDispatcher("/ticket/findAll");
+			RequestDispatcher rd = request.getRequestDispatcher("/ticket/findAll?whichPage="+whichPage);
 			rd.forward(request, response);
 		} catch (NumberFormatException e) {
 			errorMsgs.put("發生未知錯誤", e.getMessage());

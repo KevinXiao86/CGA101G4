@@ -10,9 +10,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.taiwan.beans.TicketVO;
 import com.taiwan.service.TicketService;
 
+import mybatis.mapper.TicketMapper;
+
 public class ticketTest {
 	ApplicationContext ap=new ClassPathXmlApplicationContext("applicationContext.xml");
 	TicketService ticketService=ap.getBean(TicketService.class);
+	TicketMapper mapper=ap.getBean(TicketMapper.class);
 	
 //	@Test
 //	public void test01() {
@@ -39,5 +42,99 @@ public class ticketTest {
 		TicketVO ticketVO=new TicketVO();
 		ticketVO.setTktId(58);
 		ticketVO.setOriginalAmount(1000);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	@Test
+//	public void test20() {
+//		System.out.println(mapper.queryLocName("上架", "基隆市","test"));
+//	}
+	@Test
+	public void test21() {
+		System.out.println(ticketService.findByThree("上架", "基隆市","test"));
 	}
 }

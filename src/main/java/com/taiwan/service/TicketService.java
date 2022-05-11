@@ -49,6 +49,9 @@ public interface TicketService {
 			Timestamp enddate, String location, String instruction, String address, String notice, String howuse,
 			String canxpolicy, String kind);
 	
+	//前台搜尋
+	public List<TicketVO> findByThree(String status,String location,String tktName);
+	
 
 
 }

@@ -8,16 +8,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<cache type="org.mybatis.caches.ehcache.EhcacheCache"></cache>
 
 
-<!-- 	public int insertCustomer(Customer customer); -->
+	<!-- public int insertCustomer(Customer customer); -->
 	<insert id="insertCustomer">
-		INSERT INTO `Taiwan`.`CUSTOMER` 
-			(`NAME`, `SEX`, `TEL`, `EMAIL`, `ADDRESS`, 
-			 `ID_CARD`, `BIRTH`, `ACCOUNT`, `PASSWORD`, `IMG`, 
-			 `CARD`)
+		INSERT INTO `Taiwan`.`CUSTOMER`
+		(`NAME`, `SEX`, `TEL`, `EMAIL`, `ADDRESS`,
+		`ID_CARD`, `BIRTH`, `ACCOUNT`, `PASSWORD`, `IMG`,
+		`CARD`)
 		VALUES
-			(#{name}, #{sex}, #{tel}, #{email}, #{address}, #{idCard}
-			, #{birth}, #{account}, #{password}, #{img}, #{card});
+		(#{name}, #{sex}, #{tel}, #{email}, #{address}, #{idCard}
+		, #{birth}, #{account}, #{password}, #{img}, #{card});
 	</insert>
+
 	
 	<select id="merByCustAccount"  resultType="com.taiwan.beans.Customer">
 	SELECT  `NAME`, `SEX`, `TEL`, `EMAIL`, `ADDRESS`, 
@@ -30,4 +31,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	
+
+
+	<select id="queryAll" resultType="com.taiwan.beans.Customer">
+		select * from CUSTOMER
+	</select>
+
 </mapper>

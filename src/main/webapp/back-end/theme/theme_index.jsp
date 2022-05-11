@@ -34,21 +34,15 @@
         }
 
         input[type="submit"] {
-            box-shadow: inset 0px 0px 11px 0px #bbdaf7;
-            background: linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
-            background-color: #79bbff;
-            border-radius: 20px;
-            display: inline-block;
-            cursor: pointer;
-            color: black;
-            font-family: Arial;
-            font-size: 16px;
-            font-weight: bold;
-            font-style: italic;
-            padding: 12px 35px;
-            text-decoration: none;
-            text-shadow: 5px 7px 0px #528ecc;
-            border: none;
+            	cursor: pointer; 
+				background-color: lightskyblue; 
+				color: black; 
+				padding: 5px 5px; 
+				text-decoration: none; 
+				display: inline-block; 
+				border-radius: 12px;
+				border:none;
+				border:1px solid black;
         }
 
         input[type="submit"]:hover {
@@ -110,19 +104,13 @@
                 </div>
                 <div id="title_div">
                     <FORM METHOD="post" ACTION="theme/selectByTitle">
-                        <b>輸入熱門活動標題來做查詢:</b> <input type="text" name="title"> <input type="submit" value="送出">
+                        <b>輸入熱門活動標題來做查詢:</b> <input type="text" name="title"> 
+                        <input type="submit" value="送出">
                     </FORM>
                 </div>
 
             </div>
         </div>
-
-	
-
-
-
-
-
 
 </body>
 </html>

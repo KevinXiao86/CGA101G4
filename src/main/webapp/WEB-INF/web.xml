@@ -67,24 +67,6 @@
     <filter-name>SetCharacterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-  <servlet>
-    <description></description>
-    <display-name>doRepCust</display-name>
-    <servlet-name>doRepCust</servlet-name>
-    <servlet-class>com.taiwan.controller.repCust12.doRepCust</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>doRepCust</servlet-name>
-    <url-pattern>/doRepCust</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>UpdateRepCust</display-name>
-    <servlet-name>UpdateRepCust</servlet-name>
-    <servlet-class>com.taiwan.controller.repCust12.UpdateRepCust</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UpdateRepCust</servlet-name>
-    <url-pattern>/UpdateRepCust</url-pattern>
-  </servlet-mapping>
+
+
 </web-app>

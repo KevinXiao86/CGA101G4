@@ -48,7 +48,7 @@ img {
 			<table>
 				<tr>
 					<th>票券訂單編號</th>
-					<th>票券編號</th>
+					<th>票券名稱</th>
 					<th>購買數量</th>
 					<th>評價分數</th>
 					<th>評價內文</th>
@@ -56,19 +56,25 @@ img {
 				<c:forEach var="tktItem" items="${tktItems}">
 					<tr>
 						<td>${tktItem.tktOrderId}</td>
-						<td>${tktItem.tktId}</td>
+						<td>${tktItem.ticket.tktName}</td>
 						<td>${tktItem.amount}</td>
-						<td>${(tktItem.score == 0)? "還未評分" : tktItem.score}</td>
+						<td>${(tktItem.score == null)? "還未評分" : tktItem.score}</td>
 						<td>${(tktItem.content == null)? "還未評論" : tktItem.content}</td>
 					</tr>
 				</c:forEach>
 			</table>
+			
+			<button id="pre">上一頁</button>
+			
 
 		</div>
 	</div>
 
 
-
+	<script>
+        const button1=document.querySelector('#pre');
+        button1.addEventListener('click',e=>{history.back();});
+    </script>
 
 
 </body>

@@ -1,7 +1,9 @@
 package com.taiwan.service.customer;
 
 import java.sql.Date;
+import java.util.List;
 
+import com.taiwan.beans.Customer;
 import com.taiwan.beans.CustomerVO;
 
 public interface CustomerService {
@@ -20,4 +22,18 @@ public interface CustomerService {
 
 	public CustomerVO setUpdate(String name, String sex, String tel, String email, String address, String idCard,
 			Date birth, String account, String password, String img, String card, Integer custId);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public List<Customer> findAll();
 }

@@ -8,15 +8,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.taiwan.beans.CouponVO;
+import com.taiwan.beans.CustCoupon;
 import com.taiwan.service.coupon.CouponService;
 
 import mybatis.mapper.CouponMapper;
+import mybatis.mapper.CustCouponMapper;
 
 @Service
 public class CouponServiceImpl implements CouponService {
 
  @Autowired
  private CouponMapper mapper;
+ @Autowired
+ private CustCouponMapper custCouponMapper;
 
  @Transactional
  @Override
@@ -81,5 +85,14 @@ public class CouponServiceImpl implements CouponService {
  public List<CouponVO> selectByStatus(String status) {
   return mapper.queryCouponByStatus(status);
  }
+
+@Override
+public boolean addCustCoupon(Integer copId, Integer custId, Integer discount) {
+	CustCoupon custCoupon=new CustCoupon();
+	custCoupon.setCopId(copId);
+	custCoupon.setCustId(custId);
+	custCoupon.setDiscount(discount);
+	return custCouponMapper.insertCustCoupon(custCoupon)>0;
+}
 
 }

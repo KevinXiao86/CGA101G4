@@ -1,5 +1,7 @@
 package mybatis.mapper;
 
+import java.util.List;
+
 import com.taiwan.beans.Customer;
 
 public interface CustomerMapper {
@@ -14,6 +16,10 @@ public interface CustomerMapper {
 	
 	//根據會員帳號查詢廠商
 //	public CustomerVO queryCustomerByCustAccount(String Account);
+	
+	
+	//查詢所有會員
+	public List<Customer> queryAll();
 }
 
 

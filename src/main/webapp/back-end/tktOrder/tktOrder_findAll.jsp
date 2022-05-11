@@ -70,23 +70,23 @@ img {
 			<table>
 				<tr>
 					<th>票券訂單編號</th>
-					<th>會員編號</th>
+					<th>訂購人姓名</th>
+					<th>訂購人信箱</th>
+					<th>訂購人手機號碼</th>
 					<th>原始金額</th>
 					<th>訂購日期</th>
 					<th>總金額</th>
 					<th>會員優惠券編號</th>
 					<th>訂單詳情</th>
 				</tr>
-				<c:forEach var="tktOrder" items="${list}">
+				<%@ include file="page1.file" %>
+				<c:forEach var="tktOrder" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
 					<tr>
 						<td>${tktOrder.tktOrderId}</td>
-						<td>
-							<FORM METHOD="post" ACTION="roomOrder/selectCustById" style="margin-bottom: 0px;">
-								<input type="submit" value="${tktOrder.custId}">
-								<input type="hidden" name="custId" value="${tktOrder.custId}">
-							</FORM>
-						</td>
+						<td>${tktOrder.orderName}</td>
+						<td>${tktOrder.orderEmail}</td>
+						<td>${tktOrder.orderMobile}</td>
 						<td>${tktOrder.originalPrice}</td>
 						<td><fmt:formatDate value="${tktOrder.orderdate}" pattern="yyyy-MM-dd HH:mm" /></td>
 						<td>${tktOrder.ttlPrice}</td>
@@ -100,7 +100,8 @@ img {
 					</tr>
 				</c:forEach>
 			</table>
-
+			<%@ include file="page2.file"%>
+			
 		</div>
 	</div>
 

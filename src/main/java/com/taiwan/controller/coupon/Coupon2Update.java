@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.taiwan.beans.CouponVO;
 import com.taiwan.service.coupon.CouponService;
@@ -22,15 +23,19 @@ public class Coupon2Update extends HttpServlet {
        CouponService couponService=ControllerUtil.getBean(CouponService.class);
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session=request.getSession();
 		Map<String,String> errorMsgs=new LinkedHashMap<String, String>();
 		request.setAttribute("errorMsgs", errorMsgs);
 		try {
 			//接收請求參數
 			Integer copId=Integer.valueOf(request.getParameter("copId"));
+			String whichPage=request.getParameter("whichPage");
+			System.out.println(whichPage);
 			//獲取查詢的結果
 			CouponVO couponVO=couponService.findById(copId);
 			System.out.println(couponVO);
-			//對request域塞資料
+			//對request域跟session域塞資料
+			session.setAttribute("whichPage", whichPage);
 			request.setAttribute("couponVO", couponVO);
 			//請求轉發到/coupon/cop_update.jsp
 			RequestDispatcher rd=request.getRequestDispatcher("/back-end/coupon/cop_update.jsp");

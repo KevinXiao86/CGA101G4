@@ -63,7 +63,9 @@ img {
 			<table>
 				<tr>
 					<th>票券訂單編號</th>
-					<th>會員編號</th>
+					<th>訂購人姓名</th>
+					<th>訂購人信箱</th>
+					<th>訂購人手機號碼</th>
 					<th>原始金額</th>
 					<th>訂購日期</th>
 					<th>總金額</th>
@@ -72,12 +74,9 @@ img {
 				</tr>
 				<tr>
 					<td>${tktOrder.tktOrderId}</td>
-					<td>
-						<FORM METHOD="post" ACTION="roomOrder/selectCustById" style="margin-bottom: 0px;">
-							<input type="submit" value="${tktOrder.custId}">
-							<input type="hidden" name="custId" value="${tktOrder.custId}">
-						</FORM>
-					</td>
+					<td>${tktOrder.orderName}</td>
+					<td>${tktOrder.orderEmail}</td>
+					<td>${tktOrder.orderMobile}</td>
 					<td>${tktOrder.originalPrice}</td>
 					<td><fmt:formatDate value="${tktOrder.orderdate}" pattern="yyyy-MM-dd HH:mm" /></td>
 					<td>${tktOrder.ttlPrice}</td>

@@ -89,8 +89,9 @@ public class NewsUpdate extends HttpServlet {
 			}
 			// 開始新增資料
 			newsService.update(newsId, title, content, dbPath);
-			// 新增完成，請求轉發到news首頁
-			RequestDispatcher rd = request.getRequestDispatcher("/news/findAll");
+			// 新增完成，請求轉發到news findall頁面
+			String whichPage=(String)request.getSession().getAttribute("whichPage");
+			RequestDispatcher rd = request.getRequestDispatcher("/news/findAll?whichPage="+whichPage);
 			rd.forward(request, response);
 			// 其他錯誤處理
 		} catch (Exception e) {

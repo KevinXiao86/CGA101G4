@@ -14,6 +14,8 @@
 			jdbcType="INTEGER" />
 		<result property="content" column="CONTENT" javaType="String"
 			jdbcType="VARCHAR" />
+		<association property="ticket"  select="mybatis.mapper.TktItemMapper.queryByTktId" column="tkt_id">
+  		</association>
 	</resultMap>
 
 	<insert id="insertTktItem" parameterType="com.taiwan.beans.TktItem">
@@ -63,6 +65,10 @@
 		select
 		count(*) as
 		TTLPEOPLE from TKT_ITEM where TKT_ID=#{tktId}
+	</select>
+	
+	<select id="queryByTktId" resultType="com.taiwan.beans.TicketVO">
+		select * from TICKET where tkt_id=#{tktId}
 	</select>
 
 

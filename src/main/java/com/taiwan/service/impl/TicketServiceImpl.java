@@ -139,5 +139,9 @@ public class TicketServiceImpl implements TicketService {
 		ticketVO.setKind(kind);
 		return dao.update(ticketVO)>0;
 	}
+	@Override
+	public List<TicketVO> findByThree(String status, String location, String tktName) {
+		return mapper.queryLocName(status, location, tktName);
+	}
 
 }

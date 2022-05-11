@@ -11,6 +11,8 @@ public class TktItem {
 	private Integer used;
 	private Integer score;
 	private String content;
+	
+	private TicketVO ticket;
 
 	public TktItem() {
 	}
@@ -73,10 +75,33 @@ public class TktItem {
 		this.content = content;
 	}
 
+
+	public TicketVO getTicket() {
+		return ticket;
+	}
+
+	public void setTicket(TicketVO ticket) {
+		this.ticket = ticket;
+	}
+
+	public TktItem(Integer tktId, Integer tktOrderId, Integer amount, Integer used, Integer score, String content,
+			TicketVO ticket) {
+		super();
+		this.tktId = tktId;
+		this.tktOrderId = tktOrderId;
+		this.amount = amount;
+		this.used = used;
+		this.score = score;
+		this.content = content;
+		this.ticket = ticket;
+	}
+
 	@Override
 	public String toString() {
 		return "TktItem [tktId=" + tktId + ", tktOrderId=" + tktOrderId + ", amount=" + amount + ", used=" + used
-				+ ", score=" + score + ", content=" + content + "]";
+				+ ", score=" + score + ", content=" + content + ", ticket=" + ticket + "]";
 	}
+	
+	
 
 }

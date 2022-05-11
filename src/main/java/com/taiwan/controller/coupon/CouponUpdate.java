@@ -118,11 +118,11 @@ public class CouponUpdate extends HttpServlet {
 				rd.forward(request, response);
 				return;
 			}
-
+			String whichPage=(String)request.getSession().getAttribute("whichPage");
 			// 開始修改資料
 			couponService.update(copId, copName, introduce, discount, startdate, enddate, dbPath);
-			// 新增完成，請求轉發到coupon首頁
-			RequestDispatcher rd = request.getRequestDispatcher("/coupon/findAll");
+			// 新增完成，請求轉發到coupon findAll
+			RequestDispatcher rd = request.getRequestDispatcher("/coupon/findAll?whichPage="+whichPage);
 			rd.forward(request, response);
 			// 其他錯誤處理
 		} catch (Exception e) {

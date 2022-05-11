@@ -72,7 +72,7 @@
 	</tr>
 	<%@ include file="pages/page1_ByCompositeQuery.file" %>
 	<c:forEach var="ticketVO" items="${ticketVOs}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		<tr align='center' valign='middle' }>
+		<tr align='center' valign='middle' >
 			<td>${ticketVO.tktId}</td>
 			<td>${ticketVO.tktName}</td>
 			<td>${ticketVO.price}</td>

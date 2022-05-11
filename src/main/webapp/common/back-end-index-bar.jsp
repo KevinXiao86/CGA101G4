@@ -71,7 +71,10 @@
                                     <a href="back-end/coupon/cop_index.jsp">管理優惠券</a>
                                 </li>
                                 <li>
-                                    <a href="back-end/theme/theme_index.jsp">最新消息管理</a>
+                                    <a href="back-end/theme/theme_index.jsp">熱門活動管理</a>
+                                </li>
+                                <li>
+                                    <a href="back-end/news/news_index.jsp">最新消息管理</a>
                                 </li>
                                 <li>
                                     <a href="back-end/faq/faq_index.jsp">FAQ管理</a>
