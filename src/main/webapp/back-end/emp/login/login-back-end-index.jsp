@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.taiwan.dao.employee.impl.*"%>
+<%@ page import="com.taiwan.controll.employee.*"%>
+<%@ page import="com.taiwan.service.employee.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <%@ include file="/common/head.jsp"%>
@@ -39,6 +42,13 @@
 </head>
 <body>
 
+
+<input METHOD="post" ACTION="<%=request.getContextPath()%>/EmployeeServlet" name="form1">
+					員工編號:
+					${param.empId}<br> 
+					
+				
+					
     <div id="wrapper">
 
        <%@ include file="/common/back-end-index-bar.jsp" %>

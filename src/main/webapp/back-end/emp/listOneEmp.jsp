@@ -5,54 +5,55 @@
 <%
   //EmpVO empVO = (EmpVO) request.getAttribute("empVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
 %>
-
+<%@ include file="back-end-index.jsp"%>
 <html>
 <head>
-<title>員工資料 - listOneEmp.jsp</title>
-<%@ include file="/common/head.jsp"%>
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
+<title>員工資料 </title>
 
 <style>
-  table {
-	width: 600px;
-	background-color: white;
+#page-wrapper {
+	background-color: rgb(221, 221, 241) !important;
+	height: 800px; 
+}
+
+table {
+	width: 1100px;
+	background-color: rgb(221, 221, 241) !important;
 	margin-top: 5px;
 	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
+}
+
+table, th, td {
+	border: 3px solid #CCCCFF;
+}
+
+th, td {
+	padding: 5px;
+	text-align: center;
+}
+
+img {
+	width: 150px;
+	height: 150px;
+}
 </style>
 
-</head>
-<body bgcolor='white'>
 
-<h4>此頁暫練習採用 Script 的寫法取值:</h4>
-<table id="table-1">
-	<tr><td>
-		 <h3>員工資料 - ListOneEmp.jsp</h3>
-		 <h4><a href="back-end/emp/select_page.jsp"><img src="back-end/emp/images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+
+</head>
+<body >
+
+
+	<div id="page-wrapper">
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">員工資料</h1>
+				</div>
+			</div>
+		 
+	
 
 <table>
 	<tr>
@@ -70,6 +71,10 @@
 			<td>${employeeVO.hiredate}</td>
 	</tr>
 </table>
-
+<div>
+				<a href="back-end/emp/emp_index.jsp">回到員工首頁</a>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

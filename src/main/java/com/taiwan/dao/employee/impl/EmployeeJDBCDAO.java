@@ -31,7 +31,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 	private static final String GET_ALL_DATE = "SELECT EMP_ID,EMP_NAME,EMP_PASSWORD,EMP_STATUS,HIREDATE FROM EMPLOYEE order by EMP_ID";
 	private static final String GET_ONE_STMT = "SELECT EMP_ID,EMP_NAME,EMP_PASSWORD,EMP_STATUS,HIREDATE FROM EMPLOYEE where EMP_ID = ?";
 	private static final String GET_ONE_NAME = "SELECT EMP_ID,EMP_NAME,EMP_PASSWORD,EMP_STATUS,HIREDATE FROM EMPLOYEE where EMP_ID = ?";
-	private static final String UPDATE_All = "UPDATE EMPLOYEE set EMP_NAME=? ,EMP_PASSWORD=?,EMP_STATUS=? ,HIREDATE=? where EMP_ID = ?";
+	private static final String UPDATE_All = "UPDATE EMPLOYEE set EMP_NAME=? ,EMP_PASSWORD=?,EMP_STATUS=?,HIREDATE=?  where EMP_ID = ?" ;
 	private static final String DELETE = "DELETE FROM EMPLOYEE WHERE EMP_ID = ? ";
 	private static final String login = "SELECT EMP_ID,EMP_NAME,EMP_PASSWORD,EMP_STATUS,HIREDATE from EMPLOYEE where EMP_ID = ? and EMP_PASSWORD = ? ";
 	private static final String GET_Emps_ByAuthority = "SELECT EMP_ID,EMP_NAME FROM EMPLOYEE where EMP_ID = ? order by EMP_ID";
@@ -92,6 +92,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 			pstmt.setString(3, employeeVO.getEmpStatus());
 			pstmt.setDate(4, employeeVO.getHiredate());
 			pstmt.setInt(5, employeeVO.getEmpId());
+			
 			count = pstmt.executeUpdate();
 			System.out.println("success 修改" + count);
 		} catch (ClassNotFoundException e) {

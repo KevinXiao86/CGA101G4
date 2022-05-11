@@ -17,7 +17,7 @@ public interface CustomerDAO_interface {
 
 	public CustomerVO getLogin(String account, String password);
 
-	public int regist(CustomerVO customer);
+//	public int regist(CustomerVO customer);
 	
 	
 }

@@ -27,7 +27,7 @@ public class EmployeeServlet extends HttpServlet {
 		System.out.println(req.getContextPath());
 		System.out.println("訪問成功");
 
-		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
+		if ("getOne_For_Display".equals(action)) { // 來自emp_index.jsp的請求
 
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -40,7 +40,7 @@ public class EmployeeServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/emp_index.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -53,7 +53,7 @@ public class EmployeeServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/emp_index.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -66,7 +66,7 @@ public class EmployeeServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/emp_index.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -81,7 +81,7 @@ public class EmployeeServlet extends HttpServlet {
 //			} catch (Exception e) {
 //				errorMsgs.put("Exception","無法取得資料:" + e.getMessage());
 //				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/emp/select_page.jsp");
+//						.getRequestDispatcher("/emp/emp_index.jsp");
 //				failureView.forward(req, res);
 //			}
 		}
@@ -119,8 +119,9 @@ public class EmployeeServlet extends HttpServlet {
 		}
 
 		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
-
+			
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+		
 			req.setAttribute("errorMsgs", errorMsgs);
 
 //			try {
@@ -162,13 +163,13 @@ public class EmployeeServlet extends HttpServlet {
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
-
+System.out.println(165);
 			/*************************** 2.開始修改資料 *****************************************/
 			EmployeeService empSvc = new EmployeeService();
 			System.out.println(empId + "," + empName + "," + empPassword + "," + empStatus + "," + hiredate);
 
 			EmployeeVO employeeVO = empSvc.updateEmp(empId, empName, empPassword, empStatus, hiredate);
-
+System.out.println(172);
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("employeeVO", employeeVO); // 資料庫update成功後,正確的的empVO物件,存入req
 			String url = "/back-end/emp/listOneEmp.jsp";
@@ -214,11 +215,12 @@ public class EmployeeServlet extends HttpServlet {
 			}
 
 			/*************************** 2.開始新增資料 ***************************************/
+			
 			EmployeeService empSvc = new EmployeeService();
 			empSvc.addEmp(empName, empPassword);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-
+System.out.println(empPassword);
 			String url = "/back-end/emp/listAllEmp.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
@@ -252,7 +254,7 @@ public class EmployeeServlet extends HttpServlet {
 			String url = "/back-end/emp/listAllEmp.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
-			EmployeeVO employeeVO=null;
+			
 ////				/***************************其他可能的錯誤處理**********************************/
 //		} catch (Exception e) {
 //			errorMsgs.add("刪除資料失敗:"+e.getMessage());
@@ -262,27 +264,27 @@ public class EmployeeServlet extends HttpServlet {
 //		}
 		}
 		if ("empLogin".equals(action)) {
-			
+		
 			Integer empId = Integer.valueOf(req.getParameter("empId"));
 			String empPassword = req.getParameter("empPassword");
 			EmployeeService employeeService = new EmployeeService();
 			EmployeeVO employeeVO = employeeService.login(empId, empPassword);
 //			req.setAttribute("employee", employeeVO);
 //			employeeVO.setSuccessful(true);
-			
+			System.out.println(employeeVO);
 			if (employeeVO==null) {
 				employeeVO=new EmployeeVO();
 				employeeVO.setUrl("/back-end/emp/login/empLogin.jsp");
 				RequestDispatcher failureView = req.getRequestDispatcher(employeeVO.getUrl());
-				System.out.println("275");
+				System.out.println("279");
 				
 				failureView.forward(req, res);
 			
 			} else {
-				System.out.println("278");
+				HttpSession session = req.getSession();
+				session.setAttribute("emp", employeeVO);
 				RequestDispatcher successView = req.getRequestDispatcher("/back-end/emp/back-end-index.jsp");
 				successView.forward(req, res);
-				
 			}
 		}
 

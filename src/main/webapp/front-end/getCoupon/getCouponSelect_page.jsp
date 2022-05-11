@@ -1,16 +1,29 @@
+<%@page import="com.taiwan.service.getCoupon.GetCouponService"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.taiwan.dao.customer.impl.*"%>
+<%@ page import="com.taiwan.beans.CouponVO.*"%>
+<%@ page import="com.taiwan.service.getCoupon.*"%>
+<%@ page import="com.taiwan.controller.getCoupon.*"%>
+<%@ page import="com.taiwan.dao.coupon.*"%>
+<%@ page import="com.taiwan.dao.getCoupon.*"%>
+
+
+
+
+<%@ include file="/common/head.jsp"%>
 
 <html>
 <head>
-<title>員工首頁</title>
-<%@ include file="/common/head.jsp"%>
+<title>領取優惠券</title>
+
 <style>
 p#f_title {
-	font-size:150%;
-	font-family:verdana;
-	font-weight:900;
-	color:00ff00;
+	font-size: 150%;
+	font-family: verdana;
+	font-weight: 900;
+	color: 00ff00;
 }
 
 table#table-1 {
@@ -33,6 +46,10 @@ h4 {
 	color: blue;
 	display: inline;
 }
+
+form#getAll#submit {
+	
+}
 </style>
 
 </head>
@@ -40,7 +57,8 @@ h4 {
 
 	<table id="table-1">
 		<tr>
-			<td style="color:red;font-weigth:bold;"><h3>員工首頁</h3></td>
+			<td style="color: red; font-weigth: bold;"><h3>領取優惠券
+					select_page</h3></td>
 		</tr>
 	</table>
 
@@ -48,23 +66,18 @@ h4 {
 
 	<h3>資料查詢:</h3>
 
-	<%-- 錯誤表列 --%>
-	<%-- <c:if test="${not empty errorMsgs}"> --%>
-	<!-- 	<font style="color:red">請修正以下錯誤:</font> -->
-	<!-- 	<ul> -->
-	<%-- 		<c:forEach var="message" items="${errorMsgs}"> --%>
-	<%-- 			<li style="color:red">${message.value}</li> --%>
-	<%-- 		</c:forEach> --%>
-	<!-- 	</ul> -->
-	<%-- </c:if> --%>
+
 
 	<ul>
-		<li><a href='back-end/emp/listAllEmp.jsp'>List</a> 全部員工 <br>
-		<br></li>
-
+		<li>
+              <form action="getCouponFindAll" method="post">
+                  <input type="submit" value="查詢全部">
+              </form>
+		</li>
 
 		<li>
-			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/EmployeeServlet">
+			<FORM METHOD="post"
+				ACTION="<%=request.getContextPath()%>/EmployeeServlet">
 				<b>輸入員工編號 (如30000):</b> <input type="text" name="empId"
 					value="${param.empId}"><font color=red>${errorMsgs.empId}</font>
 				<input type="hidden" name="action" value="getOne_For_Display">
@@ -73,10 +86,11 @@ h4 {
 		</li>
 
 		<jsp:useBean id="empSvc" scope="page"
-			class="com.taiwan.service.employee.EmployeeService"  />
+			class="com.taiwan.service.employee.EmployeeService" />
 
 		<li>
-			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/EmployeeServlet">
+			<FORM METHOD="post"
+				ACTION="<%=request.getContextPath()%>/EmployeeServlet">
 				<b>選擇員工編號:</b> <select size="1" name="empId">
 					<c:forEach var="employeeVO" items="${empSvc.all}">
 						<option value="${employeeVO.empId}">${employeeVO.empId}
@@ -87,7 +101,8 @@ h4 {
 		</li>
 
 		<li>
-			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/EmployeeServlet">
+			<FORM METHOD="post"
+				ACTION="<%=request.getContextPath()%>/EmployeeServlet">
 				<b>選擇員工姓名:</b> <select size="1" name="empId">
 					<c:forEach var="employeeVO" items="${empSvc.all}">
 						<option value="${employeeVO.empId}">${employeeVO.empName}

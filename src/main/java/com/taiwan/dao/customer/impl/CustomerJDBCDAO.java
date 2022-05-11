@@ -376,61 +376,61 @@ public class CustomerJDBCDAO implements CustomerDAO_interface {
 	}
 
 	
-	@Override
-	public int regist(CustomerVO customer) {
-		Connection con = null;
-		PreparedStatement ps = null;
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			ps = con.prepareStatement(REGIST);
-			ps.setString(1, customer.getName());
-			ps.setString(2, customer.getSex());
-			ps.setString(3, customer.getTel());
-			ps.setString(4, customer.getEmail());
-			if (customer.getAddress() == null) {
-				ps.setNull(5, VARCHAR);
-			} else {
-				ps.setString(5, customer.getAddress());
-			}
-			ps.setString(6, customer.getIdCard());
-//			ps.setDate(7, customer.getBirth());
-			ps.setString(8, customer.getAccount());
-			ps.setString(9, customer.getPassword());
-			if (customer.getImg() == null) {
-				ps.setNull(10, VARCHAR);
-			} else {
-				ps.setString(10, customer.getImg());
-			}
-			ps.setString(11, customer.getCard());
-			int count = ps.executeUpdate();
-			
-			
-			
-			
-			System.out.println(count + "success");
-			return count;
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-		} finally {
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					e.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					e.printStackTrace(System.err);
-				}
-			}
-
-		}
-		
-	}
+//	@Override
+//	public int regist(CustomerVO customer) {
+//		Connection con = null;
+//		PreparedStatement ps = null;
+//		try {
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			ps = con.prepareStatement(REGIST);
+//			ps.setString(1, customer.getName());
+//			ps.setString(2, customer.getSex());
+//			ps.setString(3, customer.getTel());
+//			ps.setString(4, customer.getEmail());
+//			if (customer.getAddress() == null) {
+//				ps.setNull(5, VARCHAR);
+//			} else {
+//				ps.setString(5, customer.getAddress());
+//			}
+//			ps.setString(6, customer.getIdCard());
+////			ps.setDate(7, customer.getBirth());
+//			ps.setString(8, customer.getAccount());
+//			ps.setString(9, customer.getPassword());
+//			if (customer.getImg() == null) {
+//				ps.setNull(10, VARCHAR);
+//			} else {
+//				ps.setString(10, customer.getImg());
+//			}
+//			ps.setString(11, customer.getCard());
+//			int count = ps.executeUpdate();
+//			
+//			
+//			
+//			
+//			System.out.println(count + "success");
+//			return count;
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. " + se.getMessage());
+//		} finally {
+//			if (ps != null) {
+//				try {
+//					ps.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//
+//		}
+//		
+//	}
 }

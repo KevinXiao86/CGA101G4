@@ -33,7 +33,7 @@ public class CustomerLogin extends HttpServlet {
 		String action = request.getParameter("action");
 
 		try {
-			if ("justLogin".equals(action)) {
+			if ("empLogin".equals(action)) {
 				String account = request.getParameter("account");
 				String password = request.getParameter("password");
 				CustomerService customerService = new CustomerServiceImpl();

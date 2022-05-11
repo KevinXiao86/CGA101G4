@@ -18,4 +18,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			(#{name}, #{sex}, #{tel}, #{email}, #{address}, #{idCard}
 			, #{birth}, #{account}, #{password}, #{img}, #{card});
 	</insert>
+	
+	<select id="merByCustAccount"  resultType="com.taiwan.beans.Customer">
+	SELECT  `NAME`, `SEX`, `TEL`, `EMAIL`, `ADDRESS`, 
+			 `ID_CARD`, `BIRTH`, `ACCOUNT`, `PASSWORD`, `IMG`, 
+			 `CARD`
+	from `Taiwan`.`CUSTOMER`  WHERE `ACCOUNT`= #{account};
+	
+	
+	</select>
+	
+	
+	
 </mapper>

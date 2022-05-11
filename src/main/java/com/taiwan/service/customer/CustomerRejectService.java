@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.taiwan.beans.Company;
-import com.taiwan.beans.CustomerVO;
+import com.taiwan.beans.Customer;
 import mybatis.mapper.CustomerMapper;
 
 @Service
@@ -37,13 +37,14 @@ public class CustomerRejectService {
 	
 	// 註冊
 	@Transactional
-	public CustomerVO regist(CustomerVO customer) {
-		// 首先判斷顧客帳號是否有重複
-//		if (existsCustAccount(customerVO.getAccount())) {
-//			customerVO.setMessage("用戶名已存在");
-//			customerVO.setSuccessful(false);
-//			customerVO.setUrl("/front-end/company/cmp_regist.jsp");
-//			return customerVO;
+	public Customer regist(Customer customer) {
+		System.out.println(customer.getCard());
+//		// 首先判斷顧客帳號是否有重複
+//		if (existsCustAccount(customer.getAccount())) {
+//			customer.setMessage("用戶名已存在");
+//			customer.setSuccessful(false);
+//			customer.setUrl("/front-end/company/cmp_regist.jsp");
+//			return customer;
 //		}
 
 		// 數據校驗完成之後, 就可以調用 dao 層跟數據庫做互動
@@ -65,9 +66,9 @@ public class CustomerRejectService {
 	// 判斷廠商帳號是否重複, 返回 true 說明已存在, 返回 false 說明不存在
 //	@Transactional(readOnly = true)
 //	public boolean existsCustAccount(String Account) {
-//		CustomerVO customerVO = customerMapper.queryCustomerByCustAccount(Account);
+//		Customer customer = customerMapper.queryCustomerByCustAccount(Account);
 //
-//		if (customerVO == null) {
+//		if (customer == null) {
 //			// 說明不存在
 //			return false;
 //		}
@@ -159,14 +160,15 @@ public class CustomerRejectService {
 				// 獲取到 key 對應的 value; 注意:key是String型，value是String型數組, 所以這邊需要做強制轉型
 				String[] values = (String[]) map.get(key);
 				// 進行 cmpTel 值的判斷
-				for (int i = 0; i < values.length; i++) {
-//	            		!values[i].matches("^[0-9]*$")
-					if (values[i].trim().equals("")) {
+				for(int i = 0; i < values.length; i++) {
+//            		if (!values[i].matches("^[0-9]{2}\\D{8}*$")) {
+//						errorMap.put(key, "請輸入手機號碼或電話號碼");
+//					}
+            		if (values[i].trim().equals("")) {
 						errorMap.put(key, "請輸入手機號碼");
 					}
-				}
+            	}
 			}
-
 			// 判斷遍歷到的 key 是不是 email
 			if ("email".equals(key)) {
 				// 獲取到 key 對應的 value; 注意:key是String型，value是String型數組, 所以這邊需要做強制轉型
@@ -180,16 +182,16 @@ public class CustomerRejectService {
 			}
 
 //	            //判斷遍歷到的 key 是不是 address
-//	            if ("address".equals(key)) {
-//	            	//獲取到 key 對應的 value; 注意:key是String型，value是String型數組, 所以這邊需要做強制轉型
-//	            	String[] values = (String[]) map.get(key);  
-//	            	//進行 location 值的判斷
-//	            	for(int i = 0; i < values.length; i++) {
-//	            		if (values[i].trim().equals("")) {
-//	            			errorMap.put(key, "請輸入地址");
-//	            		}
-//	            	}
-//	            }
+	            if ("address".equals(key)) {
+	            	//獲取到 key 對應的 value; 注意:key是String型，value是String型數組, 所以這邊需要做強制轉型
+	            	String[] values = (String[]) map.get(key);  
+	            	//進行 location 值的判斷
+	            	for(int i = 0; i < values.length; i++) {
+	            		if (values[i].trim().equals("")) {
+	            			errorMap.put(key, "請輸入地址");
+	            		}
+	            	}
+	            }
 
 			// 判斷遍歷到的 key 是不是 idCard
 			if ("idCard".equals(key)) {
@@ -252,7 +254,7 @@ public class CustomerRejectService {
 	}
 
 	// 獲取圖片路徑
-	public static String getPath(MultipartFile uploadFile, HttpSession session, CustomerVO customer) {
+	public static String getPath(MultipartFile uploadFile, HttpSession session, Customer customer) {
 		// 此時這裡的數據都是過濾好的
 		// 用於獲取需要保存的圖片路徑
 		String savePath = null;

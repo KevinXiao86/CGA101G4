@@ -24,17 +24,17 @@ public class CustomerTest {
 		Customer customer = new Customer();
 		customer.setName("黃先生");
 		customer.setSex("m");
-		customer.setTel("03258333");
+		customer.setTel("0987654321");
 		customer.setEmail("testtsee@gmail.com");
 		customer.setAddress("桃園市中壢區中正路一段");
-		customer.setIdCard("822124");
+		customer.setIdCard("T123456789");
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		format.setTimeZone(TimeZone.getTimeZone("Asia/Taipei"));
 		Date date = format.parse("1997-02-10");
 		customer.setBirth(date);
 		
-		customer.setAccount("testkevin11");
+		customer.setAccount("testyu");
 		customer.setPassword("testPassword");
 		customer.setImg("images/Customer/testKevin");
 		customer.setCard("kaka");

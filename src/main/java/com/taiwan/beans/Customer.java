@@ -2,7 +2,7 @@ package com.taiwan.beans;
 
 import java.util.Date;
 
-public class Customer {
+public class Customer extends Core {
 	private Integer custId;
 	private String name;
 	private String sex;

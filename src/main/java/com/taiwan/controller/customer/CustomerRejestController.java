@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.taiwan.beans.Company;
-import com.taiwan.beans.CustomerVO;
+import com.taiwan.beans.Customer;
 import com.taiwan.beans.EmployeeVO;
 import com.taiwan.service.company.CompanyService;
 import com.taiwan.service.customer.CustomerRejectService;
@@ -45,7 +45,7 @@ public class CustomerRejestController {
 	public String regist( @RequestParam("uploadFile") MultipartFile uploadFile,
 			HttpServletRequest request, Model model, HttpSession session) throws IllegalStateException, IOException, ParseException {
 		String account = request.getParameter("account");
-		String password = request.getParameter("account");
+		String password = request.getParameter("password");
 		String name = request.getParameter("name");
 		String sex = request.getParameter("sex");
 		String tel = request.getParameter("tel");
@@ -53,22 +53,26 @@ public class CustomerRejestController {
 		String address = request.getParameter("address");
 		String idCard = request.getParameter("idCard");
 		String birth = request.getParameter("birth");
+		String card = request.getParameter("card");
+		System.out.println(card);
 		
-		System.out.println(birth);
+//		System.out.println(birth);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		format.setTimeZone(TimeZone.getTimeZone("Asia/Taipei"));
 		Date date = format.parse(birth);
 		
-		CustomerVO customerVO = new CustomerVO();
-		customerVO.setAccount(account);
-		customerVO.setPassword(password);
-		customerVO.setName(name);
-		customerVO.setSex(sex);
-		customerVO.setTel(tel);
-		customerVO.setEmail(email);
-		customerVO.setAddress(address);
-		customerVO.setIdCard(idCard);
-		customerVO.setBirth(date);
+		Customer customer = new Customer();
+		customer.setAccount(account);
+		customer.setPassword(password);
+		customer.setName(name);
+		customer.setSex(sex);
+		customer.setTel(tel);
+		customer.setEmail(email);
+		customer.setAddress(address);
+		customer.setIdCard(idCard);
+		customer.setBirth(date);
+		customer.setCard(card);
+		
 		
 		
 		
@@ -88,10 +92,10 @@ public class CustomerRejestController {
 			return "/front-end/rejest/custmomer_reject.jsp";
 		}
 
-		// 3. 判斷文件不為空
+		// 3. 判斷有沒有上傳圖檔
 		if (uploadFile.isEmpty()) {
 			// 註冊失敗, 回到註冊頁面並回顯訊息
-			errorMap.put("uploadFile", "未上傳旅館登記證");
+			errorMap.put("uploadFile", "未上傳大頭貼");
 			model.addAttribute("errorInfo", errorMap);
 			// 用於回顯訊息
 //			model.addAttribute("registCustomer", customerVO);
@@ -99,11 +103,11 @@ public class CustomerRejestController {
 		}
 
 		// 獲取圖片路徑
-		String savePath = CustomerRejectService.getPath(uploadFile, session, customerVO);
-		customerVO.setImg(savePath);
+		String savePath = CustomerRejectService.getPath(uploadFile, session, customer);
+		customer.setImg(savePath);
 
 		// 調用 service 層的業務方法
-		CustomerVO registCustomerVO = customerRejectService.regist(customerVO);
+		Customer registCustomerVO = customerRejectService.regist(customer);
 
 		if (registCustomerVO.isSuccessful()) {
 			// 成功執行文件上傳至服務器的操作
@@ -115,11 +119,11 @@ public class CustomerRejestController {
 		}
 
 		// 設定收件人
-		String sendEmail = customerVO.getEmail();
+		String sendEmail = customer.getEmail();
 		// 設定主旨
 		String subject = "註冊成功通知信件";
 		// 設定內容
-		String messageText = "Hello ~!" + customerVO.getName() + "感謝您成為我們的會員\n" + "請點選網址, 開通會員資格";
+		String messageText = "Hello ~!" + customer.getName() + "感謝您成為我們的會員\n" + "請點選網址, 開通會員資格";
 		// 寄信通知廠商
 		customerRejectService.sendEmail(email, subject, messageText);
 		

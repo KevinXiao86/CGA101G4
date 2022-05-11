@@ -8,128 +8,147 @@
 <%
 // EmpVO empVO = (EmpVO) request.getAttribute("empVO"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
 %>
-
+<%@ include file="back-end-index.jsp"%>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>員工資料修改 - !!!!update_emp_input.jsp!!!</title>
-<%@ include file="/common/head.jsp"%>
-<style>
-table#table-1 {
-	width: 450px;
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
-}
-
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
-</style>
 
 <style>
-table {
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-}
+        #page-wrapper {
+            background-color: rgb(221, 221, 241) !important;
+/*             height: 600px;  */
+        }
 
-table, th, td {
-	border: 0px solid #CCCCFF;
-}
+        label {
+            font-size: 16px;
+        }
 
-th, td {
-	padding: 1px;
-}
-</style>
+        img {
+            /* border: 1px solid black; */
+            height: 200px;
+            width: 200px;
+        }
+
+        #img_div {
+            position: absolute;
+            top: 40%;
+            right: 10%;
+        }
+
+        #img_Odiv {
+            position: absolute;
+            top: -10%;
+            right: 10%;
+        }
+
+        input[type="text"] {
+            width: 220px;
+        }
+
+        input[type="number"] {
+            width: 190px;
+        }
+
+        #back_index {
+            position: fixed;
+            right: 5%;
+            bottom: 10%;
+        }
+
+        #back_index a {
+            font-size: 20px;
+            color: blue;
+        }
+
+        #back_index a:hover {
+            color: red;
+            text-decoration: none;
+        }
+
+        #coupon_form {
+            position: relative;
+        }
+
+        input[type="submit"] {
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            box-shadow: inset 0px 1px 0px 0px #ffffff;
+            background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+            background-color: #ffffff;
+            border-radius: 6px;
+            border: 1px solid #dcdcdc;
+            display: inline-block;
+            cursor: pointer;
+            color: #666666;
+            font-family: Arial;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 6px 24px;
+            text-decoration: none;
+            text-shadow: 0px 1px 0px #ffffff;
+        }
+
+        input[type="submit"]:hover {
+            background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+        }
+    </style>
 
 </head>
-<body bgcolor='white'>
+<body>
 
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>員工資料修改 - XXXxxxupdate_emp_input.jsp!!!!</h3>
-				<h4>
-					<a href="back-end/emp/select_page.jsp"><img
-						src="back-end/emp/images/back1.gif" width="100" height="32"
-						border="0">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
+	<div id="page-wrapper">
+		<div class="container-fluid">
 
-	<h3>資料修改:</h3>
-
-	<%-- 錯誤表列 --%>
-	<%-- <c:if test="${not empty errorMsgs}"> --%>
-	<!-- 	<font style="color:red">請修正以下錯誤:</font> -->
-	<!-- 	<ul> -->
-	<%-- 		<c:forEach var="message" items="${errorMsgs}"> --%>
-	<%-- 			<li style="color:red">${message.value}</li> --%>
-	<%-- 		</c:forEach> --%>
-	<!-- 	</ul> -->
-	<%-- </c:if> --%>
-
-	<FORM METHOD="post"
-		ACTION="<%=request.getContextPath()%>/EmployeeServlet" name="form1">
-		<table>
-			<tr>
-				<td>員工編號:<font><b>*</b></font></td>
-				<td>${param.empId}</td>
-			</tr>
-
-			<tr>
-				<td>員工姓名:</td>
-				<td><input type="TEXT" name="empName" size="45"
-					value="${param.empName}" /></td>
-				<td>${errorMsgs.empName}</td>
-			</tr>
-			<tr>
-				<td>員工密碼:</td>
-				<td><input type="TEXT" name="empPassword" size="45"
-					value="${param.empPassword}" /></td>
-				<td>${errorMsgs.empPassword}</td>
-			</tr>
-			<td>啟用狀態:<font color=red><b>*</b></font></td>
-			<td><select size="1" name="empStatus">
-					<option value="啟用" ${(param.empStatus=="啟用")? 'selected':'' } >啟用</option>
-					<option value="未啟用" ${(param.empStatus=="未啟用")? 'selected':'' }>未啟用</option>
-					<option value="離職" ${(param.empStatus=="離職")? 'selected':'' }>離職</option>
-					<%-- 					<option selected="selected">${param.empStatus}</option> --%>
-			</select></td>    
-			</tr>
-
-			<tr>
-				<td>創建日期:</td>
-				<td><input name="hiredate" id="f_date1" type="text" /></td>
-				<td>${errorMsgs.hiredate}</td>
-			</tr>
-
-			<%-- 	<jsp:useBean id="deptSvc" scope="page" class="com.dept.model.DeptService" /> --%>
-			<!-- 	<tr> -->
-			<!-- 		<td>部門:<font color=red><b>*</b></font></td> -->
-			<!-- 		<td><select size="1" name="deptno"> -->
-			<%-- 			<c:forEach var="deptVO" items="${deptSvc.all}"> --%>
-			<%-- 				<option value="${deptVO.deptno}" ${(param.deptno==deptVO.deptno)? 'selected':'' } >${deptVO.dname} --%>
-			<%-- 			</c:forEach> --%>
-			<!-- 		</select></td> -->
-			<!-- 	</tr> -->
-
-		</table>
-		<br> <input type="hidden" name="action" value="update"> <input
-			type="hidden" name="empId" value="${param.empId}"> <input
-			type="submit" value="送出修改">
-	</FORM>
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">員工資料修改</h1>
+				</div>
+			</div>
+			<div id="coupon_form">
+				<FORM METHOD="post"
+					ACTION="<%=request.getContextPath()%>/EmployeeServlet" name="form1">
+					員工編號:
+					${param.empId}<br> 
+					<label>員工姓名</label><input
+						type="text" name="empName" autofocus placeholder="員工姓名"
+						value="${param.empName}">
+						${errorMsgs.empName}<br>
+					<label>員工密碼</label><input
+						type="text" name="empPassword"  size="45" autofocus placeholder="密碼"
+						value="${param.empPassword}">
+						${errorMsgs.empPassword}<br>
+					<label>啟用狀態</label>
+					<select size="1" name="empStatus">
+							<option value="啟用" ${(param.empStatus=="啟用")? 'selected':'' }>啟用</option>
+							<option value="未啟用" ${(param.empStatus=="未啟用")? 'selected':'' }>未啟用</option>
+							<option value="離職" ${(param.empStatus=="離職")? 'selected':'' }>離職</option>
+						</select>
+					創建日期:${param.hiredate}
+							
+		
+				
+<!-- 					<td><select size="1" name="empStatus"> -->
+<%-- 							<option value="啟用" ${(param.empStatus=="啟用")? 'selected':'' }>啟用</option> --%>
+<%-- 							<option value="未啟用" ${(param.empStatus=="未啟用")? 'selected':'' }>未啟用</option> --%>
+<%-- 							<option value="離職" ${(param.empStatus=="離職")? 'selected':'' }>離職</option> --%>
+<%-- 												<option selected="selected">${param.empStatus}</option> --%>
+<!-- 					</select></td> -->
+					
+					<input type="hidden" name="empId" value="${param.empId}">
+					<br> <input type="hidden" name="action" value="update">
+					<input type="hidden" name="hiredate" value="${param.hiredate}">
+					 <input type="submit" value="送出修改">
+				</FORM>
+				</div>
+				<div id="back_index">
+                    <a href='back-end/emp/emp_index.jsp'>回到優惠券首頁</a>
+                </div>
+            </div>
+        </div>
 </body>
-
 
 
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->

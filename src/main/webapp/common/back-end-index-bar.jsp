@@ -57,10 +57,10 @@
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i>員工管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">員工資料管理</a>
+                                    <a href="back-end/emp/emp_index.jsp">員工資料管理</a>
                                 </li>
                                 <li>
-                                    <a href="#">員工權限管理</a>
+                                    <a href="back-end/emp/authority/authorityIndex.jsp">員工權限管理</a>
                                 </li>
                             </ul>
                         </li>

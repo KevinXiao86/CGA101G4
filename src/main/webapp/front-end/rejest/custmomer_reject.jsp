@@ -1,59 +1,156 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<script src="https://demeter.5fpro.com/tw/zipcode-selector.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous"></script>
+
 <html>
 <head>
 <meta charset="UTF-8">
 <title>會員註冊頁面</title>
-	<%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
-	<%@ include file="/common/head.jsp"%>
+<%@ include file="/common/head.jsp"%>
+<link rel="stylesheet" href="back-end/emp/login/style.css">
+<script src='back-end/emp/login/jquery.min.js'></script>
+
+<script src="back-end/emp/login/script.js"></script>
 </head>
 <body>
-	<span id="error_msg">${requestScope.registCustmomerVO.message}</span>
-	<form action="cust/regist" method="post" enctype="multipart/form-data">
-		
-		<label for="account">帳號:</label>
-		<input type="text" name="account" id="account" value="${requestScope.registCustmomerVO.account}">${requestScope.errorInfo.account}<br>
+	<div class="form-toggle"></div>
 
-		<label for="password">密碼:</label>
-		<input type="text" name="password" id="password">${requestScope.errorInfo.password}<br>
-		
-		<label for="name">姓名:</label>
-		<input type="text" name="name" id="cmp_name" value="${requestScope.registCustmomerVO.name}">${requestScope.errorInfo.name}<br>
+	<div class="form-panel one">
+		<div class="form-header">
+			<h1>會員註冊</h1>
+		</div>
+		<div class="form-content">
+			<form action="cust/regist" method="post"
+				enctype="multipart/form-data">
+				<div class="form-group">
+					<label for="account">帳號:</label> <input type="text" id="account"
+						name="account" id="account"
+						value="${requestScope.registCustmomer.account}">${requestScope.errorInfo.account}<br>
+					
+				</div>
 
-		<label for="sex">性別:</label>
-		<input type="text" name="sex" id="sex" value="${requestScope.registCustmomerVO.sex}">${requestScope.errorInfo.sex}<br>
+				<div class="form-group">
+					<label for="password">密碼:</label> <input type="password"
+						name="password" id="password" required="required" />${requestScope.errorInfo.password}<br>
+				</div>
+				<div class="form-group">
+					<label for="name">姓名:</label> <input type="text" name="name"
+						id="cmp_name" value="${requestScope.registCustmomer.name}"
+						required="required">${requestScope.errorInfo.name}<br>
+				</div>
 
-		<label for="tel">手機號碼:</label>
-		<input type="text" name="tel" id="tel" value="${requestScope.registCustmomerVO.tel}">${requestScope.errorInfo.tel}<br>
-		
-		<label for="email">電子信箱:</label>
-		<input type="text" name="email" id="email" value="${requestScope.registCustmomerVO.email}">${requestScope.errorInfo.email}<br>
+				<div class="form-group">
+					<label for="sex">性別:</label> <input type="text" name="sex" id="sex"
+						value="${requestScope.registCustmomer.sex}"  required="required" >${requestScope.errorInfo.sex}<br>
+				</div>
+				<div class="form-group">
+					<label for="tel">手機號碼:</label> <input type="text" name="tel"
+						id="tel" value="${requestScope.registCustmomer.tel}">${requestScope.errorInfo.tel}<br>
+				</div>
 
-		<label for="address">地址:</label>
-		<input type="text" id="address" name="address" value="${requestScope.registCustmomerVO.address}">${requestScope.errorInfo.address}<br>
-			
-		<label for="idCard">身分證字號:</label>
-		<input type="text" name="idCard" id="idCard" value="${requestScope.registCustmomerVO.idCard}">${requestScope.errorInfo.password}<br>
 
-		<label for="birth">生日:</label>
-		<input type="date" id="f_date1" name="birth"  value="${requestScope.registCustmomerVO.birth}${requestScope.loginCompany.checkinTime}">${requestScope.errorInfo.checkinTime}<br>
+				<div class="form-group">
+					<label for="email">電子信箱:</label> <input type="text" name="email"
+						id="email" value="${requestScope.registCustmomer.email}">${requestScope.errorInfo.email}<br>
+				</div>
 
-		<label for="uploadFile">大頭貼:</label>
-		<input type="file" name="uploadFile" id="uploadFile">${requestScope.errorInfo.uploadFile}<br>
-		<button id="btn">註冊</button>
-	</form>
-	</body>
+				<div class="form-group">
+					<label for="address">地址:</label> <input type="text" id="address"
+						name="address" value="${requestScope.registCustmomer.address}">${requestScope.errorInfo.address}<br>
+				</div>
+
+				<div class="form-group">
+					<label for="idCard">身分證字號:</label> <input type="text" name="idCard"
+						id="idCard" value="${requestScope.registCustmomer.idCard}">${requestScope.errorInfo.idCard}<br>
+				</div>
+
+				<div class="form-group">
+					<label for="birth">生日:</label> <input type="date" id="f_date1"
+						name="birth"
+						value="${requestScope.registCustmomer.birth}${requestScope.loginCompany.checkinTime}">${requestScope.errorInfo.checkinTime}<br>
+				</div>
+
+				<div class="form-group">
+					<label for="uploadFile">會員照片:</label> <input type="file"
+						name="uploadFile" id="uploadFile">${requestScope.errorInfo.uploadFile}<br>
+				</div>
+
+
+				<div class="form-group">
+					<label for="card">信用卡卡號:</label> <input type="text" name="card"
+						id="card" value="${requestScope.registCustmomer.card}"><br>
+				</div>
+				
+				<div class="form-group">
+					<button type="submit" id="btn">註冊</button>
+				</div>
+
+				
+			</form>
+		</div>
+	</div>
 	
-	
-	<!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
-	
-	<link rel="stylesheet" type="text/css"
+</body>
+
+
+
+
+<%-- 	<span id="error_msg">${requestScope.registCustmomer.message}</span> --%>
+<!-- 	<form action="cust/regist" method="post" enctype="multipart/form-data"> -->
+
+<!-- 		<label for="account">帳號:</label> -->
+<%-- 		<input type="text" name="account" id="account" value="${requestScope.registCustmomer.account}">${requestScope.errorInfo.account}<br> --%>
+
+<!-- 		<label for="password">密碼:</label> -->
+<%-- 		<input type="text" name="password" id="password">${requestScope.errorInfo.password}<br> --%>
+
+<!-- 		<label for="name">姓名:</label> -->
+<%-- 		<input type="text" name="name" id="cmp_name" value="${requestScope.registCustmomer.name}">${requestScope.errorInfo.name}<br> --%>
+
+<!-- 		<label for="sex">性別:</label> -->
+<%-- 		<input type="text" name="sex" id="sex" value="${requestScope.registCustmomer.sex}">${requestScope.errorInfo.sex}<br> --%>
+
+<!-- 		<label for="tel">手機號碼:</label> -->
+<%-- 		<input type="text" name="tel" id="tel" value="${requestScope.registCustmomer.tel}">${requestScope.errorInfo.tel}<br> --%>
+
+<!-- 		<label for="email">電子信箱:</label> -->
+<%-- 		<input type="text" name="email" id="email" value="${requestScope.registCustmomer.email}">${requestScope.errorInfo.email}<br> --%>
+
+<!-- 		<label for="address">地址:</label> -->
+<%-- 		<input type="text" id="address" name="address" value="${requestScope.registCustmomer.address}">${requestScope.errorInfo.address}<br> --%>
+
+<!-- 		<label for="idCard">身分證字號:</label> -->
+<%-- 		<input type="text" name="idCard" id="idCard" value="${requestScope.registCustmomer.idCard}">${requestScope.errorInfo.idCard}<br> --%>
+
+<!-- 		<label for="birth">生日:</label> -->
+<%-- 		<input type="date" id="f_date1" name="birth"  value="${requestScope.registCustmomer.birth}${requestScope.loginCompany.checkinTime}">${requestScope.errorInfo.checkinTime}<br> --%>
+
+<!-- 		<label for="uploadFile">大頭貼:</label> -->
+<%-- 		<input type="file" name="uploadFile" id="uploadFile">${requestScope.errorInfo.uploadFile}<br> --%>
+
+
+<!-- 		<label for="card">信用卡卡號:</label> -->
+<%-- 		<input type="text" name="card" id="card" value="${requestScope.registCustmomer.card}"><br> --%>
+<!-- 		<button id="btn">註冊</button> -->
+<!-- 	 </form> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </div> -->
+
+
+
+<!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
+
+<link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
 <script
 	src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
-	<script>
+<script>
 	$.datetimepicker.setLocale('zh');
 	$('#f_date1').datetimepicker({
 		theme : '', //theme: 'dark',
@@ -78,6 +175,6 @@
 	//minDate:               '-1970-01-01', // 去除今日(不含)之前
 	//maxDate:               '+1970-01-01'  // 去除今日(不含)之後
 	});
-	</script>
+</script>
 
 </html>
