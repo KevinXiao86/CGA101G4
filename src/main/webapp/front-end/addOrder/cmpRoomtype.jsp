@@ -12,13 +12,49 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="/common/head.jsp"%>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/static/css/selectRoom.css">
+
 <meta charset="UTF-8">
 <title>AddOrder</title>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%--@ include file="/common/head.jsp"--%>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style type="text/css">
+.ratings {
+	position: relative;
+	vertical-align: middle;
+	display: inline-block;
+	color: #b1b1b1;
+	overflow: hidden;
+}
 
+.full-stars {
+	position: absolute;
+	left: 0;
+	top: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	color: #fde16d;
+}
+
+.empty-stars:before, .full-stars:before {
+	content: "\2605\2605\2605\2605\2605";
+	font-size: 14pt;
+}
+
+.empty-stars:before {
+	-webkit-text-stroke: 1px #848484;
+}
+
+.full-stars:before {
+	-webkit-text-stroke: 1px orange;
+}
+</style>
 </head>
 <body>
 	<%
@@ -49,102 +85,226 @@
 		class="com.taiwan.service.impl.CustCouponServiceImpl12" />
 	<jsp:useBean id="roomImgSvc12" scope="page"
 		class="com.taiwan.service.impl.roomImgServiceImpl12" />
-<jsp:useBean id="RoomItemSvc" scope="page"
+	<jsp:useBean id="RoomItemSvc" scope="page"
 		class="com.taiwan.service.roomItem.impl.RoomItemServiceImpl" />
+
+	<!-- navbar -->
+	<nav class="result-navbar w-100p bgc-secondary">
+		<div class="container d-flex jc-space-between ai-center pt-xs pb-xs ">
+			<h1 class="logo">
+				<img alt="" class="img-fluid" width="100"
+					src="<%=request.getContextPath()%>/static/img/ticket-img/logo.jpg">
+
+			</h1>
+			<ul class="d-flex ai-center result-navbar-list">
+
+				<li class="mr-m"><a href="">Sign up</a></li>
+				<li><a href="">Login</a></li>
+			</ul>
+		</div>
+		<!-- search bar -->
+
+	</nav>
+
+	<%--
 	<FORM METHOD="post"
-		ACTION="http://localhost:8081/CGA101G4/roomOrder12/roomOrder"
-		name="form1">
+		ACTION="<%=request.getContextPath()%>/roomOrder12/roomOrder">
+	 --%>
 
+	<main class="result-main d-flex flex-d-col jc-center ai-center w-100p">
+		<!--Hotel-->
 
-		<table>
-			<tr>
-				<td></td>
-			</tr>
+		<section class="result-sel-room mb-m w-100p"></section>
+		<section class="result-sel-room mb-m w-100p"></section>
+		<section class="result-sel-room mb-m w-100p"></section>
+		<!-- Select your date -->
+		<section class="result-sel-room mb-m w-100p">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 col-md-7 result-room-info">
+						<div class="d-flex ai-center result-room-info-top">
+							<h3 class="fz-m fw-bold color-basic-b mr-1 mb-tiny">${cmpVO.cmpName}</h3>
 
-			<tr>
-				<td>會員:</td>
-				<td><input type="hidden" name="custId" size="45"
-					value="${custVO.custId}" />${custVO.name }</td>
-				<td>${errorMsgs.custId}</td>
-			</tr>
-			<tr>
-				<td>開始日期:</td>
-				<td><input type="date" id="ckin" name="ckin"
-					value="${dateMap.ckin}"></td>
-				<td>${errorMsgs.ckin}</td>
+						</div>
+						<p class="color-primary fz-xxs mb-xs">${cmpVO.location}</p>
+						<p class="fz-xxs">${cmpVO.cmpIntroduce}</p>
+					</div>
+				</div>
+				<div class="row">
+					<h2 class="col-12 seb-tit mb-xs">Select Your Date</h2>
+					<ul class="col-12 d-flex ai-center result-sel-room-list">
+						<li class="select-tab mr-tiny">開始日期:<input type="date"
+							id="ckin"  value="${dateMap.ckin}">${errorMsgs.ckin}</li>
+						<li class="select-tab mr-tiny">結束日期:<input type="date"
+							id="ckout"  value="${dateMap.ckout}">${errorMsgs.ckout}</li>
+						<li class="select-tab mr-xs"><select id="custCopId">
+								<option value="0">請選擇優惠券</option>
+								<c:forEach var="CustCouponVO"
+									items="${CustCouponSvc12.searchCustCoupon(custVO.custId)}">
+									<option value="${CustCouponVO.custCopId }"
+										${(param.copId==CustCouponVO.custCopId)? 'selected':'' }>${couponService.findById(CustCouponVO.copId).copName}$${couponService.findById(CustCouponVO.copId).discount}</option>
+								</c:forEach>
+						</select></li>
+						<li class="color-primary fw-bold">EDIT DETAIL</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+		<!-- room type -->
+		<section class="result-room-type mb-lg">
+			<div class="container">
+				<!--/******************************/-->
 
-			</tr>
-			<tr>
-				<td>結束日期:</td>
-				<td><input type="date" id="ckout" name="ckout"
-					value="${dateMap.ckout}"></td>
+				<div class="row result-b-btm-sec pb-tiny result-room-type-tit">
+					<div class="col-lg-6 col-md-7">
+						<h5 class="fw-bold">房型</h5>
+					</div>
+					<div class="col-lg-2 col-md-1 p-0">
+						<h5 class="ta-center fw-bold">人數</h5>
+					</div>
+					<div class="col-lg-2 col-md-2 p-0">
+						<h5 class="ta-center fw-bold">價錢</h5>
+					</div>
+					<div class="col-lg-2 col-md-2 p-0">
+						<h5 class="ta-center fw-bold">房數</h5>
+					</div>
+				</div>
+				<!--/******************************/-->
+				<FORM METHOD="post"
+		ACTION="<%=request.getContextPath()%>/roomOrder12/roomOrder">
+				<c:forEach var="roomtypeVO" items="${roomtypeVOs}">
+					<div class="row pt-xs pb-xs result-b-btm-sec">
+						<div class="col-lg-6 col-md-7">
+							<div class="type-list d-flex">
+								<div class="type-list-img">
+									<div id="${roomtypeVO.roomtypeName}" class="carousel slide"
+										data-ride="carousel">
+										<div class="carousel-inner">
+											<c:forEach var="imgs"
+												items="${roomImgSvc12.searchImgByRoomId(roomtypeVO.roomtypeId) }">
+												<c:choose>
+													<c:when
+														test="${imgs.roomImg eq roomImgSvc12.searchImgByRoomId(roomtypeVO.roomtypeId)[1].roomImg}">
+														<div class="carousel-item active">
+															<img
+																src="<%=request.getScheme()
+        + "://"
+        + request.getServerName()
+        + ":"
+        + request.getServerPort()
+        + request.getContextPath()+"/"%>${imgs.roomImg}"
+																class="d-block w-100" alt="">
+														</div>
+													</c:when>
+													<c:otherwise>
+														<div class="carousel-item">
+															<img
+																src="<%=request.getScheme()
+        + "://"
+        + request.getServerName()
+        + ":"
+        + request.getServerPort()
+        + request.getContextPath()+"/"%>${imgs.roomImg}"
+																class="d-block w-100" alt="">
+														</div>
 
-				<td>${errorMsgs.ckout}</td>
-			</tr>
-			<tr>
-				<td>飯店名稱:</td>
-				<td>${cmpVO.cmpName}</td>
-			</tr>
-			<tr>
-				<td>飯店地址:</td>
-				<td>${cmpVO.location }</td>
-			</tr>
-			<c:forEach var="roomtypeVO" items="${roomtypeVOs}">
-				<tr>
-					<td>房型:</td>
-					<td>${roomtypeVO.roomtypeName}</td>
-					<c:forEach var="imgs"
-						items="${roomImgSvc12.searchImgByRoomId(roomtypeVO.roomtypeId) }">
-						<td><img
-							src="<%=request.getScheme()
-			            + "://"
-			            + request.getServerName()
-			            + ":"
-			            + request.getServerPort()
-			            + request.getContextPath()+"/"%>${imgs.roomImg}"
-							alt="一張圖片"></td>
-					</c:forEach>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+											<a class="carousel-control-prev"
+												href="#${roomtypeVO.roomtypeName}" role="button"
+												data-slide="prev"> <span
+												class="carousel-control-prev-icon" aria-hidden="true"></span>
+												<span class="sr-only">Previous</span>
+											</a> <a class="carousel-control-next"
+												href="#${roomtypeVO.roomtypeName}" role="button"
+												data-slide="next"> <span
+												class="carousel-control-next-icon" aria-hidden="true"></span>
+												<span class="sr-only">Next</span>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="type-list-info">
+									<div class="mb-1">
+										<p class="fw-bold">${roomtypeVO.roomtypeName}</p>
+										<p class="fz-ets">
+										<div class="ratings">
+											<div class="empty-stars"></div>
+											<div class="full-stars"
+												style="width:${roomtypeVO.totalScore/roomtypeVO.totalPeople*20}%"></div>
+										</div>
+										共${roomtypeVO.totalPeople}人評分
+										</p>
+									</div>
+									<ul
+										class="d-flex flex-wrap-w fz-xxs color-tertiary room-fea-list">
+										<li class="d-flex ai-center w-50p mb-tiny">
+											<p class="d-md-none d-lg-block">平方公尺:${roomtypeVO.roomtypeArea}</p></li>
+										
+										</li>
+										<li class="d-flex ai-center w-50p d-md-none d-lg-block">
+											<p class="d-md-none d-lg-block">房型介紹:${roomtypeVO.roomtypeIntroduce}</p>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div
+							class="col-lg-2 col-md-2 d-flex jc-center ai-center flex-d-col">
+													<p> ${roomtypeVO.roomtypePeople}人</p>
 
-
-					<!-- 					<td><select name="roomId" -->
-					<!-- 						onChange="renew(this.selectedIndex);"> -->
-					<%-- 							<option value="${roomtypeVO.roomtypeId }" --%>
-					<%-- 								${(param.roomId==roomtypeVO.roomtypeId)? 'selected':'' }>${roomtypeVO.roomtypeName}$${roomtypeVO.roomtypePrice}</option> --%>
-					<!-- 				</select> -->
-
-					<td>${errorMsgs.empName}</td><td>平均評分:</td><td>${roomtypeVO.totalScore/roomtypeVO.totalPeople}共${roomtypeVO.totalPeople}人評分</td>
-				</tr>
-				<tr>
-				<td>房數:</td>
-					<td><select name="amount">
-							<c:forEach var="amount" begin="1"
-								end="${roomtypeVO.roomtypeAmount }">
-								<option value="${amount}"
-									${(param.amount==amount)? 'selected':'' }>${amount}</option>
-							</c:forEach>
-					</select></td><td>	<input type="hidden" name="cmpId" value="${cmpVO.cmpId }">
-		<input type="submit" value="送出新增"></td>
-				</tr>
-			</c:forEach>
-
-			<tr>
-				<td>優惠券:</td>
-				<td><select name="custCopId">
-						<option value="0">請選擇優惠券</option>
-						<c:forEach var="CustCouponVO"
-							items="${CustCouponSvc12.searchCustCoupon(custVO.custId)}">
-							<option value="${CustCouponVO.custCopId }"
-								${(param.copId==CustCouponVO.custCopId)? 'selected':'' }>${couponService.findById(CustCouponVO.copId).copName}$${couponService.findById(CustCouponVO.copId).discount}</option>
-						</c:forEach>
-				</select>
-				<td></td>
-			</tr>
-			<br>
-
-		</table>
-		<input type="hidden" name="cmpId" value="${cmpVO.cmpId }">
+						</div>
+						<div
+							class="col-lg-2 col-md-2 d-flex jc-center ai-center flex-d-col">
+													<p>TWD ${roomtypeVO.roomtypePrice}</p>
+							<p class="fz-ets">每晚</p>
+						</div>
+						<div
+							class="col-lg-2 col-md-2 d-flex jc-center ai-center color-basic-b">
+							<select name="amount">
+									<c:forEach var="amount" begin="1"
+										end="${roomtypeVO.roomtypeAmount }">
+										<option value="${amount}"
+											${(param.amount==amount)? 'selected':'' }>${amount}</option>
+									</c:forEach>
+							</select>
+							<p>${errorMsgs.amount}</p>
+		<input type="hidden" name="roomId" value=${roomtypeVO.roomtypeId} >
+		<input type="hidden" name="ckin" class="ckin" value="${dateMap.ckin}" >
+		<input type="hidden" name="ckout" class="ckout" value="${dateMap.ckout}" >
+		<input type="hidden" name="custCopId" class="custCopId" value="0">
+		<input type="hidden" name="custId" value="${custVO.custId}" />
 		<input type="submit" value="送出新增">
-	</FORM>
+							
+						</div>
+					</div>
+				</c:forEach>
+				</FORM>
+				
+
+			</div>
+		</section>
+
+
+
+
+	</main>
+	<%--
+			</FORM>
+		
+		 --%>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+		crossorigin="anonymous"></script>
 </body>
 
 <%--"/CGA101G4/front-end/addOrder" --%>
@@ -225,17 +385,7 @@ function renew(index){
             let startval;
             let startDay;
             
-                start = new Date(Date.parse($('#ckin').val()) + 24*60*60*1000);
-                startMonth = start.getMonth() +1;
-                startDay=start.getDate();
-                if (startMonth < 10)
-                	startMonth = "0" + startMonth;
-                if (startDay < 10)
-                	startDay = "0" + startDay;
-                startval = start.getFullYear() + "-" + startMonth + "-" + startDay;
-
-                    $('#ckout').attr('min', startval);
-                    $('#ckout').attr('max', lastmonth);
+           
 
                     
                
@@ -248,21 +398,30 @@ function renew(index){
             if (startDay < 10)
             	startDay = "0" + startDay;
             startval = start.getFullYear() + "-" + startMonth + "-" + startDay;
-       
+            $('#ckout').attr('min', startval);
+            $('#ckout').attr('max', lastmonth);
+            $('.ckin').val($('#ckin').val());
             })
             
-            $('#ckin').blur(e => {
-            	console.log(start);
-            	console.log(startMonth);
-            	console.log(startval);
-            	console.log(lastmonth);
-            	
+            $('#ckout').change(function(){
+            start = new Date(Date.parse($('#ckout').val()) - 24*60*60*1000);
+            startMonth = start.getMonth() +1;
+            startDay=start.getDate();
+            if (startMonth < 10)
+            	startMonth = "0" + startMonth;
+            if (startDay < 10)
+            	startDay = "0" + startDay;
+            startval = start.getFullYear() + "-" + startMonth + "-" + startDay;
+            $('#ckin').attr('max', startval);
 
-                $('#ckout').attr('min', startval);
-                $('#ckout').attr('max', lastmonth);
+            $('.ckout').val($('#ckout').val());
+            })
+             $('#custCopId').change(function(){
+           
 
-                
-            })	
+            $('.custCopId').val($('#custCopId').val());
+            })
+         
         });
     </script>
 </html>

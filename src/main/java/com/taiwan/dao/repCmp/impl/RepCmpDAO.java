@@ -25,7 +25,7 @@ public class RepCmpDAO implements RepCmpDao_interface {
 	private static final String SET_REP_CMP_RESULT = "UPDATE REP_CMP SET EMP_ID=?,STATUS=?,RESULT=? WHERE REP_CMP_ID=?;";
 	private static final String insert = "INSERT INTO Taiwan.REP_CMP (CUST_ID, ROOM_ID, REASON) VALUES (?, ?, ?) ";
 	private static final String update = "UPDATE Taiwan.REP_CMP SET EMP_ID = ?, STATUS = ?, RESULT = ? WHERE REP_CMP_ID = ?";
-	private static final String find = "SELECT * FROM Taiwan.REP_CMP order by DESC REP_CMP_DATE ";
+	private static final String find = "SELECT * FROM Taiwan.REP_CMP order by  REP_CMP_DATE DESC";
 	private static final String findFrom = "SELECT * FROM Taiwan.REP_CMP where ";
 
 	@Override
@@ -218,7 +218,7 @@ public class RepCmpDAO implements RepCmpDao_interface {
 				repCmpVO = new RepCmpVO();
 				repCmpVO.setRepCmpId(rs.getInt("REP_CMP_ID"));
 				repCmpVO.setCustId(rs.getInt("CUST_ID"));
-				repCmpVO.setEmpId(rs.getInt("ROOM_ID"));
+				repCmpVO.setRoomId(rs.getInt("ROOM_ID"));
 				repCmpVO.setEmpId(rs.getInt("EMP_ID"));
 				repCmpVO.setReason(rs.getString("REASON"));
 				repCmpVO.setRepCmpDate(rs.getTimestamp("REP_CMP_DATE"));
@@ -285,7 +285,7 @@ public class RepCmpDAO implements RepCmpDao_interface {
 				repCmpVO = new RepCmpVO();
 				repCmpVO.setRepCmpId(rs.getInt("REP_CMP_ID"));
 				repCmpVO.setCustId(rs.getInt("CUST_ID"));
-				repCmpVO.setEmpId(rs.getInt("ROOM_ID"));
+				repCmpVO.setRoomId(rs.getInt("ROOM_ID"));
 				repCmpVO.setEmpId(rs.getInt("EMP_ID"));
 				repCmpVO.setReason(rs.getString("REASON"));
 				repCmpVO.setRepCmpDate(rs.getTimestamp("REP_CMP_DATE"));
@@ -353,7 +353,7 @@ public class RepCmpDAO implements RepCmpDao_interface {
 				repCmpVO = new RepCmpVO();
 				repCmpVO.setRepCmpId(rs.getInt("REP_CMP_ID"));
 				repCmpVO.setCustId(rs.getInt("CUST_ID"));
-				repCmpVO.setEmpId(rs.getInt("ROOM_ID"));
+				repCmpVO.setRoomId(rs.getInt("ROOM_ID"));
 				repCmpVO.setEmpId(rs.getInt("EMP_ID"));
 				repCmpVO.setReason(rs.getString("REASON"));
 				repCmpVO.setRepCmpDate(rs.getTimestamp("REP_CMP_DATE"));
@@ -423,7 +423,7 @@ public class RepCmpDAO implements RepCmpDao_interface {
 				repCmpVO = new RepCmpVO();
 				repCmpVO.setRepCmpId(rs.getInt("REP_CMP_ID"));
 				repCmpVO.setCustId(rs.getInt("CUST_ID"));
-				repCmpVO.setEmpId(rs.getInt("ROOM_ID"));
+				repCmpVO.setRoomId(rs.getInt("ROOM_ID"));
 				repCmpVO.setEmpId(rs.getInt("EMP_ID"));
 				repCmpVO.setReason(rs.getString("REASON"));
 				repCmpVO.setRepCmpDate(rs.getTimestamp("REP_CMP_DATE"));
@@ -491,7 +491,7 @@ public class RepCmpDAO implements RepCmpDao_interface {
 				repCmpVO = new RepCmpVO();
 				repCmpVO.setRepCmpId(rs.getInt("REP_CMP_ID"));
 				repCmpVO.setCustId(rs.getInt("CUST_ID"));
-				repCmpVO.setEmpId(rs.getInt("ROOM_ID"));
+				repCmpVO.setRoomId(rs.getInt("ROOM_ID"));
 				repCmpVO.setEmpId(rs.getInt("EMP_ID"));
 				repCmpVO.setReason(rs.getString("REASON"));
 				repCmpVO.setRepCmpDate(rs.getTimestamp("REP_CMP_DATE"));
@@ -557,7 +557,7 @@ public class RepCmpDAO implements RepCmpDao_interface {
 				repCmpVO = new RepCmpVO();
 				repCmpVO.setRepCmpId(rs.getInt("REP_CMP_ID"));
 				repCmpVO.setCustId(rs.getInt("CUST_ID"));
-				repCmpVO.setEmpId(rs.getInt("ROOM_ID"));
+				repCmpVO.setRoomId(rs.getInt("ROOM_ID"));
 				repCmpVO.setEmpId(rs.getInt("EMP_ID"));
 				repCmpVO.setReason(rs.getString("REASON"));
 				repCmpVO.setRepCmpDate(rs.getTimestamp("REP_CMP_DATE"));

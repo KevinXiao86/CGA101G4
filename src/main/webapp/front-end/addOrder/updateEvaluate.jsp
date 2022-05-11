@@ -8,7 +8,7 @@
 </head>
 <body>
 	<FORM METHOD="post"
-		ACTION="http://localhost:8081/CGA101G4/addOrder/updateEvaluate"
+		ACTION="<%=request.getContextPath()%>/addOrder/updateEvaluate"
 		name="form1">
 		<table>
 			<tr>

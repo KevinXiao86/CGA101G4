@@ -21,26 +21,19 @@ CustomerServiceImpl custSvc = new CustomerServiceImpl();
 CustomerVO custVO = custSvc.getAll(i);
 request.setAttribute("custVO", custVO);
 %>
-</head>
-<%--
-Context ctx = new javax.naming.InitialContext();
-DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
-Connection con = ds.getConnection();
-Statement stmt = con.createStatement();
-ResultSet rs = stmt.executeQuery("SELECT * FROM Taiwan.ROOM_ITEM ");
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-ResultSetMetaData rsmd = rs.getMetaData();
-int numberOfColumns = rsmd.getColumnCount();
---%>
-<div>
-	<table border="1">
+</head>
+
+<div class="w-75 p-3 " style="background-color: #eee;">
+	<table border="1" class="table table-bordered" >
 		<thead>
 			<tr>
-				<th colspan="3">預定人資訊</th>
+				<th colspan="3"  >預定人資訊</th>
 			</tr>
 		</thead>
 		<tr>
-			<th>預定人姓名</th>
+			<th >預定人姓名</th>
 			<th>E-MAIL</th>
 			<th>電話</th>
 		</tr>
@@ -52,7 +45,7 @@ int numberOfColumns = rsmd.getColumnCount();
 	</table>
 	<br>
 
-	<table border="1">
+	<table border="1" class="table table-bordered">
 		<thead>
 			<tr>
 				<th colspan="2">住宿訊息</th>
@@ -76,7 +69,7 @@ int numberOfColumns = rsmd.getColumnCount();
 		</tr>
 	</table>
 	<br>
-	<table border="1">
+	<table border="1" class="table table-bordered">
 		<thead>
 			<tr>
 				<th colspan="2">訂單詳情</th>
@@ -111,40 +104,37 @@ int numberOfColumns = rsmd.getColumnCount();
 			<th>${roomOrderVO.roomOrderTotalPrice }</th>
 		</tr>
 	</table>
-</div>
+
 
 <table border="1">
-	<FORM METHOD="post" ACTION="http://localhost:8081/CGA101G4/addRepCmp/selectRoomId" name="form1">
+<table>
+	<tr>
+	<td><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/addRepCmp/selectRoomId" name="form1">
 		<input type="hidden" name="roomtypeId"
 			value="${roomtypeVO.roomtypeId}"> <input type="submit"
 			value="檢舉廠商">${errorMsgs.repCmp}
 
-	</FORM>
-	<FORM METHOD="post" ACTION="http://localhost:8081/CGA101G4/roomOrder12/SelectRoomItem" name="form2">
+	</FORM></td>
+	<td></td>
+	<td><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/roomOrder12/SelectRoomItem" name="form2">
 		<input type="hidden" name="roomItemId" value="${list[0].roomItemId}"> 
 			<input type="submit" value="評價">${errorMsgs.evaluate}
 
-	</FORM>
-	<!-- 	<tr> -->
-	<%-- 		<% --%>
-	<%--		for (int i = 1; i <= numberOfColumns; i++) {--%>
-	<%-- 		%> --%>
-	<%-- 		<th><%=rsmd.getColumnName(i)%></th> --%>
-	<%-- 		<% --%>
-	<%-- 	}--%>
-	<%-- 		%> --%>
-	<!-- 	</tr> -->
-
+	</FORM></td>
+</tr>
+</table>
 
 
 
 
 
 </table>
-
-<%--
-con.close();
---%>
+</div>
+ <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 </body>
 
 
