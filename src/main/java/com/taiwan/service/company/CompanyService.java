@@ -133,19 +133,31 @@ public class CompanyService {
 		}
 	}
 
-	
-	//查詢廠商帳號是否存在: 返回 true 說明已存在, 返回 false 說明不存在
-	//因為註冊實的帳號必須是唯一性
-	@Transactional(readOnly = true)
-	public boolean existsCmpAccount(String cmpAccount) {
-		Company company = companyMapper.queryCompanyByCmpAccount(cmpAccount);
-		return company != null;
-	}
+	//判斷廠商帳號是否重複, 返回 true 說明已存在, 返回 false 說明不存在
+//	@Transactional(readOnly = true)
+//	public boolean existsCmpAccount(String cmpAccount) {
+//		Company company = companyMapper.queryCompanyByCmpAccount(cmpAccount);
+//		
+//		if (company == null) {
+//			//說明不存在
+//			return false;
+//		}
+//		//說明已存在
+//		return true;
+//	}
 	
 	
 	//註冊
 	@Transactional
 	public Company regist(Company company) {
+		//首先判斷廠商帳號是否有重複
+		if (existsCmpAccount(company.getCmpAccount())) {
+			company.setMessage("用戶名已存在");
+			company.setSuccessful(false);
+			company.setUrl("/front-end/company/regist.jsp");
+			return company;	
+		}
+		
 		//數據校驗完成之後, 就可以調用 dao 層跟數據庫做互動
 		int result = companyMapper.insertCompany(company);
 		
@@ -157,10 +169,37 @@ public class CompanyService {
 		}else {
 			company.setMessage("註冊成功");
 			company.setSuccessful(true);
-			company.setUrl("/front-end/company/regist_success.jsp");			
+			company.setUrl("/front-end/company/regist_success.jsp");
 			return company;	
 		}
 	}
+	//查詢廠商帳號是否存在: 返回 true 說明已存在, 返回 false 說明不存在
+	//因為註冊實的帳號必須是唯一性
+	@Transactional(readOnly = true)
+	public boolean existsCmpAccount(String cmpAccount) {
+		Company company = companyMapper.queryCompanyByCmpAccount(cmpAccount);
+		return company != null;
+	}
+	
+	
+	//註冊
+//	@Transactional
+//	public Company regist(Company company) {
+//		//數據校驗完成之後, 就可以調用 dao 層跟數據庫做互動
+//		int result = companyMapper.insertCompany(company);
+//		
+//		if (result == 0) {
+//			company.setMessage("註冊失敗");
+//			company.setSuccessful(false);
+//			company.setUrl("/front-end/company/regist.jsp");
+//			return company;			
+//		}else {
+//			company.setMessage("註冊成功");
+//			company.setSuccessful(true);
+//			company.setUrl("/front-end/company/regist_success.jsp");			
+//			return company;	
+//		}
+//	}
 
 	
 	//根據廠商帳號和廠商密碼來查詢廠商(配合 @ModelAttribute 使用的)
