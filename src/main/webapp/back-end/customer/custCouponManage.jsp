@@ -34,6 +34,33 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+<style>
+#page-wrapper {
+/*     background-color: rgb(221, 221, 241) !important; */
+/*     height: 1000px;  */
+}
+
+table {
+	width: 1100px;
+	background-color: #ced7e8 !important;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+table, th, td {
+/* 	border: 3px solid #CCCCFF; */
+}
+
+th, td {
+	padding: 5px;
+	text-align: center;
+}
+
+img {
+	width: 150px;
+	height: 150px;
+}
+</style>
 
 </head>
 <body>
@@ -52,7 +79,7 @@
                  	</c:if>
                  	
                  	<c:if test="${!list.isEmpty()}">
-						<table>
+						<table border="2px" class="table table-striped table-hover">
 							<thead>
 								<tr>
 									<td>會員優惠券流水號</td>

@@ -47,7 +47,6 @@
 				<div class="navbar-default sidebar" role="navigation">
 					<div class="sidebar-nav navbar-collapse">
 						<ul class="nav" id="side-menu">
-<%-- 							<%@ include file="/common/back-end-index-bar.jsp"%> --%>
 						</ul>
 					</div>
 				</div>

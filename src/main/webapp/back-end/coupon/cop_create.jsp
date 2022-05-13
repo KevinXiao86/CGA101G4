@@ -7,10 +7,10 @@
 <meta charset="UTF-8">
 <title>撰寫一張優惠券</title>
 	<style>
-        #page-wrapper {
-            background-color: rgb(221, 221, 241) !important;
-            height: 800px; 
-        }
+/*         #page-wrapper { */
+/*             background-color: rgb(221, 221, 241) !important; */
+/*             height: 800px;  */
+/*         } */
 
         label {
             font-size: 16px;

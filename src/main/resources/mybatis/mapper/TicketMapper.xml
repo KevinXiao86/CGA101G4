@@ -145,16 +145,7 @@
 
 	<select id="queryOInfoById" parameterType="Integer"
 		resultMap="TicketMap">
-		select TKT_ID tktId,TKT_NAME tktName, ORIGINAL_AMOUNT
-		originalAmount,
-		PRICE, STARTDATE, ENDDATE, TTL_SCORE ttlScore
-		,TTL_PEOPLE ttlPeople,STATUS,
-		LOCATION, INSTRUCTION, ADDRESS, NOTICE,
-		HOWUSE, CANXPOLICY,SOLD_AMOUNT
-		soldAmount ,KIND
-		from TICKET
-		where TKT_ID
-		= #{tktId}
+		select * from TICKET where TKT_ID = #{tktId}
 	</select>
 
 

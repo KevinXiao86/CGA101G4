@@ -15,7 +15,7 @@ Theme theme = (Theme) request.getAttribute("theme");
 <style type="text/css">
 
 		#page-wrapper {
-            background-color: rgb(221, 221, 241) !important;
+            background-color: #ced7e8 !important;
             height: 1000px
         }
 		

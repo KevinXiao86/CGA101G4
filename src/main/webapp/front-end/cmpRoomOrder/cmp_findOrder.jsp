@@ -132,6 +132,16 @@ img {
 						<h1 class="page-header">搜尋全部訂房訂單</h1>
 					</div>
 				</div>
+				<div>
+                    <FORM METHOD="post" ACTION="roomOrder/selectByDate">
+                        <b>根據日期來做查詢來做查詢:</b> <br>
+                        <label for="from">From</label>
+						<input type="text"  name="startdate" id="start_date">
+						<label for="to">to</label>
+						<input type="text"  name="enddate" id="end_date">
+                        <input type="submit" value="送出">
+                    </FORM>
+                </div>
 
 				<%--錯誤列表 --%>
 				<c:if test="${not empty errorMsgs}">
@@ -245,6 +255,7 @@ img {
 <script src="common/datetimepicker/jquery.datetimepicker.full.js"></script>
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 	<script>
+
     $.datetimepicker.setLocale('zh');
     $('#start_date').datetimepicker({
        theme: '',              //theme: 'dark',
@@ -269,6 +280,7 @@ img {
         //minDate:               '-1970-01-01', // 去除今日(不含)之前
         //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
      });
+
 </script>
 </body>
 </html>

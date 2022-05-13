@@ -9,20 +9,16 @@
 <meta charset="UTF-8">
 <title>上下架優惠券 CouponSelectByStatus</title>
 <style>
-#page-wrapper {
-	background-color: rgb(221, 221, 241) !important;
-	height: 800px; 
-}
 
 table {
 	width: 1100px;
-	background-color: rgb(221, 221, 241) !important;
+	background-color: #ced7e8 !important;
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
 
 table, th, td {
-	border: 3px solid #CCCCFF;
+/* 	border: 3px solid #CCCCFF; */
 }
 
 th, td {
@@ -34,6 +30,26 @@ img {
 	width: 150px;
 	height: 150px;
 }
+input[type="submit"] {
+            box-shadow: inset 0px 1px 0px 0px #ffffff;
+            background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+            background-color: #ffffff;
+            border-radius: 6px;
+            border: 1px solid #dcdcdc;
+            display: inline-block;
+            cursor: pointer;
+            color: #666666;
+            font-family: Arial;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 6px 24px;
+            text-decoration: none;
+            text-shadow: 0px 1px 0px #ffffff;
+        }
+
+        input[type="submit"]:hover {
+            background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+        }
 </style>
 </head>
 <body>
@@ -56,7 +72,8 @@ img {
 				</ul>
 			</c:if>
 
-			<table>
+			<table border="2px" class="table table-striped table-hover">
+			<thead>
 				<tr>
 					<th>優惠券編號</th>
 					<th>優惠券名稱</th>
@@ -67,8 +84,11 @@ img {
 					<th>圖片</th>
 					<th>狀態</th>
 					<th>修改</th>
+					<th>發放</th>
 					<th>刪除</th>
 				</tr>
+			</thead>
+			<tbody>
 				<c:forEach items="${requestScope.list}" var="couponVO">
 					<tr>
 						<td>${couponVO.copId}</td>
@@ -91,6 +111,12 @@ img {
 							</FORM>
 						</td>
 						<td>
+							<FORM METHOD="post" ACTION="coupon/get" style="margin-bottom: 0px;">
+								<input type="submit" value="發放" class="send" ${(couponVO.status == "已過期")? "disabled='disabled'":"" }> 
+								<input type="hidden" name="copId" value="${couponVO.copId}">
+							</FORM>
+						</td>
+						<td>
 							<FORM METHOD="post" ACTION="coupon/copDelete" style="margin-bottom: 0px;">
 								<input type="submit" value="刪除">
 								<input type="hidden"	name="copId" value="${couponVO.copId}">
@@ -98,6 +124,7 @@ img {
 						</td>
 					</tr>
 				</c:forEach>
+				</tbody>
 			</table>
 
 			<div>

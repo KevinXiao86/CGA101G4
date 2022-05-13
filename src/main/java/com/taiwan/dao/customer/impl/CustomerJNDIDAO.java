@@ -418,9 +418,4 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 		return list;
 	}
 
-//	@Override
-//	public int regist(CustomerVO customer) {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
 }

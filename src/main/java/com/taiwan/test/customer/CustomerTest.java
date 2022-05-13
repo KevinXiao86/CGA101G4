@@ -69,6 +69,5 @@ public class CustomerTest {
 
 	public void test02() {
 		System.out.println(customerService.findAll());
-
 	}
 }
