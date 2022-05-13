@@ -56,7 +56,7 @@ public class roomOrder extends HttpServlet {
 
 		String custIdReg = "^[(0-9)]{5,5}$";
 		if (custIdST == null || custIdST.trim().length() == 0) {
-			errorMsgs.put("custId", "會員編號: 請勿空白");
+			errorMsgs.put("custId", "會員編號: 請登入會員");
 		} else if (!custIdST.trim().matches(custIdReg)) { // 以下練習正則(規)表示式(regular-expression)
 			errorMsgs.put("custId", "會員編號: 只能數字，且長度必需在5到5之間");
 		}
@@ -100,7 +100,7 @@ public class roomOrder extends HttpServlet {
 			errorMsgs.put("amount", "房數: 只能是數字 , 且長度必需在1到1之間");
 		}
 		if (!errorMsgs.isEmpty()) {
-			RequestDispatcher failureView = req.getRequestDispatcher("/front-end/addOrder/addOrder.jsp");
+			RequestDispatcher failureView = req.getRequestDispatcher("/front-end/addOrder/cmpRoomtype.jsp");
 			failureView.forward(req, res);
 			return;
 		}
@@ -120,7 +120,7 @@ public class roomOrder extends HttpServlet {
 //
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()) {
-			RequestDispatcher failureView = req.getRequestDispatcher("/front-end/addOrder/addOrder.jsp");
+			RequestDispatcher failureView = req.getRequestDispatcher("/front-end/addOrder/cmpRoomtype.jsp");
 			failureView.forward(req, res);
 			return;
 		}
