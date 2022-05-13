@@ -69,7 +69,7 @@ span {
 </head>
 <body>
 <%
-	
+	//156行已改抓session
 	//假設廠商20011
 	int cmpId = 20000;
 	CompanyServiceImpl12 cmpSvc12 = new CompanyServiceImpl12();
@@ -130,41 +130,6 @@ span {
 					</div>
 				</div>
 
-
-<!-- 	<table border="2"> -->
-<!-- 		<thead> -->
-<!-- 			<tr> -->
-<!-- 				<th>檢舉編號</th> -->
-<!-- 				<th>被檢舉會員編號</th> -->
-<!-- 				<th>檢舉原因</th> -->
-<!-- 				<th>檢舉日期</th> -->
-<!-- 				<th>檢舉狀態</th> -->
-<!-- 				<th>處理結果</th> -->
-<!-- 				<th>取消檢舉</th> -->
-<!-- 			</tr> -->
-<!-- 		</thead> -->
-<!-- 		<tbody> -->
-
-<%-- 			<c:forEach var="repCustVO" items="${repCustSvc.searchRepCustByCmpId(cmpVO.cmpId)}"> --%>
-<!-- 				<tr> -->
-<%-- 					<td>${repCustVO.repCustId}</td> --%>
-<%-- 					<td>${repCustVO.custId}</td>				 --%>
-<%-- 					<td>${repCustVO.repCustReason}</td> --%>
-<%-- 					<td>${repCustVO.repCustDate}</td> --%>
-<%-- 					<td>${repCustVO.repCustStatus}</td> --%>
-<%-- 					<td>${repCustVO.repCustResult}</td> --%>
-<!-- 					<td> -->
-<%-- 					<c:if test="${repCustVO.repCustStatus == '未處理'}"> --%>
-<%-- 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repCust12/CancelRepCust" > --%>
-<%-- 					<input type="hidden" name="repCustId" value="${repCustVO.repCustId}" > --%>
-<!-- 					<input type="submit" value="取消檢舉"> -->
-<!-- 					</FORM> -->
-<%-- 					</c:if> --%>
-<!-- 					</td> -->
-<!-- 				</tr> -->
-<%-- 			</c:forEach> --%>
-
-
 	<!-- /.row -->
 				<div class="row">
 					<div class="col-lg-12">
@@ -188,7 +153,7 @@ span {
 				<th>取消檢舉</th>
 
 										</tr>
-										<c:forEach var="repCustVO" items="${repCustSvc.searchRepCustByCmpId(cmpVO.cmpId)}">
+										<c:forEach var="repCustVO" items="${repCustSvc.searchRepCustByCmpId(loginCompany.cmpId)}">
 				<tr>
 					<td>${repCustVO.repCustId}</td>
 					<td>${repCustVO.custId}</td>				
