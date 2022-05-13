@@ -71,9 +71,13 @@
  
 
  
- 
- 
-  
+  <!--filter 标签用于配置一个 Filter 过滤器 -->
+	<filter>
+		<!--给 filter 起一个别名 -->
+		<filter-name>CompanyFilter</filter-name>
+		<!--配置 filter 的全类名 -->
+		<filter-class>com.taiwan.filter.CompanyFilter</filter-class>
+	</filter>
 
 	<!--filter-mapping 配置 Filter 过滤器的拦截路径 -->
 	<filter-mapping>
@@ -83,10 +87,17 @@
 			/admin/* 表示请求地址为：http://ip:port/工程路径/admin/* -->
 		<url-pattern>/front-end/company/index.jsp</url-pattern>
 	</filter-mapping>
+	
+	<!--filter-mapping 配置 Filter 过滤器的拦截路径 -->
 	<filter-mapping>
+		<!--filter-name 表示当前的拦截路径给哪个 filter 使用 -->
 		<filter-name>CompanyFilter</filter-name>
+		<!--url-pattern 配置拦截路径 / 表示请求地址为：http://ip:port/工程路径/ 映射到 webapp 目录 
+			/admin/* 表示请求地址为：http://ip:port/工程路径/admin/* -->
 		<url-pattern>/front-end/roomtype/*</url-pattern>
 	</filter-mapping>
+	
+	
 	<!--filter-mapping 配置 Filter 过滤器的拦截路径 -->
 	<filter-mapping>
 		<!--filter-name 表示当前的拦截路径给哪个 filter 使用 -->
@@ -95,8 +106,13 @@
 			/admin/* 表示请求地址为：http://ip:port/工程路径/admin/* -->
 		<url-pattern>/front-end/cmpRoomOrder/*</url-pattern>
 	</filter-mapping>
+	
+	<!--filter-mapping 配置 Filter 过滤器的拦截路径 -->
 	<filter-mapping>
+		<!--filter-name 表示当前的拦截路径给哪个 filter 使用 -->
 		<filter-name>CompanyFilter</filter-name>
+		<!--url-pattern 配置拦截路径 / 表示请求地址为：http://ip:port/工程路径/ 映射到 webapp 目录 
+			/admin/* 表示请求地址为：http://ip:port/工程路径/admin/* -->
 		<url-pattern>/front-end/reservation/*</url-pattern>
 	</filter-mapping>
 </web-app>
