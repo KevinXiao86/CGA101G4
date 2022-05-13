@@ -417,5 +417,4 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 		}
 		return list;
 	}
-
 }

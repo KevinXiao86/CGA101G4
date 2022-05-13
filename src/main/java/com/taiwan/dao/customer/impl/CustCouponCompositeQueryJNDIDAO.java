@@ -105,7 +105,9 @@ public class CustCouponCompositeQueryJNDIDAO implements CustCouponCompositeQuery
 		String aCondition = null;
 		if ("GETDATE".equals(key) || "USEDATE".equals(key) || "STATUS".equals(key)) {
 			aCondition = key + "=" + "'" + value + "'";
-		} else {
+		} else if("DISCOUNT".equals(key)){
+			aCondition=key+" "+value;
+		}else {
 			aCondition = key + "=" + value;
 		}
 		return aCondition + " ";

@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.taiwan.beans.Company;
 import com.taiwan.beans.CustomerVO;
 import com.taiwan.beans.RoomMailVO;
+import com.taiwan.dao.impl.CompanyDaoJNDI14;
 import com.taiwan.dao.roomMail.impl.RoomMailJDBCDAO;
 import com.taiwan.service.impl.RoomMailServiceImpl;
 
@@ -42,6 +44,10 @@ public class ReplyRoomMail extends HttpServlet {
 		// 把資料送進資料庫
 		RoomMailServiceImpl dao = new RoomMailServiceImpl();
 		dao.sendMsg(custId, hiddenWho, msg, custId);
+		// 去資料庫抓所有廠商的資料，並轉送到前端
+		CompanyDaoJNDI14 companyDaoJNDI14 = new CompanyDaoJNDI14();
+		List<Company> companyList = companyDaoJNDI14.queryCompanyAll();
+		request.setAttribute("companyList", companyList);
 		// 再去資料庫把住宿信箱的資料抓出來，存入request，在前端把資料呈現出來
 		RoomMailJDBCDAO dao2 = new RoomMailJDBCDAO();
 		List<RoomMailVO> list = dao2.getAllByCustId(custId);

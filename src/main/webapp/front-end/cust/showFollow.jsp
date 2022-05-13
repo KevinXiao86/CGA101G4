@@ -5,8 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>台玩</title>
 <%@ include file="/common/head.jsp"%>
+
+<!-- Favicon title的小圖 -->
+<link rel="icon" href="<%=request.getContextPath()%>/static/img/core-img/favicon.ico">
 
 <!-- Style CSS -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/front-main/style.css">
@@ -33,7 +36,7 @@
 	<%@ include file="/front-end/homepage/header.jsp" %>
 	<%@ include file="/front-end/cust/side-bar.jsp" %>
 	
-	<main id="main" class="main">
+	<main id="main" class="main" style="padding-left:70px;padding-top:40px;">
 
     <div class="pagetitle">
       <h1>關注廠商</h1>
@@ -64,14 +67,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                <%! int count=0; %>
+                <% int count=0; %>
                 <c:forEach var="follow" items="${list}">
                   <tr>
                     <th scope="row"><%= ++count %></th>
                     <td>${follow.cmpId}</td>
                     <td>
-                    	<form>
+                    	<form method="post" action="cust/DeleteFollow">
                     		<button type="submit" class="btn btn-primary">取消關注</button>
+                    		<input type="hidden" name="custId" value="${customer.custId}">
+                    		<input type="hidden" name="cmpId" value="${follow.cmpId}">
                     	</form>
                     </td>
                     <td>28</td>

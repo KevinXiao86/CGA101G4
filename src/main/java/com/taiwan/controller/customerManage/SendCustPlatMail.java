@@ -28,10 +28,10 @@ public class SendCustPlatMail extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 取得想要寄送custPlatMail的會員Id
-		Integer custId = Integer.valueOf(request.getParameter("custId"));
+		Integer custId = Integer.valueOf(request.getParameter("custId").trim());
 		// 取得管理員Id
 		HttpSession session = request.getSession();
-		EmployeeVO employeeVO = (EmployeeVO) session.getAttribute("employeeVO");
+		EmployeeVO employeeVO = (EmployeeVO) session.getAttribute("emp");
 		Integer empId = employeeVO.getEmpId();
 		// 取得訊息內容
 		String msg = request.getParameter("msg");

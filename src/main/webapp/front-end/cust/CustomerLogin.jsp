@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>會員登入頁面</title>
-
+<link rel="stylesheet" href="<%=request.getContextPath() %>/front-end/company/css/login.css">
 <%@ include file="/common/head.jsp"%>
 <style>
 span.errorMsg {
@@ -20,14 +20,14 @@ span#errorMsg {
 }
 </style>
 
-<link rel="stylesheet" href="front-end/company/css/login.css">
+
 
 </head>
 <body>
- <div class="form">
+ <div class="form" style="margin-top:80px;">
 		<div class="form-toggle"></div>
 
-		<div class="form-panel one">
+		<div class="form-panel one" style="padding:50px calc(5% + 60px) 50px 60px">
 
 			<div class="form-header">
 				<h1>會員登入</h1>
@@ -61,20 +61,8 @@ span#errorMsg {
 
 	</div>
 
-	<script src='front-end/company/js/jquery.min.js'></script>
-	<script src="front-end/company/js/script.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
+	<script src='<%=request.getContextPath() %>/front-end/company/js/jquery.min.js'></script>
+	<script src="<%=request.getContextPath() %>/front-end/company/js/script.js"></script>
 
 
 

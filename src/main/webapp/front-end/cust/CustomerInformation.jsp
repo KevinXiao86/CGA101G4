@@ -4,8 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>台玩</title>
 <%@ include file="/common/head.jsp"%>
+
+<!-- Favicon title的小圖 -->
+<link rel="icon" href="<%=request.getContextPath()%>/static/img/core-img/favicon.ico">
 
 <!-- Style CSS -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/front-main/style.css">
@@ -32,7 +35,7 @@
 	<%@ include file="/front-end/homepage/header.jsp" %>
 	<%@ include file="/front-end/cust/side-bar.jsp" %>
 
-	<main id="main" class="main" style="padding-left:70px;height:1200px;">
+	<main id="main" class="main" style="padding-left:70px;height:1200px;padding-top:40px;">
 
     <div class="pagetitle">
     	<h1>基本資料</h1>

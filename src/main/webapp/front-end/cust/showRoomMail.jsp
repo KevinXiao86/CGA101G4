@@ -4,95 +4,130 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>台玩</title>
+<%@ include file="/common/head.jsp"%>
+
+<!-- Favicon title的小圖 -->
+<link rel="icon" href="<%=request.getContextPath()%>/static/img/core-img/favicon.ico">
+
+<!-- Style CSS -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/front-main/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/front-main/classy-nav-first.css">
+
+<!-- 搜尋bar -->
+<!-- Google font -->
+<link href="https://fonts.googleapis.com/css?family=Cardo:700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css"
+	integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+	integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+	integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+	crossorigin="anonymous"></script>
+	
 <style>
+#xButton{
+border:1px solid black;
+background-color:#999;
+}
+#xButton:hover{
+background-color:#ccc;
+}
 button:hover{
 background-color:#ccc;
+}
+#xButton:active{
+background-color:#f0f0f0;
 }
 button:active{
 background-color:#f0f0f0;
 }
 table{
-width:700px;
+margin:0 auto;
+max-width:800px;
 border-collapse:collapse;
 }
 table tr{
 border-bottom:1px solid black;
+height:10px;
 }
 table td{
-padding:5px 15px;
+padding:8px 15px;
 }
 tbody tr:hover{
 box-shadow:0 2px 4px black;
-}</style>
-<%@ include file="/common/head.jsp"%>
+}
+</style>	
+
 </head>
 <body>
-	<div style="display: inline-block; border: 2px solid blue; vertical-align: middle">
-		<form method="post" action="cust/CustomerInformation">
-			<input type="submit" value="會員基本資料"> 
-			<input type="hidden" name="customer" value="${customer.custId}">
-		</form>
-		<form method="post" action="cust/ShowFollow">
-			<input type="submit" value="關注廠商"> 
-			<input type="hidden" name="customer" value="${customer.custId}">
-		</form>
-		<form method="post" action="cust/ShowCustCoupon">
-			<input type="submit" value="管理優惠劵">
-		</form>
+	<%@ include file="/front-end/homepage/header.jsp" %>
+	<%@ include file="/front-end/cust/side-bar.jsp" %>	
+	
+	<main id="main" class="main" style="padding-left:70px;padding-top:40px;overflow:auto;">
+		
+	    <div class="pagetitle">
+	      <h1>住宿信箱</h1>
+	      <nav>
+	        <ol class="breadcrumb">
+	          <li class="breadcrumb-item">首頁</li>
+	          <li class="breadcrumb-item">會員功能</li>
+	          <li class="breadcrumb-item">訊息管理</li>
+	          <li class="breadcrumb-item active">住宿信箱</li>
+	        </ol>
+	      </nav>
+	    </div><!-- End Page Title -->
+	    
+	    <section class="section">
+	      <div class="row">
+	          <div class="card">
+	            <div class="card-body">	
+	            	<button id="plus" style="float:right;margin-top:10px;margin-right:20px;width:50px;height:50px;border-radius:100%;padding:0px;">➕</button>
+	            	<h5 class="card-title" style="border-bottom:1px solid #ccc;padding-bottom:30px;margin-bottom:20px;">信箱</h5>
+	
+				<c:if test="${!list.isEmpty()}">	
+					<table>
+						<thead>
+							<tr>	
+								<th>寄件人</th>
+								<th>訊息</th>	
+								<th>收件人</th>
+								<th>發送時間</th>
+							</tr>	
+						</thead>
+						<tbody>
+						<c:forEach var="roomMail" items="${list}">
+							<tr>
+								<td class="who" style="font-weight:bolder;">${(roomMail.roomMailIdWho>=20000)?roomMail.getCmpNameById():customer.account}</td>
+								<td class="msg" style="max-width:350px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${roomMail.roomMailMsg}</td>
+								<td class="receive" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${(roomMail.roomMailIdWho>=20000)?customer.account:roomMail.getCmpNameById()}</td>
+								<td class="time" style="max-width:200px;font-size:10px;">${roomMail.roomMailTime}</td>
+								<td class="hiddenWho" style="display:none;">${roomMail.roomMailIdWho}</td>
+							</tr>
+						</c:forEach>
+						</tbody>
+					</table>
+				</c:if>
+	
+				<c:if test="${list.isEmpty()}">
+					<h1>您的信箱是空的</h1>
+				</c:if>
+				</div>
+            </div>
 
-		<form method="post" action="cust/showRepCmp">
-			<input type="submit" value="瀏覽檢舉">
-			<input type="hidden" name="customer" value="${customer.custId}">
-		</form>
-		<form method="post" action="cust/ShowEmail">
-			<input type="submit" value="訊息管理">
-		</form>
-		<form method="post">
-			<input type="submit" value="瀏覽訂單">
-		</form>
-	</div>
+        </div>
+      </section>
+	</main><!-- End #main -->
 	
-	<div style="display: inline-block; vertical-align: middle">
-		<form method="post" action="cust/ShowEmail">
-			<input type="submit" value="與台玩聯繫">
-		</form>
-		
-		<form method="post" action="cust/ShowRoomMail">
-			<input type="submit" value="住宿信箱">
-		</form>
-		
-		<c:if test="${!list.isEmpty()}">	
-			<table>
-				<thead>
-					<tr>	
-						<th>寄件人</th>
-						<th>訊息</th>	
-						<th>收件人</th>
-						<th>發送時間</th>
-					</tr>	
-				</thead>
-				<tbody>
-				<c:forEach var="roomMail" items="${list}">
-					<tr>
-						<td class="who">${(roomMail.roomMailIdWho>=20000)?roomMail.getCmpNameById():customer.account}</td>
-						<td class="msg">${roomMail.roomMailMsg}</td>
-						<td class="receive">${(roomMail.roomMailIdWho>=20000)?customer.account:roomMail.getCmpNameById()}</td>
-						<td class="time">${roomMail.roomMailTime}</td>
-						<td class="hiddenWho" style="display:none;">${roomMail.roomMailIdWho}</td>
-					</tr>
-				</c:forEach>
-				</tbody>
-			</table>
-		</c:if>
+	<%@ include file="/front-end/homepage/footer.jsp" %>
 	
-		<c:if test="${list.isEmpty()}">
-			<h1>您的信箱是空的</h1>
-		</c:if>
+	<div id="pop">	
 	</div>
-		<div id="pop">	
-	</div>
-	<button id="plus" style="position:fixed;top:25%;right:20%;width:50px;height:50px;border-radius:100%;padding:0px;">➕</button>
 	
 	<script>
 	//把所有的tr抓起來用迴圈幫每個tr註冊事件監聽器，當click每一個tr時都會跳出自己的信件內容小視窗
@@ -107,8 +142,8 @@ box-shadow:0 2px 4px black;
 			let hiddenWho=parseInt(item.querySelector('.hiddenWho').textContent);
 			let fixedDiv=document.createElement('div');
 			fixedDiv.style.position="fixed";
-			fixedDiv.style.top="25%";
-			fixedDiv.style.left="20%";
+			fixedDiv.style.top="35%";
+			fixedDiv.style.left="40%";
 			//創造一個X按鈕可以讓會員把小視窗關掉
 			let xButton=document.createElement('button');
 			xButton.id='xButton';
@@ -122,10 +157,10 @@ box-shadow:0 2px 4px black;
 			//創造要擺訊息內容的div(因為是在fixedDiv裡面，但是不包括X按鈕，所以叫exX)
 			let exX=document.createElement('div');
 			if(hiddenWho>=20000){
-			exX.innerHTML=`<div id="all" style="width: 600px;height:350px;margin: 15px 15px;background-color: #ffc;padding:20px;overflow:auto;box-shadow:2px 2px 4px black,-2px -2px 4px black;" >
+			exX.innerHTML=`<div id="all" style="width: 600px;height:350px;margin:15px 20px;background-color: #ffc;padding:20px;overflow:auto;box-shadow:2px 2px 4px black,-2px -2px 4px black;" >
 						        <div class="post-a-comment-area mt-70" style="margin-top:10px;">					            
 					                寄件人<span style="padding:5px;font-size:20px"><% out.print("${who}"); %></span>  <span style="float:right"><% out.print("${time}"); %></span>
-					                <pre style="margin:20px auto;border:1px solid blue;width: 80%;height:200px;padding:10px;overflow:auto;background-color:#ffc;"><% out.print("${msg}"); %></pre>           
+					                <pre style="margin:20px auto;border:1px  blue;width: 80%;height:200px;padding:10px;overflow:auto;background-color:#fffff3;border-radius:20px;white-space:pre-wrap;"><% out.print("${msg}"); %></pre>           
 					            
 						            <h5 style="margin-bottom:20px;">回復</h5>
 						            <!-- Reply Form -->
@@ -148,9 +183,9 @@ box-shadow:0 2px 4px black;
 						        </div>
 						    </div>`;
 	    }else{
-	    	exX.innerHTML=`<div style="width:500px;height:300px;border:1px solid red;padding:20px;margin:10px;background-color:lightYellow;box-shadow:2px 2px 4px black;">
+	    	exX.innerHTML=`<div style="width:500px;height:300px;border:1px  red;padding:20px;margin:10px;background-color:lightYellow;box-shadow:2px 2px 4px black;">
 								寄件人<span style="padding:5px;font-size:20px"><% out.print("${who}"); %></span> 收件人<span style="padding:5px;font-size:20px"><% out.print("${receive}"); %></span>  <span style="float:right"><% out.print("${time}"); %></span>
-								<pre style="margin:20px;border:1px solid blue;width:450px;height:200px;padding:10px;overflow:auto;background-color:lightYellow;"><% out.print("${msg}"); %></pre>			
+								<pre style="margin:20px 5px;border:1px  blue;width:450px;height:200px;padding:10px;overflow:auto;background-color:#fffff3;border-radius:20px;white-space: pre-wrap;"><% out.print("${msg}"); %></pre>			
 						   </div>`;
 	    }
 			//把exX放到fixedDiv裡面
@@ -170,7 +205,7 @@ box-shadow:0 2px 4px black;
 		let fixedDiv=document.createElement('div');
 		fixedDiv.style.position='fixed';
 		fixedDiv.style.top='30%';
-		fixedDiv.style.left='25%';
+		fixedDiv.style.left='35%';
 		//創造一個X按鈕可以讓會員把小視窗關掉
 		let xButton=document.createElement('button');
 		xButton.id='xButton';
@@ -183,7 +218,7 @@ box-shadow:0 2px 4px black;
 		fixedDiv.append(xButton);
 		//創造要擺寫信的form表單的div(因為是在fixedDiv裡面，但是不包括X按鈕，所以叫exX)
 		let exX=document.createElement('div');
-		exX.innerHTML= `<div id="all" style="width:500px;margin:10px;background-color: #ffc;padding:20px;box-shadow:2px 2px 4px black">
+		exX.innerHTML= `<div id="all" style="width:600px;margin:10px;background-color: #ffc;padding:20px;box-shadow:2px 2px 4px black">
        						<div class="post-a-comment-area mt-70">
        						<!-- Reply Form -->
        	 						<form action="cust/SendRoomMail" method="post">
