@@ -39,7 +39,7 @@ html>
 
 <style type="text/css">
 #page-wrapper {
-	background-color: rgb(221, 221, 241) !important;
+/* 	background-color: rgb(221, 221, 241) !important; */
 	height: 900px;
 }
 
@@ -135,69 +135,208 @@ span {
 							<div class="panel-body">
 								<div class="table-responsive">
 									<div>
-										<div>
-											<span>訂單編號 :</span> <span>${roomOrder.roomOrderId}</span>
+										<div class="form-group">
+											<label for="cmpName">訂單編號 :</label> <span>${requestScope.errorInfo.cmpName}</span>
+											<input class="form-control" type="text" id="cmpName"
+												name="cmpName" required="required"
+												value="${roomOrder.roomOrderId}" />
 										</div>
-										<div>
-											<span>會員編號 :</span> <span>${roomOrder.custId}</span>
+<!-- 										<div> -->
+<%-- 											<span>訂單編號 :</span> <span>${roomOrder.roomOrderId}</span> --%>
+<!-- 										</div> -->
+
+
+										<div class="form-group">
+											<label for="cmpName">會員編號 :</label> <span>${requestScope.errorInfo.cmpName}</span>
+											<input class="form-control" type="text" id="cmpName"
+												name="cmpName" required="required"
+												value="${roomOrder.custId}" />
 										</div>
-										<div>
-											<span>會員姓名 :</span> <span>${roomOrder.customer.name}</span>
-										</div>
-										<div>
-											<span>廠商編號 :</span> <span>${roomOrder.cmpId}</span>
-										</div>
-										<div>
-											<span>訂單成立日期 :</span> <span><fmt:formatDate
-													value="${roomOrder.roomOrderDate}" pattern="yyyy-MM-dd " /></span>
-										</div>
-										<div>
-											<span>入住日期 :</span> <span><fmt:formatDate
-													value="${roomOrder.checkinDate}" pattern="yyyy-MM-dd " /></span>
-										</div>
-										<div>
-											<span>退房日期 :</span> <span><fmt:formatDate
-													value="${roomOrder.checkoutDate}" pattern="yyyy-MM-dd " /></span>
-										</div>
-										<div>
-											<span>訂單狀態 :</span> <span>${roomOrder.roomOrderStatus}</span>
-										</div>
-										<div>
-											<span>取消原因 :</span>
-											<textarea rows="6" cols="40" name="canx" id="canx"
-												readonly="readonly" style="resize: none;">${roomOrder.cancel}</textarea>
+<!-- 										<div> -->
+<%-- 											<span>會員編號 :</span> <span>${roomOrder.custId}</span> --%>
+<!-- 										</div> -->
+										
+										
+
+										<div class="form-group">
+											<label for="cmpName">會員姓名 :</label> <span>${requestScope.errorInfo.cmpName}</span>
+											<input class="form-control" type="text" id="cmpName"
+												name="cmpName" required="required"
+												value="${roomOrder.customer.name}" />
+										</div>										
+<!-- 										<div> -->
+<%-- 											<span>會員姓名 :</span> <span>${roomOrder.customer.name}</span> --%>
+<!-- 										</div> -->
+										
+
+										<div class="form-group">
+											<label for="cmpName">廠商編號 :</label> <span>${requestScope.errorInfo.cmpName}</span>
+											<input class="form-control" type="text" id="cmpName"
+												name="cmpName" required="required"
+												value="${roomOrder.cmpId}" />
+										</div>											
+<!-- 										<div> -->
+<%-- 											<span>廠商編號 :</span> <span>${roomOrder.cmpId}</span> --%>
+<!-- 										</div> -->
+										
+										
+
+										<div class="form-group">
+											<label for="cmpName">訂單成立日期 :</label> <span>${requestScope.errorInfo.cmpName}</span>
 											<br>
+											<span>
+												<fmt:formatDate value="${roomOrder.roomOrderDate}" pattern="yyyy-MM-dd"/>
+											</span>
+										</div>										
+										
+										
+										
+										<div class="form-group">
+											<label for="cmpName">入住日期 :</label> <span>${requestScope.errorInfo.cmpName}</span>
+											<br>
+											<span>
+												<fmt:formatDate value="${roomOrder.checkinDate}" pattern="yyyy-MM-dd"/>
+											</span>
+										</div>											
+										
+<!-- 										<div> -->
+<%-- 											<span>入住日期 :</span> <span><fmt:formatDate --%>
+<%-- 													value="${roomOrder.checkinDate}" pattern="yyyy-MM-dd " /></span> --%>
+<!-- 										</div> -->
+
+
+										<div class="form-group">
+											<label for="cmpName">退房日期 :</label> <span>${requestScope.errorInfo.cmpName}</span>
+											<br>
+											<span>
+												<fmt:formatDate value="${roomOrder.checkoutDate}" pattern="yyyy-MM-dd"/>
+											</span>
+										</div>	
+
+<!-- 										<div> -->
+<%-- 											<span>退房日期 :</span> <span><fmt:formatDate --%>
+<%-- 													value="${roomOrder.checkoutDate}" pattern="yyyy-MM-dd " /></span> --%>
+<!-- 										</div> -->
+
+
+										<div class="form-group">
+											<label for="cmpName">訂單狀態 :</label> <span>${requestScope.errorInfo.cmpName}</span>
+											<input class="form-control" type="text" id="cmpName"
+												name="cmpName" required="required"
+												value="${roomOrder.roomOrderStatus}" />
+										</div>		
+<!-- 										<div> -->
+<%-- 											<span>訂單狀態 :</span> <span>${roomOrder.roomOrderStatus}</span> --%>
+<!-- 										</div> -->
+										
+										
+										<div class="form-group">
+											<label for="roomtypeIntroduce">取消原因 :</label><br>
+											<textarea rows="6" cols="40" name="canx" id="canx" required>${roomOrder.cancel}</textarea>
+											<br>
+										</div>										
+										
+<!-- 										<div> -->
+<!-- 											<span>取消原因 :</span> -->
+<!-- 											<textarea rows="6" cols="40" name="canx" id="canx" -->
+<%-- 												readonly="readonly" style="resize: none;">${roomOrder.cancel}</textarea> --%>
+<!-- 											<br> -->
+<!-- 										</div> -->
+										
+
+
+										<div class="form-group">
+											<label for="cmpName">訂單狀態 :</label> <span>${requestScope.errorInfo.cmpName}</span>
+											<input class="form-control" type="text" id="cmpName"
+												name="cmpName" required="required"
+												value="${roomOrder.roomOrderPrice}" />
+										</div>											
+										
+<!-- 										<div> -->
+<%-- 											<span>原始金額 :</span> <span>${roomOrder.roomOrderPrice}</span> --%>
+<!-- 										</div> -->
+
+
+
+										<div class="form-group">
+											<label for="cmpName">總金額 :</label> <span>${requestScope.errorInfo.cmpName}</span>
+											<input class="form-control" type="text" id="cmpName"
+												name="cmpName" required="required"
+												value="${roomOrder.totalPrice}" />
+										</div>	
+<!-- 										<div> -->
+<%-- 											<span>總金額 :</span> <span>${roomOrder.totalPrice}</span> --%>
+<!-- 										</div> -->
+
+										<div class="form-group">
+											<label for="cmpName">會員優惠券編號 :</label> <span>${requestScope.errorInfo.cmpName}</span>
+											<input class="form-control" type="text" id="cmpName"
+												name="cmpName" required="required"
+												value="${(roomOrder.custCopId== null)? "未使用優惠券" : roomOrder.custCopId}" />
 										</div>
-										<div>
-											<span>原始金額 :</span> <span>${roomOrder.roomOrderPrice}</span>
+<!-- 										<div> -->
+<%-- 											<span>會員優惠券編號 :</span> <span>${(roomOrder.custCopId== null)? "未使用優惠券" : roomOrder.custCopId}</span> --%>
+<!-- 										</div> -->
+<!-- 										========================================================================== -->
+									
+									
+										<div class="form-group">
+											<label for="cmpName">房型編號 :</label> <span>${requestScope.errorInfo.cmpName}</span>
+											<input class="form-control" type="text" id="cmpName"
+												name="cmpName" required="required"
+												value="${roomItemVO.roomId}" />
 										</div>
-										<div>
-											<span>總金額 :</span> <span>${roomOrder.totalPrice}</span>
+										
+										<div class="form-group">
+											<label for="cmpName">房型名稱 :</label> <span>${requestScope.errorInfo.cmpName}</span>
+											<input class="form-control" type="text" id="cmpName"
+												name="cmpName" required="required"
+												value="${roomtype.roomtypeName}" />
 										</div>
-										<div>
-											<span>會員優惠券編號 :</span> <span>${(roomOrder.custCopId== null)? "未使用優惠券" : roomOrder.custCopId}</span>
+										
+										<div class="form-group">
+											<label for="cmpName">訂購數量 :</label> <span>${requestScope.errorInfo.cmpName}</span>
+											<input class="form-control" type="text" id="cmpName"
+												name="cmpName" required="required"
+												value="${roomItemVO.roomItemAmount}" />
 										</div>
-										==========================================================================
-										<div>
-											<div>
-												<span>房型編號 :</span> <span>${roomItemVO.roomId}</span>
-											</div>
-											<div>
-												<span>房型名稱 :</span> <span>${roomtype.roomtypeName}</span>
-											</div>
-											<div>
-												<span>訂購數量 :</span> <span>${roomItemVO.roomItemAmount}</span>
-											</div>
-											<div>
-												<span>評價分數 :</span> <span>${roomItemVO.roomItemEvaluateScore}</span>
-											</div>
-											<div>
-												<span>評價內文 :</span>
-												<textarea rows="6" cols="40" name="canx" id="canx"
-													readonly="readonly" style="resize: none;">${roomItemVO.roomItemEvaluateMsg}</textarea>
-												<br>
-											</div>
+										
+										<div class="form-group">
+											<label for="cmpName">評價分數 :</label> <span>${requestScope.errorInfo.cmpName}</span>
+											<input class="form-control" type="text" id="cmpName"
+												name="cmpName" required="required"
+												value="${roomItemVO.roomItemEvaluateScore}" />
 										</div>
+										
+										
+										<div class="form-group">
+											<label for="roomtypeIntroduce">評價內文 :</label><br>
+											<textarea rows="6" cols="40" name="canx" id="canx" required>${roomItemVO.roomItemEvaluateMsg}</textarea>
+											<br>
+										</div>	
+										
+										
+<!-- 										<div> -->
+<!-- 											<div> -->
+<%-- 												<span>房型編號 :</span> <span>${roomItemVO.roomId}</span> --%>
+<!-- 											</div> -->
+<!-- 											<div> -->
+<%-- 												<span>房型名稱 :</span> <span>${roomtype.roomtypeName}</span> --%>
+<!-- 											</div> -->
+
+<!-- 											<div> -->
+<%-- 												<span>訂購數量 :</span> <span>${roomItemVO.roomItemAmount}</span> --%>
+<!-- 											</div> -->
+<!-- 											<div> -->
+<%-- 												<span>評價分數 :</span> <span>${roomItemVO.roomItemEvaluateScore}</span> --%>
+<!-- 											</div> -->
+<!-- 											<div> -->
+<!-- 												<span>評價內文 :</span> -->
+<!-- 												<textarea rows="6" cols="40" name="canx" id="canx" -->
+<%-- 													readonly="readonly" style="resize: none;">${roomItemVO.roomItemEvaluateMsg}</textarea> --%>
+<!-- 												<br> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
 									</div>
 
 									<button id="pre">上一頁</button>

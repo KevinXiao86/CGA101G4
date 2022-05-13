@@ -133,7 +133,7 @@ img {
 					</div>
 				</div>
 				<div>
-                    <FORM METHOD="post" ACTION="roomOrder/selectByDate">
+                    <FORM METHOD="post" ACTION="roomOrder/cmpSelectByDate">
                         <b>根據日期來做查詢來做查詢:</b> <br>
                         <label for="from">From</label>
 						<input type="text"  name="startdate" id="start_date">
@@ -162,25 +162,6 @@ img {
 								
 							<div class="form-group">
 							
-<!-- 								<form action="roomOrder/cmpSelectByDate"> -->
-									
-<!-- 									開始日期: <input name="startdate" id="start_date" type="text" -->
-<%-- 										value="${requestScope.startDate}"> <br> --%>
-<!-- 									<br> 結束日期: <input name="enddate" id="end_date" -->
-<%-- 										type="text" value="${requestScope.endDate}"> --%>
-
-<!-- 									<button id="btn">查詢</button> -->
-<!-- 								</form> -->
-							
-							
-								<form action="roomOrder/cmpSelectByDate">
-									<b>根據日期來做查詢來做查詢:</b> <br>
-                        			<label for="from">From</label>
-                        			<input type="text"  name="startdate" id="start_date">
-									<label for="to">to</label>
-									<input type="text"  name="enddate" id="end_date">
-                        			<input type="submit" value="送出">
-								</form>
 							</div>
 							
 							<!-- /.panel-heading -->

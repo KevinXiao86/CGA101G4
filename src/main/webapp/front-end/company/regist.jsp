@@ -84,7 +84,7 @@ span{
 					<div class="form-group">
 						<label for="cmpAccount">帳號</label> 
 						<span id="cmpAccountSpan"></span>
-						<span>${requestScope.errorInfo.cmpAccount}</span>
+						<span id="errorCmpAccount">${requestScope.errorInfo.cmpAccount}</span>
 						<input type="text" id="cmpAccount" name="cmpAccount" required="required" value="${requestScope.registCompany.cmpAccount}"/>
 					</div>
 					
