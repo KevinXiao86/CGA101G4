@@ -10,10 +10,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>AddOrder</title>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
-<%--@ include file="/common/head.jsp"--%>
+<%@ include file="/common/head.jsp"%>
+<meta charset="UTF-8">
+<title>台玩</title>
+<!--  Favicon title 小圖 -->
+<link rel ="icon" href="<%=request.getContextPath() %>/static/img/core-img/favicon.ico">
+<style>
+ table{
+  text-align:center;
+ }
+</style>
 <%
 //假設會員10000已登入
 int i = 10000;
@@ -24,9 +31,31 @@ request.setAttribute("custVO", custVO);
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 </head>
+<body>
+	 <!-- Header -->
+<jsp:include page="/front-end/homepage/header.jsp"></jsp:include>
+ <jsp:include page="/front-end/cust/side-bar.jsp"></jsp:include>
+ 
+ 
 
-<div class="w-75 p-3 " style="background-color: #eee;">
-	<table border="1" class="table table-bordered" >
+ <main id="main" class="main" style="padding-left: 70px; height: 1200px; padding-top: 40px;">
+
+  <div class="pagetitle">
+   <h1>訂房訂單</h1>
+   <nav>
+    <ol class="breadcrumb">
+     <li class="breadcrumb-item">首頁</li>
+     <li class="breadcrumb-item">瀏覽訂單</li>
+     <li class="breadcrumb-item">訂房訂單</li>
+     <li class="breadcrumb-item active">訂房訂單明細</li>
+    </ol>
+   </nav>
+  </div>
+
+  <div class="w-80 p-3 "
+   style="background-color: #eee; margin: 50px auto 30px;">
+
+   <table border="1" class="table table-bordered" >
 		<thead>
 			<tr>
 				<th colspan="3"  >預定人資訊</th>
@@ -106,35 +135,39 @@ request.setAttribute("custVO", custVO);
 	</table>
 
 
-<table border="1">
 <table>
 	<tr>
 	<td><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/addRepCmp/selectRoomId" name="form1">
 		<input type="hidden" name="roomtypeId"
-			value="${roomtypeVO.roomtypeId}"> <input type="submit"
-			value="檢舉廠商">${errorMsgs.repCmp}
+			value="${roomtypeVO.roomtypeId}">  
+			<input type="submit" class="btn btn-light"
+			value="檢舉廠商">
+	<td>${errorMsgs.repCmp}</td>
 
 	</FORM></td>
-	<td></td>
+	<td>&emsp;</td>
 	<td><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/roomOrder12/SelectRoomItem" name="form2">
 		<input type="hidden" name="roomItemId" value="${list[0].roomItemId}"> 
-			<input type="submit" value="評價">${errorMsgs.evaluate}
+			<input type="submit" class="btn btn-light" value="評價">
+	<td>${errorMsgs.evaluate}</td>
 
-	</FORM></td>
-</tr>
+	</FORM>
+
+
+
+
+
 </table>
+  </div>
+ </main>
+ 
+ 
+ 
+ 
+	 <!-- #### Footer start #### -->
+ <jsp:include page="/front-end/homepage/footer.jsp"></jsp:include>
+ 
 
-
-
-
-
-</table>
-</div>
- <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 </body>
 
 

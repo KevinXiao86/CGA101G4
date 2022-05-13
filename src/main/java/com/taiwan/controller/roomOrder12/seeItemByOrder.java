@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.taiwan.beans.Company;
 import com.taiwan.beans.CouponVO;
@@ -118,11 +119,12 @@ public class seeItemByOrder extends HttpServlet {
 	}
 	System.out.println("訪問成功");
 	/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-	req.setAttribute("list", list); // 資料庫取出的list物件,存入req
-	req.setAttribute("roomOrderVO", roomOrderVO); 
-	req.setAttribute("cmpVO", cmpVO); 
-	req.setAttribute("roomtypeVO", roomtypeVO); 
-	req.setAttribute("couponVO", couponVO); 
+	HttpSession session = req.getSession();
+	session.setAttribute("list", list); // 資料庫取出的list物件,存入session
+	session.setAttribute("roomOrderVO", roomOrderVO); 
+	session.setAttribute("cmpVO", cmpVO); 
+	session.setAttribute("roomtypeVO", roomtypeVO); 
+	session.setAttribute("couponVO", couponVO); 
 
 	String url = "/front-end/addOrder/seeItem.jsp";
 	RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 addorder.jsp

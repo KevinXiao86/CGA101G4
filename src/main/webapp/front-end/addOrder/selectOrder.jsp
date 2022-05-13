@@ -4,22 +4,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ page import="com.taiwan.beans.*"%>
 <!DOCTYPE html>
 <html>
 <head>
+<%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
+<%@ include file="/common/head.jsp"%>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>台玩</title>
+<!--  Favicon title 小圖 -->
+<link rel ="icon" href="<%=request.getContextPath() %>/static/img/core-img/favicon.ico">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<style>
+ table{
+  text-align:center;
+ }
+</style>
 
 </head>
 <body>
-
-	<!-- 	<FORM METHOD="post" ACTION="http://localhost:8081/CGA101G4/roomOrder12/seeItemByOrder" -->
-	<!-- 		name="form1"> -->
-	<!-- 		<table> -->
 	<jsp:useBean id="orderSvc" scope="page"
 		class="com.taiwan.service.impl.RoomOrderServiceImpl" />
 	<jsp:useBean id="itemSvc" scope="page"
@@ -33,23 +38,42 @@
 	CustomerVO custVO = custSvc.getAll(i);
 	request.setAttribute("custVO", custVO);
 	%>
+	 <!-- Header -->
+<jsp:include page="/front-end/homepage/header.jsp"></jsp:include>
+ <jsp:include page="/front-end/cust/side-bar.jsp"></jsp:include>
 
-<div class="w-75 p-3 " style="background-color: #eee;">
 
-	<table border="2" class="table table-hover">
-		<thead>
-			<tr>
-				<th scope="col">住房訂單編號</th>
-				<th scope="col">房型</th>
-				<th scope="col">預定日期</th>
-				<th scope="col">入住日期</th>
-				<th scope="col">退房日期</th>
-				<th scope="col">訂單金額</th>
-			</tr>
-		</thead>
-		<tbody>
 
-			<c:forEach var="orderVO"
+ <main id="main" class="main" style="padding-left: 70px; height: 1200px; padding-top: 40px;">
+
+  <div class="pagetitle">
+   <h1>訂房訂單</h1>
+   <nav>
+    <ol class="breadcrumb">
+     <li class="breadcrumb-item">首頁</li>
+     <li class="breadcrumb-item">瀏覽訂單</li>
+     <li class="breadcrumb-item active">訂房訂單</li>
+    </ol>
+   </nav>
+  </div>
+
+  <div class="w-80 p-3 "
+   style="background-color: #eee; margin: 50px auto 30px;">
+
+   <table border="2" class="table table-hover">
+    <thead>
+     <tr>
+      <th>訂單編號</th>
+      <th>房型</th>
+      <th>預定日期</th>
+      <th>入住日期</th>
+      <th>退房日期</th>
+      <th>訂單金額</th>
+
+     </tr>
+    </thead>
+    <tbody>
+    	<c:forEach var="orderVO"
 				items="${orderSvc.searchRoomOrderbyCustId(custVO.custId)}">
 				<tr
 					onclick="window.document.location='<%=request.getContextPath()%>/roomOrder12/seeItemByOrder?order=${orderVO.roomOrderId}';">
@@ -57,29 +81,21 @@
 					<th scope="row">${orderVO.roomOrderId}</th>
 					<td >${roomtypeSvc.searchRoomtype(itemSvc.findByOrderId(orderVO.roomOrderId).roomId).roomtypeName}</td>				
 					<td >${orderVO.roomOrderDate}</td>
-					
-					<c:set value="${orderVO.roomOrderCheckinDate}" var="ckinString" />
-					<fmt:parseDate value="${ckinString}" var="ckin"
-                pattern="yyyy-MM-dd HH:mm:ss" />
-            <td ><fmt:formatDate value="${ckin }" pattern="yyyy-MM-dd" /></td>
-            
-            <c:set value="${orderVO.roomOrderCheckoutDate}" var="ckoutString" />
-					<fmt:parseDate value="${ckoutString}" var="ckout"
-                pattern="yyyy-MM-dd HH:mm:ss" />
-					<td ><fmt:formatDate value="${ckout }" pattern="yyyy-MM-dd" /></td>
+            <td ><fmt:formatDate value="${orderVO.roomOrderCheckinDate}" pattern="yyyy-MM-dd" /></td>
+			<td ><fmt:formatDate value="${orderVO.roomOrderCheckoutDate}" pattern="yyyy-MM-dd" /></td>
 					<td >TWD ${orderVO.roomOrderTotalPrice}</td>
 				</tr>
 			</c:forEach>
-
-
-
-		</tbody>
-	</table>
-	</div>
-	 <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    </tbody>
+   </table>
+  </div>
+ </main>
+ 
+ 
+ 
+ 
+	 <!-- #### Footer start #### -->
+ <jsp:include page="/front-end/homepage/footer.jsp"></jsp:include>
+   
 </body>
 </html>
