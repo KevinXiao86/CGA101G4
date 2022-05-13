@@ -24,12 +24,11 @@ public class Logout extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//從session中移除屬性customer
-		HttpSession session=request.getSession();
-		session.removeAttribute("customer");
-		//轉送到首頁(沒有登入的狀態)
-		RequestDispatcher successView=request.getRequestDispatcher("/front-end/homepage/index.jsp");
-		successView.forward(request, response);
+		// 讓session失效
+		HttpSession session = request.getSession();
+		session.invalidate();
+		// 重導到首頁(沒有登入的狀態)
+		response.sendRedirect(request.getContextPath() + "/front-end/homepage/index.jsp");
 	}
 
 }
