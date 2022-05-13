@@ -32,7 +32,7 @@
 
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>${param.empName} <b class="caret"></b>
+                        <i class="fa fa-user fa-fw"></i>${sessionScope.employeeVO.empName} <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
 <!--                         <li><a href="#"><i class="fa fa-user fa-fw"></i> 基本資料</a> -->
@@ -40,7 +40,7 @@
 <!--                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a> -->
 <!--                         </li> -->
 <!--                         <li class="divider"></li> -->
-                        <li><a href="#" id="logout"><i class="fa fa-sign-out fa-fw"></i> 登出</a>
+                        <li><a href="EmployeeServlet?action=logOut" id="logout"><i class="fa fa-sign-out fa-fw"></i> 登出</a>
                         </li>
                     </ul>
                 </li>

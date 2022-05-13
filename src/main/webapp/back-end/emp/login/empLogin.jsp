@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>台玩後台系統登入｜Taiwan</title>
+<title>台玩後台系統登入｜Taiwan from EMP</title>
 <%@ include file="/common/head.jsp"%>
 
 <link rel="stylesheet" href="back-end/emp/login/style.css">

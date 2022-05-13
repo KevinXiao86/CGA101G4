@@ -13,10 +13,10 @@
 <title>台玩後台系統登入｜Taiwan</title>
 <%@ include file="/common/head.jsp"%>
 
-<link rel="stylesheet" href="back-end/emp/login/style.css">
-<script src='back-end/emp/login/jquery.min.js'></script>
+<link rel="stylesheet" href="back-login/login/style.css">
+<script src='back-login/login/jquery.min.js'></script>
 
-<script src="back-end/emp/login/script.js"></script>
+<script src="back-login/login/script.js"></script>
 </head>
 
 <body>

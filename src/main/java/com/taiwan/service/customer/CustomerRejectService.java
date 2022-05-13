@@ -58,11 +58,11 @@ public class CustomerRejectService {
 		} else {
 			customer.setMessage("註冊成功");
 			customer.setSuccessful(true);
-			customer.setUrl("/front-end/rejest/cust_regist_success.jsp");
+			customer.setUrl("/front-end/cust/CustomerLogin.jsp");
 			return customer;
 		}
 	}
-
+	
 	// 判斷廠商帳號是否重複, 返回 true 說明已存在, 返回 false 說明不存在
 //	@Transactional(readOnly = true)
 //	public boolean existsCustAccount(String Account) {

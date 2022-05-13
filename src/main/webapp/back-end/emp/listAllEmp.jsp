@@ -19,25 +19,25 @@
 
 <style>
 #page-wrapper {
-    background-color: rgb(221, 221, 241) !important;
+/*      background-color: rgb(221, 221, 241) !important;  */
 /*     height: 500x;   */
-weight:150%;
+
 }
 
 table {
 	width: 1100px;
-	background-color: rgb(221, 221, 241) !important;
+	background-color: rgb(221, 221, 241) !important; 
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
 
 table, th, td {
-	border: 3px solid #CCCCFF;
+/* 	border: 3px solid #CCCCFF; */
 }
 
 th, td {
 	padding: 5px;
-	text-align: center;
+/*  	text-align: center;  */
 }
 
 img {
@@ -78,14 +78,14 @@ img {
 	</ul>
 </c:if>
 
-<table>
+<table border="2px" class="table table-striped table-hover">
 	<tr>
 		<th>員工編號</th>
 		<th>員工姓名</th>
 		<th>員工密碼</th>
 		<th>啟用狀態</th>
 		<th>創建日期</th>
-		<th>修改</th>
+		<th></th>
 	</tr>
 	<%@ include file="page1.file" %> 
 	<c:forEach var="employeeVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">

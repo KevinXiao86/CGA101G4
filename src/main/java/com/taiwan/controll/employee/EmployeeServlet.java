@@ -272,16 +272,16 @@ System.out.println(empPassword);
 //			System.out.println(employeeVO);
 			if (employeeVO==null) {
 				employeeVO=new EmployeeVO();
-				employeeVO.setUrl("/back-end/emp/login/empLogin.jsp");
+				employeeVO.setUrl("/back-login/login/empLogin.jsp");
 				RequestDispatcher failureView = req.getRequestDispatcher(employeeVO.getUrl());
 				failureView.forward(req, res);			
 			} else {
 				HttpSession session = req.getSession();
 				System.out.println(288);
 				session.setAttribute("employeeVO", employeeVO);
-				String param="?empName=" + employeeVO.getEmpName();
-				String url ="/back-end/emp/login/login-back-end-index.jsp"+ param;
-				RequestDispatcher successView = req.getRequestDispatcher(url);
+//				String param="?empName=" + employeeVO.getEmpName();
+//				String url ="/back-end/emp/login/login-back-end-index.jsp"+ param;
+				RequestDispatcher successView = req.getRequestDispatcher("/back-login/login/login-back-end-index.jsp");
 				successView.forward(req, res);
 			}
 		}
@@ -291,12 +291,14 @@ System.out.println(empPassword);
 		}
 		
 		
-		if ("loginOut".equals(action)) {
+		if ("logOut".equals(action)) {
 		
-			 req.getRequestDispatcher("/back-end/emp/login/login-back-end-index.jsp").include(req, res);
 		        HttpSession session = req.getSession();
 		        // 清除資料
 		        session.invalidate();
+		        System.out.println(req.getContextPath());
+		        res.sendRedirect(req.getContextPath() + "/back-end/emp/login/empLogin.jsp");		       
+//		        req.getRequestDispatcher("/back-end/emp/login/login-back-end-index.jsp").include(req, res);
 		      
 		}
 	}
