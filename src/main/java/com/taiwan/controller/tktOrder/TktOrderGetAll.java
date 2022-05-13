@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.taiwan.beans.CustomerVO;
 import com.taiwan.beans.TktOrder;
@@ -26,14 +27,22 @@ public class TktOrderGetAll extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
 		req.setCharacterEncoding("UTF-8");
+		HttpSession session = req.getSession();
 		
 		/*************************** 1.查詢參數 *****************************/
 		TktOrderService tktOrerSvc = new TktOrderService();
 		List<TktOrder> list = tktOrerSvc.getAll();
 		System.out.println(list);
 		
+//		CustomerServiceImpl customerServiceImpl = new CustomerServiceImpl();
+//		CustomerVO customerVO = customerServiceImpl.getAll(10000);                // 改~~~~~~~~
+		
+		CustomerVO customer = (CustomerVO) session.getAttribute("customer");
 		CustomerServiceImpl customerServiceImpl = new CustomerServiceImpl();
-		CustomerVO customerVO = customerServiceImpl.getAll(10000);                // 改~~~~~~~~
+		//取得此時的會員id
+		Integer custId = customer.getCustId();
+		CustomerVO customerVO = customerServiceImpl.getAll(custId);
+//		Integer custId = 10000;
 
 		/********************* 2.查詢完成，設定參數，送出成功頁面 **********************/
 		req.setAttribute("customerVO", customerVO);

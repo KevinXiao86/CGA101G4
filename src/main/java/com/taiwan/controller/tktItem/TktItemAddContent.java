@@ -11,9 +11,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.taiwan.beans.TktItem;
+import com.taiwan.beans.TktOrder;
 import com.taiwan.service.TktItemService;
+import com.taiwan.service.TktOrderService;
 
 @WebServlet("/tktItem/content")
 public class TktItemAddContent extends HttpServlet {
@@ -27,6 +30,7 @@ public class TktItemAddContent extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		HttpSession session = req.getSession();
 
 		if ("insert".equals(action)) {
 
@@ -36,8 +40,10 @@ public class TktItemAddContent extends HttpServlet {
 			/*************************** 1.接收請求參數 ***************************/
 			// 從頁面直接指定要查看的訂單，所以不會沒有資料
 			Integer tktOrderId = Integer.valueOf(req.getParameter("tktOrderId"));
+			System.out.println(tktOrderId);
 			
 			Integer tktId = Integer.valueOf(req.getParameter("tktId"));
+			System.out.println(tktId);
 			
 			String content = req.getParameter("content");
 			if (content == null || content.trim().length() == 0) {
@@ -55,10 +61,16 @@ public class TktItemAddContent extends HttpServlet {
 			
 			/*************************** 2.開始查詢資料 ***************************/
 			TktItemService tktItemSvc = new TktItemService();
-			TktItem item = tktItemSvc.updateTktItemScoreContent(tktOrderId, tktId, score, content);
-
+			tktItemSvc.updateTktItemScoreContent(tktOrderId, tktId, score, content);
+			
+			TktOrderService tktOrderService = new TktOrderService();
+			TktOrder tktOrder = tktOrderService.getTktOrderByTktOrderId(tktOrderId);
+			
+			List<TktItem> itemList = tktItemSvc.getTktItemByTktOrderId(tktOrderId);
+			
 			/******************** 3.查詢完成，設定參數，送出成功頁面 ********************/
-			req.setAttribute("item", item);
+			req.setAttribute("tktOrder", tktOrder);
+			session.setAttribute("itemList", itemList);
 			RequestDispatcher success = req.getRequestDispatcher("/front-end/tktItem/listOneTktItem.jsp"); //怪怪的
 			success.forward(req, res);
 

@@ -56,9 +56,8 @@
 		<div class="top-header" id="headerFixed">
 			<div class="container h-100">
 				<div class="row h-100 align-items-center">
-					<img
-						src="<%=request.getContextPath()%>/static/img/ticket-img/logo.jpg"
-						alt="" id="bear" style="height: 65px;">
+					<a href="<%=request.getContextPath() %>/front-end/homepage/index.jsp"><img src="<%=request.getContextPath()%>/static/img/ticket-img/logo.jpg"
+						id="bear" style="height: 65px;"></a>
 
 					<!-- Top Social Area -->
 					<!-- Nav Start -->
@@ -170,8 +169,10 @@
 							}
 						%>
 <%-- 							</c:forEach> --%>
-							<div>更多評價</div>
 						</ol>
+							<div class="load-more-btn mt-100 wow fadeInUp">
+								<a href="#" class="btn original-btn" style="margin-top:-80px;">Read More</a>
+							</div>
 						<div id="canxpolicy"></div>
 					</div>
 
@@ -285,14 +286,14 @@
 					</div>
 					<form name="shoppingForm" action="cart/do" method="post">
 						<div style="text-align: center;">
+							<input id="min" name="" type="button" value="-" style="width:25px;margin-left: -58px;background-color: #ced7e8;"/>
+							<input id="quantity" name="" type="text" value="1" style="width:25px;margin: -5px;text-align: center;"/>
+							<input id="add" name="" type="button" value="+"  style="width:25px;background-color: #ced7e8;"/>
 							<button class="btn btn-small addToCart" data-product-id="1"
 								id="choice">
 								<i class="fas fa-cart-plus"></i> 加入購物車
 							</button>
 						</div>
-						<input id="min" name="" type="button" value="-" />
-						<input id="quantity" name="" type="text" value="1" />
-						<input id="add" name="" type="button" value="+" />
 						
 						<input type="hidden" name="amount" id="amount" size="3" value="1"> 
 						<input type="hidden" name="tktName" value="${tktVO.tktName}"> 
@@ -453,8 +454,22 @@
 // 	               }
 // 		})
 // 	})
+
+
+		//load more
+	    $(function(){
+	        $("div").slice(0, 10).show(); // select the first ten
+	        $("#load").click(function(e){ // click event for load more
+	            e.preventDefault();
+	            $("div:hidden").slice(0, 10).show(); // select next 10 hidden divs and show them
+	            if($("div:hidden").length == 0){ // check if any hidden divs still exist
+	                alert("No more divs"); // alert if there are none left
+	            }
+	        });
+	    });
 	
-	  
+	
+	  	//增減購物車
 	    $("#add").click(function () {
             //得到當前兄弟文字框的值
             let n = $(this).siblings("#quantity").val();
@@ -475,8 +490,7 @@
         
        	$('#quantity').change( function() {
        		$('#amount').attr("value",$('#quantity').val());
-		});
-        
+		});        
 	 
 	</script>	
 	

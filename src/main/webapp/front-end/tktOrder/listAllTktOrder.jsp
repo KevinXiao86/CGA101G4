@@ -85,7 +85,6 @@ pageContext.setAttribute("list", list);
 							<td>$${tktOrder.originalPrice}</td>
 							<td><fmt:formatDate value="${tktOrder.orderdate}" pattern="yyyy-MM-dd HH:mm" /></td>
 							<td>$${tktOrder.ttlPrice}</td>
-							
 							<td>
 								<c:choose>
 									<c:when test = "${tktOrder.custCopId==0}">¥¼¨Ï¥Î</c:when>

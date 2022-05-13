@@ -69,30 +69,31 @@ table {
 							<td>${tktOrder.orderEmail}</td>
 							<td>${tktItem.ticket.tktName}</td>
 							<td>${tktItem.amount}張</td>
-							<td>${tktItem.score}</td>
-							<td>${tktItem.content}</td>
+							<td>${(tktItem.score == null)? "": tktItem.score }</td>
+							<td>${(tktItem.content == null)? "": tktItem.content}</td>
 							<c:if test="${tktItem.score == null}">
 								<td><input type="submit" value="立即給予評分" onclick="show()"></td>
+								<div id="showdiv" style="display: none">
+									<FORM METHOD="post"
+										ACTION="<%=request.getContextPath()%>/tktItem/content"
+										style="margin-bottom: 0px;">
+										評分:
+										<div>${errorMsgs.score}</div>
+										<input type="number" value="1" min="1" max="5" name="score"	style="width: 40px;" required><br> 評價內容:
+										<div>${errorMsgs.content}</div>
+										<textarea name="content" style="width: 300px;" placeholder="請輸入500字以內🦒🐘🦦🐥🐇🦧" required></textarea>
+
+										<input type="hidden" name="tktOrderId" value="${tktItem.tktOrderId}"> 
+										<input type="hidden" name="tktId" value="${tktItem.tktId}"> 
+										<input type="hidden" name="action" value="insert"> 
+										<input type="submit" value="送出新增"
+											style="width: 80px; background-color: lightcoral; color: white; margin-bottom: 30px;">
+									</FORM>
+								</div>
 							</c:if>
 						</tr>
 
-						<div id="showdiv" style="display: none">
-							<FORM METHOD="post"	ACTION="<%=request.getContextPath()%>/tktItem/content"
-								style="margin-bottom: 0px;">
-								評分:
-								<div>${errorMsgs.score}</div>
-								<input type="number" value="1" min="1" max="5" name="score"	style="width:40px;" required>${param.score}<br> 
-								評價內容:
-								<div>${errorMsgs.content}</div>
-								<textarea name="content" style="width:300px;" placeholder="請輸入500字以內" required>${param.content}</textarea>
 
-								<input type="hidden" name="tktOrderId"
-									value="${tktItem.tktOrderId}"> <input type="hidden"
-									name="tktId" value="${tktItem.tktId}"> <input
-									type="hidden" name="action" value="insert"> 
-									<input type="submit" value="送出新增" style="width:80px;background-color: lightcoral;color: white;margin-bottom:30px;">
-							</FORM>
-						</div>
 					</c:forEach>
 				</tbody>
 			</table>
@@ -108,9 +109,9 @@ table {
 			if (document.getElementById('showdiv').style.display == 'none') {
 				document.getElementById('showdiv').style.display = 'block';
 			}
-// 			else {
-// 				document.getElementById('showdiv').style.display = 'none';
-// 			}
+			// 			else {
+			// 				document.getElementById('showdiv').style.display = 'none';
+			// 			}
 		}
 	</script>
 </body>

@@ -175,7 +175,7 @@
 
 			<div class="order-button-payment">
 				<FORM METHOD="post" ACTION="tktOrder/getCustId" >
-			        <input type="hidden" name="custId" value="${custId}">
+			        <input type="hidden" name="custId" value="${customer.custId}">
 			        <input type="hidden" name="action" value="get_order_cust">
 			        <input type="submit" value="查看訂單">
 			    </FORM>

@@ -44,10 +44,10 @@ public class CartServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 
 		HttpSession session = req.getSession();
-//		CustomerVO customerVO = (CustomerVO) session.getAttribute("customer");
-//		CustomerVO customerVO = new CustomerVO();
-//		String custId = customerVO.getCustId().toString();
-		String custId = "10000";
+		CustomerVO customerVO = (CustomerVO) session.getAttribute("customer");
+		System.out.println(customerVO);
+		String custId = customerVO.getCustId().toString();
+//		String custId = "10000";
 
 		//先取看看
 		List<String> cartlist = CartService.getCartList(custId);
@@ -112,7 +112,7 @@ public class CartServlet extends HttpServlet {
 			/******************************* 優惠券相關 ********************************/
 			//根據會員id取得所擁有的會員優惠券物件
 			CustCouponService custCouponService = new CustCouponService();
-			List<CustCoupon> custCouponList = custCouponService.queryCustCouponById(10000); //custId 記得改
+			List<CustCoupon> custCouponList = custCouponService.queryCustCouponById(Integer.valueOf(custId)); //custId 記得改
 			//取得所擁有的優惠券編號
 			List<Integer> copIds = new ArrayList<Integer>();
 			for(CustCoupon custCoupon : custCouponList) {
@@ -131,7 +131,7 @@ public class CartServlet extends HttpServlet {
 			}
 //			System.out.println("couponList = " + couponList);
 			
-			req.setAttribute("couponList", couponList);
+			session.setAttribute("couponList", couponList);
 			
 			/************************************************************************/
 			//取出購物車清單
@@ -223,7 +223,7 @@ public class CartServlet extends HttpServlet {
 			// 結帳頁面checkout.jsp 自動導入資料
 			Integer custid = Integer.valueOf(custId);
 			CustomerService customerService = new CustomerServiceImpl();
-			CustomerVO customerVO = customerService.getAll(custid);
+			customerVO = customerService.getAll(custid);
 
 //			req.setAttribute("customerVO", customerVO);
 			req.setAttribute("name", customerVO.getName());
