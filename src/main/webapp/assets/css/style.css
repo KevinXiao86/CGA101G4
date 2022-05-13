@@ -522,7 +522,7 @@ ico
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #aab7cf transparent;
-  box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
+/*   box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1); */
   background-color: #fff;
 }
 @media (max-width: 1199px) {
@@ -620,7 +620,7 @@ ico
   margin: 0;
   list-style: none;
 }
-.sidebar-nav .nav-content a {
+.sidebar-nav .nav-content .allType {
   display: flex;
   align-items: center;
   font-size: 14px;
@@ -629,17 +629,18 @@ ico
   transition: 0.3;
   padding: 10px 0 10px 40px;
   transition: 0.3s;
+  background:#fff;
 }
-.sidebar-nav .nav-content a i {
+.sidebar-nav .nav-content .allType i {
   font-size: 6px;
   margin-right: 8px;
   line-height: 0;
   border-radius: 50%;
 }
-.sidebar-nav .nav-content a:hover, .sidebar-nav .nav-content a.active {
+.sidebar-nav .nav-content .allType:hover, .sidebar-nav .nav-content .allType.active {
   color: #4154f1;
 }
-.sidebar-nav .nav-content a.active i {
+.sidebar-nav .nav-content .allType.active i {
   background-color: #4154f1;
 }
 

@@ -167,14 +167,18 @@
 <!-- 						</tr> -->
 						<tr class="order-total">
 							<th>總金額</th>
-							<td><strong><span class="amount">$${total}</span></strong></td>
+							<td><strong><span class="amount">$${tktOrder.ttlPrice}</span></strong></td>
 						</tr>
 					</tfoot>
 				</table>
 			</div>
 
 			<div class="order-button-payment">
-				<input type="submit" value="查看訂單"/>
+				<FORM METHOD="post" ACTION="tktOrder/getCustId" >
+			        <input type="hidden" name="custId" value="${custId}">
+			        <input type="hidden" name="action" value="get_order_cust">
+			        <input type="submit" value="查看訂單">
+			    </FORM>
 			</div>
 
 		</div>

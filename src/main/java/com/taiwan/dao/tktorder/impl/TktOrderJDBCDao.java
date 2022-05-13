@@ -300,6 +300,38 @@ public class TktOrderJDBCDao implements TktOrderDao {
 	}
 
 	@Override
+	public List<TktOrder> queryTktOrderByDateCustID(Timestamp startdate, Timestamp enddate, Integer custId) {
+		List<TktOrder> ls = new ArrayList<TktOrder>();
+		String sql = "select tkt_order_id,cust_id,original_price,orderdate,"
+				+ "ttl_price,cust_cop_id,qrcode,order_name,order_email,order_mobile from TKT_ORDER where cust_id = ? and orderdate between ? and ?;";
+		try (Connection conn = DbUtil.getConnection();
+				PreparedStatement prep = conn.prepareStatement(sql)) {
+			prep.setObject(1, custId);
+			prep.setObject(2, startdate);
+			prep.setObject(3, enddate);
+			ResultSet rs = prep.executeQuery();
+			while (rs.next()) {
+				Integer tktOrderId = rs.getInt("tkt_order_id");
+				Integer querycustId = rs.getInt("cust_id");
+				Integer originalPrice = rs.getInt("original_price");
+				Timestamp orderdate = rs.getObject("orderdate", Timestamp.class);
+				Integer ttlPrice = rs.getInt("ttl_price");
+				Integer custCopId = rs.getInt("cust_cop_id");
+				String qrcode = rs.getString("qrcode");
+				String orderName = rs.getString("order_name");
+				String orderEmail = rs.getString("order_email");
+				String orderMobile = rs.getString("order_mobile");
+				TktOrder tktOrderVO = new TktOrder(tktOrderId, querycustId, originalPrice, orderdate, ttlPrice,
+						custCopId, qrcode,orderName,orderEmail,orderMobile);
+				ls.add(tktOrderVO);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return ls;
+	}
+	
+	@Override
 	public int queryTktOrderTtlPrice() {
 		int totalPrice = 0;
 		String sql = "select sum(ttl_price) as ttlprice from TKT_ORDER;";
@@ -446,6 +478,7 @@ public class TktOrderJDBCDao implements TktOrderDao {
 //		TktOrder tktOrder = new TktOrder();
 //		dao.updateQrcode("12345", 15);
 	}
+
 
 	
 }

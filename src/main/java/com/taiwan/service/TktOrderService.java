@@ -65,6 +65,11 @@ public class TktOrderService {
 	public List<TktOrder> getTktOrderByDateToDate(Timestamp startdate,Timestamp enddate){
 		return dao.queryTktOrderByDateToDate(startdate, enddate);
 	}
+
+	//會員根據日期區間查詢票券訂單
+	public List<TktOrder> getTktOrderByDateCustID(Timestamp startdate,Timestamp enddate, Integer custId){
+		return dao.queryTktOrderByDateCustID(startdate, enddate, custId);
+	}
 	
 	//查詢所有票券訂單總共的金額
 	public int getTktOrderTtlPrice() {

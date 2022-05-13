@@ -120,7 +120,8 @@
 								<input type="hidden" name="orderName" value="${name}">
 								<input type="hidden" name="orderMobile" value="${tel}">
 								<input type="hidden" name="orderEmail" value="${email}">
-								<input type="hidden" name="orderEmail" value="${email}">
+								<input type="hidden" name="copId" value="${copId}">								
+								<input type="hidden" name="discount" value="${discount}">								
 							</div>
 						</div>
 					</form>
@@ -140,7 +141,7 @@
 						<td><img
 							src="<%=request.getContextPath()%>/static/img/cart/green-tomatoes.jpg"
 							class="product-img" style="margin: 0 -40px 0 -10px;"></td>
-						<td><%=order.getTktName()%></td>
+						<td style="width:180px;"><%=order.getTktName()%></td>
 						<td><%=amountList.get(index) %>張</td>
 						<td><%=order.getPrice()%>元</td>
 					</tr>
@@ -151,11 +152,25 @@
 			</div>
 			<hr>
 			<div class="cart-item-box">
-				<div class="subtotal">
-					<span>小計</span><span> $${total}</span><br> 
-					<span>折扣金額</span><span>$</span><br> 
-					<span>總金額</span><span> $${total }</span>	<%-- 記得減掉coupon的折扣金額 --%>
-				</div>
+				<table style="width: 200px;font-size:22px;">
+					<tr>
+						<td>小計</td>
+						<td>$${total}</td>
+					</tr>
+					<tr>
+						<td>折扣金額</td>
+						<td>-$${discount}</td>
+					</tr>
+					<tr>
+						<td>總金額</td>
+						<td>$${total-discount}</td>
+					</tr>
+				</table>
+<!-- 				<div class="subtotal"> -->
+<!-- 					<span>小計</span><span> $${total}</span><br>  -->
+<!-- 					<span>折扣金額</span><span>-$${discount}</span><br>  -->
+<!-- 					<span>總金額</span><span> $${total-discount}</span> -->
+<!-- 				</div> -->
 			</div>
 		</section>
 	</div>

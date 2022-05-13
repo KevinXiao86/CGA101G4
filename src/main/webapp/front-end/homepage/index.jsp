@@ -1,3 +1,5 @@
+<%@page import="com.taiwan.beans.Company"%>
+<%@page import="com.taiwan.service.company.CompanyService"%>
 <%@page import="com.taiwan.service.TktImgService"%>
 <%@page import="com.taiwan.beans.News"%>
 <%@page import="com.taiwan.service.news.NewsService"%>
@@ -24,6 +26,10 @@
 	NewsService newsService = ControllerUtil.getBean(NewsService.class);
 	List<News> newsList = newsService.findAll();
 	pageContext.setAttribute("newsList", newsList);
+	
+	CompanyService companyService = ControllerUtil.getBean(CompanyService.class);
+	List<Company> cmpList = companyService.getAllCompanies();
+	pageContext.setAttribute("cmpList", cmpList);
 %>
 
 
@@ -90,25 +96,16 @@
 					<!-- Nav Start -->
 					<div class="classynav" id="clas">
 						<ul>
-							<li><a href="<%=request.getContextPath() %>/front-end/????">票券</a></li>
-							<li><a href="<%=request.getContextPath() %>/front-end/cmpList.jsp">住宿</a></li>
+							<li><a href="<%=request.getContextPath() %>/cmpList.jsp">住宿</a></li>
+							<li><a href="<%=request.getContextPath() %>/front-end/ticket/ticketList.jsp">票券</a></li>
 						</ul>
-
-						<!-- Search Form  -->
-<!-- 						<div id="search-wrapper"> -->
-<!-- 							<form action="#"> -->
-<!-- 								<input type="text" id="search" placeholder="Search something..."> -->
-<!-- 								<div id="close-icon"></div> -->
-<!-- 								<input class="d-none" type="submit" value=""> -->
-<!-- 							</form> -->
-<!-- 						</div> -->
 					</div>
 					<div class="col-sm-2" style="position:absolute;right:73px" >
 						<div class="top-social-area">
-							<a href="#" data-toggle="tooltip" data-placement="bottom"
+							<a href="<%=request.getContextPath()%>/front-end/cart/cartList.jsp" data-toggle="tooltip" data-placement="bottom"
 								title="購物車"> <i class="fa-solid fa-cart-shopping"
-								aria-hidden="true"></i></a> <a href="#" data-toggle="tooltip"
-								data-placement="bottom" title="登入"> <i
+								aria-hidden="true"></i></a> 
+							<a href="<%=request.getContextPath()%>/front-end/cust/CustomerLogin.jsp" data-toggle="tooltip" data-placement="bottom" title="登入"> <i
 								class="fa-regular fa-user" aria-hidden="true"></i></a>
 						</div>
 					</div>
@@ -333,7 +330,8 @@
 												<li><a href="#">Read More</a></li>
 											</ul>
 										</div>
-									</div></li>
+									</div>
+								</li>
 							</ul>
 						</div>
 						<!-- Nav End -->
@@ -368,7 +366,10 @@
 							<div class="single-blog-content mt-30" style="margin-top: 5;">
 								<a href="#" class="post-tag">Lifestyle</a> 
 								<h3>
-									<a href="#" class="post-headline">${ticketVO.tktName}</a>
+<!-- 									<form method="get" action="ticket/selectId"> -->
+										<a href="#" class="post-headline">${ticketVO.tktName}</a>
+<!-- 										<input type="hidden" name="action" value="getOne_For_Display"> -->
+<!-- 									</form> -->
 								</h3>
 								<p style="height: 60px;overflow: hidden;">${ticketVO.instruction}</p>
 <!-- 									text-overflow: ellipsis; white-space: nowrap; -->
@@ -392,144 +393,37 @@
 			</div>
 			<div class="content mtop">
 				<div class="owl-carousel owl-carousel1 owl-theme">
-					<div class="items">
-						<div class="image">
-							<img
-								src="<%=request.getContextPath()%>/static/img/blog-img/room1.jpg"
-								alt="">
-						</div>
-						<div class="text">
-							<h2>super rooms</h2>
-							<div class="rate flex">
-								<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star"></i>
-							</div>
-							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-							<div class="button flex">
-								<button class="primary-btn">book now</button>
-								<h3>
-									$250 <span> <br> per night
-									</span>
-								</h3>
-							</div>
-						</div>
-					</div>
-					<div class="items">
-						<div class="image">
-							<img
-								src="<%=request.getContextPath()%>/static/img/blog-img/room2.jpg"
-								alt="">
-						</div>
-						<div class="text">
-							<h2>super rooms</h2>
-							<div class="rate flex">
-								<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star"></i>
-							</div>
-							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-							<div class="button flex">
-								<button class="primary-btn">book now</button>
-								<h3>
-									$250 <span> <br> per night
-									</span>
-								</h3>
+					<c:forEach  items="${cmpList}" var="Company" begin="0" end="7">
+						<div class="items">
+						<c:forEach items="${Company.roomtypes}" end="0" var="Roomtype">
+							<c:forEach items="${Roomtype.roomImgs}" end="0"	var="RoomImg">
+								<div class="image">
+									<img src="${RoomImg.roomImg}">
+								</div>
+							</c:forEach>
+						</c:forEach>
+							<div class="text">
+								<h2 style="font-size:25px;">${Company.cmpName}</h2>
+								<div class="rate flex">
+									<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+										class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+										class="fa fa-star"></i>
+								</div>
+								<c:forEach items="${Company.roomtypes}" end="0" var="Roomtype">
+									<p>${Roomtype.roomtypeIntroduce}</p>
+									<div class="button flex">
+										<FORM METHOD="post" ACTION="roomOrder12/ROSelectCmp" style="margin-bottom: 0px;">
+											<input type="hidden" name="cmpId" value="${Company.cmpId}">
+											<input type="hidden" name="ckin" value="${requestScope.ckin}">
+											<input type="hidden" name="ckout" value="${requestScope.ckout}">
+											<input type="submit" class="primary-btn" value="book now"> 
+										</FORM>
+										<h3>$${Roomtype.roomtypePrice}<span><br> per night</span></h3>
+									</div>
+								</c:forEach> 
 							</div>
 						</div>
-					</div>
-					<div class="items">
-						<div class="image">
-							<img
-								src="<%=request.getContextPath()%>/static/img/blog-img/room3.jpg"
-								alt="">
-						</div>
-						<div class="text">
-							<h2>super rooms</h2>
-							<div class="rate flex">
-								<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star"></i>
-							</div>
-							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-							<div class="button flex">
-								<button class="primary-btn">book now</button>
-								<h3>
-									$250 <span> <br> per night
-									</span>
-								</h3>
-							</div>
-						</div>
-					</div>
-					<div class="items">
-						<div class="image">
-							<img
-								src="<%=request.getContextPath()%>/static/img/blog-img/room4.jpg"
-								alt="">
-						</div>
-						<div class="text">
-							<h2>super rooms</h2>
-							<div class="rate flex">
-								<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star"></i>
-							</div>
-							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-							<div class="button flex">
-								<button class="primary-btn">book now</button>
-								<h3>
-									$250 <span> <br> per night
-									</span>
-								</h3>
-							</div>
-						</div>
-					</div>
-					<div class="items">
-						<div class="image">
-							<img
-								src="<%=request.getContextPath()%>/static/img/blog-img/room5.jpg"
-								alt="">
-						</div>
-						<div class="text">
-							<h2>super rooms</h2>
-							<div class="rate flex">
-								<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star"></i>
-							</div>
-							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-							<div class="button flex">
-								<button class="primary-btn">book now</button>
-								<h3>
-									$250 <span> <br> per night
-									</span>
-								</h3>
-							</div>
-						</div>
-					</div>
-					<div class="items">
-						<div class="image">
-							<img
-								src="<%=request.getContextPath()%>/static/img/blog-img/room6.jpg"
-								alt="">
-						</div>
-						<div class="text">
-							<h2>super rooms</h2>
-							<div class="rate flex">
-								<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star"></i>
-							</div>
-							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-							<div class="button flex">
-								<button class="primary-btn">book now</button>
-								<h3>
-									$250 <span> <br> per night
-									</span>
-								</h3>
-							</div>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>

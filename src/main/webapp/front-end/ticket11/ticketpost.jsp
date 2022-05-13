@@ -40,7 +40,47 @@
 <body>
 	
 	<!-- Header -->
-	<jsp:include page="/front-end/homepage/header.jsp"></jsp:include>
+<%-- 	<jsp:include page="/front-end/homepage/header.jsp"></jsp:include> --%>
+	<!-- Preloader -->
+	<div id="preloader">
+		<div class="preload-content">
+			<div id="original-load"></div>
+		</div>
+	</div>
+
+	<!-- ##### Header Area Start ##### -->
+
+	<header class="header-area">
+
+		<!-- Top Header Area -->
+		<div class="top-header" id="headerFixed">
+			<div class="container h-100">
+				<div class="row h-100 align-items-center">
+					<img
+						src="<%=request.getContextPath()%>/static/img/ticket-img/logo.jpg"
+						alt="" id="bear" style="height: 65px;">
+
+					<!-- Top Social Area -->
+					<!-- Nav Start -->
+					<div class="classynav" id="clas">
+						<ul>
+							<li><a href="<%=request.getContextPath() %>/cmpList.jsp">住宿</a></li>
+							<li><a href="<%=request.getContextPath() %>/front-end/ticket/ticketList.jsp">票券</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-2" style="position:absolute;right:73px" >
+						<div class="top-social-area">
+							<a href="<%=request.getContextPath()%>/front-end/cart/cartList.jsp" data-toggle="tooltip" data-placement="bottom"
+								title="購物車"> <i class="fa-solid fa-cart-shopping"
+								aria-hidden="true"></i></a> 
+							<a href="#" data-toggle="tooltip" data-placement="bottom" title="登入"> <i
+								class="fa-regular fa-user" aria-hidden="true"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
 
 	<!-- ##### Single Blog Area Start ##### -->
 	<div class="single-blog-wrapper section-padding-0-100">
@@ -67,7 +107,7 @@
 							<div class="line"></div>
 							<div class="post-tag">Lifestyle</div>
 							<h4>
-								<div class="post-headline mb-0">${tktVO.tktName} | 大人小孩都適合</div>
+								<div class="post-headline mb-0">${tktVO.tktName}</div>
 <!--                                 <i class="fa-regular fa-heart" aria-hidden="true" style="--fa-inverse: #1da1f2;" -->
 <!--                                     id="love"></i> -->
 							</h4>
@@ -103,7 +143,6 @@
 						</h4>
 
 						<ol>
-<%-- 							<c:forEach var="tktItem" items="${tktItemList}"> --%>
 						<%
 							for(int index = 0; index < tktItemList.size(); index++){
 								TktItem tktItem = tktItemList.get(index);
@@ -255,7 +294,7 @@
 						<input id="quantity" name="" type="text" value="1" />
 						<input id="add" name="" type="button" value="+" />
 						
-						<input type="hidden" name="amount" size="3" value=1> 
+						<input type="hidden" name="amount" id="amount" size="3" value="1"> 
 						<input type="hidden" name="tktName" value="${tktVO.tktName}"> 
 						<input type="hidden" name="tktId" value="${tktVO.tktId}"> 
 						<input type="hidden" name="price" value="${tktVO.price}"> 
@@ -399,26 +438,46 @@
 		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 	<script>
-	$(function(){
-		var t = $("#quantity");
-		$("#add").click(function(){
-			t.val(parseInt(t.val())+1);
-			$("#min").removeAttr("disabled");                 //當按加1時，解除$("#min")不可讀狀態
-			setTotal();
-		})
-		$("#min").click(function(){
-	               if (parseInt(t.val())>1) {                     //判斷數量值大於1時才可以減少
-	                t.val(parseInt(t.val())-1)
-	                }else{
-	                $("#min").attr("disabled","disabled")        //當$("#min")為1時，$("#min")不可讀狀態
-	               }
-			setTotal();
-		})
-		function setTotal(){
-			$("#total").html((parseInt(t.val())*3.95).toFixed(2));
-		}
-		setTotal();
-	})
+// 	$(function(){
+// 		let t = $("#quantity");
+// 		$("#add").click(function(){
+// 			t.val(parseInt(t.val())+1);
+// 			$("#min").removeAttr("disabled");                 //當按加1時，解除$("#min")不可讀狀態
+// 			setTotal();
+// 		})
+// 		$("#min").click(function(){
+// 	               if (parseInt(t.val())>1) {                     //判斷數量值大於1時才可以減少
+// 	                t.val(parseInt(t.val())-1)
+// 	                }else{
+// 	                $("#min").attr("disabled","disabled")        //當$("#min")為1時，$("#min")不可讀狀態
+// 	               }
+// 		})
+// 	})
+	
+	  
+	    $("#add").click(function () {
+            //得到當前兄弟文字框的值
+            let n = $(this).siblings("#quantity").val();
+            n++;
+            $(this).siblings("#quantity").val(n);
+            
+        })
+        $("#min").click(function(){
+            //得到當前兄弟文字框的值
+            let n=$(this).siblings("#quantity").val();
+            //當文字框的值減到1時就不再執行n--及後面的程式碼
+            if(n==1){
+                return false;
+            }
+            n--;
+            $(this).siblings("#quantity").val(n);
+        })
+        
+       	$('#quantity').change( function() {
+       		$('#amount').attr("value",$('#quantity').val());
+		});
+        
+	 
 	</script>	
 	
 </body>
