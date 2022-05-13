@@ -60,7 +60,7 @@ img {
 				<tr>
 					<th>最新消息編號</th>
 					<th>最新消息標題</th>
-					<th>最新消息介紹</th>
+					<th style="width:400px;">最新消息介紹</th>
 					<th>撰寫日期</th>
 					<th>圖片</th>
 					<th>修改</th>
@@ -74,13 +74,13 @@ img {
 					<td><img src="${news.img}" /></td>
 					<td>
 						<FORM METHOD="post" ACTION="news/news2Update" style="margin-bottom: 0px;">
-							<input type="submit" value="修改"> 
+							<input type="submit" value="修改" style="background-color: gray; color: white; padding: 5px 5px; text-decoration: none; display: inline-block;"> 
 							<input type="hidden" name="newsId" value="${news.newsId}">
 						</FORM>
 					</td>
 					<td>
 						<FORM METHOD="post" ACTION="news/newsDelete" style="margin-bottom: 0px;">
-							<input type="submit" value="刪除"> 
+							<input type="submit" value="刪除" style="background-color: gray; color: white; padding: 5px 5px; text-decoration: none; display: inline-block;"> 
 							<input type="hidden" name="newsId" value="${news.newsId}">
 						</FORM>
 					</td>

@@ -65,15 +65,18 @@ img {
 			</c:if>
 
 			<table border="2px" class="table table-striped table-hover">
+			<thead >
 				<tr>
 					<th>最新消息編號</th>
 					<th>最新消息標題</th>
-					<th>最新消息介紹</th>
+					<th style="width:400px;">最新消息介紹</th>
 					<th>撰寫日期</th>
 					<th>圖片</th>
 					<th>修改</th>
 					<th>刪除</th>
 				</tr>
+				</thead>
+				<tbody>
 				<%@ include file="page1.file"%>
 				<c:forEach items="${list}" var="news" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 					<tr>
@@ -84,23 +87,24 @@ img {
 						<td><img src="${news.img}" /></td>
 						<td>
 							<FORM METHOD="post" ACTION="news/news2Update" style="margin-bottom: 0px;">
-								<input type="submit" value="修改"> 
+								<input type="submit" value="修改" style="background-color: gray; color: white; padding: 5px 5px; text-decoration: none; display: inline-block;"> 
 								<input type="hidden" name="newsId" value="${news.newsId}"> 
 								<input type="hidden" name="whichPage" value="<%=whichPage%>">
 							</FORM>
 						</td>
 						<td>
 							<FORM METHOD="post" ACTION="news/newsDelete" style="margin-bottom: 0px;">
-								<input type="submit" value="刪除"> 
+								<input type="submit" value="刪除" style="background-color: gray; color: white; padding: 5px 5px; text-decoration: none; display: inline-block;"> 
 								<input type="hidden" name="newsId" value="${news.newsId}"> 
 								<input type="hidden" name="whichPage" value="<%=whichPage%>">
 							</FORM>
 						</td>
 					</tr>
 				</c:forEach>
+				</tbody>
 			</table>
 			<%@ include file="page2.file"%>
-
+		
 			<div>
 				<a href='back-end/news/news_index.jsp'>回最新消息首頁</a>
 			</div>
