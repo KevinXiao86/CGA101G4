@@ -17,6 +17,7 @@ public class CompanyFilter implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
 			throws IOException, ServletException {
+		// TODO Auto-generated method stub
 		
 		System.out.println("訪問成功");
 		
@@ -33,5 +34,4 @@ public class CompanyFilter implements Filter{
 			filterChain.doFilter(request, response);
 		}
 	}
-
 }

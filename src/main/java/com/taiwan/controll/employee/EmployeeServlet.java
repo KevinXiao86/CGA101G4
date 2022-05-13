@@ -269,27 +269,35 @@ System.out.println(empPassword);
 			String empPassword = req.getParameter("empPassword");
 			EmployeeService employeeService = new EmployeeService();
 			EmployeeVO employeeVO = employeeService.login(empId, empPassword);
-//			req.setAttribute("employee", employeeVO);
-//			employeeVO.setSuccessful(true);
-			System.out.println(employeeVO);
+//			System.out.println(employeeVO);
 			if (employeeVO==null) {
 				employeeVO=new EmployeeVO();
 				employeeVO.setUrl("/back-end/emp/login/empLogin.jsp");
 				RequestDispatcher failureView = req.getRequestDispatcher(employeeVO.getUrl());
-				System.out.println("279");
-				
-				failureView.forward(req, res);
-			
+				failureView.forward(req, res);			
 			} else {
 				HttpSession session = req.getSession();
-				session.setAttribute("emp", employeeVO);
-				RequestDispatcher successView = req.getRequestDispatcher("/back-end/emp/back-end-index.jsp");
+				System.out.println(288);
+				session.setAttribute("employeeVO", employeeVO);
+				String param="?empName=" + employeeVO.getEmpName();
+				String url ="/back-end/emp/login/login-back-end-index.jsp"+ param;
+				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			}
 		}
 
 		if ("forgetPassword".equals(action)) {
 			System.out.println("foget");//這裡應該不是這樣
+		}
+		
+		
+		if ("loginOut".equals(action)) {
+		
+			 req.getRequestDispatcher("/back-end/emp/login/login-back-end-index.jsp").include(req, res);
+		        HttpSession session = req.getSession();
+		        // 清除資料
+		        session.invalidate();
+		      
 		}
 	}
 }

@@ -67,15 +67,13 @@
     <filter-name>SetCharacterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+ 
+ 
+
+ 
+ 
+ 
   
-  
-  <!--filter 标签用于配置一个 Filter 过滤器 -->
-	<filter>
-		<!--给 filter 起一个别名 -->
-		<filter-name>CompanyFilter</filter-name>
-		<!--配置 filter 的全类名 -->
-		<filter-class>com.taiwan.filter.CompanyFilter</filter-class>
-	</filter>
 
 	<!--filter-mapping 配置 Filter 过滤器的拦截路径 -->
 	<filter-mapping>

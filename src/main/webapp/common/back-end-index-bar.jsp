@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.taiwan.dao.employee.impl.*"%>
+<%@ page import="com.taiwan.controll.employee.*"%>
+<%@ page import="com.taiwan.service.employee.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +12,7 @@
  <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">後臺首頁</a>
+                <a class="navbar-brand" href="back-end/emp/login/login-back-end-index.jsp">後臺首頁</a>
             </div>
 
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -21,7 +24,7 @@
 
             <!-- Top Navigation: Left Menu -->
             <ul class="nav navbar-nav navbar-left navbar-top-links">
-                <li><a href="#"><i class="fa fa-home fa-fw"></i> Website</a></li>
+                <li><a href="back-end/emp/login/login-back-end-index.jsp"><i class="fa fa-home fa-fw"></i> </a></li>
             </ul>
 
             <!-- Top Navigation: Right Menu -->
@@ -29,14 +32,14 @@
 
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> secondtruth <b class="caret"></b>
+                        <i class="fa fa-user fa-fw"></i>${param.empName} <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> 基本資料</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
+<!--                         <li><a href="#"><i class="fa fa-user fa-fw"></i> 基本資料</a> -->
+<!--                         </li> -->
+<!--                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a> -->
+<!--                         </li> -->
+<!--                         <li class="divider"></li> -->
                         <li><a href="#" id="logout"><i class="fa fa-sign-out fa-fw"></i> 登出</a>
                         </li>
                     </ul>
