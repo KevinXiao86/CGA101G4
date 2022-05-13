@@ -21,7 +21,9 @@
 	href="<%=request.getContextPath()%>/static/css/selectRoom.css">
 
 <meta charset="UTF-8">
-<title>AddOrder</title>
+<title>台玩</title>
+<!--  Favicon title 小圖 -->
+<link rel ="icon" href="<%=request.getContextPath() %>/static/img/core-img/favicon.ico">
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%--@ include file="/common/head.jsp"--%>
 <style type="text/css">
@@ -170,9 +172,9 @@
 					</div>
 				</div>
 				<!--/******************************/-->
+				<c:forEach var="roomtypeVO" items="${roomtypeVOs}">
 				<FORM METHOD="post"
 		ACTION="<%=request.getContextPath()%>/roomOrder12/roomOrder">
-				<c:forEach var="roomtypeVO" items="${roomtypeVOs}">
 					<div class="row pt-xs pb-xs result-b-btm-sec">
 						<div class="col-lg-6 col-md-7">
 							<div class="type-list d-flex">
@@ -279,8 +281,8 @@
 							
 						</div>
 					</div>
-				</c:forEach>
 				</FORM>
+				</c:forEach>
 				
 
 			</div>

@@ -9,8 +9,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<title>台玩</title>
+<!--  Favicon title 小圖 -->
+<link rel ="icon" href="<%=request.getContextPath() %>/static/img/core-img/favicon.ico"></head>
 <body>
 
 	<jsp:useBean id="repCustSvc" scope="page"

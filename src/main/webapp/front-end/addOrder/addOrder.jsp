@@ -11,9 +11,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>AddOrder</title>
-<%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
-<%--@ include file="/common/head.jsp"--%>
+<title>台玩</title>
+<!--  Favicon title 小圖 -->
+<link rel ="icon" href="<%=request.getContextPath() %>/static/img/core-img/favicon.ico">
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
