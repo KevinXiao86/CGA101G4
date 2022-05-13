@@ -148,6 +148,7 @@ a:focus {
                         <li><a href="#">關於台玩</a></li>
                         <li><a href="#">使用者條款</a></li>
                         <li><a href="#">隱私權保護政策</a></li>
+                        <li><a href="<%=request.getContextPath()%>/front-end/rejest/custmomer_reject.jsp">會員註冊</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">

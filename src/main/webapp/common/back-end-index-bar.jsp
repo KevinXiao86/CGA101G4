@@ -88,10 +88,7 @@
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i>廠商管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">廠商訊息管理</a>
-                                </li>
-                                <li>
-                                    <a href="#">廠商檢舉管理</a>
+                                    <a href="back-end/doRepCust12/doRepCust.jsp">廠商檢舉管理</a>
                                 </li>
                                 <li>
                                     <a href="manager/company/getCompaniesByPage">廠商資料管理</a>

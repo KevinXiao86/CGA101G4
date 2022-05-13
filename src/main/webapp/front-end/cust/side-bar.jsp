@@ -84,14 +84,14 @@
 				<ul id="forms-nav" class="nav-content collapse "
 					data-bs-parent="#sidebar-nav">
 					<li>
-						<!--             <a href="forms-elements.html"> -->
-						 <!--               <i class="bi bi-circle"></i><span>訂房訂單</span> -->
-						<!--             </a> -->
-						<FORM METHOD="post" ACTION="">
-							<input type="hidden" name="action" value="">
-							<input type="hidden" name="custId" value=""> 
-							<input class="allType" type="submit" value="訂房訂單">
-						</FORM>
+			            <a href="<%=request.getContextPath()%>/front-end/addOrder/selectOrder.jsp">
+			               <i class="bi bi-circle"></i><span>訂房訂單</span>
+			            </a>
+<!-- 						<FORM METHOD="post" ACTION=""> -->
+<!-- 							<input type="hidden" name="action" value=""> -->
+<!-- 							<input type="hidden" name="custId" value="">  -->
+<!-- 							<input class="allType" type="submit" value="訂房訂單"> -->
+<!-- 						</FORM> -->
 					</li>
 					<li>
 						<FORM METHOD="post" ACTION="tktOrder/getCustId">

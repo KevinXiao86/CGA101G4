@@ -70,6 +70,7 @@ public class roomOrder extends HttpServlet {
 			errorMsgs.put("roomId", "房型: 只能是數字 , 且長度必需在1到2之間");
 		}
 		Integer roomId = Integer.valueOf(roomIdST.trim());
+		System.out.println(roomId);
 
 
 		java.sql.Timestamp ckin = null;

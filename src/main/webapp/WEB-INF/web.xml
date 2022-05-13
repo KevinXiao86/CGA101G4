@@ -142,26 +142,26 @@
 
 
 
-	<filter>
-		<filter-name>CompanyFilter</filter-name>
-		<filter-class>com.taiwan.filter.CompanyFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>CompanyFilter</filter-name>
-		<url-pattern>/front-end/company/index.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CompanyFilter</filter-name>
-		<url-pattern>/front-end/roomtype/*</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CompanyFilter</filter-name>
-		<url-pattern>/front-end/cmpRoomOrder/*</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CompanyFilter</filter-name>
-		<url-pattern>/front-end/reservation/*</url-pattern>
-	</filter-mapping>
+<!-- 	<filter> -->
+<!-- 		<filter-name>CompanyFilter</filter-name> -->
+<!-- 		<filter-class>com.taiwan.filter.CompanyFilter</filter-class> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>CompanyFilter</filter-name> -->
+<!-- 		<url-pattern>/front-end/company/index.jsp</url-pattern> -->
+<!-- 	</filter-mapping> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>CompanyFilter</filter-name> -->
+<!-- 		<url-pattern>/front-end/roomtype/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>CompanyFilter</filter-name> -->
+<!-- 		<url-pattern>/front-end/cmpRoomOrder/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>CompanyFilter</filter-name> -->
+<!-- 		<url-pattern>/front-end/reservation/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
 	<filter>
 		<filter-name>CustomerFilter</filter-name>
 		<filter-class>com.taiwan.filter.CustomerFilter</filter-class>

@@ -94,6 +94,7 @@ public class TktOrderCreator extends HttpServlet {
 				
 				
 				Integer copId = Integer.valueOf(req.getParameter("copId"));
+				System.out.println(copId);
 				Integer discount = Integer.valueOf(req.getParameter("discount"));
 				
 				//遍歷map

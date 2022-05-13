@@ -33,9 +33,9 @@
 		class="com.taiwan.service.roomtype.impl.RoomtypeService12" />
 	<%
 	//假設會員10000已登入
-	int i = 10000;
+	CustomerVO customerVO = (CustomerVO) session.getAttribute("customer");
 	CustomerServiceImpl custSvc = new CustomerServiceImpl();
-	CustomerVO custVO = custSvc.getAll(i);
+	CustomerVO custVO = custSvc.getAll(customerVO.getCustId());
 	request.setAttribute("custVO", custVO);
 	%>
 	 <!-- Header -->

@@ -272,7 +272,7 @@
 									</c:forEach>
 							</select>
 							<p>${errorMsgs.amount}</p>
-		<input type="hidden" name="roomId" value=${roomtypeVO.roomtypeId} >
+		<input type="hidden" name="roomId" value="${roomtypeVO.roomtypeId}" >
 		<input type="hidden" name="ckin" class="ckin" value="${dateMap.ckin}" >
 		<input type="hidden" name="ckout" class="ckout" value="${dateMap.ckout}" >
 		<input type="hidden" name="custCopId" class="custCopId" value="0">
