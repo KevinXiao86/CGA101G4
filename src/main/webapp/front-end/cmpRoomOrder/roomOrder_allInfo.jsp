@@ -17,24 +17,24 @@ html>
 <meta name="author" content="">
 
 <!-- Bootstrap Core CSS -->
-<link href="front-end/company/css/bootstrap.min.css" rel="stylesheet">
+<link href="common/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- MetisMenu CSS -->
-<link href="front-end/company/css/metisMenu.min.css" rel="stylesheet">
+<link href="common/css/metisMenu.min.css" rel="stylesheet">
 
 <!-- DataTables CSS -->
-<link href="front-end/company/css/dataTables/dataTables.bootstrap.css"
+<link href="common/css/dataTables/dataTables.bootstrap.css"
 	rel="stylesheet">
 
 <!-- DataTables Responsive CSS -->
-<link href="front-end/company/css/dataTables/dataTables.responsive.css"
+<link href="common/css/dataTables/dataTables.responsive.css"
 	rel="stylesheet">
 
 <!-- Custom CSS -->
-<link href="front-end/company/css/startmin.css" rel="stylesheet">
+<link href="common/css/startmin.css" rel="stylesheet">
 
 <!-- Custom Fonts -->
-<link href="front-end/company/css/font-awesome.min.css" rel="stylesheet"
+<link href="common/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
 
 <style type="text/css">
@@ -213,21 +213,21 @@ span {
 
 
 	<!-- jQuery -->
-	<script src="front-end/company/js/jquery.min.js"></script>
+	<script src="common/js/jquery.min.js"></script>
 
 	<!-- Bootstrap Core JavaScript -->
-	<script src="front-end/company/js/bootstrap.min.js"></script>
+	<script src="common/js/bootstrap.min.js"></script>
 
 	<!-- Metis Menu Plugin JavaScript -->
-	<script src="front-end/company/js/metisMenu.min.js"></script>
+	<script src="common/js/metisMenu.min.js"></script>
 
 	<!-- DataTables JavaScript -->
-	<script src="front-end/company/js/dataTables/jquery.dataTables.min.js"></script>
+	<script src="common/js/dataTables/jquery.dataTables.min.js"></script>
 	<script
-		src="front-end/company/js/dataTables/dataTables.bootstrap.min.js"></script>
+		src="common/js/dataTables/dataTables.bootstrap.min.js"></script>
 
 	<!-- Custom Theme JavaScript -->
-	<script src="front-end/company/js/startmin.js"></script>
+	<script src="common/js/startmin.js"></script>
 
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 	<script type="text/javascript">

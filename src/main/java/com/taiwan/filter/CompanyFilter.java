@@ -29,7 +29,7 @@ public class CompanyFilter implements Filter{
 		if (loginCompany == null) {
 			System.out.println("沒有登入");
 			request.getRequestDispatcher("/cmp_login/login.jsp").forward(request, response);
-		}else {
+		} else {
 			filterChain.doFilter(request, response);
 		}
 	}

@@ -8,8 +8,8 @@
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%@ include file="/common/head.jsp"%>
 
-<link rel="stylesheet" href="front-end/roomtype/css/add.css" />
-<script src="front-end/roomtype/js/add.js"></script>
+<link rel="stylesheet" href="common/css/add.css" />
+<script src="common/js/add.js"></script>
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,16 +21,16 @@
 	rel="stylesheet">
 
 <!-- Bootstrap Core CSS -->
-<link href="front-end/company/css/bootstrap.min.css" rel="stylesheet">
+<link href="common/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- MetisMenu CSS -->
-<link href="front-end/company/css/metisMenu.min.css" rel="stylesheet">
+<link href="common/css/metisMenu.min.css" rel="stylesheet">
 
 <!-- Custom CSS -->
-<link href="front-end/company/css/startmin.css" rel="stylesheet">
+<link href="common/css/startmin.css" rel="stylesheet">
 
 <!-- Custom Fonts -->
-<link href="front-end/company/css/font-awesome.min.css" rel="stylesheet"
+<link href="common/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
 
 <style>
@@ -519,15 +519,15 @@ input[type=text]:focus {
 	</script>
 
 	<!-- jQuery -->
-	<script src="front-end/company/js/jquery.min.js"></script>
+	<script src="common/js/jquery.min.js"></script>
 
 	<!-- Bootstrap Core JavaScript -->
-	<script src="front-end/company/js/bootstrap.min.js"></script>
+	<script src="common/js/bootstrap.min.js"></script>
 
 	<!-- Metis Menu Plugin JavaScript -->
-	<script src="front-end/company/js/metisMenu.min.js"></script>
+	<script src="common/js/metisMenu.min.js"></script>
 
 	<!-- Custom Theme JavaScript -->
-	<script src="front-end/company/js/startmin.js"></script>
+	<script src="common/js/startmin.js"></script>
 </body>
 </html>

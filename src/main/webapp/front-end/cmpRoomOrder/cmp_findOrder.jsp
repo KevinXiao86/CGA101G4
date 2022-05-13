@@ -26,26 +26,27 @@ pageContext.setAttribute("list", list);
 <meta name="author" content="">
 
 <!-- Bootstrap Core CSS -->
-<link href="front-end/company/css/bootstrap.min.css" rel="stylesheet">
+<link href="common/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- MetisMenu CSS -->
-<link href="front-end/company/css/metisMenu.min.css" rel="stylesheet">
+<link href="common/css/metisMenu.min.css" rel="stylesheet">
 
 <!-- DataTables CSS -->
-<link href="front-end/company/css/dataTables/dataTables.bootstrap.css"
+<link href="common/css/dataTables/dataTables.bootstrap.css"
 	rel="stylesheet">
 
 <!-- DataTables Responsive CSS -->
-<link href="front-end/company/css/dataTables/dataTables.responsive.css"
+<link href="common/css/dataTables/dataTables.responsive.css"
 	rel="stylesheet">
 
 <!-- Custom CSS -->
-<link href="front-end/company/css/startmin.css" rel="stylesheet">
+<link href="common/css/startmin.css" rel="stylesheet">
 
 <!-- Custom Fonts -->
-<link href="front-end/company/css/font-awesome.min.css" rel="stylesheet"
+<link href="common/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
 
+<link rel="stylesheet" type="text/css" href="common/datetimepicker/jquery.datetimepicker.css" />
 <style>
 #page-wrapper {
 	background-color: rgb(221, 221, 241) !important;
@@ -73,7 +74,6 @@ img {
 	height: 150px;
 }
 </style>
-
 </head>
 <body>
 	<div id="wrapper">
@@ -149,8 +149,30 @@ img {
 					<div class="col-lg-12">
 						<div class="panel panel-default">
 							<div class="panel-heading">已有的房型如下:</div>
+								
+							<div class="form-group">
+							
+<!-- 								<form action="roomOrder/cmpSelectByDate"> -->
+									
+<!-- 									開始日期: <input name="startdate" id="start_date" type="text" -->
+<%-- 										value="${requestScope.startDate}"> <br> --%>
+<!-- 									<br> 結束日期: <input name="enddate" id="end_date" -->
+<%-- 										type="text" value="${requestScope.endDate}"> --%>
 
-
+<!-- 									<button id="btn">查詢</button> -->
+<!-- 								</form> -->
+							
+							
+								<form action="roomOrder/cmpSelectByDate">
+									<b>根據日期來做查詢來做查詢:</b> <br>
+                        			<label for="from">From</label>
+                        			<input type="text"  name="startdate" id="start_date">
+									<label for="to">to</label>
+									<input type="text"  name="enddate" id="end_date">
+                        			<input type="submit" value="送出">
+								</form>
+							</div>
+							
 							<!-- /.panel-heading -->
 							<div class="panel-body">
 								<div class="table-responsive">
@@ -203,29 +225,50 @@ img {
 
 
 	<!-- jQuery -->
-	<script src="front-end/company/js/jquery.min.js"></script>
+	<script src="common/js/jquery.min.js"></script>
 
 	<!-- Bootstrap Core JavaScript -->
-	<script src="front-end/company/js/bootstrap.min.js"></script>
+	<script src="common/js/bootstrap.min.js"></script>
 
 	<!-- Metis Menu Plugin JavaScript -->
-	<script src="front-end/company/js/metisMenu.min.js"></script>
+	<script src="common/js/metisMenu.min.js"></script>
 
 	<!-- DataTables JavaScript -->
-	<script src="front-end/company/js/dataTables/jquery.dataTables.min.js"></script>
+	<script src="common/js/dataTables/jquery.dataTables.min.js"></script>
 	<script
-		src="front-end/company/js/dataTables/dataTables.bootstrap.min.js"></script>
+		src="common/js/dataTables/dataTables.bootstrap.min.js"></script>
 
 	<!-- Custom Theme JavaScript -->
-	<script src="front-end/company/js/startmin.js"></script>
+	<script src="common/js/startmin.js"></script>
 
+<script src="common/datetimepicker/jquery.js"></script>
+<script src="common/datetimepicker/jquery.datetimepicker.full.js"></script>
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 	<script>
-		$(document).ready(function() {
-			$('#dataTables-example').DataTable({
-				responsive : true
-			});
-		});
-	</script>
+    $.datetimepicker.setLocale('zh');
+    $('#start_date').datetimepicker({
+       theme: '',              //theme: 'dark',
+       timepicker:false,       //timepicker:true,
+       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+       format:'Y-m-d',         //format:'Y-m-d H:i:s',
+	   value: new Date()       // value:   new Date(),
+       //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+       //startDate:	            '2017/07/10',  // 起始日
+       //minDate:               '-1970-01-01', // 去除今日(不含)之前
+       //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+    });
+    
+    $('#end_date').datetimepicker({
+        theme: '',              //theme: 'dark',
+        timepicker:false,       //timepicker:true,
+        step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+        format:'Y-m-d',         //format:'Y-m-d H:i:s',
+ 	    value: new Date()       // value:   new Date(),
+        //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+        //startDate:	            '2017/07/10',  // 起始日
+        //minDate:               '-1970-01-01', // 去除今日(不含)之前
+        //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+     });
+</script>
 </body>
 </html>

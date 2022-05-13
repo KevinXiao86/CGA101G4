@@ -27,6 +27,8 @@ public class CmpSelectByDate extends HttpServlet {
 	RoomOrderMyService roomOrderMyService = ControllerUtil.getBean(RoomOrderMyService.class);
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("訪問成功");
+		
 		HttpSession session = request.getSession();
 		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 		request.setAttribute("errorMsgs", errorMsgs);
@@ -36,7 +38,9 @@ public class CmpSelectByDate extends HttpServlet {
 			Integer cmpId = company.getCmpId();
 			// 獲取請求參數
 			String startString = request.getParameter("startdate");
+			System.out.println("startdate: " + startString);
 			String endString = request.getParameter("enddate");
+			System.out.println("enddate: " + endString);
 			// 將輸入的字串參數轉成我要的格式，並且轉成util date
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			Date startdate = simpleDateFormat.parse(startString);
@@ -44,12 +48,11 @@ public class CmpSelectByDate extends HttpServlet {
 
 			// 開始搜尋
 			List<RoomOrder> roomOrders = roomOrderMyService.cmpFindByDate(cmpId, startdate, enddate);
-
-			if (roomOrders.size() == 0) {
-				errorMsgs.put("roomOrder", "查無資料");
-			}
+//			if (roomOrders.size() == 0) {
+//				errorMsgs.put("roomOrder", "查無資料");
+//			}
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher rd = request.getRequestDispatcher("/front-end/company/cmp_index.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/front-end/company/index.jsp");
 				rd.forward(request, response);
 				return;
 			}
@@ -59,7 +62,7 @@ public class CmpSelectByDate extends HttpServlet {
 
 		} catch (Exception e) {
 			errorMsgs.put("Exception", "其他額外的錯誤");
-			RequestDispatcher rd = request.getRequestDispatcher("/front-end/company/cmp_index.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/front-end/company/index.jsp");
 			rd.forward(request, response);
 
 		}

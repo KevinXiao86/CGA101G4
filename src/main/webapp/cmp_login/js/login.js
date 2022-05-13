@@ -35,7 +35,7 @@ $(() => {
         //檢查完數據之後, 把數據回傳給服務器
         $.ajax({
             url: "http://localhost:8081/CGA101G4/company/login",
-            method: "get",
+            type: "get",
             //如果返回的內容是 JSON，jQuery 會自動幫你解析成一個 JavaScript object
             dataType: "json",
             data: {

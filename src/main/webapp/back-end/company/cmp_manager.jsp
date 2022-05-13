@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>後臺廠商</title>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
-<%@ include file="/common/head.jsp"%>
+<%@ include file="back-end-index.jsp"%>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,24 +16,24 @@
 <title>後台 - 審核廠商頁面</title>
 
 <!-- Bootstrap Core CSS -->
-<link href="front-end/company/css/bootstrap.min.css" rel="stylesheet">
+<link href="common/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- MetisMenu CSS -->
-<link href="front-end/company/css/metisMenu.min.css" rel="stylesheet">
+<link href="common/css/metisMenu.min.css" rel="stylesheet">
 
 <!-- DataTables CSS -->
-<link href="front-end/company/css/dataTables/dataTables.bootstrap.css"
+<link href="common/css/dataTables/dataTables.bootstrap.css"
 	rel="stylesheet">
 
 <!-- DataTables Responsive CSS -->
-<link href="front-end/company/css/dataTables/dataTables.responsive.css"
+<link href="common/css/dataTables/dataTables.responsive.css"
 	rel="stylesheet">
 
 <!-- Custom CSS -->
-<link href="front-end/company/css/startmin.css" rel="stylesheet">
+<link href="common/css/startmin.css" rel="stylesheet">
 
 <!-- Custom Fonts -->
-<link href="front-end/company/css/font-awesome.min.css" rel="stylesheet"
+<link href="common/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
 </head>
 <body>
@@ -47,7 +47,7 @@
 				<div class="navbar-default sidebar" role="navigation">
 					<div class="sidebar-nav navbar-collapse">
 						<ul class="nav" id="side-menu">
-							<%@ include file="/common/back-end-index-bar.jsp"%>
+<%-- 							<%@ include file="/common/back-end-index-bar.jsp"%> --%>
 						</ul>
 					</div>
 				</div>
@@ -177,7 +177,7 @@
 
 
 									<%--靜態包含分頁條 --%>
-									<%@include file="/common/page_nav.jsp"%>
+									<%@include file="/back-end/company/page_nav.jsp"%>
 								</div>
 							</div>
 						</div>
@@ -190,21 +190,21 @@
 
 
 	<!-- jQuery -->
-	<script src="front-end/company/js/jquery.min.js"></script>
+	<script src="common/js/jquery.min.js"></script>
 
 	<!-- Bootstrap Core JavaScript -->
-	<script src="front-end/company/js/bootstrap.min.js"></script>
+	<script src="common/js/bootstrap.min.js"></script>
 
 	<!-- Metis Menu Plugin JavaScript -->
-	<script src="front-end/company/js/metisMenu.min.js"></script>
+	<script src="common/js/metisMenu.min.js"></script>
 
 	<!-- DataTables JavaScript -->
-	<script src="front-end/company/js/dataTables/jquery.dataTables.min.js"></script>
+	<script src="common/js/dataTables/jquery.dataTables.min.js"></script>
 	<script
-		src="front-end/company/js/dataTables/dataTables.bootstrap.min.js"></script>
+		src="common/js/dataTables/dataTables.bootstrap.min.js"></script>
 
 	<!-- Custom Theme JavaScript -->
-	<script src="front-end/company/js/startmin.js"></script>
+	<script src="common/js/startmin.js"></script>
 
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 	<script>

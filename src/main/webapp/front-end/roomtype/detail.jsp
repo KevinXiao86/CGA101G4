@@ -21,16 +21,16 @@
 	rel="stylesheet">
 
 <!-- Bootstrap Core CSS -->
-<link href="front-end/company/css/bootstrap.min.css" rel="stylesheet">
+<link href="common/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- MetisMenu CSS -->
-<link href="front-end/company/css/metisMenu.min.css" rel="stylesheet">
+<link href="common/css/metisMenu.min.css" rel="stylesheet">
 
 <!-- Custom CSS -->
-<link href="front-end/company/css/startmin.css" rel="stylesheet">
+<link href="common/css/startmin.css" rel="stylesheet">
 
 <!-- Custom Fonts -->
-<link href="front-end/company/css/font-awesome.min.css" rel="stylesheet"
+<link href="common/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
 
 <style>
@@ -333,15 +333,15 @@ input[type=text]:focus {
 		<!-- /#wrapper -->
 
 		<!-- jQuery -->
-		<script src="front-end/company/js/jquery.min.js"></script>
+		<script src="common/js/jquery.min.js"></script>
 
 		<!-- Bootstrap Core JavaScript -->
-		<script src="front-end/company/js/bootstrap.min.js"></script>
+		<script src="common/js/bootstrap.min.js"></script>
 
 		<!-- Metis Menu Plugin JavaScript -->
-		<script src="front-end/company/js/metisMenu.min.js"></script>
+		<script src="common/js/metisMenu.min.js"></script>
 
 		<!-- Custom Theme JavaScript -->
-		<script src="front-end/company/js/startmin.js"></script>
+		<script src="common/js/startmin.js"></script>
 </body>
 </html>

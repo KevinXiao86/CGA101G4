@@ -4,15 +4,15 @@
 $(() => {
 
 	//獲取令牌
-	$.ajax({
-		url: "http://localhost:8081/CGA101G4/company/getToken",
-		type: "get",
-		//如果返回的內容是 JSON，jQuery 會自動幫你解析成一個 JavaScript object
-		dataType: "json",
-		success: function(resp) {
-			$("#token").val(resp);
-		}
-	});
+//	$.ajax({
+//		url: "http://localhost:8081/CGA101G4/company/getToken",
+//		type: "get",
+//		//如果返回的內容是 JSON，jQuery 會自動幫你解析成一個 JavaScript object
+//		dataType: "json",
+//		success: function(resp) {
+//			$("#token").val(resp);
+//		}
+//	});
 
 
 	$("#btnEdit").click(() => {

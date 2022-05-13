@@ -91,7 +91,7 @@
 					<div class="classynav" id="clas">
 						<ul>
 							<li><a href="<%=request.getContextPath() %>/front-end/????">票券</a></li>
-							<li><a href="<%=request.getContextPath() %>/front-end/????">住宿</a></li>
+							<li><a href="<%=request.getContextPath() %>/front-end/cmpList.jsp">住宿</a></li>
 						</ul>
 
 						<!-- Search Form  -->
@@ -779,8 +779,8 @@
 					<h4>旅人&合作夥伴</h4>
 					<ul>
 						<li><a href="#">關於合作夥伴</a></li>
-						<li><a href="#">成為供應商</a></li>
-						<li><a href="#">供應商登入</a></li>
+						<li><a href="front-end/company/regist.jsp">成為供應商</a></li>
+						<li><a href="front-end/company/login.jsp">供應商登入</a></li>
 						<li><a href="#">人才招募</a></li>
 					</ul>
 				</div>

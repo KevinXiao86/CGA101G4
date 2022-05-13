@@ -19,8 +19,8 @@ span#errorMsg {
 }
 </style>
 
-<link rel="stylesheet" href="front-end/company/css/login.css">
-<script src="front-end/company/js/login.js"></script>
+<link rel="stylesheet" href="common/css/login.css">
+<script src="common/js/login.js"></script>
 </head>
 <body>
 	<div class="form">
@@ -58,7 +58,7 @@ span#errorMsg {
 
 	</div>
 
-	<script src='front-end/company/js/jquery.min.js'></script>
-	<script src="front-end/company/js/script.js"></script>
+	<script src="common/js/jquery.min.js"></script>
+	<script src="common/js/script.js"></script>
 </body>
 </html>

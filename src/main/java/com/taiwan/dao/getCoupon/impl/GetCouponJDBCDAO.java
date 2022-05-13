@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.taiwan.beans.CouponVO;
+import com.taiwan.beans.CustCoupon;
 import com.taiwan.dao.coupon.impl.CouponJDBCDAO;
 import com.taiwan.dao.getCoupon.GetCoupon_interface;
 
@@ -77,6 +78,12 @@ public class GetCouponJDBCDAO implements GetCoupon_interface {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public int insertCustCoupon(CustCoupon obj) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	

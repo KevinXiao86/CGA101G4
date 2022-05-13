@@ -7,7 +7,7 @@
 <title>廠商註冊成功頁面</title>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%@ include file="/common/head.jsp"%>
-<link rel="stylesheet" href="cmp_login/css/style.css">
+<link rel="stylesheet" href="common/css/style.css">
 <style type="text/css">
 h1 {
 	text-align: center;
@@ -27,7 +27,7 @@ h1 a {
 <body>
 		<div id="header">
 				<a href="#">
-					<img class="logo_img" alt="" src="cmp_login/imgs/logo.jpg" height="100px" width="150px"/>
+					<img class="logo_img" alt="" src="common/imgs/logo.jpg" height="100px" width="150px"/>
 				</a>
 				<span class="wel_word"></span>
 				<div>
