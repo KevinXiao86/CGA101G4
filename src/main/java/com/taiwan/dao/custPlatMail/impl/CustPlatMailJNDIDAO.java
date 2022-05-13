@@ -31,7 +31,7 @@ public class CustPlatMailJNDIDAO implements CustPlatMailDao_interface {
 	private static final String GET_CUST_PLAT_MAIL = "SELECT CUST_PLAT_ID ,CUST_ID ,EMP_ID ,MSG,CUST_PLAT_TIME ,WHO"
 			+ " FROM CUST_PLAT_MAIL LIMIT ? OFFSET ? ;";
 	private static final String SET_CUST_PLAT_MAIL = "INSERT INTO CUST_PLAT_MAIL(CUST_ID,EMP_ID,MSG,WHO) VALUES(?,?,?,?);";
-	private static final String GET_ALL = "SELECT * FROM CUST_PLAT_MAIL;";
+	private static final String GET_ALL = "SELECT * FROM CUST_PLAT_MAIL ORDER BY CUST_PLAT_TIME DESC;";
 	private static final String GET_ALL_BY_CUSTID = "SELECT * FROM CUST_PLAT_MAIL WHERE CUST_ID=? ORDER BY CUST_PLAT_TIME DESC;";
 
 	@Override

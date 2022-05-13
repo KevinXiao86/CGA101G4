@@ -33,7 +33,7 @@ public class CustomerLogin extends HttpServlet {
 		String action = request.getParameter("action");
 
 		try {
-			if ("empLogin".equals(action)) {
+			if ("justLogin".equals(action)) {
 				String account = request.getParameter("account");
 				String password = request.getParameter("password");
 				CustomerService customerService = new CustomerServiceImpl();
@@ -69,7 +69,7 @@ public class CustomerLogin extends HttpServlet {
 							+ customerVO.getAccount() + "&password=" + customerVO.getPassword() + "&imgOrigin=" + img
 							+ "&card=" + card + "&custId=" + customerVO.getCustId();
 					RequestDispatcher successView = request
-							.getRequestDispatcher("/front-end/cust/CustomerInformation.jsp" + param);
+							.getRequestDispatcher("/front-end/cust/fakeIndex.jsp" + param);
 					successView.forward(request, response);
 				}
 			}

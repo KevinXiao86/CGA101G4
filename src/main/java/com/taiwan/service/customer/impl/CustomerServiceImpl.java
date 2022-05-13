@@ -102,13 +102,14 @@ public class CustomerServiceImpl implements CustomerService {
 			customerVO.setPassword(null);
 
 			return customerVO;
-		} else if ("未啟動".equals(customerVO.getCustUse())) {
-			customerVO.setMessage("您的帳號尚未啟動，請確認您的電子信箱，並按下台玩所發送信件中的按鈕，以啟動帳號");
-			customerVO.setSuccessful(false);
-			customerVO.setUrl("/front-end/cust/CustomerLogin.jsp");
-
-			return customerVO;
 		}
+//		else if ("未啟動".equals(customerVO.getCustUse())) {
+//			customerVO.setMessage("您的帳號尚未啟動，請確認您的電子信箱，並按下台玩所發送信件中的按鈕，以啟動帳號");
+//			customerVO.setSuccessful(false);
+//			customerVO.setUrl("/front-end/cust/CustomerLogin.jsp");
+//
+//			return customerVO;
+//		}
 		customerVO.setSuccessful(true);
 		return customerVO;
 	}

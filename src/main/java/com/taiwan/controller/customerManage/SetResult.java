@@ -3,6 +3,7 @@ package com.taiwan.controller.customerManage;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +32,7 @@ public class SetResult extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 取得管理員Id
 		HttpSession session = request.getSession();
-		EmployeeVO employeeVO = (EmployeeVO) session.getAttribute("employeeVO");
+		EmployeeVO employeeVO = (EmployeeVO) session.getAttribute("emp");
 		Integer empId = employeeVO.getEmpId();
 		// 取得要update的檢舉廠商流水號(repCmpId)
 		Integer repCmpId = Integer.valueOf(request.getParameter("repCmpId"));
@@ -46,6 +47,8 @@ public class SetResult extends HttpServlet {
 		RepCmpService12Impl repCmpService12Impl = new RepCmpService12Impl();
 		List<RepCmpVO> list = repCmpService12Impl.getAllRepCmp();
 		request.setAttribute("list", list);
+		RequestDispatcher successView = request.getRequestDispatcher("/back-end/customer/repCmpManage.jsp");
+		successView.forward(request, response);
 	}
 
 }
