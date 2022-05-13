@@ -32,13 +32,13 @@ public class TicketSelectByThree extends HttpServlet {
 			location=request.getParameter("location");
 			tktName=request.getParameter("tktName");
 			//查詢
-			System.out.println("location "+location);
-			System.out.println("tktName" +tktName);
+//			System.out.println("location "+location);
+//			System.out.println("tktName" +tktName);
 			List<TicketVO> ticketVOs=ticketService.findByThree(status, location, tktName);
 			System.out.println(ticketVOs);
 			
 			if(ticketVOs.isEmpty() || ticketVOs.size()==0) {
-				errorMsgs.put("tickstVOs", "查無資料");
+//				errorMsgs.put("tickstVOs", "查無資料");
 			}
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher rd = request.getRequestDispatcher("/front-end/ticket/ticketList.jsp");

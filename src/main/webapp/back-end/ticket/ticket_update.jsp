@@ -55,9 +55,9 @@
                         <label>優惠券編號</label><input type="text" name="tktId" value="${param.tktId}"><br>
                         <span>票券名稱</span><input name="tktName" type="text" autofocus placeholder="請輸入票券名稱"
                             value="${param.tktName}">${errorMsgs.tktName}<br>
-                        <span>票券數量</span><input name="originalAmount" type="number" step="10" min="0"
+                        <span>票券數量</span><input name="originalAmount" type="number" min="0"
                             placeholder="請輸入票券數量" value="${param.originalAmount}">${errorMsgs.originalAmount}<br>
-                        <span>票券價格</span><input name="price" type="number" step="10" min="0" placeholder="請輸入票券價格"
+                        <span>票券價格</span><input name="price" type="number" min="0" placeholder="請輸入票券價格"
                             value="${param.price}">${errorMsgs.price}<br>
                         <span>票券開始日期</span><input name="startdate" id="startdate" type="datetime-local"
                             value="2022-01-01T08:00"><br>

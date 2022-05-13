@@ -160,8 +160,8 @@
 
 	<select id="queryLocName" resultMap="TicketMap">
 		select * from TICKET where STATUS = #{status}
-		<if test="location != null"> and LOCATION = #{location}</if>
-		<if test="tktName != null">and TKT_NAME LIKE concat('%',#{tktName},'%')</if>
+		<if test="location != '' "> and LOCATION = #{location}</if>
+		<if test="tktName != '' ">and TKT_NAME LIKE concat('%',#{tktName},'%')</if>
 	</select>
 
 
