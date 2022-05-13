@@ -55,8 +55,8 @@
 					<!-- Nav Start -->
 					<div class="classynav" id="clas">
 						<ul style="display: flex;">
-							<li><a href="<%=request.getContextPath() %>/front-end/ticket/ticketList.jsp">票券</a></li>
 							<li><a href="<%=request.getContextPath() %>/cmpList.jsp">住宿</a></li>
+							<li><a href="<%=request.getContextPath() %>/front-end/ticket/ticketList.jsp">票券</a></li>
 						</ul>
 
 						<!-- Search Form  -->
@@ -72,7 +72,8 @@
 						<div class="top-social-area">
 							<a href="<%=request.getContextPath()%>/front-end/cart/cartList.jsp" data-toggle="tooltip" data-placement="bottom"
 								title="購物車"> <i class="fa-solid fa-cart-shopping"
-								aria-hidden="true"></i></a> <a href="#" data-toggle="tooltip"
+								aria-hidden="true"></i></a> 
+							<a href="<%=request.getContextPath()%>/front-end/cust/CustomerLogin.jsp" data-toggle="tooltip"
 								data-placement="bottom" title="登入"> <i
 								class="fa-regular fa-user" aria-hidden="true"></i></a>
 						</div>

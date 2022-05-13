@@ -12,9 +12,9 @@ public class CustCouponServiceImpl2 implements CustCouponService2 {
 	
 	private CustCouponServiceImpl2 dao;
 	private CustCoupon_interface dao1;
-@Override
+	
+	@Override
 	public Set<CustCoupon> getCustByCopId(Integer copId) {
-		
 		return dao.getCustByCopId(copId);
 	}
 
@@ -30,5 +30,10 @@ public class CustCouponServiceImpl2 implements CustCouponService2 {
 	@Override
 	public void updateCustCouponStatusByTkt(Integer custId, Integer tktOrderId, String status, Timestamp usedate) {
 		dao1.updateCustCouponStatusByTkt(custId, tktOrderId, status, usedate);
+	}
+
+	@Override
+	public CustCoupon queryCustCouponByCustId(Integer custId, Integer cop_id) {
+		return dao1.queryCustCouponByCustId(custId, cop_id);
 	}
 }

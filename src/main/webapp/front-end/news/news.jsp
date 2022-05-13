@@ -45,7 +45,7 @@
                             <div class="bolg-img nothver">
                                 <div id="blog-innner-carousel">
                                     <div class="item-inner">
-                                    <img style="width: 100%;" src="${news.img}" alt="" /><a class="show-img venobox" href="${theme.img}"></a></div>
+                                    <img style="width: 100%;" src="${news.img}" alt="" /><a class="show-img venobox" href="${news.img}"></a></div>
                                 </div>
                             </div>
                             <div class="middel-box fix">

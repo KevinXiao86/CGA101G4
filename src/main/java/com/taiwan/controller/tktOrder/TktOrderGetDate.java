@@ -34,10 +34,10 @@ public class TktOrderGetDate extends HttpServlet {
 		String action = req.getParameter("action");
 		
 		HttpSession session = req.getSession();
-//		CustomerVO customerVO = (CustomerVO) session.getAttribute("customer");
+		CustomerVO customerVO = (CustomerVO) session.getAttribute("customer");
 //		CustomerVO customerVO = new CustomerVO();
-//		String custId = customerVO.getCustId().toString();
-		String custId = "10000";
+		String custId = customerVO.getCustId().toString();
+//		String custId = "10000";
 		
 		if ("get_date".equals(action)) {
 
@@ -70,7 +70,7 @@ public class TktOrderGetDate extends HttpServlet {
 			
 			//取得會員姓名
 			CustomerServiceImpl customerServiceImpl = new CustomerServiceImpl();
-			CustomerVO customerVO = customerServiceImpl.getAll(Integer.valueOf(custId));  
+			customerVO = customerServiceImpl.getAll(Integer.valueOf(custId));  
  
 			/******************** 3.查詢完成，設定參數，送出成功頁面 ********************/
 			req.setAttribute("orderList", orderList);

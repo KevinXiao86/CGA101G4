@@ -69,7 +69,7 @@ public class CustomerLogin extends HttpServlet {
 							+ customerVO.getAccount() + "&password=" + customerVO.getPassword() + "&imgOrigin=" + img
 							+ "&card=" + card + "&custId=" + customerVO.getCustId();
 					RequestDispatcher successView = request
-							.getRequestDispatcher("/front-end/cust/fakeIndex.jsp" + param);
+							.getRequestDispatcher("/front-end/homepage/index.jsp" + param);
 					successView.forward(request, response);
 				}
 			}

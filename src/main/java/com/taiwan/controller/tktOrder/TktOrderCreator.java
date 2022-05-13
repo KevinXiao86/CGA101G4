@@ -76,6 +76,23 @@ public class TktOrderCreator extends HttpServlet {
 					errorMsgs.put("orderEmail", "請輸入電子信箱");
 				}
 				
+				String card = req.getParameter("card");
+				if(card == null || card.trim().length() == 0) {
+					errorMsgs.put("card", "請輸入信用卡號");
+				}
+
+				String expire = req.getParameter("expire");
+				if(expire == null || expire.trim().length() == 0) {
+					errorMsgs.put("expire", "請輸入信用卡到期日");
+				}
+				
+				String cvv = req.getParameter("cvv");
+				if(cvv == null || cvv.trim().length() == 0) {
+					errorMsgs.put("cvv", "請輸入安全碼");
+				}
+				
+				
+				
 				Integer copId = Integer.valueOf(req.getParameter("copId"));
 				Integer discount = Integer.valueOf(req.getParameter("discount"));
 				
@@ -96,10 +113,12 @@ public class TktOrderCreator extends HttpServlet {
 				/**************************2.開始成立訂單**************************/
 				System.out.println("準備開始成立訂單");
 				HttpSession session = req.getSession();
-	//			CustomerVO customer = (CustomerVO) session.getAttribute("customer");
+				//為了下方取優惠券的東西
+				CustCouponService2 custCouponService = new CustCouponServiceImpl2();
+				CustomerVO customer = (CustomerVO) session.getAttribute("customer");
 				//取得此時的會員id
-	//			Integer custId = customer.getCustId();
-				Integer custId = 10000;
+				Integer custId = customer.getCustId();
+//				Integer custId = 10000;
 				
 				//取得購物車商品
 				List<String> cartCheckout = (List<String>) session.getAttribute("list");
@@ -134,10 +153,15 @@ public class TktOrderCreator extends HttpServlet {
 				TktOrder tktOrder = new TktOrder();
 				//有使用優惠券的
 				if(copId != 0) {
+					
+					//取得從copId取得custCopId
+					CustCoupon custCoupon = custCouponService.queryCustCouponByCustId(custId, copId);
+					Integer custCopId = custCoupon.getCustCopId();
+					
 					tktOrder.setCustId(Integer.valueOf(custId));
 					tktOrder.setOriginalPrice(total);
 					tktOrder.setTtlPrice(total-discount);
-					tktOrder.setCustCopId(copId);
+					tktOrder.setCustCopId(custCopId);
 					tktOrder.setQrcode(""); 
 					tktOrder.setOrderName(orderName);
 					tktOrder.setOrderEmail(orderEmail);
@@ -162,7 +186,6 @@ public class TktOrderCreator extends HttpServlet {
 				
 				//更新已使用票券的資料
 				if(copId != 0) {
-					CustCouponService2 custCouponService = new CustCouponServiceImpl2();
 					Long datetime = System.currentTimeMillis();
 			        Timestamp usedate = new Timestamp(datetime);
 					custCouponService.updateCustCouponStatusByTkt(custId, Integer.valueOf(newOrderId), "已使用", usedate);

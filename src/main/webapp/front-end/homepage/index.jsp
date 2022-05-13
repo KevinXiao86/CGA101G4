@@ -70,6 +70,14 @@
 	crossorigin="anonymous"></script>
 
 <script src="https://kit.fontawesome.com/c95ced1229.js" crossorigin="anonymous"></script>
+
+<style type="text/css">
+    .customer_bar{
+        margin: 10px;
+        border-bottom: 1px solid black;
+    }
+</style>
+
 </head>
 
 <body>
@@ -112,6 +120,23 @@
 				</div>
 			</div>
 		</div>
+		<div  id="picture" href="#" data-toggle="tooltip" data-placement="bottom" style="position: fixed;right: 10px;top: 10px;z-index: 9999;height:50px;text-decoration: none;overflow: hidden;">
+            <div class="picture" title="cow" style="width:45px;height:45px;border-radius: 100%;background-color: #000;padding:0;overflow:hidden;background-size: cover;background-image:url('img/ticket-img/t1.jpg'); margin-left:50px">
+            </div>
+            <div style="box-shadow: 2px 2px 4px black;background-color: #ccc;margin:10px;padding:5px;">
+                <span id="customer_data" class="customer_bar" style="display:block">
+                    <a href="<%=request.getContextPath()%>/cust/CustomerInformation">會員功能</a>
+                </span>
+                <span class="customer_bar" >
+                   <a href="<%=request.getContextPath()%>/cust/Logout">登出</a>
+                </span>
+            </div>
+        </div>
+        <script type="text/javascript">
+            document.querySelector('#picture').onclick=function(e){
+                document.querySelector('#picture').style.height='150px';
+            };
+        </script>
 
 		<!-- ##### Hero Area Start ##### -->
 		<div class="hero-area">
@@ -360,16 +385,13 @@
 					<div class="col-12 col-md-6 col-lg-4">
 						<div class="single-blog-area blog-style-2 mb-100">
 							<div class="single-blog-thumbnail">	
-								<img src="${ticketVO.tktImgVO.img}"
-									style="height: 180px;">
+								<a href="<%=request.getContextPath()%>/ticket/selectId?action=getOne_For_Display&tktId=${ticketVO.tktId}"><img src="${ticketVO.tktImgVO.img}"
+									style="height: 180px;"></a>
 							</div>
 							<div class="single-blog-content mt-30" style="margin-top: 5;">
 								<a href="#" class="post-tag">Lifestyle</a> 
 								<h3>
-<!-- 									<form method="get" action="ticket/selectId"> -->
-										<a href="#" class="post-headline">${ticketVO.tktName}</a>
-<!-- 										<input type="hidden" name="action" value="getOne_For_Display"> -->
-<!-- 									</form> -->
+										<a href="<%=request.getContextPath()%>/ticket/selectId?action=getOne_For_Display&tktId=${ticketVO.tktId}" class="post-headline">${ticketVO.tktName}</a>
 								</h3>
 								<p style="height: 60px;overflow: hidden;">${ticketVO.instruction}</p>
 <!-- 									text-overflow: ellipsis; white-space: nowrap; -->
@@ -489,7 +511,7 @@
 										<div class="line"></div>
 										<a href="#" class="post-tag">Lifestyle</a>
 										<h3>
-											<a href="#" class="post-headline">${theme.title}</a>
+											<a href="<%=request.getContextPath()%>/front-end/theme/theme.jsp?themeId=${theme.themeId}" class="post-headline">${theme.title}</a>
 										</h3>
 										<p>${theme.content}</p>
 									</div>
@@ -523,13 +545,13 @@
 									<div class="single-blog-post d-flex align-items-center widget-post">
 										<!-- Post Thumbnail -->
 										<div class="post-thumbnail">
-											<img src="${news.img}">
+											<a href="<%=request.getContextPath()%>/news/fontNews?newsId=${news.newsId}"><img src="${news.img}"></a>
 										</div>
 										<!-- Post Content -->
 										<div class="post-content">
 											<a href="#" class="post-tag">Lifestyle</a>
 											<h6>
-												<a href="#" class="post-headline" style="font-size:14px;">${news.title}</a>
+												<a href="<%=request.getContextPath()%>/news/fontNews?newsId=${news.newsId}" class="post-headline" style="font-size:14px;">${news.title}</a>
 											</h6>
 <!-- 											<div class="post-meta"> -->
 <!-- 												<p> -->

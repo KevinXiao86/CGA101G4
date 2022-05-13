@@ -63,7 +63,6 @@ public class TktItemSelectById extends HttpServlet {
 				return;
 			}
 //				System.out.println(itemList);
-			
 
 			/******************** 3.查詢完成，設定參數，送出成功頁面 ********************/
 			req.setAttribute("tktOrder", tktOrder);

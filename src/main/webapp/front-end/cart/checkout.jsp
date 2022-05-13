@@ -72,20 +72,20 @@
 								<div class="group">
 									<input type="text" name="orderName" value="${name}" id="name"
 										autocomplete=""> <span class="highlight"></span> <span
-										class="bar"></span> <label>訂購人姓名</label>${errorMsgs.orderName}
+										class="bar"></span> <label>訂購人姓名</label><span style="color:red;">${errorMsgs.orderName}🦥</span>
 								</div>
 							</div>
 							<div class="col-12 col-md-6">
 								<div class="group">
 									<input type="tel" name="orderMobile" value="${tel}" id="tel">
-									<span class="highlight"></span> <span class="bar"></span> <label>連絡電話</label>${errorMsgs.orderMobile}
+									<span class="highlight"></span> <span class="bar"></span> <label>連絡電話</label><span style="color:red;">${errorMsgs.orderMobile}🦥</span>
 								</div>
 							</div>
 							<div class="col-12">
 								<div class="group">
 									<input type="email" name="orderEmail" value="${email}"
 										id="email"> <span class="highlight"></span> <span
-										class="bar"></span> <label>Email</label>${errorMsgs.orderEmail}
+										class="bar"></span> <label>Email</label><span style="color:red;">${errorMsgs.orderEmail}🦥</span>
 								</div>
 							</div>
 							<div class="col-12">
@@ -99,19 +99,20 @@
 										style="width: 138px; text-align: center;"> － <input
 										type="text" name="card" class="card" maxlength="4"
 										style="width: 138px; text-align: center;"> <span
-										class="highlight"></span> <span class="bar"></span> <label>信用卡卡號</label>${errorMsgs.card}
+										class="highlight"></span> <span class="bar"></span> <label>信用卡卡號</label>
+<%-- 										${errorMsgs.card} --%>
 								</div>
 							</div>
 							<div class="col-12 col-md-6">
 								<div class="group">
 									<input type="text" name="expire" placeholder="MM / YYYY" class="expire"> <span
-										class="highlight"></span> <span class="bar"></span> <label>到期日</label>${errorMsgs.cvv}
+										class="highlight"></span> <span class="bar"></span> <label>到期日</label><span style="color:red;">${errorMsgs.cvv}🦥</span>
 								</div>
 							</div>
 							<div class="col-12 col-md-6">
 								<div class="group">
 									<input type="text" name="cvv" placeholder="CVC" maxlength="3" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> <span
-										class="highlight"></span> <span class="bar"></span> <label>安全碼</label>${errorMsgs.cvv}
+										class="highlight"></span> <span class="bar"></span> <label>安全碼</label><span style="color:red;">${errorMsgs.cvv}🦥</span>
 								</div>
 							</div>
 							<div class="col-12">

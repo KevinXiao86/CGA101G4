@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.taiwan.beans.CustCoupon;
+import com.taiwan.beans.TktOrder;
 import com.taiwan.dao.custcoupon.CustCoupon_interface;
 import com.taiwan.utils.DbUtil;
 
@@ -145,6 +146,33 @@ public class CustCouponJDBCDao implements CustCoupon_interface{
 			e.printStackTrace();
 		}
 		return ls;
+	}
+
+	@Override
+	public CustCoupon queryCustCouponByCustId(Integer custId, Integer cop_id) {
+		CustCoupon custCoupon = null;
+		String sql = "select cust_cop_id,cust_id,cop_id,getdate,usedate,room_order_id,tkt_order_id,discount,status from CUST_COUPON where cust_id=? and cop_id=?;";
+		try (Connection conn = DbUtil.getConnection();
+				PreparedStatement prep = conn.prepareStatement(sql)) {
+			prep.setInt(1, custId);
+			prep.setInt(2, cop_id);
+			ResultSet rs = prep.executeQuery();
+			while (rs.next()) {
+				Integer custCopId=rs.getInt("cust_cop_id");
+				Integer custId1=rs.getInt("cust_id");
+				Integer copId=rs.getInt("cop_id");
+				Timestamp getDate=rs.getObject("getdate",Timestamp.class);
+				Timestamp useDate=rs.getObject("usedate",Timestamp.class);
+				Integer roomOrderId=rs.getInt("room_order_id");
+				Integer tktOrderId=rs.getInt("tkt_order_id");
+				Integer discount=rs.getInt("discount");
+				String status=rs.getString("status");
+				custCoupon = new CustCoupon(custCopId, custId1, copId, getDate, useDate, roomOrderId, tktOrderId, discount, status);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return custCoupon;
 	}
 
 
