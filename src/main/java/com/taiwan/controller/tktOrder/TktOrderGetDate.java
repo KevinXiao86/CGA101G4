@@ -12,9 +12,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.taiwan.beans.CustomerVO;
 import com.taiwan.beans.TktOrder;
 import com.taiwan.service.TktOrderService;
+import com.taiwan.service.customer.impl.CustomerServiceImpl;
 
 
 @WebServlet("/tktOrder/getDate")
@@ -29,6 +32,12 @@ public class TktOrderGetDate extends HttpServlet {
 		
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		
+		HttpSession session = req.getSession();
+//		CustomerVO customerVO = (CustomerVO) session.getAttribute("customer");
+//		CustomerVO customerVO = new CustomerVO();
+//		String custId = customerVO.getCustId().toString();
+		String custId = "10000";
 		
 		if ("get_date".equals(action)) {
 
@@ -45,7 +54,7 @@ public class TktOrderGetDate extends HttpServlet {
 			
 			/************************** 2.開始查詢資料 **************************/
 			TktOrderService tktOrderService = new TktOrderService();
-			List<TktOrder> orderList = tktOrderService.getTktOrderByDateToDate(startdate, enddate);
+			List<TktOrder> orderList = tktOrderService.getTktOrderByDateCustID(startdate, enddate, Integer.valueOf(custId));
 			if (orderList == null || orderList.size() == 0) {
 				errorMsgs.put("date", "查無資料");
 			} 
@@ -54,13 +63,18 @@ public class TktOrderGetDate extends HttpServlet {
 
 			
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/tktOrder/tktOrderIndex.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/tktOrder/listAllTktOrder.jsp");
 				failureView.forward(req, res);
 				return;
 			}
+			
+			//取得會員姓名
+			CustomerServiceImpl customerServiceImpl = new CustomerServiceImpl();
+			CustomerVO customerVO = customerServiceImpl.getAll(Integer.valueOf(custId));  
  
 			/******************** 3.查詢完成，設定參數，送出成功頁面 ********************/
 			req.setAttribute("orderList", orderList);
+			req.setAttribute("customerVO", customerVO);
 //			req.setAttribute("orderListSize", orderListSize);
 			RequestDispatcher success = req.getRequestDispatcher("/front-end/tktOrder/listDateTktOrder.jsp");
 			success.forward(req, res);

@@ -133,9 +133,6 @@ public class CartServlet extends HttpServlet {
 			
 			req.setAttribute("couponList", couponList);
 			
-//			Integer discount = Integer.valueOf(req.getParameter("discount"));
-//			req.setAttribute("discount", discount);			
-			
 			/************************************************************************/
 			//取出購物車清單
 			List<String> list = CartService.getCartList(custId);
@@ -201,6 +198,22 @@ public class CartServlet extends HttpServlet {
 				}
 			}
 			
+			
+			//取值
+			String discountString=req.getParameter("num");
+			String copIdString=req.getParameter("numId");
+			//折扣金額及票券id
+			Integer discount = 0;
+			Integer copId = 0;
+			if(discountString == null || discountString.trim().equals("")) {
+				discount=0;
+			}else {
+				discount=Integer.valueOf(discountString);
+				copId=Integer.valueOf(copIdString);
+			}
+
+			req.setAttribute("copId", copId);
+			req.setAttribute("discount", discount);
 			
 //			double ttl = cartList.stream()
 //								 .mapToDouble(book->book.getPrice()*book.getQuantity())

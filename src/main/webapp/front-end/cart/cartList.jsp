@@ -84,7 +84,7 @@
 			</div>
 		</div>
 		<div class="order-button-payment" style="width:30%;display:inline-block;margin:-20px auto 50px 560px;">
-			<a href="<%=request.getContextPath()%>/front-end/homepage/index.jsp"><input type="submit" value="繼續購物" /></a>
+			<input type="button" value="繼續購物" onclick="location.href='<%=request.getContextPath()%>/front-end/ticket/ticketList.jsp'"/>
 		</div>
 	
 		<%
@@ -138,12 +138,10 @@
 				<div class="discount-token">
 					<label for="discount-token" class="label-default">優惠券代號</label>
 					<div class="wrapper-flex">
-<!-- 						<input type="text" name="discount-token" id="discount-token" -->
-<!-- 							class="input-default"> -->
-						<select name="discount" id="discount">
+						<select id="discount" class="form-select" aria-label="Default select example">
 							<option>請選擇您的優惠券</option>
 							<c:forEach var="couponVO" items="${couponList}">
-								<option value="${couponVO.discount}">${couponVO.copName}</option>
+								<option value="${couponVO.discount}" id="${couponVO.copId}">${couponVO.copName}</option>
 							</c:forEach>
 						</select>
 					</div>
@@ -154,7 +152,7 @@
 						<span style="margin-right: 50px;">小計</span><span>$</span><span id="total">${total}</span>
 					</div>
 					<div class="tax">
-						<span style="margin-right: 30px;">折扣金額</span><span>-$</span><span id="tax"></span>
+						<span style="margin-right: 30px;">折扣金額</span><span>$</span><span id="tax"></span>
 					</div>
 					<div class="subtotal">
 						<span style="margin-right: 30px;">總金額</span><span>$</span><span id="subtotal"></span>
@@ -164,7 +162,7 @@
 		</div>
 	</form>
 
-	<form action="<%=request.getContextPath()%>/front-end/homepage/index.jsp" method="get"  style="width:30%;display:inline-block;margin-left:200px; margin-bottom:50px;">
+	<form action="<%=request.getContextPath()%>/front-end/ticket/ticketList.jsp" method="get"  style="width:30%;display:inline-block;margin-left:200px; margin-bottom:50px;">
 		<div class="order-button-payment">
 			<input type="submit" value="繼續購物" />
 		</div>
@@ -172,6 +170,8 @@
 	<form action="cart/do" method="post" style="width:30%;float:right;">
 		<div class="order-button-payment">
 			<input type="hidden" name="action" value="checkout">
+			<input type="hidden" name="num" id="num">
+			<input type="hidden" name="numId" id="numId">
 			<input type="submit" value="下一步" />
 		</div>
 	</form>
@@ -182,18 +182,12 @@
 	<!-- #### Footer start #### -->
 	<jsp:include page="/front-end/homepage/footer.jsp"></jsp:include>
 
-	<script
-		src="<%=request.getContextPath()%>/static/js/front-main/jquery/jquery-2.2.4.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/static/js/front-main/popper.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/static/js/front-main/bootstrap.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/static/js/front-main/plugins.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/static/js/front-main/active.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/static/js/front-main/script.js"></script>
+	<script	src="<%=request.getContextPath()%>/static/js/front-main/jquery/jquery-2.2.4.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/static/js/front-main/popper.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/static/js/front-main/bootstrap.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/static/js/front-main/plugins.js"></script>
+	<script	src="<%=request.getContextPath()%>/static/js/front-main/active.js"></script>
+	<script	src="<%=request.getContextPath()%>/static/js/front-main/script.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<!-- ionicon link -->
@@ -206,7 +200,16 @@
 	  	  $('#tax').text($('#discount').val())
 	  });
 	  
-	  
+	  $('#discount').change( function() {  
+		  let total = parseInt($('#total').text());
+		  let tax = parseInt($('#tax').text());
+		  let sub = (total-tax).toString();
+		  $('#subtotal').text(sub);
+		  $('#num').attr("value",$('#tax').text());
+// 		  let numId=$('#discount').attr('style');
+		  let numId = $(this).children(":selected").attr("id");
+		  $('#numId').attr("value",numId);
+	  });
 	 
 </script>
 

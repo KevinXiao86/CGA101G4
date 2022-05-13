@@ -27,7 +27,7 @@ public class Qrcode_11 {
 	// 2. zxing-javase
 
 	public void createQrcode(Integer tktOrderId, String filImgPath, String fileName) throws IOException, WriterException {
-		String text =  "http://localhost:8081/CGA101G4/front-end/homepage/index.jsp";
+		String text =  "喔嗨唷~ 偶們是台玩";
 		int width = 300;
 		int height = 300;
 		String format = "jpg";

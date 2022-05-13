@@ -20,6 +20,8 @@ public interface TktOrderDao{
 	public List<TktOrder> queryTktOrderByOrderDate(Timestamp orderDate);
 		//根據一個區間的日期查詢票券訂單
 	public List<TktOrder> queryTktOrderByDateToDate(Timestamp startdate,Timestamp enddate);
+	//會員根據日期區間查詢票券訂單
+	public List<TktOrder> queryTktOrderByDateCustID(Timestamp startdate,Timestamp enddate, Integer custId);
 	//查詢所有票券訂單總共的金額
 	public int queryTktOrderTtlPrice();
 	//根據會員Id查詢票券訂單，總共金額

@@ -15,6 +15,8 @@ public interface CustCoupon_interface{
 	public List<CustCoupon> queryCustCouponUsedById(Integer custId,String status);
 	//更改已使用優惠券的狀態值(對票券)
 	public int updateCustCouponStatusByTktOrderId(Integer custId,Integer tktOrderId,String status);
+	//更改已使用優惠券的狀態值(對票券)
+	public int updateCustCouponStatusByTkt(Integer custId,Integer tktOrderId,String status, Timestamp usedate);
 	//更改已使用優惠券的狀態值(對訂房)
 	public int updateCustCouponStatusByRoomOrderId(Integer custId,Integer roomOrderId,String status);
 	//因使用期限已過而更改優惠券的狀態(未完成Join)

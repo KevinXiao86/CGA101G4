@@ -59,7 +59,7 @@ public class TktItemAddContent extends HttpServlet {
 
 			/******************** 3.查詢完成，設定參數，送出成功頁面 ********************/
 			req.setAttribute("item", item);
-			RequestDispatcher success = req.getRequestDispatcher("/front-end/tktItem/listOneTktItem.jsp");
+			RequestDispatcher success = req.getRequestDispatcher("/front-end/tktItem/listOneTktItem.jsp"); //怪怪的
 			success.forward(req, res);
 
 		}

@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +21,7 @@ import org.apache.catalina.tribes.tipis.AbstractReplicatedMap.MapEntry;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.taiwan.beans.CustCoupon;
 import com.taiwan.beans.CustomerVO;
 import com.taiwan.beans.TktItem;
 import com.taiwan.beans.TktOrder;
@@ -29,6 +29,8 @@ import com.taiwan.dao.tktorder.TktOrderDao;
 import com.taiwan.dao.tktorder.impl.TktOrderJDBCDao;
 import com.taiwan.service.CartService;
 import com.taiwan.service.TktOrderService;
+import com.taiwan.service.coupon.CustCouponService2;
+import com.taiwan.service.coupon.impl.CustCouponServiceImpl2;
 import com.taiwan.service.customer.CustomerService;
 import com.taiwan.service.customer.impl.CustomerServiceImpl;
 import com.taiwan.utils.MailQrCode11;
@@ -57,12 +59,9 @@ public class TktOrderCreator extends HttpServlet {
 				
 				/*******************1.接收請求參數，輸入格式的錯誤處理*******************/
 				String orderName = req.getParameter("orderName");
-				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if (orderName == null || orderName.trim().length() == 0) {
 					errorMsgs.put("orderName","請輸入訂購人姓名");
-				} else if(!orderName.trim().matches(nameReg)) { 
-					errorMsgs.put("orderName","訂購人姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-	            }
+				} 
 				
 				String orderMobile = req.getParameter("orderMobile");
 				String mobileReg = "^[0-9]{10}$";
@@ -76,6 +75,9 @@ public class TktOrderCreator extends HttpServlet {
 				if(orderEmail == null || orderEmail.trim().length() == 0) {
 					errorMsgs.put("orderEmail", "請輸入電子信箱");
 				}
+				
+				Integer copId = Integer.valueOf(req.getParameter("copId"));
+				Integer discount = Integer.valueOf(req.getParameter("discount"));
 				
 				//遍歷map
 	//			for (Map.Entry<String, String> entry : errorMsgs.entrySet()) {
@@ -128,23 +130,43 @@ public class TktOrderCreator extends HttpServlet {
 					}
 				}
 				
-				//有使用優惠券的
 				//變數price是票券一張的價格
+				TktOrder tktOrder = new TktOrder();
+				//有使用優惠券的
+				if(copId != 0) {
+					tktOrder.setCustId(Integer.valueOf(custId));
+					tktOrder.setOriginalPrice(total);
+					tktOrder.setTtlPrice(total-discount);
+					tktOrder.setQrcode(""); 
+					tktOrder.setOrderName(orderName);
+					tktOrder.setOrderEmail(orderEmail);
+					tktOrder.setOrderMobile(orderMobile);
+					tktOrder.setCustCopId(copId);
+				}
 				
 				//沒有使用優惠券的
-				TktOrder tktOrder = new TktOrder();
-				tktOrder.setCustId(Integer.valueOf(custId));
-				tktOrder.setOriginalPrice(total);
-				tktOrder.setTtlPrice(total);
-				tktOrder.setQrcode(""); 
-				tktOrder.setOrderName(orderName);
-				tktOrder.setOrderEmail(orderEmail);
-				tktOrder.setOrderMobile(orderMobile);
-				
+				else {
+					tktOrder.setCustId(Integer.valueOf(custId));
+					tktOrder.setOriginalPrice(total);
+					tktOrder.setTtlPrice(total);
+					tktOrder.setQrcode(""); 
+					tktOrder.setOrderName(orderName);
+					tktOrder.setOrderEmail(orderEmail);
+					tktOrder.setOrderMobile(orderMobile);
+				}
+		
 				TktOrderDao dao = new TktOrderJDBCDao();
 				//此時新增的訂單編號
 				String newOrderId = dao.insertTktOrderNoCoupon(tktOrder, orders);
 				
+				//更新已使用票券的資料
+				if(copId != 0) {
+					CustCouponService2 custCouponService = new CustCouponServiceImpl2();
+					Long datetime = System.currentTimeMillis();
+			        Timestamp usedate = new Timestamp(datetime);
+					custCouponService.updateCustCouponStatusByTkt(custId, Integer.valueOf(newOrderId), "已使用", usedate);
+				}
+					
 				/************************3.訂單成立後***********************/ 
 				//移除session結帳列表
 				session.removeAttribute("list");
@@ -160,7 +182,6 @@ public class TktOrderCreator extends HttpServlet {
 				req.setAttribute("total", total);
 				
 				/*********************** 寄發mail ************************/ 
-				
 				// 設置QRCode的存放目錄、檔名與圖片格式
 				String saveDirectory = "/images/qrcode/";
 				// 找到阿飄路徑

@@ -58,7 +58,7 @@ public class TktOrderGetCustId extends HttpServlet {
 				errorMsgs.put("custId", "會員編號格式不正確");
 			}
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failed = req.getRequestDispatcher("/front-end/tktOrder/tktOrderIndex.jsp"); // 連結到訂單瀏覽頁面
+				RequestDispatcher failed = req.getRequestDispatcher("/front-end/tktOrder/listAllTktOrder.jsp"); 
 				failed.forward(req, res);
 				return;
 			}
@@ -71,13 +71,18 @@ public class TktOrderGetCustId extends HttpServlet {
 			}
 			
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failed = req.getRequestDispatcher("/front-end/tktOrder/tktOrderIndex.jsp"); // 連結到訂單瀏覽頁面
+				RequestDispatcher failed = req.getRequestDispatcher("/front-end/tktOrder/listAllTktOrder.jsp"); 
 				failed.forward(req, res);
 				return;
 			}
 			
+			//取得會員姓名
+			CustomerServiceImpl customerServiceImpl = new CustomerServiceImpl();
+			CustomerVO customerVO = customerServiceImpl.getAll(custId);    
+			
 			/********************** 3.查詢完成，設定參數，送出成功頁面 **********************/
 			req.setAttribute("list", list);
+			req.setAttribute("customerVO", customerVO);
 			RequestDispatcher success = req.getRequestDispatcher("/front-end/tktOrder/listAllTktOrder.jsp");
 			success.forward(req, res);
 		}
