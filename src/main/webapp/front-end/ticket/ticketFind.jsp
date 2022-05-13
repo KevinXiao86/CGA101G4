@@ -100,7 +100,7 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="#"><img src="${ticketVO.tktImgVO.img}" alt=""
-															style="width: 400px; height: 300px;" /></a>
+															style="width: 400px; height: 250px;" /></a>
 													</div>
 													<div class="product-content">
 														<h5 class="product-name">
