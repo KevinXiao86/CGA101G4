@@ -62,7 +62,11 @@ public class TktItemSelectById extends HttpServlet {
 				failureView.forward(req, res);
 				return;
 			}
-//				System.out.println(itemList);
+//			System.out.println(itemList);
+			
+//			//查詢票券名稱
+//			TicketVO ticketVO = ticketService.findById(tktId);
+//			String tktName = ticketVO.getTktName();
 
 			/******************** 3.查詢完成，設定參數，送出成功頁面 ********************/
 			req.setAttribute("tktOrder", tktOrder);

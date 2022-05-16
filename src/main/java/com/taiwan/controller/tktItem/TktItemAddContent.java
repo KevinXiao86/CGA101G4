@@ -13,14 +13,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.taiwan.beans.TicketVO;
 import com.taiwan.beans.TktItem;
 import com.taiwan.beans.TktOrder;
+import com.taiwan.service.TicketService;
 import com.taiwan.service.TktItemService;
 import com.taiwan.service.TktOrderService;
+import com.taiwan.utils.ControllerUtil;
 
 @WebServlet("/tktItem/content")
 public class TktItemAddContent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	TicketService ticketService = ControllerUtil.getBean(TicketService.class);
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
@@ -51,6 +56,9 @@ public class TktItemAddContent extends HttpServlet {
 			}
 			
 			Integer score = Integer.valueOf(req.getParameter("score"));
+			if(score == 0) {
+				errorMsgs.put("score","請評分");
+			}
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -68,9 +76,13 @@ public class TktItemAddContent extends HttpServlet {
 			
 			List<TktItem> itemList = tktItemSvc.getTktItemByTktOrderId(tktOrderId);
 			
+			TicketVO ticketVO = ticketService.findById(tktId);
+			String tktName = ticketVO.getTktName();
+			
 			/******************** 3.查詢完成，設定參數，送出成功頁面 ********************/
 			req.setAttribute("tktOrder", tktOrder);
 			session.setAttribute("itemList", itemList);
+			session.setAttribute("tktName", tktName);
 			RequestDispatcher success = req.getRequestDispatcher("/front-end/tktItem/listOneTktItem.jsp"); //怪怪的
 			success.forward(req, res);
 

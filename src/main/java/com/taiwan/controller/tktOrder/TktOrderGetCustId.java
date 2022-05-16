@@ -46,7 +46,7 @@ public class TktOrderGetCustId extends HttpServlet {
 				errorMsgs.put("custId", "請輸入會員編號");
 			}
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failed = req.getRequestDispatcher("/front-end/tktOrder/tktOrderIndex.jsp"); 
+				RequestDispatcher failed = req.getRequestDispatcher("/front-end/custLogin/CustomerLogin.jsp"); //tktOrder/tktOrderIndex.jsp
 				failed.forward(req, res);
 				return;
 			}

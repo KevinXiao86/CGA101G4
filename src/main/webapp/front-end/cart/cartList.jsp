@@ -73,7 +73,7 @@
 		if (cartlist == null || cartlist.size() == 0) {
 		%>
 		<div class="form-step form-step-active">
-			<div style="margin-left: 18%;">
+			<div style="margin-left: 24%;">
 				<h2 class="section-heading">購物車</h2>
 				<div class="product-card">
 					<div class="card">
@@ -92,28 +92,31 @@
 		if (cartlist != null && (cartlist.size() > 0)) {
 		%>
 		<div class="form-step form-step-active">
-			<div style="margin-left: 18%;">
+			<div style="margin-left: 17%;">
 				<h2 class="section-heading">購物車</h2>
 				<div class="product-card">
-					<div class="card">
-						<table>
-							<tr class="product-name">
-								<th></th>
-								<th></th>
-								<th>商品編號</th>
-								<th>商品名稱</th>
-								<th>價格</th>
-								<th>數量</th>
-								<th>小計</th>
-							</tr>
+					<div class="card" style="margin-bottom:20px;">
+						<table class="table table-hover" style="width:850px;">
+							<thead>
+								<tr class="product-name">
+									<th></th>
+									<th></th>
+									<th>商品編號</th>
+									<th>商品名稱</th>
+									<th>價格</th>
+									<th>數量</th>
+									<th>小計</th>
+									<th></th>
+								</tr>
+							</thead>
 							<%
 							for (int index = 0; index < cartlist.size(); index++) {
 								TicketVO order = cartlist.get(index);
 							%>
 							<tr>
 								<td><%=index + 1%></td>
-								<td><img class="product-img"
-									src="<%=request.getContextPath()%>/static/img/cart/green-tomatoes.jpg">
+								<td>
+									<img class="product-img" src="<%=request.getContextPath()%>/${tktImg}">
 								</td>
 								<td><%=order.getTktId()%></td>
 								<td><%=order.getTktName()%></td>
@@ -136,10 +139,10 @@
 
 			<div class="cpnline">
 				<div class="discount-token">
-					<label for="discount-token" class="label-default">優惠券代號</label>
+					<label for="discount-token" class="label-default">優惠券</label>
 					<div class="wrapper-flex">
 						<select id="discount" class="form-select" aria-label="Default select example">
-							<option>請選擇您的優惠券</option>
+							<option>請選擇您的優惠券🎟️</option>
 							<c:forEach var="couponVO" items="${couponList}">
 								<option value="${couponVO.discount}" id="${couponVO.copId}">${couponVO.copName}</option>
 							</c:forEach>
@@ -164,7 +167,7 @@
 
 	<form action="<%=request.getContextPath()%>/front-end/ticket/ticketList.jsp" method="get"  style="width:30%;display:inline-block;margin-left:200px; margin-bottom:50px;">
 		<div class="order-button-payment">
-			<input type="submit" value="繼續購物" />
+			<input type="submit" value="繼續購物" style="margin-left:30px;"/>
 		</div>
 	</form>
 	<form action="cart/do" method="post" style="width:30%;float:right;">

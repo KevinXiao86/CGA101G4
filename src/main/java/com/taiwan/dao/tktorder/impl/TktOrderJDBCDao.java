@@ -211,7 +211,7 @@ public class TktOrderJDBCDao implements TktOrderDao {
 	public List<TktOrder> queryTktOrderByCustId(Integer custId) {
 		List<TktOrder> ls = new ArrayList<TktOrder>();
 		String sql = "select tkt_order_id,cust_id,original_price,orderdate,"
-				+ "ttl_price,cust_cop_id,qrcode,order_name,order_email,order_mobile from TKT_ORDER where cust_id=?;";
+				+ "ttl_price,cust_cop_id,qrcode,order_name,order_email,order_mobile from TKT_ORDER where cust_id=? order by orderdate desc;";
 		try (Connection conn = DbUtil.getConnection();
 				PreparedStatement prep = conn.prepareStatement(sql)) {
 			prep.setInt(1, custId);

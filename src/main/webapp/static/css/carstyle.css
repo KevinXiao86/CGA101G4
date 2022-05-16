@@ -249,9 +249,10 @@ input {
 .product-close-btn:hover ion-icon { color: var(--red-salsa); } */
 
 .discount-token {
-  padding: 40px 50px;
+  padding: 20px 75px;
   border-top: 1px solid var(--gainsboro);
   border-bottom: 1px solid var(--gainsboro);
+  margin-left: 120px;
 }
 
 .wrapper-flex {
@@ -278,7 +279,7 @@ input {
 }
 
 .amount {
-  padding: 40px var(--px);
+  padding: 20px var(--px);
 }
 
 .amount>div {

@@ -32,10 +32,10 @@ if (location == null) {
 <meta charset="UTF-8">
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%@ include file="/common/head.jsp"%>
-<title>搜尋廠商頁面</title>
 
-<link rel="icon"
-	href="<%=request.getContextPath()%>/static/img/core-img/favicon.ico">
+<title>台玩</title>
+<!-- Favicon title的小圖 -->
+<link rel="icon" href="<%=request.getContextPath()%>/static/img/core-img/favicon.ico">
 
 <!-- Style CSS -->
 <link rel="stylesheet"

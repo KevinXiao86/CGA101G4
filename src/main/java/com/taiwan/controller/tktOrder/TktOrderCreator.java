@@ -28,11 +28,8 @@ import com.taiwan.beans.TktOrder;
 import com.taiwan.dao.tktorder.TktOrderDao;
 import com.taiwan.dao.tktorder.impl.TktOrderJDBCDao;
 import com.taiwan.service.CartService;
-import com.taiwan.service.TktOrderService;
 import com.taiwan.service.coupon.CustCouponService2;
 import com.taiwan.service.coupon.impl.CustCouponServiceImpl2;
-import com.taiwan.service.customer.CustomerService;
-import com.taiwan.service.customer.impl.CustomerServiceImpl;
 import com.taiwan.utils.MailQrCode11;
 import com.taiwan.utils.Qrcode_11;
 
@@ -48,7 +45,6 @@ public class TktOrderCreator extends HttpServlet {
 		
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		System.out.println("check");
 		
 		if("insert_order".equals(action)) {
 			
@@ -64,7 +60,7 @@ public class TktOrderCreator extends HttpServlet {
 				} 
 				
 				String orderMobile = req.getParameter("orderMobile");
-				String mobileReg = "^[0-9]{10}$";
+				String mobileReg = "^09[0-9]{8}$";
 				if(orderMobile == null || orderMobile.trim().length() == 0) {
 					errorMsgs.put("orderMobile", "請輸入聯絡電話");
 				}else if(!orderMobile.trim().matches(mobileReg)) {
@@ -81,10 +77,10 @@ public class TktOrderCreator extends HttpServlet {
 					errorMsgs.put("card", "請輸入信用卡號");
 				}
 
-				String expire = req.getParameter("expire");
-				if(expire == null || expire.trim().length() == 0) {
-					errorMsgs.put("expire", "請輸入信用卡到期日");
-				}
+//				String expire = req.getParameter("expire");
+//				if(expire == null || expire.trim().length() == 0) {
+//					errorMsgs.put("expire", "請輸入信用卡到期日");
+//				}
 				
 				String cvv = req.getParameter("cvv");
 				if(cvv == null || cvv.trim().length() == 0) {
@@ -94,8 +90,9 @@ public class TktOrderCreator extends HttpServlet {
 				
 				
 				Integer copId = Integer.valueOf(req.getParameter("copId"));
-				System.out.println(copId);
+				System.out.println("copId96 = " + copId);
 				Integer discount = Integer.valueOf(req.getParameter("discount"));
+				System.out.println("discount = " + discount);
 				
 				//遍歷map
 	//			for (Map.Entry<String, String> entry : errorMsgs.entrySet()) {
@@ -155,7 +152,7 @@ public class TktOrderCreator extends HttpServlet {
 				//有使用優惠券的
 				if(copId != 0) {
 					
-					//取得從copId取得custCopId
+					//從copId取得custCopId
 					CustCoupon custCoupon = custCouponService.queryCustCouponByCustId(custId, copId);
 					Integer custCopId = custCoupon.getCustCopId();
 					

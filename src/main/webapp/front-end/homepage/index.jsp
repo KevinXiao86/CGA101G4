@@ -111,32 +111,52 @@
 					<div class="col-sm-2" style="position:absolute;right:73px" >
 						<div class="top-social-area">
 							<a href="<%=request.getContextPath()%>/front-end/cart/cartList.jsp" data-toggle="tooltip" data-placement="bottom"
-								title="購物車"> <i class="fa-solid fa-cart-shopping"
+								title="購物車" style="margin-right: 63px;"> <i class="fa-solid fa-cart-shopping"
 								aria-hidden="true"></i></a> 
-							<a href="<%=request.getContextPath()%>/front-end/cust/CustomerLogin.jsp" data-toggle="tooltip" data-placement="bottom" title="登入"> <i
-								class="fa-regular fa-user" aria-hidden="true"></i></a>
+								<c:if test="${customer==null}">
+							       <a href="<%=request.getContextPath()%>/front-end/custLogin/CustomerLogin.jsp" data-toggle="tooltip"
+							        data-placement="bottom" title="登入"> <i
+							        class="fa-regular fa-user" aria-hidden="true"></i></a>
+							      </c:if>
+							      
+							      <c:if test="${customer!=null}">
+							       <div title="會員功能" id="picture" href="#" data-toggle="tooltip" data-placement="bottom" style="position: fixed;right: 10px;top: 10px;z-index: 9;height:50px;text-decoration: none;overflow:hidden;text-align:left;">
+							                 <img id="cow" src="<%=request.getContextPath()%>/${customer.img}" style="width:45px;height:45px;border-radius: 100%;padding:0;overflow:hidden; margin-left:20px;margin-right:90px">
+							                 </img>
+							                 <div id="infoLogoutBar"style="box-shadow: 2px 2px 4px black;background-color: #ccc;margin:10px;padding:5px;text-align:left;">
+							                     <span id="customer_data" class="customer_bar" style="display:block;">
+							                         <a href="<%=request.getContextPath()%>/cust/CustomerInformation" style="padding:0px;">會員功能</a>
+							                     </span>
+							                     <span class="customer_bar">
+							                        <a href="<%=request.getContextPath()%>/cust/Logout" style="padding:0px;">登出</a>
+							                     </span>
+							                 </div>
+							             </div>
+							             <script>
+							             let picture=document.querySelector('#picture');
+							             picture.onclick=function(){
+							                  if(picture.style.height==='50px'){
+							               console.log('1');  
+							               
+							               $(picture).animate({height:150},500);
+							               picture.removeAttribute('data-original-title');
+							               $(picture).tooltip({ 'placement': 'bottom' ,title : '按圖片隱藏此列表'});
+							              }else{               
+							               console.log('2');
+							               $(picture).tooltip('disable');               
+							               $(picture).animate({height:50},500);               
+							              }
+							             }
+							             </script>
+							      </c:if>
+<%-- 							<a href="<%=request.getContextPath()%>/front-end/custLogin/CustomerLogin.jsp" data-toggle="tooltip" data-placement="bottom" title="登入"> <i --%>
+<!-- 								class="fa-regular fa-user" aria-hidden="true"></i></a> -->
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div  id="picture" href="#" data-toggle="tooltip" data-placement="bottom" style="position: fixed;right: 10px;top: 10px;z-index: 9999;height:50px;text-decoration: none;overflow: hidden;">
-            <div class="picture" title="cow" style="width:45px;height:45px;border-radius: 100%;background-color: #000;padding:0;overflow:hidden;background-size: cover;background-image:url('img/ticket-img/t1.jpg'); margin-left:50px">
-            </div>
-            <div style="box-shadow: 2px 2px 4px black;background-color: #ccc;margin:10px;padding:5px;">
-                <span id="customer_data" class="customer_bar" style="display:block">
-                    <a href="<%=request.getContextPath()%>/cust/CustomerInformation">會員功能</a>
-                </span>
-                <span class="customer_bar" >
-                   <a href="<%=request.getContextPath()%>/cust/Logout">登出</a>
-                </span>
-            </div>
-        </div>
-        <script type="text/javascript">
-            document.querySelector('#picture').onclick=function(e){
-                document.querySelector('#picture').style.height='150px';
-            };
-        </script>
+		
 
 		<!-- ##### Hero Area Start ##### -->
 		<div class="hero-area">
@@ -201,8 +221,7 @@
 		<!-- ##### Hero Area End ##### -->
 
 		<!-- Nav Area -->
-		<div class="original-nav-area" id="stickyNav" style="height:10px">
-		</div>
+		<div class="original-nav-area" id="stickyNav" style="height:10px"></div>
 	</header>
 	<!-- ##### Header Area End ##### -->
 
@@ -511,7 +530,7 @@
 										<div class="line"></div>
 										<a href="#" class="post-tag">Lifestyle</a>
 										<h3>
-											<a href="<%=request.getContextPath()%>/front-end/theme/theme.jsp?themeId=${theme.themeId}" class="post-headline">${theme.title}</a>
+											<a href="<%=request.getContextPath()%>/theme/fontSelect?themeId=${theme.themeId}" class="post-headline">${theme.title}</a>
 										</h3>
 										<p>${theme.content}</p>
 									</div>
@@ -689,7 +708,6 @@
                         <li><a href="#">關於台玩</a></li>
                         <li><a href="#">使用者條款</a></li>
                         <li><a href="#">隱私權保護政策</a></li>
-                        <li><a href="<%=request.getContextPath()%>/front-end/rejest/custmomer_reject.jsp">會員註冊</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
