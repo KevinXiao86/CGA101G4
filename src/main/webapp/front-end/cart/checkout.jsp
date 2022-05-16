@@ -72,47 +72,83 @@
 								<div class="group">
 									<input type="text" name="orderName" value="${name}" id="name"
 										autocomplete=""> <span class="highlight"></span> <span
-										class="bar"></span> <label>訂購人姓名</label><span style="color:red;">${errorMsgs.orderName}🦥</span>
+										class="bar"></span> <label>訂購人姓名</label><span style="color:red;">${errorMsgs.orderName}</span>
 								</div>
 							</div>
 							<div class="col-12 col-md-6">
 								<div class="group">
 									<input type="tel" name="orderMobile" value="${tel}" id="tel">
-									<span class="highlight"></span> <span class="bar"></span> <label>連絡電話</label><span style="color:red;">${errorMsgs.orderMobile}🦥</span>
+									<span class="highlight"></span>
+									<span class="bar"></span>
+									<label>連絡電話</label>
+									<span style="color:red;">${errorMsgs.orderMobile}</span>
 								</div>
 							</div>
 							<div class="col-12">
 								<div class="group">
-									<input type="email" name="orderEmail" value="${email}"
-										id="email"> <span class="highlight"></span> <span
-										class="bar"></span> <label>Email</label><span style="color:red;">${errorMsgs.orderEmail}🦥</span>
+									<input type="email" name="orderEmail" value="${email}" id="email">
+									<span class="highlight"></span> 
+									<span class="bar"></span>
+									<label>Email</label>
+									<span style="color:red;">${errorMsgs.orderEmail}</span>
 								</div>
 							</div>
 							<div class="col-12">
 								<div class="group"
 									style="display: inline-flex; position: relative;">
-									<input type="text" name="card" class="card" maxlength="4"
-										style="width: 138px; text-align: center;"> － <input
-										type="text" name="card" class="card" maxlength="4"
-										style="width: 138px; text-align: center;"> － <input
-										type="text" name="card" class="card" maxlength="4"
-										style="width: 138px; text-align: center;"> － <input
-										type="text" name="card" class="card" maxlength="4"
-										style="width: 138px; text-align: center;"> <span
-										class="highlight"></span> <span class="bar"></span> <label>信用卡卡號</label>
-<%-- 										${errorMsgs.card} --%>
+									<input type="text" name="card" class="card" maxlength="4" style="width: 138px; text-align: center;"> － 
+									<input type="text" name="card" class="card" maxlength="4" style="width: 138px; text-align: center;"> － 
+									<input type="text" name="card" class="card" maxlength="4" style="width: 138px; text-align: center;"> － 
+									<input type="text" name="card" class="card" maxlength="4" style="width: 138px; text-align: center;"> 
+									<span class="highlight"></span>
+									<span class="bar" style="height:35px;"></span>
+									<label>信用卡卡號</label>
 								</div>
+								<span style="color:red;margin-top: -30px;margin-bottom: 25px;">${errorMsgs.card}</span>
+							</div>
+							<div class="col-12 col-md-6">
+								<div class="group" style="border-bottom: groove;border-color: #f4f8fa4a;padding-bottom: 2px;">
+							      <select id="month" style="margin-top: 10px;">
+								          <option></option>
+								          <option>01</option>
+								          <option>02</option>
+								          <option>03</option>
+								          <option>04</option>
+								          <option>05</option>
+								          <option>06</option>
+								          <option>07</option>
+								          <option>08</option>
+								          <option>09</option>
+								          <option>10</option>
+								          <option>11</option>
+								          <option>12</option>
+							      </select>
+							      <select id="year">
+								          <option></option>
+								          <option>2022</option>
+								          <option>2023</option>
+								          <option>2024</option>
+								          <option>2025</option>
+								          <option>2026</option>
+								          <option>2027</option>
+								          <option>2028</option>
+								          <option>2029</option>
+								          <option>2030</option>
+							      </select>
+							      <input type="hidden" name="" class="expire"> 
+								  <span class="highlight"></span>
+							      <span class="bar"></span>
+							      <label style="top: -15px;font-size: 12px;color: #30336b;">到期日</label>
+								</div>
+							    <span style="color:red;margin-top:-30px;">${errorMsgs.expire}</span>
 							</div>
 							<div class="col-12 col-md-6">
 								<div class="group">
-									<input type="text" name="expire" placeholder="MM / YYYY" class="expire"> <span
-										class="highlight"></span> <span class="bar"></span> <label>到期日</label><span style="color:red;">${errorMsgs.cvv}🦥</span>
-								</div>
-							</div>
-							<div class="col-12 col-md-6">
-								<div class="group">
-									<input type="text" name="cvv" placeholder="CVC" maxlength="3" onkeypress='return event.charCode >= 48 && event.charCode <= 57'> <span
-										class="highlight"></span> <span class="bar"></span> <label>安全碼</label><span style="color:red;">${errorMsgs.cvv}🦥</span>
+									<input type="text" name="cvv" placeholder="CVC" maxlength="3" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+									<span class="highlight"></span>
+									<span class="bar"></span>
+									<label>安全碼</label>
+									<span style="color:red;">${errorMsgs.cvv}</span>
 								</div>
 							</div>
 							<div class="col-12">
@@ -121,8 +157,8 @@
 								<input type="hidden" name="orderName" value="${name}">
 								<input type="hidden" name="orderMobile" value="${tel}">
 								<input type="hidden" name="orderEmail" value="${email}">
-								<input type="hidden" name="copId" value="${copId}">								
-								<input type="hidden" name="discount" value="${discount}">								
+								<input type="hidden" name="copId" value="${sessionScope.copId}">								
+								<input type="hidden" name="discount" value="${sessionScope.discount}">								
 							</div>
 						</div>
 					</form>
@@ -140,7 +176,7 @@
 					%>
 					<tr>
 						<td><img
-							src="<%=request.getContextPath()%>/static/img/cart/green-tomatoes.jpg"
+							src="<%=request.getContextPath()%>/${sessionScope.tktImg}"
 							class="product-img" style="margin: 0 -40px 0 -10px;"></td>
 						<td style="width:180px;"><%=order.getTktName()%></td>
 						<td><%=amountList.get(index) %>張</td>
@@ -167,27 +203,9 @@
 						<td>$${total-discount}</td>
 					</tr>
 				</table>
-<!-- 				<div class="subtotal"> -->
-<!-- 					<span>小計</span><span> $${total}</span><br>  -->
-<!-- 					<span>折扣金額</span><span>-$${discount}</span><br>  -->
-<!-- 					<span>總金額</span><span> $${total-discount}</span> -->
-<!-- 				</div> -->
 			</div>
 		</section>
 	</div>
-<%-- 	<form action="<%=request.getContextPath()%>/tktOrder/creator" method="post"> --%>
-<!-- 	<div class="col-12"> -->
-<!-- 		<button type="submit" class="btn original-btn">送出訂單</button> -->
-<!--         <input type="hidden" name="action" value="insert_order"> -->
-<!-- 		<input type="hidden" name="custId" value=""> -->
-<!-- 	</div> -->
-<!-- 	</form> -->
-<!-- 	<div class="btns-group"> -->
-<!-- 		<a href="" class="btn btn-prev">返回</a> -->
-<!-- 		<button type="submit" class="btn original-btn" id="sendOrder">送出訂單</button> -->
-<!--                 <input type="hidden" name="action" value="insert_order"> -->
-<!-- 				<input type="hidden" name="custId" value=""> -->
-<!-- 	</div> -->
 
 
 	<!-- #### Footer start #### -->
@@ -294,24 +312,35 @@
 
         });
         
+        $("#year").on("blur", function (e) {
+	        let date = new Date();
+		    let month = date.getMonth() + 1;
+		    let year = date.getFullYear();
+			
+			if(parseInt($('#year').val())===year && parseInt($('#month').val())<=month){
+				alert('false');
+			}
+        });
+        
+        
       //信用卡到期日
-        $(".expire").keypress(function(event){
-          if(event.charCode >= 48 && event.charCode <= 57){
-            if($(this).val().length === 1){
-                $(this).val($(this).val() + event.key + " / ");
-            }else if($(this).val().length === 0){
-              if(event.key == 1 || event.key == 0){
-                month = event.key;
-                return event.charCode;
-              }else{
-                $(this).val(0 + event.key + " / ");
-              }
-            }else if($(this).val().length > 2 && $(this).val().length < 9){
-              return event.charCode;
-            }
-          }
-          return false;
-      });
+//         $(".expire").keypress(function(event){
+//           if(event.charCode >= 48 && event.charCode <= 57){
+//             if($(this).val().length === 1){
+//                 $(this).val($(this).val() + event.key + " / ");
+//             }else if($(this).val().length === 0){
+//               if(event.key == 1 || event.key == 0){
+//                 month = event.key;
+//                 return event.charCode;
+//               }else{
+//                 $(this).val(0 + event.key + " / ");
+//               }
+//             }else if($(this).val().length > 2 && $(this).val().length < 9){
+//               return event.charCode;
+//             }
+//           }
+//           return false;
+//       });
     </script>
 
 </body>

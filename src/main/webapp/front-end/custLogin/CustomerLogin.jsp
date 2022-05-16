@@ -50,6 +50,9 @@ span#errorMsg {
 							Me
 						</label><a class="form-recovery" href="#">Forgot Password?</a>
 					</div>
+					<div class="form-group" style="margin-top:10px;">
+						</label><a class="form-recovery" href="<%=request.getContextPath()%>/front-end/rejest/custmomer_reject.jsp" style="margin-left: 380px;">註冊會員🧸</a>
+					</div>
 					<div class="form-group">
 						<button type="submit" id="login">登入</button>
 					</div>

@@ -18,7 +18,8 @@ pageContext.setAttribute("list", list);
 <head>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%@ include file="/common/head.jsp"%>
-<title>熱門活動頁面</title>
+<title>台玩</title>
+
 <link rel="icon"
 	href="<%=request.getContextPath()%>/static/img/core-img/favicon.ico">
 

@@ -15,6 +15,7 @@
 	List<TktOrder> tktOrderList = (List<TktOrder>)request.getAttribute("tktOrderList");
 	List<CustomerVO> customerList = (List<CustomerVO>)request.getAttribute("customerList");
 %>
+
 <head>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%@ include file="/common/head.jsp"%>
@@ -32,8 +33,20 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+3:200,300,regular,500,600,700,800,900,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic"
 	rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/c95ced1229.js"
 	crossorigin="anonymous"></script>
+
+<style>
+.custComment{
+	display:none;
+}
+.customer_bar{
+ display:block;
+    margin: 10px;
+    border-bottom: 1px solid black;
+}
+</style>
 
 </head>
 
@@ -63,17 +76,54 @@
 					<!-- Nav Start -->
 					<div class="classynav" id="clas">
 						<ul>
-							<li><a href="<%=request.getContextPath() %>/cmpList.jsp">住宿</a></li>
-							<li><a href="<%=request.getContextPath() %>/front-end/ticket/ticketList.jsp">票券</a></li>
+							<li><a href="<%=request.getContextPath()%>/cmpList.jsp">住宿</a></li>
+							<li><a href="<%=request.getContextPath()%>/front-end/ticket/ticketList.jsp">票券</a></li>
 						</ul>
 					</div>
 					<div class="col-sm-2" style="position:absolute;right:73px" >
 						<div class="top-social-area">
 							<a href="<%=request.getContextPath()%>/front-end/cart/cartList.jsp" data-toggle="tooltip" data-placement="bottom"
-								title="購物車"> <i class="fa-solid fa-cart-shopping"
-								aria-hidden="true"></i></a> 
-							<a href="#" data-toggle="tooltip" data-placement="bottom" title="登入"> <i
-								class="fa-regular fa-user" aria-hidden="true"></i></a>
+								title="購物車" style="margin-right: 63px;"> <i class="fa-solid fa-cart-shopping"
+								aria-hidden="true"></i></a>
+							
+							<c:if test="${customer==null}">
+							       <a href="<%=request.getContextPath()%>/front-end/custLogin/CustomerLogin.jsp" data-toggle="tooltip"
+							        data-placement="bottom" title="登入"> <i
+							        class="fa-regular fa-user" aria-hidden="true"></i></a>
+							      </c:if>
+							      
+							      <c:if test="${customer!=null}">
+							       <div title="會員功能" id="picture" href="#" data-toggle="tooltip" data-placement="bottom" style="position: fixed;right: 10px;top: 10px;z-index: 9;height:50px;text-decoration: none;overflow:hidden;text-align:left;">
+							                 <img id="cow" src="<%=request.getContextPath()%>/${customer.img}" style="width:45px;height:45px;border-radius: 100%;padding:0;overflow:hidden; margin-left:20px;margin-right:90px;">
+							                 </img>
+							                 <div id="infoLogoutBar"style="box-shadow: 2px 2px 4px black;background-color: #ccc;margin:10px;padding:5px;text-align:left;">
+							                     <span id="customer_data" class="customer_bar" style="display:block;">
+							                         <a href="<%=request.getContextPath()%>/cust/CustomerInformation" style="padding:0px;">會員功能</a>
+							                     </span>
+							                     <span class="customer_bar">
+							                        <a href="<%=request.getContextPath()%>/cust/Logout" style="padding:0px;">登出</a>
+							                     </span>
+							                 </div>
+							             </div>
+							             <script>
+							             let picture=document.querySelector('#picture');
+							             picture.onclick=function(){
+							                  if(picture.style.height==='50px'){
+							               console.log('1');  
+							               
+							               $(picture).animate({height:150},500);
+							               picture.removeAttribute('data-original-title');
+							               $(picture).tooltip({ 'placement': 'bottom' ,title : '按圖片隱藏此列表'});
+							              }else{               
+							               console.log('2');
+							               $(picture).tooltip('disable');               
+							               $(picture).animate({height:50},500);               
+							              }
+							             }
+							             </script>
+							      </c:if>
+<!-- 							<a href="#" data-toggle="tooltip" data-placement="bottom" title="登入">  -->
+<!-- 							<i class="fa-regular fa-user" aria-hidden="true"></i></a> -->
 						</div>
 					</div>
 				</div>
@@ -107,8 +157,6 @@
 							<div class="post-tag">Lifestyle</div>
 							<h4>
 								<div class="post-headline mb-0">${tktVO.tktName}</div>
-<!--                                 <i class="fa-regular fa-heart" aria-hidden="true" style="--fa-inverse: #1da1f2;" -->
-<!--                                     id="love"></i> -->
 							</h4>
 							<div class="post-meta mb-50">
 								<p>
@@ -135,7 +183,7 @@
 
 					<!-- Comment Area Start -->
 					<hr>
-					<div class="comment_area clearfix mt-70">
+					<div class="comment_area clearfix mt-70 ">
 						<h4 class="title">
 							<i class="fa-solid fa-earth-asia"
 								style="color: rgb(107, 150, 207);"></i> 旅客評價
@@ -150,7 +198,7 @@
 								
 						%>
 							<c:if test="<%= tktItem.getContent() != null%>">
-								<li class="single_comment_area">
+								<li class="single_comment_area custComment">
 									<div class="comment-content d-flex">
 										<div class="comment-author">
 											<img src="<%= customerVO.getImg()%>" alt="author">
@@ -171,7 +219,7 @@
 <%-- 							</c:forEach> --%>
 						</ol>
 							<div class="load-more-btn mt-100 wow fadeInUp">
-								<a href="#" class="btn original-btn" style="margin-top:-80px;">Read More</a>
+								<a href="#" class="btn original-btn" id="loadMore" style="margin-top:-80px;">Read More</a>
 							</div>
 						<div id="canxpolicy"></div>
 					</div>
@@ -284,31 +332,35 @@
 						<span class="stars"></span>
 						<p>luctus quis et est. Integer pretium purus</p>
 					</div>
+					
+					
 					<form name="shoppingForm" action="cart/do" method="post">
 						<div style="text-align: center;">
-							<input id="min" name="" type="button" value="-" style="width:25px;margin-left: -58px;background-color: #ced7e8;"/>
-							<input id="quantity" name="" type="text" value="1" style="width:25px;margin: -5px;text-align: center;"/>
-							<input id="add" name="" type="button" value="+"  style="width:25px;background-color: #ced7e8;"/>
-							<button class="btn btn-small addToCart" data-product-id="1"
-								id="choice">
+							<input id="min" name="" type="button" value="-" style="width:25px;margin-left:-58px;background-color: #ced7e8;"/>
+							<input id="quantity" name="" type="text" style="width:25px;margin:-5px;text-align: center;"/>
+							<input id="add" name="" type="button" value="+" style="width:25px;background-color: #ced7e8;"/>
+							<button class="btn btn-small addToCart" data-product-id="1" id="choice">
 								<i class="fas fa-cart-plus"></i> 加入購物車
 							</button>
 						</div>
-						
-						<input type="hidden" name="amount" id="amount" size="3" value="1"> 
+						<input type="hidden" name="amount" id="amount" size="3"> 
 						<input type="hidden" name="tktName" value="${tktVO.tktName}"> 
 						<input type="hidden" name="tktId" value="${tktVO.tktId}"> 
 						<input type="hidden" name="price" value="${tktVO.price}"> 
+						<c:forEach var="tktImgVO" items="${imgList}" end="0">
+							<input type="hidden" name="tktImg" value="${tktImgVO.img}"> 
+						</c:forEach>
 						<input type="hidden" name="action" value="add">
 					</form>
+					
 					<div class="sideList" style="position:sticky; top:100px; line-height: 2;">
 						<ul style="margin: 0 80px;"> 
 							<li><div style="margin-top:50px;"></div></li>
-							<li><a href="<%=request.getContextPath() %>/ticket/selectId#comment" style="font-size:20px;">旅客評價</a></li>
-							<li><a href="<%=request.getContextPath() %>/ticket/selectId#canxpolicy" style="font-size:20px;">商品說明</a></li>
-							<li><a href="<%=request.getContextPath() %>/ticket/selectId#notice" style="font-size:20px;">購買須知</a></li>
-							<li><a href="<%=request.getContextPath() %>/ticket/selectId#howuse" style="font-size:20px;">如何使用</a></li>
-							<li><a href="<%=request.getContextPath() %>/ticket/selectId#loc" style="font-size:20px;">體驗地點</a></li>
+							<li><a href="<%=request.getContextPath() %>/ticket/selectId#comment" style="font-size:18px;">旅客評價🧸</a></li>
+							<li><a href="<%=request.getContextPath() %>/ticket/selectId#canxpolicy" style="font-size:18px;">商品說明🧸</a></li>
+							<li><a href="<%=request.getContextPath() %>/ticket/selectId#notice" style="font-size:18px;">購買須知🧸</a></li>
+							<li><a href="<%=request.getContextPath() %>/ticket/selectId#howuse" style="font-size:18px;">如何使用🧸</a></li>
+							<li><a href="<%=request.getContextPath() %>/ticket/selectId#loc" style="font-size:18px;">體驗地點🧸</a></li>
 						</ul>
 					</div>
 				</div>
@@ -437,8 +489,11 @@
 		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule
 		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<script>
+	
+	
 // 	$(function(){
 // 		let t = $("#quantity");
 // 		$("#add").click(function(){
@@ -457,18 +512,16 @@
 
 
 		//load more
-	    $(function(){
-	        $("div").slice(0, 10).show(); // select the first ten
-	        $("#load").click(function(e){ // click event for load more
+	        $(".custComment").slice(0, 2).show(); 
+	        $("#loadMore").click(function(e){ 
 	            e.preventDefault();
-	            $("div:hidden").slice(0, 10).show(); // select next 10 hidden divs and show them
-	            if($("div:hidden").length == 0){ // check if any hidden divs still exist
-	                alert("No more divs"); // alert if there are none left
+	            $(".custComment:hidden").slice(0, 5).show(); 
+	            if($(".custComment:hidden").length == 0){ 
+	            	 $("#loadMore").fadeOut('slow');
 	            }
 	        });
-	    });
-	
-	
+
+		$('#quantity').val("0");
 	  	//增減購物車
 	    $("#add").click(function () {
             //得到當前兄弟文字框的值
@@ -488,9 +541,21 @@
             $(this).siblings("#quantity").val(n);
         })
         
-       	$('#quantity').change( function() {
-       		$('#amount').attr("value",$('#quantity').val());
+       	$('#choice').click( function() {
+       		if($('#quantity').val() == 0){
+//        			alert("商品數量為0❗️❗️❗️❗️，請選擇數量");
+				Swal.fire({
+					icon: 'error',
+					title: '🙅‍♀️ 商品數量為0‍，請選擇數量'
+				})
+       			return false;
+       		}else{
+       			let amountInt = $('#quantity').val();
+       		    $('#amount').val(amountInt);     			
+       		}
 		});        
+	  	
+	  	
 	 
 	</script>	
 	

@@ -21,6 +21,7 @@ import com.taiwan.beans.CouponVO;
 import com.taiwan.beans.CustCoupon;
 import com.taiwan.beans.CustomerVO;
 import com.taiwan.beans.TicketVO;
+import com.taiwan.beans.TktImgVO;
 import com.taiwan.service.CartService;
 import com.taiwan.service.TicketService;
 import com.taiwan.service.coupon.CouponService;
@@ -45,11 +46,11 @@ public class CartServlet extends HttpServlet {
 
 		HttpSession session = req.getSession();
 		CustomerVO customerVO = (CustomerVO) session.getAttribute("customer");
-		System.out.println(customerVO);
+//		System.out.println(customerVO);
 		String custId = customerVO.getCustId().toString();
 //		String custId = "10000";
 
-		//先取看看
+		// 先取看看
 		List<String> cartlist = CartService.getCartList(custId);
 		String action = req.getParameter("action");
 
@@ -79,7 +80,7 @@ public class CartServlet extends HttpServlet {
 				}
 
 				// 新增第一項商品到購物車時
-				if (cartlist == null || cartlist.size()==0) {
+				if (cartlist == null || cartlist.size() == 0) {
 					try {
 						CartService.addCartList(custId, addtkts);
 						System.out.println("add the first tkt");
@@ -107,40 +108,48 @@ public class CartServlet extends HttpServlet {
 						}
 					}
 				}
-				
+
 			}
 			/******************************* 優惠券相關 ********************************/
-			//根據會員id取得所擁有的會員優惠券物件
+			// 根據會員id取得所擁有的會員優惠券物件
 			CustCouponService custCouponService = new CustCouponService();
-			List<CustCoupon> custCouponList = custCouponService.queryCustCouponById(Integer.valueOf(custId)); //custId 記得改
-			//取得所擁有的優惠券編號
+			List<CustCoupon> custCouponList = custCouponService.queryCustCouponById(Integer.valueOf(custId)); 
+																												
+			// 取得所擁有的優惠券編號
 			List<Integer> copIds = new ArrayList<Integer>();
-			for(CustCoupon custCoupon : custCouponList) {
+			for (CustCoupon custCoupon : custCouponList) {
 				String status = "未使用";
-				if(custCoupon.getStatus().equals(status)) {
-					copIds.add(custCoupon.getCopId());					
+				if (custCoupon.getStatus().equals(status)) {
+					copIds.add(custCoupon.getCopId());
 				}
 			}
 //			System.out.println("copIds = " +copIds);
-			
-			//根據優惠券編號取得優惠券名稱
+
+			// 根據優惠券編號取得優惠券名稱
 			List<CouponVO> couponList = new ArrayList<CouponVO>();
-			for(Integer copId : copIds) {
+			for (Integer copId : copIds) {
 				CouponVO couponVO = couponService.findById(copId);
 				couponList.add(couponVO);
 			}
 //			System.out.println("couponList = " + couponList);
-			
+
 			session.setAttribute("couponList", couponList);
-			
-			/************************************************************************/
-			//取出購物車清單
+
+			/******************************* 票券圖片 ********************************/
+//			List<String> tktImgList = new ArrayList<String>();
+			String tktImg = req.getParameter("tktImg");
+//			tktImgList.add(tktImg);
+//			System.out.println(tktImg);
+//			System.out.println(tktImgList);
+
+			/***************************** 取出購物車清單 ********************************/
+			// 取出購物車清單
 			List<String> list = CartService.getCartList(custId);
-			//目的為取得票券資料
+			// 目的為取得票券資料
 			List<TicketVO> tktlist = new ArrayList<>();
-			//目的為存放各票券的購買數量
+			// 目的為存放各票券的購買數量
 			List<Integer> amountList = new ArrayList<>();
-			
+
 			Integer tktId = 0;
 			Integer amount = 0;
 			Integer total = 0;
@@ -162,10 +171,11 @@ public class CartServlet extends HttpServlet {
 					tktlist.add(ticketVO);
 				}
 			}
-			
-			//錯誤作法 -> 每當新增不同票種，大家的數量就會一起變動，所以改成將值存入集合中，一一讀取
+
+			// 錯誤作法 -> 每當新增不同票種，大家的數量就會一起變動，所以改成將值存入集合中，一一讀取
 //			req.setAttribute("amount", amount);  
-			
+
+			session.setAttribute("tktImg", tktImg);
 			session.setAttribute("amountList", amountList);
 			session.setAttribute("list", list);
 			session.setAttribute("tktlist", tktlist);
@@ -197,42 +207,44 @@ public class CartServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
-			
-			
-			//取值
-			String discountString=req.getParameter("num");
-			String copIdString=req.getParameter("numId");
-			//折扣金額及票券id
+
+			// 取值
+			String discountString = req.getParameter("num");
+			String copIdString = req.getParameter("numId");
+			// 折扣金額及票券id
 			Integer discount = 0;
 			Integer copId = 0;
-			if(discountString == null || discountString.trim().equals("")) {
-				discount=0;
-			}else {
-				discount=Integer.valueOf(discountString);
-				copId=Integer.valueOf(copIdString);
+			if (discountString == null || discountString.trim().equals("")) {
+				discount = 0;
+			} else {
+				discount = Integer.valueOf(discountString);
+				copId = Integer.valueOf(copIdString);
 			}
 
-			req.setAttribute("copId", copId);
-			req.setAttribute("discount", discount);
-			
+			session.setAttribute("copId", copId);
+			session.setAttribute("discount", discount);
+
 //			double ttl = cartList.stream()
 //								 .mapToDouble(book->book.getPrice()*book.getQuantity())
 //								 .sum();
-			
 
 			// 結帳頁面checkout.jsp 自動導入資料
 			Integer custid = Integer.valueOf(custId);
 			CustomerService customerService = new CustomerServiceImpl();
 			customerVO = customerService.getAll(custid);
 
-//			req.setAttribute("customerVO", customerVO);
-			req.setAttribute("name", customerVO.getName());
-			req.setAttribute("email", customerVO.getEmail());
-			req.setAttribute("tel", customerVO.getTel());
-			req.setAttribute("total", String.valueOf(total));
-			req.setAttribute("amount", String.valueOf(amount)); 
+			session.setAttribute("name", customerVO.getName());
+			session.setAttribute("email", customerVO.getEmail());
+			session.setAttribute("tel", customerVO.getTel());
+			session.setAttribute("total", String.valueOf(total));
+			session.setAttribute("amount", String.valueOf(amount));
 			RequestDispatcher success = req.getRequestDispatcher("/front-end/cart/checkout.jsp");
-			success.forward(req, res);
+			try {
+				success.forward(req, res);
+				return;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -249,7 +261,7 @@ public class CartServlet extends HttpServlet {
 		jsonObject.put("tktName", tktName);
 		jsonObject.put("price", price);
 		jsonObject.put("amount", amount);
-		
+
 		return jsonObject;
 	}
 

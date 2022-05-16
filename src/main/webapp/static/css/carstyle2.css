@@ -330,12 +330,6 @@ table {
   color: hsl(0, 77%, 60%);
 }
 
-.discount-token {
-  padding: 40px 60px;
-  /* border-right: 1px solid hsl(0, 0%, 90%); */
-  /* border-bottom: 1px solid hsl(0, 0%, 90%); */
-}
-
 .wrapper-flex {
   display: flex;
   align-items: center;
@@ -357,10 +351,6 @@ table {
 .btn-outline:hover {
   background: hsl(219, 77%, 60%);
   color: white
-}
-
-.amount {
-  padding: 40px 60px;
 }
 
 .amount>div {
