@@ -119,6 +119,8 @@ public class ROSelectCmp extends HttpServlet {
 		HttpSession session = req.getSession();
 		session.setAttribute("dateMap", map);
 		session.setAttribute("roomtypeVOs", list);
+		session.setAttribute("cmpId", cmpId);
+
 		String url = "/front-end/addOrder/cmpRoomtype.jsp";
 		RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 addorder.jsp
 		successView.forward(req, res);

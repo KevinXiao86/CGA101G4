@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.taiwan.service.impl.RepCmpService12Impl;
 
 /**
  * Servlet implementation class addRepCmp

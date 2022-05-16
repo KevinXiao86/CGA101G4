@@ -3,6 +3,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <%@ page import="com.taiwan.beans.*"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="javax.sql.*"%>
@@ -23,10 +25,10 @@
 </style>
 <%
 //假設會員10000已登入
-int i = 10000;
-CustomerServiceImpl custSvc = new CustomerServiceImpl();
-CustomerVO custVO = custSvc.getAll(i);
-request.setAttribute("custVO", custVO);
+// int i = 10000;
+// CustomerServiceImpl custSvc = new CustomerServiceImpl();
+// CustomerVO custVO = custSvc.getAll(i);
+// request.setAttribute("custVO", custVO);
 %>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
@@ -67,9 +69,9 @@ request.setAttribute("custVO", custVO);
 			<th>電話</th>
 		</tr>
 		<tr>
-			<th>${custVO.name}</th>
-			<th>${custVO.email}</th>
-			<th>${custVO.tel}</th>
+			<th>${customer.name}</th>
+			<th>${customer.email}</th>
+			<th>${customer.tel}</th>
 		</tr>
 	</table>
 	<br>
@@ -110,7 +112,8 @@ request.setAttribute("custVO", custVO);
 		</tr>
 		<tr>
 			<th>房價</th>
-			<th>$${roomtypeVO.roomtypePrice}</th>
+<!-- 			<th>$${roomtypeVO.roomtypePrice}</th> -->
+			<th>$${list[0].roomItemPrice}</th>
 		</tr>
 		<tr>
 			<th>房數</th>
@@ -118,19 +121,20 @@ request.setAttribute("custVO", custVO);
 		</tr>
 		<tr>
 			<th>入住日</th>
-			<th>${roomOrderVO.roomOrderCheckinDate }</th>
+			<th><fmt:formatDate value="${roomOrderVO.roomOrderCheckinDate}" pattern="yyyy-MM-dd" /></th>
 		</tr>
 		<tr>
 			<th>退房日</th>
-			<th>${roomOrderVO.roomOrderCheckoutDate }</th>
+			<th><fmt:formatDate value="${roomOrderVO.roomOrderCheckoutDate}" pattern="yyyy-MM-dd" /></th>
+			
 		</tr>
 		<tr>
-			<th>優惠</th>
-			<th>${couponVO.discount}</th>
+			<th>優惠金額</th>
+			<th>$${couponVO.discount}</th>
 		</tr>
 		<tr>
 			<th>總金額</th>
-			<th>${roomOrderVO.roomOrderTotalPrice }</th>
+			<th>$${roomOrderVO.roomOrderTotalPrice }</th>
 		</tr>
 	</table>
 

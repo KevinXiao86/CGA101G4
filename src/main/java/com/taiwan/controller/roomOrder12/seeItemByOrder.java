@@ -100,10 +100,7 @@ public class seeItemByOrder extends HttpServlet {
 	CouponVO couponVO=couponServiceImpl.findById(roomOrderVO.getCustCopId());
 	System.out.println("訪問成功");
 
-	if (list == null) {
-		errorMsgs.put("order","查無資料");
-	}
-	System.out.println("訪問成功");
+
 
 	if (list.isEmpty() ) {
 		errorMsgs.put("order","查無明細");

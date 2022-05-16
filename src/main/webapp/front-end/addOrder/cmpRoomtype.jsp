@@ -13,10 +13,10 @@
 <html>
 <head>
 <%@ include file="/common/head.jsp"%>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous">
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" -->
+<!-- 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" -->
+<!-- 	crossorigin="anonymous"> -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/static/css/selectRoom.css">
 
@@ -59,6 +59,8 @@
 </style>
 </head>
 <body>
+	 	<jsp:include page="/front-end/homepage/header.jsp"></jsp:include>
+
 	<%
 	CouponService couponService = ControllerUtil.getBean(CouponService.class);
 	request.setAttribute("couponService", couponService);
@@ -67,13 +69,9 @@
 	RoomtypeService roomtypeService = ControllerUtil.getBean(RoomtypeService.class);
 	%>
 	<%
-	//假設會員10000已登入
-	int custId = 10000;
-	CustomerServiceImpl custSvc = new CustomerServiceImpl();
-	CustomerVO custVO = custSvc.getAll(custId);
-	request.setAttribute("custVO", custVO);
+
 	//假設廠商20011
-	int cmpId = 20011;
+	int cmpId = Integer.valueOf(session.getAttribute("cmpId").toString());
 	List<Roomtype> roomtypeVOs = roomtypeService.getAllRoomtypes(cmpId);
 	request.setAttribute("roomtypeVOs", roomtypeVOs);
 
@@ -90,28 +88,8 @@
 	<jsp:useBean id="RoomItemSvc" scope="page"
 		class="com.taiwan.service.roomItem.impl.RoomItemServiceImpl" />
 
-	<!-- navbar -->
-	<nav class="result-navbar w-100p bgc-secondary">
-		<div class="container d-flex jc-space-between ai-center pt-xs pb-xs ">
-			<h1 class="logo">
-				<img alt="" class="img-fluid" width="100"
-					src="<%=request.getContextPath()%>/static/img/ticket-img/logo.jpg">
-
-			</h1>
-			<ul class="d-flex ai-center result-navbar-list">
-
-				<li class="mr-m"><a href="">Sign up</a></li>
-				<li><a href="">Login</a></li>
-			</ul>
-		</div>
-		<!-- search bar -->
-
-	</nav>
-
-	<%--
-	<FORM METHOD="post"
-		ACTION="<%=request.getContextPath()%>/roomOrder12/roomOrder">
-	 --%>
+	 
+	 
 
 	<main class="result-main d-flex flex-d-col jc-center ai-center w-100p">
 		<!--Hotel-->
@@ -130,6 +108,10 @@
 						</div>
 						<p class="color-primary fz-xxs mb-xs">${cmpVO.location}</p>
 						<p class="fz-xxs">${cmpVO.cmpIntroduce}</p>
+						<h5 class="fz-m fw-bold color-basic-b mr-1 mb-tiny">訂房須知</h5>
+						<p class="fz-xxs">${cmpVO.notice}</p>
+						<h5 class="fz-m fw-bold color-basic-b mr-1 mb-tiny">取消政策</h5>
+						<p class="fz-xxs">${cmpVO.canx}</p>
 					</div>
 				</div>
 				<div class="row">
@@ -139,13 +121,15 @@
 							id="ckin"  value="${dateMap.ckin}">${errorMsgs.ckin}</li>
 						<li class="select-tab mr-tiny">結束日期:<input type="date"
 							id="ckout"  value="${dateMap.ckout}">${errorMsgs.ckout}</li>
-						<li class="select-tab mr-xs"><select id="custCopId">
+						<li class="select-tab mr-tiny">優惠券:<br><select id="custCopId">
 								<option value="0">請選擇優惠券</option>
+								<c:if test="${not empty customer}">
 								<c:forEach var="CustCouponVO"
-									items="${CustCouponSvc12.searchCustCoupon(custVO.custId)}">
+									items="${CustCouponSvc12.searchCustCoupon(customer.custId)}">
 									<option value="${CustCouponVO.custCopId }"
 										${(param.copId==CustCouponVO.custCopId)? 'selected':'' }>${couponService.findById(CustCouponVO.copId).copName}$${couponService.findById(CustCouponVO.copId).discount}</option>
 								</c:forEach>
+								</c:if>
 						</select></li>
 						<li class="color-primary fw-bold">EDIT DETAIL</li>
 					</ul>
@@ -173,6 +157,7 @@
 				</div>
 				<!--/******************************/-->
 				<c:forEach var="roomtypeVO" items="${roomtypeVOs}">
+				<c:if test="${roomtypeVO.roomtypeStatus eq '上架'}">
 				<FORM METHOD="post"
 		ACTION="<%=request.getContextPath()%>/roomOrder12/roomOrder">
 					<div class="row pt-xs pb-xs result-b-btm-sec">
@@ -276,12 +261,13 @@
 		<input type="hidden" name="ckin" class="ckin" value="${dateMap.ckin}" >
 		<input type="hidden" name="ckout" class="ckout" value="${dateMap.ckout}" >
 		<input type="hidden" name="custCopId" class="custCopId" value="0">
-		<input type="hidden" name="custId" value="${custVO.custId}" />
-		<input type="submit" value="送出新增">
+		<input type="hidden" name="custId" value="${customer.custId}" />
+		<input type="submit" value="送出預定">
 							
 						</div>
 					</div>
 				</FORM>
+				</c:if>
 				</c:forEach>
 				
 
@@ -292,21 +278,7 @@
 
 
 	</main>
-	<%--
-			</FORM>
-		
-		 --%>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-		crossorigin="anonymous"></script>
+
 </body>
 
 <%--"/CGA101G4/front-end/addOrder" --%>
