@@ -18,7 +18,7 @@
         }
 
         #page-wrapper {
-            background-color: rgb(221, 221, 241) !important;
+            background-color: #ced7e8 !important;
             /*             height: 800px;  */
         }
 
@@ -52,24 +52,28 @@
 
 			<div id="tkt_form">
                     <form action="ticket/tktUpdate" method="post" enctype="multipart/form-data">
-                        <label>優惠券編號</label><input type="text" name="tktId" value="${param.tktId}"><br>
-                        <span>票券名稱</span><input name="tktName" type="text" autofocus placeholder="請輸入票券名稱"
+                        <label>優惠券編號:</label><br>
+                        <input type="text" name="tktId" value="${param.tktId}"><br>
+                        <span>票券名稱:</span><br>
+                        <input name="tktName" type="text" autofocus placeholder="請輸入票券名稱"
                             value="${param.tktName}">${errorMsgs.tktName}<br>
-                        <span>票券數量</span><input name="originalAmount" type="number" min="0"
+                        <span>票券數量:</span><br>
+                        <input name="originalAmount" type="number" min="0"
                             placeholder="請輸入票券數量" value="${param.originalAmount}">${errorMsgs.originalAmount}<br>
-                        <span>票券價格</span><input name="price" type="number" min="0" placeholder="請輸入票券價格"
+                        <span>票券價格:</span><br>
+                        <input name="price" type="number" min="0" placeholder="請輸入票券價格"
                             value="${param.price}">${errorMsgs.price}<br>
-                        <span>票券開始日期</span><input name="startdate" id="startdate" type="datetime-local"
-                            value="2022-01-01T08:00"><br>
-                        <span>票券結束日期</span><input name="enddate" id="enddate" type="datetime-local"
-                            value="2022-12-31T22:00">${errorMsgs.timeError}<br>
-                        <span>種類</span>
+                        <span>票券開始日期:</span><br>
+                        <input name="startdate" id="startdate" type="datetime-local" value="2022-01-01T08:00"><br>
+                        <span>票券結束日期:</span><br>
+                        <input name="enddate" id="enddate" type="datetime-local" value="2022-12-31T22:00">${errorMsgs.timeError}<br>
+                        <span>種類:</span><br>
                         <select name="kind" id="kind">
                             <option value="景點門票" ${(param.kind=="景點門票" )? "selected" : "" }>景點門票</option>
                             <option value="主題樂園" ${(param.kind=="主題樂園" )? "selected" : "" }>主題樂園</option>
                             <option value="博物館展覽" ${(param.kind=="博物館展覽" )? "selected" : "" }>博物館展覽</option>
                             <option value="特色表演" ${(param.kind=="特色表演" )? "selected" : "" }>特色表演</option>
-                        </select><br> <span>票券所在縣市</span>
+                        </select><br> <span>票券所在縣市:</span>
                         <div id="twzipcode"></div>
                         <input type="text" name="address" placeholder="請輸入地址" style="width: 306px;"
                             value="${param.address}">${errorMsgs.address}<br>

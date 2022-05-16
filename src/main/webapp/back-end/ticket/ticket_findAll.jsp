@@ -87,7 +87,7 @@ img {
 						<td>${ticketVO.location}</td>
 						<td>
 							<FORM METHOD="post" ACTION="ticket/tktStatusChange"	style="margin-bottom: 0px;">
-								<input type="submit" name="status" value="${ticketVO.status}">
+								<input type="submit" name="status" value="${ticketVO.status}" style='background: ${(ticketVO.status == "上架")?"lightblue": ""};'>
 								<input type="hidden" name="tktId" value="${ticketVO.tktId}">
 								<input type="hidden" name="whichPage" value="<%=whichPage %>">
 							</FORM>

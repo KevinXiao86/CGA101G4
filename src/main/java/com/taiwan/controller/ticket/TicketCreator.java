@@ -102,7 +102,7 @@ public class TicketCreator extends HttpServlet {
 			}
 			String canxpolicy = request.getParameter("canxpolicy");
 			if (canxpolicy == null || canxpolicy.trim().equals("")) {
-				errorMsgs.put("canxpolicy", "請輸入取消政策");
+				errorMsgs.put("canxpolicy", "請輸入園區介紹");
 			}
 			
 			if (!errorMsgs.isEmpty()) {
