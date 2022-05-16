@@ -54,15 +54,25 @@ public class CompanyController {
 	
 	// 登陸
 	@GetMapping("/login")
-	@ResponseBody
-	public Company login(HttpSession session, HttpServletResponse response, Model model,
+//	@ResponseBody
+	public String login(HttpSession session, HttpServletResponse response, Model model, HttpServletRequest request,
 				@RequestParam("cmpAccount")String cmpAccount, @RequestParam("cmpPassword")String cmpPassword,
 				@RequestParam(value =  "pageNo", required = false)String pageNoStr, @RequestParam(value = "pageSize", required = false)String pageSizeStr) throws IOException {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		System.out.println("cmpAccount: " + cmpAccount);
 		System.out.println("cmpPassword: " + cmpPassword);
+		// 1. 進行數據校驗
+		Map<String, String> errorMap = companyService.registCheck(request.getParameterMap());
 
+		// 3. 判斷 errorMap 的長度, 如果大於 0 就說明有錯誤訊息, 此時就須要回到頁面回顯錯誤訊息
+		if (errorMap.size() > 0) {
+			// 說明有錯誤訊息
+			model.addAttribute("errorInfo", errorMap);
+			model.addAttribute("cmpAccount", cmpAccount);
+			// 回到登陸頁面
+			return "/front-end/company/login.jsp";
+		}
 		// 1. 獲取請求參數
 
 		// 2. 調用 login 業務方法
@@ -92,10 +102,14 @@ public class CompanyController {
 			session.setAttribute("page", page);
 		} else if (company.isSuccessful() && "審核未通過".equals(company.getAuditStatus())) {
 			session.setAttribute("editCompany", company);
+		}else {
+			// 表示登入失敗
+			// 將 company 存放到 request 域當中, 方便頁面做回顯訊息
+			model.addAttribute("loginCompany", company);
 		}
 
 		// 4. 回傳結果
-		return company;
+		return company.getUrl();
 	}
 	
 	

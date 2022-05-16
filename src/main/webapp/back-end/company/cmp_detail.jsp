@@ -7,10 +7,6 @@
 <title>廠商修改頁面</title>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
 <%@ include file="back-end-index.jsp"%>
-<<<<<<< HEAD
-
-=======
->>>>>>> m1a2st
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -43,25 +43,29 @@ public class ReservationController {
 
 	
 	@GetMapping("/getReservation")
-	public String getReservation(HttpServletRequest request, Model model,
+	public String getReservation(HttpServletRequest request, Model model, HttpSession session,
 			@RequestParam("roomtypeId")String roomtypeIdStr, @RequestParam("roomtypeAmount")String roomtypeAmountStr) throws ParseException {
 		Integer roomtypeId = CommonUtils.parseInt(roomtypeIdStr, 0);
-		
 		Integer rootypeAmount = CommonUtils.parseInt(roomtypeAmountStr, 0);
+		
 		List<Reservation> reservations = reservationService.getReservationsByRoomtypeId(roomtypeId, rootypeAmount);
 		model.addAttribute("reservations", reservations);
+		
+		Company company = (Company) session.getAttribute("loginCompany");
+		Roomtype roomtype = roomtypeService.getRoomtypeByCmpIdAndRoomtypeId(company.getCmpId()+"", roomtypeIdStr);
+		model.addAttribute("roomtype", roomtype);
 		return "/front-end/reservation/reservation.jsp";
 	}
 
 	@GetMapping("/getReservationByDate")
-	public String getReservationByDate(HttpServletRequest request, Model model,
+	public String getReservationByDate(HttpServletRequest request, Model model, HttpSession session,
 			@RequestParam("roomtypeId")String roomtypeIdStr, @RequestParam("roomtypeAmount")String roomtypeAmountStr,
 			@RequestParam("start_date")String startDate, @RequestParam("end_date")String endDate) throws ParseException {
 
 		//1. 數據校驗
 		if (startDate.length() == 0 || endDate.length() == 0) {
 			model.addAttribute("errorMsg", "請選擇日期!!");
-			return "/front-end/reservation/reservation.jsp";
+			return "/reservation/getReservation";
 		}
 		// 創建解析器
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -71,7 +75,7 @@ public class ReservationController {
 		Date end = dateFormat.parse(endDate);
 		if (end.before(start)) {
 			model.addAttribute("errorMsg", "請選擇正確的日期!!");
-			return "/front-end/reservation/reservation.jsp";
+			return "/reservation/getReservation";
 		}
 		
 		
@@ -82,10 +86,11 @@ public class ReservationController {
 		System.out.println("roomtypeAmount: " + rootypeAmount);
 
 		List<Reservation> reservations = reservationService.getReservationsByDate(roomtypeId, rootypeAmount, startDate, endDate);
-		
 		model.addAttribute("reservations", reservations);
-		model.addAttribute("startDate", startDate);
-		model.addAttribute("endDate", endDate);
+
+		Company company = (Company) session.getAttribute("loginCompany");
+		Roomtype roomtype = roomtypeService.getRoomtypeByCmpIdAndRoomtypeId(company.getCmpId()+"", roomtypeIdStr);
+		model.addAttribute("roomtype", roomtype);
 		return "/front-end/reservation/reservation.jsp";
 	}
 }

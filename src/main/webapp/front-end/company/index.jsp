@@ -51,35 +51,39 @@
 					<ul class="nav" id="side-menu">
 						
 						<li>
-							<a href="company/getAllRoomtypesByPage?cmpId=${sessionScope.loginCompany.cmpId}&">
+							<a href="company/getAllRoomtypesByPage?cmpId=${sessionScope.loginCompany.cmpId}&"
+							 	style="font-weight: 900;">
 								<i class="fa fa-dashboard fa-fw"></i>
 								廠商首頁
 							</a>
 						</li>
 						
 						<li>
-							<a href="roomtype/getAllRoomtypesByPage?cmpId=${sessionScope.loginCompany.cmpId}">
+							<a href="roomtype/getAllRoomtypesByPage?cmpId=${sessionScope.loginCompany.cmpId}"
+								style="font-weight: 900;">
 								<i class="fa fa-dashboard fa-fw"></i>
 								房型管理
 							</a>
 						</li>
 						
 						<li>
-							<a href="company/getCompany?cmpId=${sessionScope.loginCompany.cmpId}">
+							<a href="company/getCompany?cmpId=${sessionScope.loginCompany.cmpId}"
+								style="font-weight: 900;">
 								<i class="fa fa-dashboard fa-fw"></i>
 								廠商資料
 							</a>
 						</li>
 						
 						<li>
-							<a href="roomOrder/cmpFindOrder?cmpId=${sessionScope.loginCompany.cmpId}">
+							<a href="roomOrder/cmpFindOrder?cmpId=${sessionScope.loginCompany.cmpId}"
+								style="font-weight: 900;">
 								<i class="fa fa-dashboard fa-fw"></i>
 								訂單管理
 							</a>
 						</li>
 						
 						<li>
-							<a href="company/logout">
+							<a href="company/logout" style="font-weight: 900;">
 								<i class="fa fa-dashboard fa-fw"></i>
 								登出
 							</a>
@@ -98,7 +102,7 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">廠商首頁</h1>
+						<h1 class="page-header" style="font-weight: 900;">廠商首頁</h1>
 					</div>
 					<!-- /.col-lg-12 -->
 				</div>
@@ -108,7 +112,7 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="panel panel-default">
-							<div class="panel-heading">已有的房型如下:</div>
+							<div class="panel-heading" style="font-weight: 900;">已有的房型如下</div>
 							
 
 							<!-- /.panel-heading -->
@@ -118,12 +122,12 @@
 										id="dataTables-example" style="width: 100%;">
 										
 										<tr>
-											<td>房型圖片</td>
-											<td>房型名稱</td>
-											<td>房型數量</td>
-											<td>入住人數</td>
-											<td>價格</td>
-											<td>狀態</td>
+											<td style="font-weight: 900;">房型圖片</td>
+											<td style="font-weight: 900;">房型名稱</td>
+											<td style="font-weight: 900;">房型數量</td>
+											<td style="font-weight: 900;">入住人數</td>
+											<td style="font-weight: 900;">價格</td>
+											<td style="font-weight: 900;">狀態</td>
 										</tr>
 										
 										<c:forEach items="${sessionScope.page.items}" var="Roomtype">
@@ -141,15 +145,15 @@
 													</c:forEach>
 												</td>
 												
-												<td>${Roomtype.roomtypeName}</td>
-                								<td>${Roomtype.roomtypeAmount}</td>
-                								<td>${Roomtype.roomtypePeople}</td>
-                								<td>${Roomtype.roomtypePrice}</td>
+												<td style="font-weight: 900;">${Roomtype.roomtypeName}</td>
+                								<td style="font-weight: 900;">${Roomtype.roomtypeAmount}</td>
+                								<td style="font-weight: 900;">${Roomtype.roomtypePeople}</td>
+                								<td style="font-weight: 900;">${Roomtype.roomtypePrice}</td>
 												
 												<td>
 													<a href="reservation/getReservation?roomtypeId=${Roomtype.roomtypeId}&roomtypeAmount=${Roomtype.roomtypeAmount}"
                                                     		   style="background-color: lightskyblue; color: white; padding: 5px 5px; 
-                                                        	   text-decoration: none; display: inline-block; border-radius: 12px;">
+                                                        	   text-decoration: none; display: inline-block; border-radius: 12px; font-weight: 900">
                                                     	預約表
                                                 	</a>
 												</td>

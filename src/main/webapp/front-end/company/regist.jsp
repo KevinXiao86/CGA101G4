@@ -24,7 +24,7 @@ span{
 		<div class="form-panel one">
 		
 			<div class="form-header">
-				<h1>Register Account</h1>
+				<h1>廠商註冊</h1>
 			</div>
 			<!-- 錯誤訊息回顯 -->
 			<span id="errorMsg">${requestScope.registCompany.message}</span><br><br>
@@ -36,19 +36,19 @@ span{
 					<input type="hidden" id="token" name="token" ${sessionScope.token}/>
 					
 					<div class="form-group">
-						<label for="cmpName">廠商名稱</label> 
+						<label for="cmpName" style="font-weight: 900;">廠商名稱</label> 
 						<span id="cmpNameSpan">${requestScope.errorInfo.cmpName}</span>
 						<input type="text" id="cmpName" name="cmpName" required="required" value="${requestScope.registCompany.cmpName}"/>
 					</div>
 					
 					<div class="form-group">
-						<label for="cmpTel">廠商電話</label> 
+						<label for="cmpTel" style="font-weight: 900;">廠商電話</label> 
 						<span id="cmpTelSpan">${requestScope.errorInfo.cmpTel}</span>
 						<input type="text" id="cmpTel" name="cmpTel" required="required" value="${requestScope.registCompany.cmpTel}"/>
 					</div>
 					
 					<div class="form-group">
-						<label for="bankAccount">銀行帳號</label> 
+						<label for="bankAccount" style="font-weight: 900;">銀行帳號</label> 
 						<span id="bankAccountSpan">${requestScope.errorInfo.headBank}</span>
 						<input type="text" id="headBank" name="headBank" placeholder="銀行代號" required style="margin-bottom: 10px;"
 							value="${requestScope.registCompany.bankAccount.substring(0, 3)}"> 
@@ -58,69 +58,69 @@ span{
 					</div>
 					
 					<div class="form-group">
-						<label for="cmpMail">信箱</label> 
+						<label for="cmpMail" style="font-weight: 900;">信箱</label> 
 						<span id="cmpMailSpan">${requestScope.errorInfo.cmpMail}</span>
 						<input type="text" id="cmpMail" name="cmpMail" required="required" value="${requestScope.registCompany.cmpMail}"/>
 					</div>
 					
 					<div class="form-group">
-						<label for="cmper">廠商負責人</label> 
+						<label for="cmper" style="font-weight: 900;">廠商負責人</label> 
 						<span>${requestScope.errorInfo.cmper}</span>
 						<input type="text" id="cmper" name="cmper" required="required" value="${requestScope.registCompany.cmper}"/>
 					</div>
 					
 					<div class="form-group">
-						<label for="cmperTel">廠商負責人電話</label> 
+						<label for="cmperTel" style="font-weight: 900;">廠商負責人電話</label> 
 						<span id="cmperTelSpan">${requestScope.errorInfo.cmperTel}</span>
 						<input type="text" id="cmperTel" name="cmperTel" required="required" value="${requestScope.registCompany.cmperTel}"/>
 					</div>
 
 					<div class="form-group">
-						<label for="serialNo">旅宿登記證</label>
+						<label for="serialNo" style="font-weight: 900;">旅宿登記證</label>
 						<span id="serialNoSpan">${requestScope.serialNo}</span>
 						<input type="file" name="serialNo" id="serialNo">
 					</div>
 
 					<div class="form-group">
-						<label for="cmpAccount">帳號</label> 
+						<label for="cmpAccount" style="font-weight: 900;">帳號</label> 
 						<span id="cmpAccountSpan"></span>
 						<span id="errorCmpAccount">${requestScope.errorInfo.cmpAccount}</span>
 						<input type="text" id="cmpAccount" name="cmpAccount" required="required" value="${requestScope.registCompany.cmpAccount}"/>
 					</div>
 					
 					<div class="form-group">
-						<label for="cmpPassword">密碼</label> 
+						<label for="cmpPassword" style="font-weight: 900;">密碼</label> 
 						<span id="cmpPasswordSpan">${requestScope.errorInfo.cmpPassword}</span>
 						<input type="password" id="cmpPassword" name="cmpPassword" required="required" />${requestScope.errorInfo.cmpPassword}<br>
 					</div>
 					
 					<div class="form-group">
-						<label for="checkPassword">確認密碼</label> 
+						<label for="checkPassword" style="font-weight: 900;">確認密碼</label> 
 						<span id="checkPasswordSpan">${requestScope.errorInfo.cmpPassword}</span>
 						<input type="password" id="checkPassword" name="checkPassword" required="required"/>${requestScope.errorInfo.cmpPassword}<br>
 					</div>
 
 					<div class="form-group">
-						<label for="cmpIntroduce">飯店介紹</label>
+						<label for="cmpIntroduce" style="font-weight: 900;">飯店介紹</label>
 						<span>${requestScope.errorInfo.cmpIntroduce}</span>
 						<textarea rows="6" cols="40" name="cmpIntroduce" id="cmpIntroduce" required>${requestScope.registCompany.cmpIntroduce}</textarea>
 						<br>
 					</div>
 					
 					<div class="form-group">
-						<label for="checkinTime">入住時間</label> 
+						<label for="checkinTime" style="font-weight: 900;">入住時間</label> 
 						<span>${requestScope.errorInfo.checkinTime}</span>
 						<input type="time" id="checkinTime" name="checkinTime" min="00:00" max="24:00" required="required" value="${requestScope.registCompany.checkinTime}"/>
 					</div>
 					
 					<div class="form-group">
-						<label for="checkoutTime">退房時間</label> 
+						<label for="checkoutTime" style="font-weight: 900;">退房時間</label> 
 						<span>${requestScope.errorInfo.checkoutTime}</span>
 						<input type="time" id="checkoutTime" name="checkoutTime" min="00:00" max="24:00" required="required" value="${requestScope.registCompany.checkoutTime}"/>
 					</div>
 					
 					<div class="form-group">
-						<label>地點</label> 
+						<label style="font-weight: 900;">地點</label> 
 						<span>${requestScope.errorInfo.city}</span>
 						<input type="text" id="city" name="city" placeholder="縣市" required="required" style="margin-bottom: 10px;" />
 						<span>${requestScope.errorInfo.town}</span>
@@ -130,21 +130,23 @@ span{
 					</div>
 					
 					<div class="form-group">
-						<label for="notice">購買須知</label>
+						<label for="notice" style="font-weight: 900;">購買須知</label>
 						<span>${requestScope.errorInfo.notice}</span>
 						<textarea rows="6" cols="40" name="notice" id="notice" required>${requestScope.registCompany.notice}</textarea>
 						<br>
 					</div>
 					
 					<div class="form-group">
-						<label for="canx">取消政策</label>
+						<label for="canx" style="font-weight: 900;">取消政策</label>
 						<span>${requestScope.errorInfo.canx}</span>
 						<textarea rows="6" cols="40" name="canx" id="canx" required>${requestScope.registCompany.canx}</textarea>
 						<br>
 					</div>
-					
 					<div class="form-group">
 						<button type="submit" id="regist">Register</button>
+					</div>
+					<div class="form-group">
+						<a class="form-recovery" href="#" style="font-weight: 900; padding-left: 200px">返回首頁</a>
 					</div>
 				</form>
 			</div>
