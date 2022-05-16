@@ -125,7 +125,7 @@ CouponVO couponVO = (CouponVO) request.getAttribute("couponVO");
 						<label>優惠券介紹</label><br>
 						<textarea name="introduce" id="content" cols="100" rows="10" style="resize: none;" placeholder="請輸入介紹"  >${couponVO.introduce}</textarea><br>
                     	<input type="hidden" name="img" value="${couponVO.img}">
-                    	<label>請輸入照片</label> <input type="file" name="uploadFile" accept="image/*"><br>
+                    	<label>請輸入照片</label> <input id="file1" type="file" name="uploadFile" accept="image/*"><br>
                     <div id="img_Odiv">
                         <img src="${couponVO.img}" />
                     </div>

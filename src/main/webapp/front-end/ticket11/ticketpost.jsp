@@ -295,7 +295,7 @@
 							</button>
 						</div>
 						
-						<input type="hidden" name="amount" id="amount" size="3" value="1"> 
+						<input type="hidden" name="amount" id="amount" size="3" > 
 						<input type="hidden" name="tktName" value="${tktVO.tktName}"> 
 						<input type="hidden" name="tktId" value="${tktVO.tktId}"> 
 						<input type="hidden" name="price" value="${tktVO.price}"> 
@@ -490,7 +490,41 @@
         
        	$('#quantity').change( function() {
        		$('#amount').attr("value",$('#quantity').val());
-		});        
+		});
+
+	    $('#quantity').val("0");
+	    //增減購物車
+	     $("#add").click(function () {
+	            //得到當前兄弟文字框的值
+	            let n = $(this).siblings("#quantity").val();
+	            n++;
+	            $(this).siblings("#quantity").val(n);
+	            
+	        })
+	        $("#min").click(function(){
+	            //得到當前兄弟文字框的值
+	            let n=$(this).siblings("#quantity").val();
+	            //當文字框的值減到1時就不再執行n--及後面的程式碼
+	            if(n==1){
+	                return false;
+	            }
+	            n--;
+	            $(this).siblings("#quantity").val(n);
+	        })
+	        
+	        $('#choice').click( function() {
+	         if($('#quantity').val() == 0){
+//	           alert("商品數量為0❗️❗️❗️❗️，請選擇數量");
+	    Swal.fire({
+	     icon: 'error',
+	     title: '🙅‍♀️ 商品數量為0‍，請選擇數量'
+	    })
+	          return false;
+	         }else{
+	          let amountInt = $('#quantity').val();
+	             $('#amount').val(amountInt);        
+	         }
+	  });        
 	 
 	</script>	
 	

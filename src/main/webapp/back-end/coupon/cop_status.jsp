@@ -112,7 +112,7 @@ input[type="submit"] {
 						</td>
 						<td>
 							<FORM METHOD="post" ACTION="coupon/get" style="margin-bottom: 0px;">
-								<input type="submit" value="發放" class="send" ${(couponVO.status == "已過期")? "disabled='disabled'":"" }> 
+								<input type="submit" value="發放" class="send" ${(couponVO.status == "已過期")? "disabled='disabled'":"" } ${(couponVO.status == "下架")? "disabled='disabled'":"" }> 
 								<input type="hidden" name="copId" value="${couponVO.copId}">
 							</FORM>
 						</td>

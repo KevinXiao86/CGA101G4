@@ -137,7 +137,7 @@ input[type="submit"]:hover {
 						</td>
 						<td>
 							<FORM METHOD="post" ACTION="coupon/get" style="margin-bottom: 0px;">
-								<input type="submit" value="發放" class="send" ${(couponVO.status == "已過期")? "disabled='disabled'":"" }> 
+								<input type="submit" value="發放" class="send" ${(couponVO.status == "已過期")? "disabled='disabled'":"" } ${(couponVO.status == "下架")? "disabled='disabled'":"" }> 
 								<input type="hidden" name="copId" value="${couponVO.copId}">
 								<input type="hidden" name="whichPage" value="<%=whichPage %>">
 							</FORM>
