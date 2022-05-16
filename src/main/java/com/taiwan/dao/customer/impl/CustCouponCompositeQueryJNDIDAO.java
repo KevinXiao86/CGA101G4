@@ -107,6 +107,8 @@ public class CustCouponCompositeQueryJNDIDAO implements CustCouponCompositeQuery
 			aCondition = key + "=" + "'" + value + "'";
 		} else if("DISCOUNT".equals(key)){
 			aCondition=key+" "+value;
+		}else if("COP_ID".equals(key)){
+			aCondition=key+" IN "+"(SELECT COP_ID FROM COUPON WHERE COP_NAME LIKE '%"+value+"%')";
 		}else {
 			aCondition = key + "=" + value;
 		}

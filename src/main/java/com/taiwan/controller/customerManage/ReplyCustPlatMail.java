@@ -33,7 +33,7 @@ public class ReplyCustPlatMail extends HttpServlet {
 		String msg = request.getParameter("msg");
 		// 取得管理員Id
 		HttpSession session = request.getSession();
-		EmployeeVO employeeVO = (EmployeeVO) session.getAttribute("emp");
+		EmployeeVO employeeVO = (EmployeeVO) session.getAttribute("employeeVO");
 		Integer empId = employeeVO.getEmpId();
 		// 把資料送到資料庫
 		CustPlatMailServiceImpl dao = new CustPlatMailServiceImpl();

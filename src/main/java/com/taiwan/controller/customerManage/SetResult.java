@@ -32,7 +32,7 @@ public class SetResult extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 取得管理員Id
 		HttpSession session = request.getSession();
-		EmployeeVO employeeVO = (EmployeeVO) session.getAttribute("emp");
+		EmployeeVO employeeVO = (EmployeeVO) session.getAttribute("employeeVO");
 		Integer empId = employeeVO.getEmpId();
 		// 取得要update的檢舉廠商流水號(repCmpId)
 		Integer repCmpId = Integer.valueOf(request.getParameter("repCmpId"));

@@ -211,7 +211,7 @@
                     				<div class="row mb-3">
                       					<label for="account" class="col-md-4 col-lg-3 col-form-label">帳號</label>
                       					<div class="col-md-8 col-lg-9">
-                        					<input name="account" type="text" class="form-control" id="account" value="${param.account}">${errorMsgs.account}
+                        					<input name="account" type="text" class="form-control" id="account" value="${param.account}" readonly>${errorMsgs.account}
                       					</div>
                     				</div>
 

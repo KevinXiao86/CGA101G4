@@ -38,6 +38,10 @@ font-size:1em;
 select{
 height:30px;
 }
+input{
+backgroung-color:#fff;
+height:30px;
+}
 form div{
 display:inline-block;
 margin:40px;
@@ -64,12 +68,7 @@ margin:40px;
 	<form method="post" action="cust/CustCouponCompositeQuery">
 		<div>
 			<label for="copId">優惠券名稱</label><br>
-			<select id="copId" name="COP_ID">
-					<option value=""></option>  
-				<c:forEach var="coupon" items="${couponList}">
-					<option value="${coupon.copId}" ${(param.COP_ID==coupon.copId)?'selected':''}>${coupon.copName}</option>
-				</c:forEach>
-			</select>
+			<input id="copId" type="text" name="COP_ID" placeholder="輸入優惠券關鍵字" value="${param.COP_ID}">
 		</div>
 		
 		<div>
@@ -110,7 +109,6 @@ margin:40px;
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
                     <th scope="col">優惠券名稱</th>
                     <th scope="col">領取日期</th>
                     <th scope="col">使用日期</th>
@@ -122,13 +120,31 @@ margin:40px;
                 <tbody>
                 <c:forEach var="custCoupon" items="${custCouponList}">
                   <tr>
-                    <th scope="row">${custCoupon.custCopId}</th>
-                    <td>${custCoupon.copId}</td>
+                  
+                 <c:forEach var="coupon" items="${couponList}">
+                  <c:if test="${custCoupon.copId==coupon.copId}">
+                    <td>${coupon.copName}</td>
+                  </c:if>
+                 </c:forEach>
+                 
                     <td>${custCoupon.getdate}</td>
                     <td>${custCoupon.usedate}</td>
-                    <td>${(custCoupon.roomOrderId==0)?((custCoupon.tktOrderId==0)?'':custCoupon.tktOrderId):custCoupon.roomOrderId}</td>
-                    <td>${custCoupon.discount}</td>
-                    <td>${custCoupon.status}</td>
+                    
+                  <c:if test="${custCoupon.roomOrderId==0}">
+                   <c:if test="${custCoupon.tktOrderId==0}">
+                    <td></td>
+                   </c:if>
+                   <c:if test="${custCoupon.tktOrderId!=0}">
+                    <td>票券訂單${custCoupon.tktOrderId}號</td>
+                   </c:if>
+                  </c:if>
+                  
+                  <c:if test="${custCoupon.roomOrderId!=0}">
+                    <td>訂房訂單${custCoupon.roomOrderId}號</td>
+                  </c:if>
+                  
+                   <td>${custCoupon.discount}</td>
+                   <td>${custCoupon.status}</td>
                   </tr>
                  </c:forEach>
                  </tbody>
@@ -143,7 +159,7 @@ margin:40px;
 
     </main><!-- End #main -->
 	  <%@ include file="/front-end/homepage/footer.jsp" %>
-	<!--   <div style="display: inline-block; vertical-align: middle">
+	<%--   <div style="display: inline-block; vertical-align: middle">
 		<form method="post" action="cust/CustCouponCompositeQuery">
 			<label for="copId">優惠券名稱: </label>
 			<select id="copId" name="COP_ID">
@@ -191,6 +207,6 @@ margin:40px;
 				</c:forEach>
 			</tbody>
 		</table>
-	</div> -->
+	</div> --%>
 </body>
 </html>

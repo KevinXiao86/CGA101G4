@@ -28,7 +28,7 @@ public class CustomerFilter implements Filter {
 		HttpSession session = req.getSession();
 		CustomerVO customerVO = (CustomerVO) session.getAttribute("customer");
 		if (customerVO == null) {
-			req.setAttribute("location", req.getRequestURI());
+			session.setAttribute("location", req.getRequestURI());
 			res.sendRedirect(req.getContextPath() + "/front-end/custLogin/CustomerLogin.jsp");
 			return;
 		} else {

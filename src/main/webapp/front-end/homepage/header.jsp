@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,6 +31,11 @@
     clear: both;
     position: inherit;
     z-index: 10;
+}
+.customer_bar{
+	display:block;
+    margin: 10px;
+    border-bottom: 1px solid black;
 }
 </style>
 <body>
@@ -71,11 +77,46 @@
 					<div class="col-sm-2" style="position:absolute;right:90px" >
 						<div class="top-social-area">
 							<a href="<%=request.getContextPath()%>/front-end/cart/cartList.jsp" data-toggle="tooltip" data-placement="bottom"
-								title="購物車"> <i class="fa-solid fa-cart-shopping"
-								aria-hidden="true"></i></a> 
-							<a href="<%=request.getContextPath()%>/front-end/cust/CustomerLogin.jsp" data-toggle="tooltip"
+								title="購物車" style="margin-right:63px;"> <i class="fa-solid fa-cart-shopping"
+								aria-hidden="true"></i></a>
+								 
+						<c:if test="${customer==null}">
+							<a href="<%=request.getContextPath()%>/front-end/custLogin/CustomerLogin.jsp" data-toggle="tooltip"
 								data-placement="bottom" title="登入"> <i
 								class="fa-regular fa-user" aria-hidden="true"></i></a>
+						</c:if>
+						
+						<c:if test="${customer!=null}">
+							<div title="會員功能" id="picture" href="#" data-toggle="tooltip" data-placement="bottom" style="position: fixed;right: 10px;top: 10px;z-index: 9;height:50px;text-decoration: none;overflow:hidden;text-align:left;">
+	            				<img id="cow" src="<%=request.getContextPath()%>/${customer.img}" style="width:45px;height:45px;border-radius: 100%;padding:0;overflow:hidden; margin-left:20px;margin-right:90px;">
+	            				</img>
+					            <div id="infoLogoutBar"style="box-shadow: 2px 2px 4px black;background-color: #ccc;margin:10px;padding:5px;text-align:left;">
+					                <span id="customer_data" class="customer_bar" style="display:block;" >
+					                    <a href="<%=request.getContextPath()%>/cust/CustomerInformation" style="padding:0px;">會員功能</a>
+					                </span>
+					                <span class="customer_bar">
+					                   <a href="<%=request.getContextPath()%>/cust/Logout" style="padding:0px;">登出</a>
+					                </span>
+					            </div>
+	        				</div>
+	        				<script>
+	        				let picture=document.querySelector('#picture');
+	        				picture.onclick=function(){
+	        					    if(picture.style.height==='50px'){
+	        						console.log('1');  
+	        						
+	        						$(picture).animate({height:150},500);
+	        						picture.removeAttribute('data-original-title');
+	        						$(picture).tooltip({ 'placement': 'bottom' ,title : '按圖片隱藏此列表'});
+	        					}else{	        						
+	        						console.log('2');
+	        						$(picture).tooltip('disable');	        						
+	        						$(picture).animate({height:50},500);	        						
+	        					}
+	        				}
+	        				</script>
+						</c:if>
+							
 						</div>
 					</div>
 				</div>
