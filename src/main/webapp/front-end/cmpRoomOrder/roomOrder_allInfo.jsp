@@ -84,28 +84,28 @@ span {
 			<div class="navbar-default sidebar" role="navigation">
 				<div class="sidebar-nav navbar-collapse">
 					<ul class="nav" id="side-menu">
-						<li><a
+						<li><a style="font-weight: 900;"
 							href="company/getAllRoomtypesByPage?cmpId=${sessionScope.loginCompany.cmpId}&">
 								<i class="fa fa-dashboard fa-fw"></i> 廠商首頁
 						</a></li>
 
 
-						<li><a
+						<li><a style="font-weight: 900;"
 							href="roomtype/getAllRoomtypesByPage?cmpId=${sessionScope.loginCompany.cmpId}">
 								<i class="fa fa-dashboard fa-fw"></i> 房型管理
 						</a></li>
 
-						<li><a
+						<li><a style="font-weight: 900;"
 							href="company/getCompany?cmpId=${sessionScope.loginCompany.cmpId}">
 								<i class="fa fa-dashboard fa-fw"></i> 廠商資料
 						</a></li>
 
-						<li><a
+						<li><a style="font-weight: 900;"
 							href="roomOrder/cmpFindOrder?cmpId=${sessionScope.loginCompany.cmpId}">
 								<i class="fa fa-dashboard fa-fw"></i> 訂單管理
 						</a></li>
 
-						<li><a href="company/logout"> <i
+						<li><a href="company/logout" style="font-weight: 900;"> <i
 								class="fa fa-dashboard fa-fw"></i> 登出
 						</a></li>
 					</ul>
@@ -121,7 +121,7 @@ span {
 
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">訂單詳情</h1>
+						<h1 class="page-header" style="font-weight: 900;">訂單詳情</h1>
 					</div>
 				</div>
 
@@ -129,7 +129,7 @@ span {
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="panel panel-default">
-							<div class="panel-heading">已有的房型如下:</div>
+							<div class="panel-heading" style="font-weight: 900;">訂單詳情如下</div>
 
 							<!-- /.panel-heading -->
 							<div class="panel-body">

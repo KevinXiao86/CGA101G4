@@ -141,6 +141,9 @@ public class RoomtypeController {
 		Integer totalScore = 0;
 		Integer totalPeople = 0;
 		Integer roomtypePrice = CommonUtils.parseInt(roomtypePriceStr, 0);
+		System.out.println("roomtypePriceStr: " + roomtypePriceStr);
+		System.out.println("roomtypePrice: " + roomtypePrice);
+		
 		String roomtypeStatus = status[0];
 		Integer roomtypeArea = CommonUtils.parseInt(roomtypeAmountStr, 0);
 
@@ -249,7 +252,7 @@ public class RoomtypeController {
 		roomtype.setRoomtypeName(roomtypeName);
 		roomtype.setRoomtypeAmount(roomtypeAmount);
 		roomtype.setRoomtypePeople(roomtypePeople);
-		roomtype.setRoomtypePrice(roomtypePeople);
+		roomtype.setRoomtypePrice(roomtypePrice);
 		roomtype.setRoomtypeStatus(status[0]);
 		roomtype.setRoomtypeArea(roomtypeArea);
 		roomtype.setRoomtypeIntroduce(roomtypeIntroduce);

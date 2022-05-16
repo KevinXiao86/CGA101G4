@@ -77,7 +77,7 @@ $(() => {
 		<!-- Navigation -->
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="index.html">台玩 - 旅遊平台</a>
+				<a class="navbar-brand" href="index.html" style="font-weight: 900;">台玩 - 旅遊平台</a>
 			</div>
 
 
@@ -85,31 +85,31 @@ $(() => {
 				<div class="sidebar-nav navbar-collapse">
 					<ul class="nav" id="side-menu">
 
-						<li><a
+						<li><a style="font-weight: 900;"
 							href="company/getAllRoomtypesByPage?cmpId=${sessionScope.loginCompany.cmpId}&">
 								<i class="fa fa-dashboard fa-fw"></i> 廠商首頁
 						</a></li>
 
-						<li><a
+						<li><a style="font-weight: 900;"
 							href="roomtype/getAllRoomtypesByPage?cmpId=${sessionScope.loginCompany.cmpId}">
 								<i class="fa fa-dashboard fa-fw"></i> 房型管理
 						</a></li>
 
-						<li><a
+						<li><a style="font-weight: 900;"
 							href="company/getCompany?cmpId=${sessionScope.loginCompany.cmpId}">
 								<i class="fa fa-dashboard fa-fw"></i> 廠商資料
 						</a></li>
 
-						<li><a
+						<li><a style="font-weight: 900;"
 							href="roomOrder/cmpFindOrder?cmpId=${sessionScope.loginCompany.cmpId}">
 								<i class="fa fa-dashboard fa-fw"></i> 訂單管理
 						</a></li>
 
-						<li><a href="javascript:history.go(-1)"> <i
+						<li><a href="javascript:history.go(-1)" style="font-weight: 900;"> <i
 								class="fa fa-dashboard fa-fw"></i> 返回列表
 						</a></li>
 
-						<li><a href="company/logout"> <i
+						<li><a href="company/logout" style="font-weight: 900;"> <i
 								class="fa fa-dashboard fa-fw"></i> 登出
 						</a></li>
 					</ul>
@@ -136,9 +136,10 @@ $(() => {
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="panel panel-default">
-							<div class="panel-heading">${requestScope.roomtype.roomtypeName}
-								的預約表如下:</div>
-							<br>
+							<div class="panel-heading" style="font-weight: 900;">${requestScope.roomtype.roomtypeName} 
+								的預約表如下
+							<div>
+<!-- 							<br> -->
 
 
 							<div class="panel-heading">
@@ -146,7 +147,7 @@ $(() => {
 								<span id="errorMsg"
 									style="color: red; margin-left: 10px; font-size: 20px;">${requestScope.errorMsg}</span><br>
 								<br>
-								<form action="reservation/getReservationByDate">
+								<form action="reservation/getReservationByDate" style="font-weight: 900;">
 									<input type="hidden" name="roomtypeId"
 										value="${requestScope.reservations[0].roomtypeId}"> <input
 										type="hidden" name="roomtypeAmount"

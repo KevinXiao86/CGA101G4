@@ -15,7 +15,7 @@ $(() => {
     $("#cmpAccount").blur(() => {
         var cmpAccount = $("#cmpAccount").val();
         $.ajax({
-            url: "http://localhost:8081/CGA101G4/company/existsCmpAccount",
+            url: "http://192.168.0.170:8081/CGA101G4/company/existsCmpAccount",
             method: "get",
             //如果返回的內容是 JSON，jQuery 會自動幫你解析成一個 JavaScript object
             dataType: "json",

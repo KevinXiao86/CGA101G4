@@ -81,7 +81,7 @@ img {
 		<!-- Navigation -->
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#">台玩 - 旅遊平台</a>
+				<a class="navbar-brand" href="#" style="font-weight: 900;">台玩 - 旅遊平台</a>
 			</div>
 
 
@@ -91,7 +91,7 @@ img {
 				<div class="sidebar-nav navbar-collapse">
 					<ul class="nav" id="side-menu">
 						<li>
-							<a href="company/getAllRoomtypesByPage?cmpId=${sessionScope.loginCompany.cmpId}&">
+							<a href="company/getAllRoomtypesByPage?cmpId=${sessionScope.loginCompany.cmpId}&" style="font-weight: 900;">
 								<i class="fa fa-dashboard fa-fw"></i>
 								廠商首頁
 							</a>
@@ -99,21 +99,21 @@ img {
 					
 					
 						<li><a
-							href="roomtype/getAllRoomtypesByPage?cmpId=${sessionScope.loginCompany.cmpId}">
+							href="roomtype/getAllRoomtypesByPage?cmpId=${sessionScope.loginCompany.cmpId}" style="font-weight: 900;">
 								<i class="fa fa-dashboard fa-fw"></i> 房型管理
 						</a></li>
 
 						<li><a
-							href="company/getCompany?cmpId=${sessionScope.loginCompany.cmpId}">
+							href="company/getCompany?cmpId=${sessionScope.loginCompany.cmpId}" style="font-weight: 900;">
 								<i class="fa fa-dashboard fa-fw"></i> 廠商資料
 						</a></li>
 
 						<li><a
-							href="roomOrder/cmpFindOrder?cmpId=${sessionScope.loginCompany.cmpId}">
+							href="roomOrder/cmpFindOrder?cmpId=${sessionScope.loginCompany.cmpId}" style="font-weight: 900;">
 								<i class="fa fa-dashboard fa-fw"></i> 訂單管理
 						</a></li>
 
-						<li><a href="company/logout"> <i
+						<li><a href="company/logout" style="font-weight: 900;"> <i
 								class="fa fa-dashboard fa-fw"></i> 登出
 						</a></li>
 					</ul>
@@ -134,7 +134,7 @@ img {
 				</div>
 				<div>
                     <FORM METHOD="post" ACTION="roomOrder/cmpSelectByDate">
-                        <b>根據日期來做查詢來做查詢:</b> <br>
+                        <b style="font-weight: 900;">根據日期來做查詢</b> <br>
                         <label for="from">From</label>
 						<input type="text"  name="startdate" id="start_date">
 						<label for="to">to</label>
@@ -158,7 +158,7 @@ img {
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="panel panel-default">
-							<div class="panel-heading">已有的房型如下:</div>
+							<div class="panel-heading" style="font-weight: 900;">已有的訂單如下</div>
 								
 							<div class="form-group">
 							
@@ -171,29 +171,29 @@ img {
 										id="dataTables-example" style="width: 100%;">
 
 										<tr>
-											<th>訂房訂單編號</th>
-											<th>訂房會員編號</th>
-											<th>訂單成立日期</th>
-											<th>入住時間</th>
-											<th>退房時間</th>
-											<th>總金額</th>
-											<th>訂單狀態</th>
-											<th>詳情</th>
+											<th style="font-weight: 900;">訂房訂單編號</th>
+											<th style="font-weight: 900;">訂房會員編號</th>
+											<th style="font-weight: 900;">訂單成立日期</th>
+											<th style="font-weight: 900;">入住時間</th>
+											<th style="font-weight: 900;">退房時間</th>
+											<th style="font-weight: 900;">總金額</th>
+											<th style="font-weight: 900;">訂單狀態</th>
+											<th style="font-weight: 900;">詳情</th>
 
 										</tr>
 										<c:forEach items="${list}" var="roomOrder">
 											<tr>
-												<td>${roomOrder.roomOrderId}</td>
-												<td>${roomOrder.custId}</td>
-												<td><fmt:formatDate value="${roomOrder.roomOrderDate}"
+												<td style="font-weight: 400;">${roomOrder.roomOrderId}</td>
+												<td style="font-weight: 400;">${roomOrder.custId}</td>
+												<td style="font-weight: 400;"><fmt:formatDate value="${roomOrder.roomOrderDate}"
 														pattern="yyyy-MM-dd" /></td>
-												<td><fmt:formatDate value="${roomOrder.checkinDate}"
+												<td style="font-weight: 400;"><fmt:formatDate value="${roomOrder.checkinDate}"
 														pattern="yyyy-MM-dd" /></td>
-												<td><fmt:formatDate value="${roomOrder.checkoutDate}"
+												<td style="font-weight: 400;"><fmt:formatDate value="${roomOrder.checkoutDate}"
 														pattern="yyyy-MM-dd" /></td>
-												<td>${roomOrder.totalPrice}</td>
-												<td>${roomOrder.roomOrderStatus}</td>
-												<td>
+												<td style="font-weight: 400;">${roomOrder.totalPrice}</td>
+												<td style="font-weight: 400;">${roomOrder.roomOrderStatus}</td>
+												<td style="font-weight: 400;">
 													<FORM METHOD="post" ACTION="roomOrder/cmpFindAllInfo"
 														style="margin-bottom: 0px;">
 														<input type="submit" value="詳情"> <input

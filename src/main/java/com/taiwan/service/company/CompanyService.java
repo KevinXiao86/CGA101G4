@@ -52,9 +52,11 @@ public class CompanyService {
 	}
 	
 	
+	
 	//登入
 	@Transactional(readOnly = true)
 	public Company login(String account, String password) {
+		
 		//數據校驗
 		if("".equals(account) || "".equals(password)) {
 			// 等於 null, 就創建一個新的 Company 物件, 方便設置回顯訊息
@@ -85,8 +87,7 @@ public class CompanyService {
 			company.setSuccessful(false);
 			//2). 回傳結果
 			return company;
-		}
-		
+		}		
 		
 		//1. 去數據庫查看有沒有這條數據
 		Company company = companyMapper.queryCompanyByCmpAccountAndCmpPassword(account, password);
@@ -99,39 +100,126 @@ public class CompanyService {
 			company.setMessage("帳號或密碼錯誤");
 			company.setCmpAccount(account);
 			company.setSuccessful(false);
-			//2). 回傳結果
+			//2). 設置要跳轉的地址
+			company.setUrl("/front-end/company/login.jsp");
+			//3). 回傳結果
 			return company;
 		}else {
 			// 進入到這, 表示有對應的廠商紀錄
 			if ("停權".equals(company.getCmpStatus())) {
-				//1). 設置回顯的錯誤訊息
+				//設置回顯的錯誤訊息
 				company.setMessage("你已被停權!!");
 				company.setSuccessful(false);
-				//2). 回傳結果
+				//設置要跳轉的地址
+				company.setUrl("/front-end/company/login.jsp");
 				return company;
 			}else if ("審核未通過".equals(company.getAuditStatus())) {
-				//1). 設置回顯的錯誤訊息
+				//設置回顯的錯誤訊息
 				company.setMessage("審核未通過, 請補件!");
-				company.setSuccessful(true);//設置true, 只是說明他已經註冊過了
-				//2). 設置地址值
-				company.setUrl("front-end/company/edit.jsp");
-				//3). 回傳結果
+				company.setSuccessful(true);
+				//設置要跳轉的地址
+				company.setUrl("/front-end/company/edit.jsp");
+				
 				return company;
 			}else if ("待審核".equals(company.getAuditStatus())) {
-				//1). 設置回顯的錯誤訊息
+				//設置回顯的錯誤訊息
 				company.setMessage("審核中, 請靜待審核結果!");
 				company.setSuccessful(false);
-				//2). 回傳結果
+				//設置要跳轉的地址
+				company.setUrl("/front-end/company/login.jsp");
+				
 				return company;
 			}else {
-				//1). 表示成功登入
+				//表示成功登入
 				company.setSuccessful(true);
-				company.setUrl("front-end/company/index.jsp");
-				//2). 回傳結果
+				company.setUrl("/front-end/company/index.jsp");
 				return company;
 			}
 		}
 	}
+
+	
+	
+	//登入
+//	@Transactional(readOnly = true)
+//	public Company login(String account, String password) {
+//		//數據校驗
+//		if("".equals(account) || "".equals(password)) {
+//			// 等於 null, 就創建一個新的 Company 物件, 方便設置回顯訊息
+//			Company company = new Company();
+//			//1). 表示登入失敗, 設置回顯的錯誤訊息
+//			company.setMessage("帳號或密碼錯誤");
+//			company.setCmpAccount(account);
+//			company.setSuccessful(false);
+//			//2). 回傳結果
+//			return company;
+//		}
+//		if (!account.matches("^[a-zA-Z]\\w{3,17}$")) {
+//			// 等於 null, 就創建一個新的 Company 物件, 方便設置回顯訊息
+//			Company company = new Company();
+//			//1). 表示登入失敗, 設置回顯的錯誤訊息
+//			company.setMessage("帳號必須由字母,數字下滑線組成,並且長度為4到18位");
+//			company.setCmpAccount(account);
+//			company.setSuccessful(false);
+//			//2). 回傳結果
+//			return company;
+//		}
+//		if (!password.matches("^[a-zA-Z]\\w{3,17}$")) {
+//			// 等於 null, 就創建一個新的 Company 物件, 方便設置回顯訊息
+//			Company company = new Company();
+//			//1). 表示登入失敗, 設置回顯的錯誤訊息
+//			company.setMessage("密碼必須由字母,數字下滑線組成,並且長度為4到18位");
+//			company.setCmpAccount(account);
+//			company.setSuccessful(false);
+//			//2). 回傳結果
+//			return company;
+//		}
+//		
+//		
+//		//1. 去數據庫查看有沒有這條數據
+//		Company company = companyMapper.queryCompanyByCmpAccountAndCmpPassword(account, password);
+//		
+//		//2. 判斷 company 是否為 null
+//		if (company == null) {
+//			// 等於 null, 就創建一個新的 Company 物件, 方便設置回顯訊息
+//			company = new Company();
+//			//1). 表示登入失敗, 設置回顯的錯誤訊息
+//			company.setMessage("帳號或密碼錯誤");
+//			company.setCmpAccount(account);
+//			company.setSuccessful(false);
+//			//2). 回傳結果
+//			return company;
+//		}else {
+//			// 進入到這, 表示有對應的廠商紀錄
+//			if ("停權".equals(company.getCmpStatus())) {
+//				//1). 設置回顯的錯誤訊息
+//				company.setMessage("你已被停權!!");
+//				company.setSuccessful(false);
+//				//2). 回傳結果
+//				return company;
+//			}else if ("審核未通過".equals(company.getAuditStatus())) {
+//				//1). 設置回顯的錯誤訊息
+//				company.setMessage("審核未通過, 請補件!");
+//				company.setSuccessful(true);//設置true, 只是說明他已經註冊過了
+//				//2). 設置地址值
+//				company.setUrl("front-end/company/edit.jsp");
+//				//3). 回傳結果
+//				return company;
+//			}else if ("待審核".equals(company.getAuditStatus())) {
+//				//1). 設置回顯的錯誤訊息
+//				company.setMessage("審核中, 請靜待審核結果!");
+//				company.setSuccessful(false);
+//				//2). 回傳結果
+//				return company;
+//			}else {
+//				//1). 表示成功登入
+//				company.setSuccessful(true);
+//				company.setUrl("front-end/company/index.jsp");
+//				//2). 回傳結果
+//				return company;
+//			}
+//		}
+//	}
 
 	//判斷廠商帳號是否重複, 返回 true 說明已存在, 返回 false 說明不存在
 //	@Transactional(readOnly = true)
@@ -152,7 +240,7 @@ public class CompanyService {
 	public Company regist(Company company) {
 		//首先判斷廠商帳號是否有重複
 		if (existsCmpAccount(company.getCmpAccount())) {
-			company.setMessage("用戶名已存在");
+			company.setMessage("廠商帳號已存在");
 			company.setSuccessful(false);
 			company.setUrl("/front-end/company/regist.jsp");
 			return company;	
