@@ -40,6 +40,8 @@ public class CompanyDAO12 implements Company12_interface{
 				company.setCheckinTime(rs.getString("checkin_time"));
 				company.setCheckoutTime(rs.getString("checkout_time"));
 				company.setLocation(rs.getString("location"));
+				company.setCanx(rs.getString("canx"));
+				company.setNotice(rs.getString("notice"));
 				}
 				// Handle any driver errors
 			} catch (ClassNotFoundException e) {

@@ -59,8 +59,7 @@ public class updateEvaluate extends HttpServlet {
 		System.out.println(newTotalScore);
 		roomtypeService12.addEvaluate(roomId, newTotalScore);
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-//暫未設定下一頁
-		String url = "/front-end/addRepCmp/addRepCmp.jsp";
+		String url = "/front-end/addOrder/seeItem.jsp";
 		RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 addorder.jsp
 		successView.forward(req, res);
 	}

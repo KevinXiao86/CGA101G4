@@ -56,7 +56,12 @@ public class roomOrder extends HttpServlet {
 
 		String custIdReg = "^[(0-9)]{5,5}$";
 		if (custIdST == null || custIdST.trim().length() == 0) {
-			errorMsgs.put("custId", "會員編號: 請登入會員");
+			String url = "/front-end/custLogin/CustomerLogin.jsp";
+			RequestDispatcher failureView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+			failureView.forward(req, res);
+			
+			return;
+			
 		} else if (!custIdST.trim().matches(custIdReg)) { // 以下練習正則(規)表示式(regular-expression)
 			errorMsgs.put("custId", "會員編號: 只能數字，且長度必需在5到5之間");
 		}
