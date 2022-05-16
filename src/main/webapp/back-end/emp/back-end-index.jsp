@@ -43,17 +43,7 @@
 
        <%@ include file="/common/back-end-index-bar.jsp" %>
 
-        <!-- Page Content -->
-        <div id="page-wrapper">
-            <div class="container-fluid">
-
-                <div class="row">
-                    
-                </div>
-
-                <!-- ... Your content goes here ... -->
-
-            </div>
+       
         </div>
 
     </div>

@@ -38,21 +38,21 @@ color: yelow;
 }
 
 input[type="submit"] {
-  display: inline-block;
+display: inline-block;
     text-align: center;
     vertical-align: middle;
-    padding: 11px 9px;
-    border: 2px solid #a170a3;
-    border-radius: 86px;
+    padding: 12px 10px;
+    border: 0px solid #a170a3;
+    border-radius: 52px;
     background: #ffb8ff;
     background: -webkit-gradient(linear, left top, left bottom, from(#ffb8ff), to(#a170a3));
     background: -moz-linear-gradient(top, #ffb8ff, #a170a3);
     background: linear-gradient(to bottom, #ffb8ff, #a170a3);
-    -webkit-box-shadow: #ffc0ff 0px 2px 16px 0px;
-    -moz-box-shadow: #ffc0ff 0px 2px 16px 0px;
-    box-shadow: #ffc0ff 0px 2px 16px 0px;
-    text-shadow: #735075 0px 0px 1px;
-    font: italic normal bold 12px tahoma;
+    -webkit-box-shadow: #ffc0ff 0px 0px 40px 0px;
+    -moz-box-shadow: #ffc0ff 0px 0px 40px 0px;
+    box-shadow: #ffc0ff 0px 0px 40px 0px;
+    text-shadow: #735075 2px 1px 1px;
+    font: normal normal bold 11px comic sans ms;
     color: #ffffff;
     text-decoration: none;
 }

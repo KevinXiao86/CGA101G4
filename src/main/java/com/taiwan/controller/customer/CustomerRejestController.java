@@ -32,35 +32,38 @@ import com.taiwan.service.customer.CustomerRejectService;
 import com.taiwan.service.customer.CustomerService;
 import com.taiwan.service.employee.EmployeeService;
 
-
 @Controller
 @RequestMapping("/cust")
 public class CustomerRejestController {
 
 	@Autowired
 	private CustomerRejectService customerRejectService;
-	
+
 	@RequestMapping("/regist")
-	
-	public String regist( @RequestParam("uploadFile") MultipartFile uploadFile,
-			HttpServletRequest request, Model model, HttpSession session) throws IllegalStateException, IOException, ParseException {
+	public String regist(@RequestParam("uploadFile") MultipartFile uploadFile, HttpServletRequest request, Model model,
+			HttpSession session) throws IllegalStateException, IOException, ParseException {
 		String account = request.getParameter("account");
 		String password = request.getParameter("password");
 		String name = request.getParameter("name");
 		String sex = request.getParameter("sex");
 		String tel = request.getParameter("tel");
 		String email = request.getParameter("email");
-		String address = request.getParameter("address");
+		String city = request.getParameter("city");
+		String town = request.getParameter("town");
+		String road = request.getParameter("road");
+
+		String address = city + town + road;
+//		String address = request.getParameter("address");
 		String idCard = request.getParameter("idCard");
 		String birth = request.getParameter("birth");
 		String card = request.getParameter("card");
 		System.out.println(card);
-		
-//		System.out.println(birth);
+
+		System.out.println(sex);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		format.setTimeZone(TimeZone.getTimeZone("Asia/Taipei"));
 		Date date = format.parse(birth);
-		
+
 		Customer customer = new Customer();
 		customer.setAccount(account);
 		customer.setPassword(password);
@@ -72,13 +75,7 @@ public class CustomerRejestController {
 		customer.setIdCard(idCard);
 		customer.setBirth(date);
 		customer.setCard(card);
-		
-		
-		
-		
-		
-		
-		
+
 		// 1. 進行數據校驗
 		Map<String, String> errorMap = CustomerRejectService.check(request.getParameterMap());
 
@@ -87,7 +84,7 @@ public class CustomerRejestController {
 			// 說明有錯誤訊息
 			model.addAttribute("errorInfo", errorMap);
 			// 用於回顯訊息
-//			model.addAttribute("registCustomer", customerVO);
+			model.addAttribute("registCustomer", customer);
 			// 回到註冊頁面
 			return "/front-end/rejest/custmomer_reject.jsp";
 		}
@@ -102,32 +99,68 @@ public class CustomerRejestController {
 			return "/front-end/rejest/custmomer_reject.jsp";
 		}
 
-		// 獲取圖片路徑
+		// 根據業務方法獲取路徑
 		String savePath = CustomerRejectService.getPath(uploadFile, session, customer);
+		// 設置路徑
 		customer.setImg(savePath);
 
 		// 調用 service 層的業務方法
 		Customer registCustomerVO = customerRejectService.regist(customer);
 
 		if (registCustomerVO.isSuccessful()) {
+
 			// 成功執行文件上傳至服務器的操作
 			String realPath = session.getServletContext().getRealPath("/");
 			uploadFile.transferTo(new File(realPath + savePath));
+
+			
+
+			// 設定收件人
+			String sendEmail = customer.getEmail();
+			// 設定主旨
+			String subject = "註冊成功通知信件";
+			// 設定內容
+			String messageText = "Hello ~!" + customer.getName() + "感謝您成為我們的會員\n" + "請點選網址, 開通會員資格";
+			// 寄信通知廠商
+			customerRejectService.sendEmail(email, subject, messageText);
+
+			//
+//			model.addAttribute("cmpName", registCompany.getCmpName());
 		} else {
 			// 註冊失敗, 回到註冊頁面並回顯訊息
+			System.out.println("這裡是控制曾118");
 			model.addAttribute("registCustomercustomerVO", registCustomerVO);
 		}
 
-		// 設定收件人
-		String sendEmail = customer.getEmail();
-		// 設定主旨
-		String subject = "註冊成功通知信件";
-		// 設定內容
-		String messageText = "Hello ~!" + customer.getName() + "感謝您成為我們的會員\n" + "請點選網址, 開通會員資格";
-		// 寄信通知廠商
-		customerRejectService.sendEmail(email, subject, messageText);
-		
-		// 進行頁面跳轉
 		return registCustomerVO.getUrl();
+
+		// 獲取圖片路徑
+//		String savePath = CustomerRejectService.getPath(uploadFile, session, customer);
+//		customer.setImg(savePath);
+
+		// 調用 service 層的業務方法
+//		Customer registCustomerVO = customerRejectService.regist(customer);
+
+//		if (registCustomerVO.isSuccessful()) {
+//			// 成功執行文件上傳至服務器的操作
+//			String realPath = session.getServletContext().getRealPath("/");
+//			uploadFile.transferTo(new File(realPath + savePath));
+//		} else {
+		// 註冊失敗, 回到註冊頁面並回顯訊息
+//			System.out.println("這裡是控制曾118");
+//			model.addAttribute("registCustomercustomerVO", registCustomerVO);
+//		}
+
+//		// 設定收件人
+//		String sendEmail = customer.getEmail();
+//		// 設定主旨
+//		String subject = "註冊成功通知信件";
+//		// 設定內容
+//		String messageText = "Hello ~!" + customer.getName() + "感謝您成為我們的會員\n" + "請點選網址, 開通會員資格";
+//		// 寄信通知廠商
+//		customerRejectService.sendEmail(email, subject, messageText);
+
+		// 進行頁面跳轉
+//		return registCustomerVO.getUrl();
 	}
 }

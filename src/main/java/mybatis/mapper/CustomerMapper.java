@@ -12,7 +12,7 @@ public interface CustomerMapper {
 	//註冊會員
 	public int insertCustomer(Customer customer);
 
-	public Customer queryCustomerByCustAccount(String account);
+	public Customer merByCustAccount(String account);
 	
 	//根據會員帳號查詢廠商
 //	public CustomerVO queryCustomerByCustAccount(String Account);

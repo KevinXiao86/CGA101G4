@@ -119,9 +119,9 @@ public class EmployeeServlet extends HttpServlet {
 		}
 
 		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
-			
+
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
-		
+
 			req.setAttribute("errorMsgs", errorMsgs);
 
 //			try {
@@ -163,13 +163,13 @@ public class EmployeeServlet extends HttpServlet {
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
-System.out.println(165);
+			System.out.println(165);
 			/*************************** 2.開始修改資料 *****************************************/
 			EmployeeService empSvc = new EmployeeService();
 			System.out.println(empId + "," + empName + "," + empPassword + "," + empStatus + "," + hiredate);
 
 			EmployeeVO employeeVO = empSvc.updateEmp(empId, empName, empPassword, empStatus, hiredate);
-System.out.println(172);
+			System.out.println(172);
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("employeeVO", employeeVO); // 資料庫update成功後,正確的的empVO物件,存入req
 			String url = "/back-end/emp/listOneEmp.jsp";
@@ -215,23 +215,16 @@ System.out.println(172);
 			}
 
 			/*************************** 2.開始新增資料 ***************************************/
-			
+
 			EmployeeService empSvc = new EmployeeService();
 			empSvc.addEmp(empName, empPassword);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-System.out.println(empPassword);
+			System.out.println(empPassword);
 			String url = "/back-end/emp/listAllEmp.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 
-////			/***************************其他可能的錯誤處理**********************************/
-//		} catch (Exception e) {
-//			errorMsgs.put("Exception",e.getMessage());
-//			RequestDispatcher failureView = req
-//					.getRequestDispatcher("/emp/addEmp.jsp");
-//			failureView.forward(req, res);
-//		}
 		}
 
 		if ("delete".equals(action)) { // 來自listAllEmp.jsp
@@ -254,7 +247,7 @@ System.out.println(empPassword);
 			String url = "/back-end/emp/listAllEmp.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
-			
+
 ////				/***************************其他可能的錯誤處理**********************************/
 //		} catch (Exception e) {
 //			errorMsgs.add("刪除資料失敗:"+e.getMessage());
@@ -264,42 +257,87 @@ System.out.println(empPassword);
 //		}
 		}
 		if ("empLogin".equals(action)) {
-		
-			Integer empId = Integer.valueOf(req.getParameter("empId"));
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			/* =========================請求參數========================================= */
+//			Integer empId = Integer.valueOf(req.getParameter("empId"));
+			String str = req.getParameter("empId");
+			if (str == null || (str.trim()).length() == 0) {
+				errorMsgs.put("empId", "請輸入員工編號");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-login/login/empLogin.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
+
+			Integer empId = null;
+			try {
+				empId = Integer.valueOf(str);
+			} catch (Exception e) {
+				errorMsgs.put("empId", "員工編號格式不正確");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-login/login/empLogin.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
+			
 			String empPassword = req.getParameter("empPassword");
+			String empPasswordReg = "^[((a-zA-Z0-9)]{6,12}$";
+			if (empPassword == null || empPassword.trim().length() == 0) {
+				errorMsgs.put("empPassword", "員工密碼: 請勿空白");
+			} else if (!empPassword.trim().matches(empPasswordReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.put("empPassword", "員工密碼: 只能是英文字母和數字 , 且長度必需在6到12之間");
+			}
+			
+			
+			
+			
+			
+			
+			
+			
 			EmployeeService employeeService = new EmployeeService();
 			EmployeeVO employeeVO = employeeService.login(empId, empPassword);
 //			System.out.println(employeeVO);
-			if (employeeVO==null) {
-				employeeVO=new EmployeeVO();
+			if (employeeVO == null) {
+				employeeVO = new EmployeeVO();
 				employeeVO.setUrl("/back-login/login/empLogin.jsp");
 				RequestDispatcher failureView = req.getRequestDispatcher(employeeVO.getUrl());
-				failureView.forward(req, res);			
+				failureView.forward(req, res);
 			} else {
-				HttpSession session = req.getSession();
-				System.out.println(288);
-				session.setAttribute("employeeVO", employeeVO);
-//				String param="?empName=" + employeeVO.getEmpName();
-//				String url ="/back-end/emp/login/login-back-end-index.jsp"+ param;
-				RequestDispatcher successView = req.getRequestDispatcher("/back-login/login/login-back-end-index.jsp");
-				successView.forward(req, res);
+				if ("啟用".equals(employeeVO.getEmpStatus())) {
+					HttpSession session = req.getSession();
+					session.setAttribute("employeeVO", employeeVO);
+					RequestDispatcher successView = req
+							.getRequestDispatcher("/back-login/login/login-back-end-index.jsp");
+					successView.forward(req, res);
+				} else {
+					errorMsgs.put("acount", "帳號未啟動");
+					employeeVO.setMessage("帳號密碼錯誤或帳號尚未啟動");
+					employeeVO.setUrl("/back-login/login/empLogin.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-login/login/empLogin.jsp");
+					failureView.forward(req, res);
+				}
 			}
-		}
 
-		if ("forgetPassword".equals(action)) {
-			System.out.println("foget");//這裡應該不是這樣
-		}
-		
-		
-		if ("logOut".equals(action)) {
-		
-		        HttpSession session = req.getSession();
-		        // 清除資料
-		        session.invalidate();
-		        System.out.println(req.getContextPath());
-		        res.sendRedirect(req.getContextPath() + "/back-end/emp/login/empLogin.jsp");		       
+			if ("forgetPassword".equals(action)) {
+				System.out.println("foget");// 這裡應該不是這樣
+			}
+
+			if ("logOut".equals(action)) {
+
+				HttpSession session = req.getSession();
+				// 清除資料
+				session.invalidate();
+				System.out.println(req.getContextPath());
+				res.sendRedirect(req.getContextPath() + "/back-end/emp/login/empLogin.jsp");
 //		        req.getRequestDispatcher("/back-end/emp/login/login-back-end-index.jsp").include(req, res);
-		      
+
+			}
 		}
 	}
 }

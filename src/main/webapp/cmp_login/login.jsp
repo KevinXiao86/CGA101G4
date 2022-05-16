@@ -50,6 +50,7 @@ span#errorMsg {
 					</div>
 					<div class="form-group">
 						<button type="submit" id="login">Log In</button>
+						${errorMsgs.empId} 
 					</div>
 				</form>
 			</div>

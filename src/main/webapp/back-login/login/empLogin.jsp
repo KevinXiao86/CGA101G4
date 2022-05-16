@@ -33,13 +33,15 @@
 
 					<div class="form-group">
 						<label for="empID">員工編號</label> <input type="text"
-							placeholder="輸入員工編號" id="empID" name="empId"
+							placeholder="輸入員工編號" id="empID" name="empId" maxlength=6
 							value="${employee.empId}" required="required" />
+							${errorMsgs.empId}
 					</div>
 					<div class="form-group">
 						<label for="empPassword">密碼</label> <input type="password"
 							placeholder="輸入密碼" id="empPassword" name="empPassword"
 							required="required" />
+							${errorMsgs.empPassword}
 					</div>
 
 
@@ -48,9 +50,10 @@
 						<button type="submit">Log In</button>
 						 <input type="hidden" name="empId"  value="${employeeVO.empId}">
 						<input type="hidden" name="action" value="empLogin">
+						
 					</div>
 				</form>
-			</div>
+			</div>${errorMsgs.acount}
 		</div>
 	</div>
 

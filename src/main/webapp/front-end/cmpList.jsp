@@ -101,9 +101,9 @@ if (location == null) {
 		<FORM METHOD="post" name="form1" ACTION="cmpList.jsp">
 			<b>所在地點:</b> <input name="location" id="location" type="text" style="width:90px;" value="${requestScope.location}">  
 <!-- 			<b>開始日期:</b> <input name="start_date" id="start_date" type="text" style="width:90px;">  -->
-			<b>開始日期:</b> <input type="date" name="ckin" style="width:90px;" value="${requestScope.ckin}">
+			<b>開始日期:</b> <input type="date" name="ckin" style="width:450;" value="${requestScope.ckin}">
 <!-- 			<b>結束日期:</b> <input name="end_date" id="end_date" type="text" style="width:90px;">  -->
-			<b>結束日期:</b> <input type="date" name="ckout" style="width:90px;" value="${requestScope.ckout}">
+			<b>結束日期:</b> <input type="date" name="ckout" style="width:450;" value="${requestScope.ckout}">
 			<input type="submit" value="送出">
 		</FORM>
 

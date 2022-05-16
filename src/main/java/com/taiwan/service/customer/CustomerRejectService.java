@@ -38,43 +38,45 @@ public class CustomerRejectService {
 	// 註冊
 	@Transactional
 	public Customer regist(Customer customer) {
-		System.out.println(customer.getCard());
-//		// 首先判斷顧客帳號是否有重複
-//		if (existsCustAccount(customer.getAccount())) {
-//			customer.setMessage("用戶名已存在");
-//			customer.setSuccessful(false);
-//			customer.setUrl("/front-end/company/cmp_regist.jsp");
-//			return customer;
-//		}
+		
+		
+		// 首先判斷顧客帳號是否有重複
+		if (existsCustAccount(customer.getAccount())) {
+			customer.setMessage("帳號已存在");
+			customer.setSuccessful(false);
+			customer.setUrl("/front-end/rejest/custmomer_reject.jsp");
+			return customer;
+		}
 
 		// 數據校驗完成之後, 就可以調用 dao 層跟數據庫做互動
-//		int result = customerMapper.insertCustomer(customer);
-		int result = 0;
+		int result = customerMapper.insertCustomer(customer);
+
 		if (result == 0) {
 			customer.setMessage("註冊失敗");
 			customer.setSuccessful(false);
 			customer.setUrl("/front-end/rejest/custmomer_reject.jsp");
+			System.out.println("註冊失敗");
 			return customer;
 		} else {
 			customer.setMessage("註冊成功");
 			customer.setSuccessful(true);
-			customer.setUrl("/front-end/cust/CustomerLogin.jsp");
+			customer.setUrl("/front-end/custLogin/CustomerLogin.jsp");
 			return customer;
 		}
 	}
 	
 	// 判斷廠商帳號是否重複, 返回 true 說明已存在, 返回 false 說明不存在
-//	@Transactional(readOnly = true)
-//	public boolean existsCustAccount(String Account) {
-//		Customer customer = customerMapper.queryCustomerByCustAccount(Account);
-//
-//		if (customer == null) {
-//			// 說明不存在
-//			return false;
-//		}
-//		// 說明已存在
-//		return true;
-//	}
+	@Transactional(readOnly = true)
+	public boolean existsCustAccount(String Account) {
+		Customer customer = customerMapper.merByCustAccount(Account);
+
+		if (customer == null) {
+			// 說明不存在
+			return false;
+		}
+		// 說明已存在
+		return true;
+	}
 
 	// 寄信
 	public void sendEmail(String cmpMail, String subject, String messageText) {
@@ -114,7 +116,7 @@ public class CustomerRejectService {
 
 			// 送出郵件
 			Transport.send(message);
-			System.out.println("成功");
+			System.out.println("郵件成功");
 		} catch (MessagingException e) {
 			System.out.println("失敗");
 			e.printStackTrace();
@@ -157,15 +159,15 @@ public class CustomerRejectService {
 			}
 			// 判斷遍歷到的 key 是不是 Tel
 			if ("tel".equals(key)) {
-				// 獲取到 key 對應的 value; 注意:key是String型，value是String型數組, 所以這邊需要做強制轉型
-				String[] values = (String[]) map.get(key);
-				// 進行 cmpTel 值的判斷
-				for(int i = 0; i < values.length; i++) {
-//            		if (!values[i].matches("^[0-9]{2}\\D{8}*$")) {
-//						errorMap.put(key, "請輸入手機號碼或電話號碼");
-//					}
+				//獲取到 key 對應的 value; 注意:key是String型，value是String型數組, 所以這邊需要做強制轉型
+            	String[] values = (String[]) map.get(key);  
+            	//進行 cmperTel 值的判斷
+            	for(int i = 0; i < values.length; i++) {
+            		if (!values[i].matches("^[0-9]*$")) {
+            			errorMap.put(key, "請輸入數字");
+            		}
             		if (values[i].trim().equals("")) {
-						errorMap.put(key, "請輸入手機號碼");
+						errorMap.put(key, "請輸入手機號碼或電話號碼");
 					}
             	}
 			}
