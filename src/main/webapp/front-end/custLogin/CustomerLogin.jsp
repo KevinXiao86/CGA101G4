@@ -37,18 +37,17 @@ span#errorMsg {
 				<form method="post" action="cust/CustomerLogin">
 					
 					<div class="form-group">
-						<label for="account">帳號</label> <input type="text" placeholder="輸入帳號"
-							id="account" name="account" required="required" value="${customer.account}"/>
+						<label for="account">帳號</label>
+						<input type="text" placeholder="輸入帳號" id="account" name="account" required="required" value="${customer.account}"/>
 					</div>
 					<div class="form-group">
-						<label for="password">密碼</label> <input type="password"
-							id="password" placeholder="輸入密碼" name="password" required="required" value="${customer.password}"/>
+						<label for="password">密碼</label>
+						<input type="password" id="password" placeholder="輸入密碼" name="password" required="required" value="${customer.password}"/>
 					</div>
 					<span class="errorMsg" style="">${customer.message}</span>
 					<div class="form-group" style="margin-top:10px;">
-						<label class="form-remember"> <input type="checkbox" />Remember
-							Me
-						</label><a class="form-recovery" href="#">Forgot Password?</a>
+						<label class="form-remember"> <input type="checkbox" />Remember	Me</label>
+						<a class="form-recovery" href="#">Forgot Password?</a>
 					</div>
 					<div class="form-group">
 						<button type="submit" id="login">登入</button>

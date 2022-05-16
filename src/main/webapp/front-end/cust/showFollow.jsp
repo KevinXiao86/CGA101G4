@@ -63,7 +63,6 @@
                     <th scope="col">#</th>
                     <th scope="col">廠商編號</th>
                     <th scope="col">取消關注</th>
-                    <th scope="col">Age</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -71,7 +70,11 @@
                 <c:forEach var="follow" items="${list}">
                   <tr>
                     <th scope="row"><%= ++count %></th>
-                    <td>${follow.cmpId}</td>
+                  <c:forEach var="company" items="${companyList}">
+                   <c:if test="${follow.cmpId==company.cmpId}">
+                    <td>${company.cmpName}</td>
+                   </c:if>
+                  </c:forEach>
                     <td>
                     	<form method="post" action="cust/DeleteFollow">
                     		<button type="submit" class="btn btn-primary">取消關注</button>
@@ -79,7 +82,6 @@
                     		<input type="hidden" name="cmpId" value="${follow.cmpId}">
                     	</form>
                     </td>
-                    <td>28</td>
                   </tr>
                  </c:forEach>
                  </tbody>

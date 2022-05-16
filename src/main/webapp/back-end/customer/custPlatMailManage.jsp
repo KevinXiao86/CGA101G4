@@ -267,7 +267,7 @@ img {
 			exX.innerHTML=`<div id="all" style="width: 600px;height:350px;margin: 15px 15px;background-color: #ffc;padding:20px;overflow:auto;box-shadow:2px 2px 4px black,-2px -2px 4px black;" >
 						        <div class="post-a-comment-area mt-70" style="margin-top:10px;">					            
 					                寄件人<span style="padding:5px;font-size:20px"><% out.print("${who}"); %></span>  <span style="float:right"><% out.print("${time}"); %></span>
-					                <pre style="margin:20px auto;border:1px solid blue;width: 80%;height:200px;padding:10px;overflow:auto;background-color:#ffc;"><% out.print("${msg}"); %></pre>           
+					                <pre style="margin:20px auto;border:1px solid blue;width: 80%;height:200px;padding:10px;overflow:auto;background-color:#ffc;white-space:pre-wrap;"><% out.print("${msg}"); %></pre>           
 					            
 						            <h4 style="margin-bottom:20px;">回復</h4>
 						            <!-- Reply Form -->
@@ -292,7 +292,7 @@ img {
 	    }else{
 	    	exX.innerHTML=`<div style="width:500px;height:300px;border:1px solid red;padding:20px;margin:10px;background-color:lightYellow;box-shadow:2px 2px 4px black;">
 								寄件人<span style="padding:5px;font-size:20px"><% out.print("${who}"); %></span> 收件人<span style="padding:5px;font-size:20px"><% out.print("${receive}"); %></span>  <span style="float:right"><% out.print("${time}"); %></span>
-								<pre style="margin:20px;border:1px solid blue;width:450px;height:200px;padding:10px;overflow:auto;background-color:lightYellow;"><% out.print("${msg}"); %></pre>			
+								<pre style="margin:20px;border:1px solid blue;width:450px;height:200px;padding:10px;overflow:auto;background-color:lightYellow;white-space:pre-wrap;"><% out.print("${msg}"); %></pre>			
 						   </div>`;
 	    }
 			//把exX放到fixedDiv裡面

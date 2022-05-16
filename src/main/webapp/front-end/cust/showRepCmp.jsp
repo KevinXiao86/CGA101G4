@@ -59,7 +59,6 @@
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
                     <th scope="col">商家名稱</th>
                     <th scope="col">檢舉房型</th>
                     <th scope="col">檢舉原因</th>
@@ -72,7 +71,6 @@
                 <tbody>
                	<c:forEach var="repCmpVO" items="${list}">
                   <tr>
-                    <th scope="row">${repCmpVO.repCmpId}</th>
                     <td>${repCmpVO.getCmpName()}</td>
                    	<td>${repCmpVO.getRoomtypeName()}</td>
                    	<td>${repCmpVO.reason}</td>

@@ -31,7 +31,7 @@ public class SendCustPlatMail extends HttpServlet {
 		Integer custId = Integer.valueOf(request.getParameter("custId").trim());
 		// 取得管理員Id
 		HttpSession session = request.getSession();
-		EmployeeVO employeeVO = (EmployeeVO) session.getAttribute("emp");
+		EmployeeVO employeeVO = (EmployeeVO) session.getAttribute("employeeVO");
 		Integer empId = employeeVO.getEmpId();
 		// 取得訊息內容
 		String msg = request.getParameter("msg");
