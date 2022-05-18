@@ -115,13 +115,13 @@ if (location == null) {
 				<div class="category-products">
 					<div class="shop-category-product">
 						<div class="row">
-							<div class="category-product">
+							<div class="category-product" >
 								<div class="tab-content">
 									<div role="tabpanel" class="tab-pane active fade in"
-										id="gried_view">
+										id="gried_view" >
 
 										<c:forEach items="${list}" var="Company">
-											<div class="col-md-4 col-sm-6 col-xs-12">
+											<div class="col-md-4 col-sm-6 col-xs-12" >
 												<div class="single-product">
 
 													<div class="product-img">

@@ -214,13 +214,21 @@ $(() => {
 							</a>
 						</li>
 					
-						<li>
-							<a href="javascript:history.go(-1)" style="font-weight: 900;">
-								<i class="fa fa-dashboard fa-fw"></i>
-								返回列表
-							</a>
-						</li>
+<!-- 						<li> -->
+<!-- 							<a href="javascript:history.go(-1)" style="font-weight: 900;"> -->
+<!-- 								<i class="fa fa-dashboard fa-fw"></i> -->
+<!-- 								返回列表 -->
+<!-- 							</a> -->
+<!-- 						</li> -->
 						
+						<li>
+<%-- 							<a href="<%=request.getContextPath()%>/front-end/repCust12/seeRepCust.jsp" style="font-weight: 900;"> --%>
+							<a href="front-end/repCust12/seeRepCust.jsp" style="font-weight: 900;">
+        						<i class="fa fa-dashboard fa-fw"></i> 
+        						檢舉管理
+      						</a>
+      					</li>
+      											
 						<li>
 							<a href="company/logout" style="font-weight: 900;">
 								<i class="fa fa-dashboard fa-fw"></i>

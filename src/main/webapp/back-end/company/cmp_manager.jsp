@@ -162,7 +162,7 @@
 															<a
 																href="manager/company/updateStatus?cmpId=${Company.cmpId}&status=正常"
 																style="background-color: gray; color: white; padding: 5px 5px; text-decoration: none; display: inline-block;">
-																複權 </a>
+																復權 </a>
 														</c:when>
 													</c:choose></td>
 												<td>${Company.auditStatus}</td>
