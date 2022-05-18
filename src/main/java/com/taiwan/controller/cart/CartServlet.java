@@ -41,19 +41,19 @@ public class CartServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
 		req.setCharacterEncoding("UTF-8");
 
 		HttpSession session = req.getSession();
 		CustomerVO customerVO = (CustomerVO) session.getAttribute("customer");
-//		System.out.println(customerVO);
 		String custId = customerVO.getCustId().toString();
-//		String custId = "10000";
-
-		// 先取看看
+		
+		// 先取看看購物車
 		List<String> cartlist = CartService.getCartList(custId);
 		String action = req.getParameter("action");
+		// 先取看看票券圖片
+		List<String> tktImgList = (List<String>) session.getAttribute("tktImgList");
 
+		
 		if (!("checkout").equals(action)) {
 
 			// 刪除商品
@@ -65,6 +65,9 @@ public class CartServlet extends HttpServlet {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
+				String delImg = req.getParameter("delImg");
+				System.out.println("del image = " + delImg);
+				tktImgList.remove(Integer.parseInt(delImg));
 			}
 
 			// 新增商品至購物車中
@@ -93,6 +96,7 @@ public class CartServlet extends HttpServlet {
 					String tktId = req.getParameter("tktId");
 					System.out.println("amount:" + amount + ", tktId: " + tktId);
 					try {
+						// 更新成功就變成true
 						match = CartService.updateCartList(custId, cartlist, tktId, amount, match);
 						System.out.println("update add amount");
 					} catch (JSONException e) {
@@ -108,13 +112,30 @@ public class CartServlet extends HttpServlet {
 						}
 					}
 				}
-
+				/******************************* 票券圖片 ********************************/
+//				List<String> tktImgList = (List<String>) session.getAttribute("tktImgList");
+				String tktImg = "";
+				if(tktImgList == null || tktImgList.size() == 0) {
+					tktImgList = new ArrayList<String>();
+					tktImg = req.getParameter("tktImg");
+					tktImgList.add(tktImg);
+				}else {
+					tktImg = req.getParameter("tktImg");
+//					for(int index = 0; index < tktImgList.size(); index++) {   //第三筆開始會重複取
+//						System.out.println("125 = "+tktImgList.get(index));      
+						if(tktImgList.indexOf(tktImg) == -1)  
+							tktImgList.add(tktImg);
+//					}
+				}
+				
+				System.out.println(tktImgList);
 			}
+			
 			/******************************* 優惠券相關 ********************************/
 			// 根據會員id取得所擁有的會員優惠券物件
 			CustCouponService custCouponService = new CustCouponService();
-			List<CustCoupon> custCouponList = custCouponService.queryCustCouponById(Integer.valueOf(custId)); 
-																												
+			List<CustCoupon> custCouponList = custCouponService.queryCustCouponById(Integer.valueOf(custId));
+
 			// 取得所擁有的優惠券編號
 			List<Integer> copIds = new ArrayList<Integer>();
 			for (CustCoupon custCoupon : custCouponList) {
@@ -134,14 +155,7 @@ public class CartServlet extends HttpServlet {
 //			System.out.println("couponList = " + couponList);
 
 			session.setAttribute("couponList", couponList);
-
-			/******************************* 票券圖片 ********************************/
-//			List<String> tktImgList = new ArrayList<String>();
-			String tktImg = req.getParameter("tktImg");
-//			tktImgList.add(tktImg);
-//			System.out.println(tktImg);
-//			System.out.println(tktImgList);
-
+			
 			/***************************** 取出購物車清單 ********************************/
 			// 取出購物車清單
 			List<String> list = CartService.getCartList(custId);
@@ -175,7 +189,7 @@ public class CartServlet extends HttpServlet {
 			// 錯誤作法 -> 每當新增不同票種，大家的數量就會一起變動，所以改成將值存入集合中，一一讀取
 //			req.setAttribute("amount", amount);  
 
-			session.setAttribute("tktImg", tktImg);
+			session.setAttribute("tktImgList", tktImgList);
 			session.setAttribute("amountList", amountList);
 			session.setAttribute("list", list);
 			session.setAttribute("tktlist", tktlist);
@@ -185,6 +199,8 @@ public class CartServlet extends HttpServlet {
 			try {
 				rd.forward(req, res);
 				return;
+//				res.sendRedirect("/CGA101G4/front-end/cart/cartList.jsp");
+//				return;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -194,6 +210,7 @@ public class CartServlet extends HttpServlet {
 		else if (("checkout").equals(action)) {
 			System.out.println("enter checkout");
 
+			//計算總金額
 			Integer total = 0;
 			Integer amount = 0;
 			for (int i = 0; i < cartlist.size(); i++) {
@@ -208,10 +225,11 @@ public class CartServlet extends HttpServlet {
 				}
 			}
 
-			// 取值
+			// 折扣金額及優惠券id
 			String discountString = req.getParameter("num");
 			String copIdString = req.getParameter("numId");
-			// 折扣金額及票券id
+			System.out.println("copId = " + copIdString);
+			
 			Integer discount = 0;
 			Integer copId = 0;
 			if (discountString == null || discountString.trim().equals("")) {

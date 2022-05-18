@@ -65,15 +65,15 @@ public class CustCouponJDBCDao implements CustCoupon_interface{
 	}
 	
 	@Override
-	public int updateCustCouponStatusByTkt(Integer custId, Integer tktOrderId, String status, Timestamp usedate) {
+	public int updateCustCouponStatusByTkt(Integer custCopId, Integer tktOrderId, String status, Timestamp usedate) {
 		int count=0;
-		String sql="update CUST_COUPON set tkt_order_id=?, status=?, usedate=? where cust_id=? ;";
+		String sql="update CUST_COUPON set tkt_order_id=?, status=?, usedate=? where cust_cop_id=?;";
 		try (Connection conn=DbUtil.getConnection();
 				PreparedStatement prep=conn.prepareStatement(sql);){
 			prep.setInt(1, tktOrderId);
 			prep.setString(2, status);
 			prep.setTimestamp(3, usedate);
-			prep.setInt(4, custId);
+			prep.setInt(4, custCopId);
 			count=prep.executeUpdate();
 			System.out.println("success "+count);
 		} catch (SQLException e) {

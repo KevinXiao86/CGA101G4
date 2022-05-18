@@ -35,8 +35,15 @@ table {
 			</nav>
 		</div>
 
-
-		<%-- 	以下共${tktOrder.orderListSize}幾筆訂單資料  bug~~~~~~~~~~ --%>
+		<FORM METHOD="post" ACTION="tktOrder/getDate" >
+	        <b>查詢訂單:</b><font color=red>${errorMsgs.date}</font><br>
+	        <label for="from">From:  </label>
+			<input type="date" id="startdate" name="startdate" value="${param.startdate}" required style="width:110px;margin: 10px;">
+			<label for="to" style="font-size:16px;">to: </label>
+			<input type="date" id="enddate" name="enddate" value="${param.enddate}" required style="width:110px;margin: 10px;">
+	        <input type="hidden" name="action" value="get_date">
+	        <input type="submit" value="送出" style="width:60px;background-color: lightcoral;color: white;margin-left: 25px;">
+	    </FORM>
 
 		<div class="w-80 p-3 "
 			style="background-color: #ced7e8; margin: 50px auto 30px;">
@@ -82,5 +89,33 @@ table {
 			</table>
 		</div>
 	</main>
+	
+	<script>
+		$(function(){
+	        let date = new Date();
+	        let day = date.getDate();
+	        let month = date.getMonth() + 1;
+	        let month2 = date.getMonth() + 2;
+	        let year = date.getFullYear();
+	        if (month < 10)
+	            month = "0" + month;
+	        if (month2 < 10)
+	            month2 = "0" + month2;
+	        if (day < 10)
+	            day = "0" + day;
+	        let today = year + "-" + month + "-" + day; 
+	        let lastday = year + "-" + month2 + "-" + day;  
+
+        	$('#startdate').attr('value', today);
+            $('#startdate').attr('max', today);
+            $('#startdate').blur(e => {
+                $('#enddate').attr({
+                    'min': $('#startdate').val(),
+                    'max': today
+                })
+            })	
+        });
+    </script>
+	
 </body>
 </html>
