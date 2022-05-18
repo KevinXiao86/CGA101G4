@@ -55,7 +55,7 @@
 			<div class="container h-100">
 				<div class="h-100 align-items-center" style="display:flex;">
 					<a href="<%=request.getContextPath() %>/front-end/homepage/index.jsp"><img src="<%=request.getContextPath()%>/static/img/ticket-img/logo.jpg"
-						id="bear" style="height: 65px;"></a>
+						id="bear" style="height: 63px;"></a>
 
 					<!-- Top Social Area -->
 					<!-- Nav Start -->
@@ -74,31 +74,30 @@
 <!-- 							</form> -->
 <!-- 						</div> -->
 					</div>
-					<div class="col-sm-2" style="position:absolute;right:90px" >
+					<div class="col-sm-2" style="position:absolute;right:73px" >
 						<div class="top-social-area">
 							<a href="<%=request.getContextPath()%>/front-end/cart/cartList.jsp" data-toggle="tooltip" data-placement="bottom"
-								title="購物車" style="margin-right:63px;"> <i class="fa-solid fa-cart-shopping"
-								aria-hidden="true"></i></a>
-								 
-						<c:if test="${customer==null}">
-							<a href="<%=request.getContextPath()%>/front-end/custLogin/CustomerLogin.jsp" data-toggle="tooltip"
-								data-placement="bottom" title="登入"> <i
-								class="fa-regular fa-user" aria-hidden="true"></i></a>
-						</c:if>
-						
-						<c:if test="${customer!=null}">
-							<div title="會員功能" id="picture" href="#" data-toggle="tooltip" data-placement="bottom" style="position: fixed;right: 10px;top: 10px;z-index: 9;height:50px;text-decoration: none;overflow:hidden;text-align:left;">
-	            				<img id="cow" src="<%=request.getContextPath()%>/${customer.img}" style="width:45px;height:45px;border-radius: 100%;padding:0;overflow:hidden; margin-left:20px;margin-right:90px;">
-	            				</img>
-					            <div id="infoLogoutBar"style="box-shadow: 2px 2px 4px black;background-color: #ccc;margin:10px;padding:5px;text-align:left;">
-					                <span id="customer_data" class="customer_bar" style="display:block;" >
-					                    <a href="<%=request.getContextPath()%>/cust/CustomerInformation" style="padding:0px;">會員功能</a>
-					                </span>
-					                <span class="customer_bar">
-					                   <a href="<%=request.getContextPath()%>/cust/Logout" style="padding:0px;">登出</a>
-					                </span>
-					            </div>
-	        				</div>
+								title="購物車" style="margin-right: 30px;"> <i class="fa-solid fa-cart-shopping"
+								aria-hidden="true"></i></a> 
+								<c:if test="${customer==null}">
+							       <a href="<%=request.getContextPath()%>/front-end/custLogin/CustomerLogin.jsp" data-toggle="tooltip"
+							        data-placement="bottom" title="登入"> <i
+							        class="fa-regular fa-user" aria-hidden="true"></i></a>
+							      </c:if>
+							      
+							      <c:if test="${customer!=null}">
+							       <div id="picture" href="#" data-toggle="tooltip" data-placement="bottom" style="position: fixed;right: -10px;top: 10px;height:50px;text-decoration: none;overflow:hidden;text-align:left;">
+							                 <img id="cow" src="<%=request.getContextPath()%>/${customer.img}" style="width:45px;height:45px;border-radius: 100%;padding:0;overflow:hidden; margin-left:20px;margin-right:70px">
+							                 </img>
+							                 <div id="infoLogoutBar"style="box-shadow: 2px 2px 4px black;background-color: #ccc;margin:10px;padding:5px;text-align:left;">
+							                     <span id="customer_data" class="customer_bar" style="display:block;">
+							                         <a href="<%=request.getContextPath()%>/cust/CustomerInformation" style="padding:0px;">會員功能</a>
+							                     </span>
+							                     <span class="customer_bar">
+							                        <a href="<%=request.getContextPath()%>/cust/Logout" style="padding:0px;">登出</a>
+							                     </span>
+							                 </div>
+							             </div>
 	        				<script>
 	        				let picture=document.querySelector('#picture');
 	        				picture.onclick=function(){

@@ -11,8 +11,8 @@
 <%@page import="com.taiwan.service.TicketService"%>
 <%@page import="com.taiwan.beans.TicketVO"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
     TicketService ticketService = ControllerUtil.getBean(TicketService.class);
@@ -111,7 +111,7 @@
 					<div class="col-sm-2" style="position:absolute;right:73px" >
 						<div class="top-social-area">
 							<a href="<%=request.getContextPath()%>/front-end/cart/cartList.jsp" data-toggle="tooltip" data-placement="bottom"
-								title="購物車" style="margin-right: 63px;"> <i class="fa-solid fa-cart-shopping"
+								title="購物車" style="margin-right: 30px;"> <i class="fa-solid fa-cart-shopping"
 								aria-hidden="true"></i></a> 
 								<c:if test="${customer==null}">
 							       <a href="<%=request.getContextPath()%>/front-end/custLogin/CustomerLogin.jsp" data-toggle="tooltip"
@@ -120,8 +120,8 @@
 							      </c:if>
 							      
 							      <c:if test="${customer!=null}">
-							       <div title="會員功能" id="picture" href="#" data-toggle="tooltip" data-placement="bottom" style="position: fixed;right: 10px;top: 10px;z-index: 9;height:50px;text-decoration: none;overflow:hidden;text-align:left;">
-							                 <img id="cow" src="<%=request.getContextPath()%>/${customer.img}" style="width:45px;height:45px;border-radius: 100%;padding:0;overflow:hidden; margin-left:20px;margin-right:90px">
+							       <div id="picture" href="#" data-toggle="tooltip" data-placement="bottom" style="position: fixed;right: -10px;top: 10px;height:50px;text-decoration: none;overflow:hidden;text-align:left;">
+							                 <img id="cow" src="<%=request.getContextPath()%>/${customer.img}" style="width:45px;height:45px;border-radius: 100%;padding:0;overflow:hidden; margin-left:20px;margin-right:70px">
 							                 </img>
 							                 <div id="infoLogoutBar"style="box-shadow: 2px 2px 4px black;background-color: #ccc;margin:10px;padding:5px;text-align:left;">
 							                     <span id="customer_data" class="customer_bar" style="display:block;">
@@ -413,7 +413,6 @@
 										<a href="<%=request.getContextPath()%>/ticket/selectId?action=getOne_For_Display&tktId=${ticketVO.tktId}" class="post-headline">${ticketVO.tktName}</a>
 								</h3>
 								<p style="height: 60px;overflow: hidden;">${ticketVO.instruction}</p>
-<!-- 									text-overflow: ellipsis; white-space: nowrap; -->
 							</div>
 						</div>
 					</div>
@@ -519,9 +518,6 @@
 								<div class="col-12 col-md-6">
 									<div class="single-blog-thumbnail">
 										<img src="${theme.img}" style="width:372px;height:250px;">
-										<div class="post-date">
-											<a href="#">12 <span>march</span></a>
-										</div>
 									</div>
 								</div>
 								<div class="col-12 col-md-6">

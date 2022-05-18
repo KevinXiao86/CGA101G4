@@ -303,7 +303,7 @@ public class TktOrderJDBCDao implements TktOrderDao {
 	public List<TktOrder> queryTktOrderByDateCustID(Timestamp startdate, Timestamp enddate, Integer custId) {
 		List<TktOrder> ls = new ArrayList<TktOrder>();
 		String sql = "select tkt_order_id,cust_id,original_price,orderdate,"
-				+ "ttl_price,cust_cop_id,qrcode,order_name,order_email,order_mobile from TKT_ORDER where cust_id = ? and orderdate between ? and ?;";
+				+ "ttl_price,cust_cop_id,qrcode,order_name,order_email,order_mobile from TKT_ORDER where cust_id = ? and orderdate between ? and ? order by orderdate desc;";
 		try (Connection conn = DbUtil.getConnection();
 				PreparedStatement prep = conn.prepareStatement(sql)) {
 			prep.setObject(1, custId);

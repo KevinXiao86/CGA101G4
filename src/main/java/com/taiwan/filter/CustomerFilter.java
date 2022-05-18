@@ -28,6 +28,7 @@ public class CustomerFilter implements Filter {
 		HttpSession session = req.getSession();
 		CustomerVO customerVO = (CustomerVO) session.getAttribute("customer");
 		if (customerVO == null) {
+			System.out.println("訪問成功");
 			session.setAttribute("location", req.getRequestURI());
 			res.sendRedirect(req.getContextPath() + "/front-end/custLogin/CustomerLogin.jsp");
 			return;
@@ -36,7 +37,7 @@ public class CustomerFilter implements Filter {
 		}
 
 		// pass the request along the filter chain
-		chain.doFilter(request, response);
+//		chain.doFilter(request, response);
 	}
 
 }

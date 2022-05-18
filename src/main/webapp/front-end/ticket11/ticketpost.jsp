@@ -83,18 +83,17 @@
 					<div class="col-sm-2" style="position:absolute;right:73px" >
 						<div class="top-social-area">
 							<a href="<%=request.getContextPath()%>/front-end/cart/cartList.jsp" data-toggle="tooltip" data-placement="bottom"
-								title="購物車" style="margin-right: 63px;"> <i class="fa-solid fa-cart-shopping"
-								aria-hidden="true"></i></a>
-							
-							<c:if test="${customer==null}">
+								title="購物車" style="margin-right: 30px;"> <i class="fa-solid fa-cart-shopping"
+								aria-hidden="true"></i></a> 
+								<c:if test="${customer==null}">
 							       <a href="<%=request.getContextPath()%>/front-end/custLogin/CustomerLogin.jsp" data-toggle="tooltip"
 							        data-placement="bottom" title="登入"> <i
 							        class="fa-regular fa-user" aria-hidden="true"></i></a>
 							      </c:if>
 							      
 							      <c:if test="${customer!=null}">
-							       <div title="會員功能" id="picture" href="#" data-toggle="tooltip" data-placement="bottom" style="position: fixed;right: 10px;top: 10px;z-index: 9;height:50px;text-decoration: none;overflow:hidden;text-align:left;">
-							                 <img id="cow" src="<%=request.getContextPath()%>/${customer.img}" style="width:45px;height:45px;border-radius: 100%;padding:0;overflow:hidden; margin-left:20px;margin-right:90px;">
+							       <div id="picture" href="#" data-toggle="tooltip" data-placement="bottom" style="position: fixed;right: -10px;top: 10px;height:50px;text-decoration: none;overflow:hidden;text-align:left;">
+							                 <img id="cow" src="<%=request.getContextPath()%>/${customer.img}" style="width:45px;height:45px;border-radius: 100%;padding:0;overflow:hidden; margin-left:20px;margin-right:70px">
 							                 </img>
 							                 <div id="infoLogoutBar"style="box-shadow: 2px 2px 4px black;background-color: #ccc;margin:10px;padding:5px;text-align:left;">
 							                     <span id="customer_data" class="customer_bar" style="display:block;">
@@ -348,7 +347,7 @@
 						<input type="hidden" name="tktName" value="${tktVO.tktName}"> 
 						<input type="hidden" name="tktId" value="${tktVO.tktId}"> 
 						<input type="hidden" name="price" value="${tktVO.price}"> 
-						<c:forEach var="tktImgVO" items="${imgList}" end="0">
+						<c:forEach var="tktImgVO" items="${imgList}" begin="0" end="0">
 							<input type="hidden" name="tktImg" value="${tktImgVO.img}"> 
 						</c:forEach>
 						<input type="hidden" name="action" value="add">
@@ -522,29 +521,7 @@
 	            }
 	        });
 
-		$('#quantity').val("0");
-	  	//增減購物車
-	    $("#add").click(function () {
-            //得到當前兄弟文字框的值
-            let n = $(this).siblings("#quantity").val();
-            n++;
-            $(this).siblings("#quantity").val(n);
-            
-        })
-        $("#min").click(function(){
-            //得到當前兄弟文字框的值
-            let n=$(this).siblings("#quantity").val();
-            //當文字框的值減到1時就不再執行n--及後面的程式碼
-            if(n==1){
-                return false;
-            }
-            n--;
-            $(this).siblings("#quantity").val(n);
-        })
-        
-       	$('#quantity').change( function() {
-       		$('#amount').attr("value",$('#quantity').val());
-		});
+		
 
 	    $('#quantity').val("0");
 	    //增減購物車

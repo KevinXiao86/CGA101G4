@@ -29,12 +29,72 @@
 	rel="stylesheet" />
 <script src="https://kit.fontawesome.com/c95ced1229.js"
 	crossorigin="anonymous"></script>
+<style>
+	label{
+		font-size:14px;
+	}
+        .your-order {
+            background: #EDE1E3 none repeat scroll 0 0;
+            padding: 30px 40px ;
+        }
+
+        .your-order-table table {
+            background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+            border: medium none;
+            width: 100%;
+        }
+
+        .your-order-table table th,
+        .your-order-table table td {
+            border-bottom: 1px solid #d8d8d8;
+            border-right: medium none;
+            font-size: 14px;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .your-order-table table th {
+            border-top: medium none;
+            font-family: Montserrat, Arial, Helvetica, sans-serif;
+            font-weight: normal;
+            text-align: center;
+            text-transform: uppercase;
+            vertical-align: middle;
+            white-space: nowrap;
+            width: 250px;
+            font-size: 18px;
+        }
+
+        .your-order-table table .shipping ul li input {
+            position: relative;
+            top: 2px;
+        }
+
+        .your-order-table table .shipping th {
+            vertical-align: top;
+        }
+
+        .your-order-table table .order-total th {
+            border-bottom: medium none;
+            font-size: 18px;
+        }
+
+        .your-order-table table .order-total td {
+            border-bottom: medium none;
+        }
+
+        .your-order-table table tr.order-total td span {
+            color: #c06b81;
+            font-size: 20px;
+        }
+</style>
 <body>
 
 	<%
 	List<String> list = (List<String>) session.getAttribute("list");
 	List<TicketVO> cartlist = (List<TicketVO>) session.getAttribute("tktlist");
 	List<Integer> amountList = (List<Integer>) session.getAttribute("amountList");
+	List<String> tktImgList = (List<String>) session.getAttribute("tktImgList");
 	%>
 
 	<!-- Header -->
@@ -175,10 +235,7 @@
 						TicketVO order = cartlist.get(index);
 					%>
 					<tr>
-						<td><img
-							src="<%=request.getContextPath()%>/${sessionScope.tktImg}"
-							class="product-img" style="margin: 0 -40px 0 -10px;"></td>
-						<td style="width:180px;"><%=order.getTktName()%></td>
+						<td style="width:180px;">🧸<%=order.getTktName()%></td>
 						<td><%=amountList.get(index) %>張</td>
 						<td><%=order.getPrice()%>元</td>
 					</tr>
@@ -188,22 +245,43 @@
 				</table>
 			</div>
 			<hr>
-			<div class="cart-item-box">
-				<table style="width: 200px;font-size:22px;">
-					<tr>
-						<td>小計</td>
-						<td>$${total}</td>
-					</tr>
-					<tr>
-						<td>折扣金額</td>
-						<td>-$${discount}</td>
-					</tr>
-					<tr>
-						<td>總金額</td>
-						<td>$${total-discount}</td>
-					</tr>
-				</table>
-			</div>
+			
+		    <div class="your-order" style="width:300px;margin: 40px 80px;">
+		        <div class="your-order-table table-responsive">
+		            <table>
+		                <tr>
+		                    <th class="product-name">小計</th>
+		                    <th class="product-total">$${total}</th>
+		                </tr>
+		                <tr class="cart-subtotal">
+		                    <th>折扣金額</th>
+		                    <td><span style="font-size:18px;">$${discount}</span></td>
+		                </tr>
+		
+		                <tr class="order-total">
+		                    <th>總金額</th>
+		                    <td><strong><span class="amount">$${total-discount}</span></strong></td>
+		                </tr>
+		            </table>
+		        </div>
+		    </div>
+			
+<!-- 			<div class="cart-item-box" style="margin-left: 50px;"> -->
+<!-- 				<table style="width: 200px;font-size:20px;"> -->
+<!-- 					<tr> -->
+<!-- 						<td style="text-align: start;">小計</td> -->
+<!-- 						<td>$${total}</td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 						<td style="text-align: start;">折扣金額</td> -->
+<!-- 						<td>-$${discount}</td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 						<td style="text-align: start;">總金額</td> -->
+<!-- 						<td>$${total-discount}</td> -->
+<!-- 					</tr> -->
+<!-- 				</table> -->
+<!-- 			</div> -->
 		</section>
 	</div>
 
@@ -258,7 +336,7 @@
                 Swal.fire({
                   title: "資料驗證中 థ౪థ",
                   html: "請勿關閉視窗",
-                  timer: 5000,
+                  timer: 4000,
                   timerProgressBar: true,
                   didOpen: () => {
                     Swal.showLoading();
@@ -318,7 +396,10 @@
 		    let year = date.getFullYear();
 			
 			if(parseInt($('#year').val())===year && parseInt($('#month').val())<=month){
-				alert('false');
+				Swal.fire({
+					icon: 'error',
+					title: '🙅‍♀️ 請輸入正確月份'
+				})
 			}
         });
         

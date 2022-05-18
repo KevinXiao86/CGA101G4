@@ -4,9 +4,8 @@
 <%@page import="com.taiwan.beans.TicketVO"%>
 <%@page import="com.taiwan.beans.CustomerVO"%>
 <%@page import="java.util.*"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8" autoFlush="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <html>
 <head>
 <%-- 靜態包含 base標籤,css樣式,jQuery文件 --%>
@@ -52,6 +51,7 @@
 	List<TicketVO> cartlist = (List<TicketVO>) session.getAttribute("tktlist");
 	List<Integer> amountList = (List<Integer>) session.getAttribute("amountList");
 	List<CouponVO> couponList = (List<CouponVO>) request.getAttribute("couponList");
+	List<String> tktImgList = (List<String>) session.getAttribute("tktImgList");
 	%>
 	
 	<!-- Header -->
@@ -83,7 +83,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="order-button-payment" style="width:30%;display:inline-block;margin:-20px auto 50px 560px;">
+		<div class="order-button-payment" style="width:30%;display:inline-block;margin:-20px auto 50px 570px;">
 			<input type="button" value="繼續購物" onclick="location.href='<%=request.getContextPath()%>/front-end/ticket/ticketList.jsp'"/>
 		</div>
 	
@@ -113,13 +113,15 @@
 							for (int index = 0; index < cartlist.size(); index++) {
 								TicketVO order = cartlist.get(index);
 							%>
+							
 							<tr>
 								<td><%=index + 1%></td>
 								<td>
-									<img class="product-img" src="<%=request.getContextPath()%>/${tktImg}">
+<%-- 									<img class="product-img" src="<%=request.getContextPath()%>/${tktImg}"> --%>
+									<a style="color:black;" href="<%=request.getContextPath()%>/ticket/selectId?tktId=<%=order.getTktId()%>&action=getOne_For_Display"><img class="product-img" src="<%=tktImgList.get(index)%>"></a>
 								</td>
-								<td><%=order.getTktId()%></td>
-								<td><%=order.getTktName()%></td>
+								<td><a style="color:black;" href="<%=request.getContextPath()%>/ticket/selectId?tktId=<%=order.getTktId()%>&action=getOne_For_Display"><%=order.getTktId()%></a></td>
+								<td><a style="color:black;" href="<%=request.getContextPath()%>/ticket/selectId?tktId=<%=order.getTktId()%>&action=getOne_For_Display"><%=order.getTktName()%></a></td>
 								<td>NT$ <%=order.getPrice()%></td>
 								<td><%=amountList.get(index)%></td>
 								<td>NT$ <%=order.getPrice()*amountList.get(index)%></td>
@@ -129,6 +131,7 @@
 									</button> 
 									<input type="hidden" name="action" value="delete"> 
 									<input type="hidden" name="del" value="<%=order.getTktId()%>">
+									<input type="hidden" name="delImg" value="<%=index%>">
 								</td>
 							</tr>
 							<%}	%>
@@ -158,7 +161,7 @@
 						<span style="margin-right: 30px;">折扣金額</span><span>$</span><span id="tax"></span>
 					</div>
 					<div class="subtotal">
-						<span style="margin-right: 30px;">總金額</span><span>$</span><span id="subtotal"></span>
+						<span style="margin-right: 30px;">總金額</span><span>$</span><span id="subtotal">${total}</span>
 					</div>
 				</div>
 			</div>
@@ -218,5 +221,8 @@
 
 	
 </body>
-
 </html>
+<%
+out.flush();
+pageContext.pushBody();
+%>

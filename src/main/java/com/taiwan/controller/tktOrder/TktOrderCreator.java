@@ -90,9 +90,7 @@ public class TktOrderCreator extends HttpServlet {
 				
 				
 				Integer copId = Integer.valueOf(req.getParameter("copId"));
-				System.out.println("copId96 = " + copId);
 				Integer discount = Integer.valueOf(req.getParameter("discount"));
-				System.out.println("discount = " + discount);
 				
 				//遍歷map
 	//			for (Map.Entry<String, String> entry : errorMsgs.entrySet()) {
@@ -116,7 +114,6 @@ public class TktOrderCreator extends HttpServlet {
 				CustomerVO customer = (CustomerVO) session.getAttribute("customer");
 				//取得此時的會員id
 				Integer custId = customer.getCustId();
-//				Integer custId = 10000;
 				
 				//取得購物車商品
 				List<String> cartCheckout = (List<String>) session.getAttribute("list");
@@ -149,12 +146,15 @@ public class TktOrderCreator extends HttpServlet {
 				
 				//變數price是票券一張的價格
 				TktOrder tktOrder = new TktOrder();
+				Integer custCopId=0;
 				//有使用優惠券的
 				if(copId != 0) {
 					
 					//從copId取得custCopId
 					CustCoupon custCoupon = custCouponService.queryCustCouponByCustId(custId, copId);
-					Integer custCopId = custCoupon.getCustCopId();
+					System.out.println(custCoupon + "物件");
+					custCopId = custCoupon.getCustCopId(); //75
+					System.out.println("custcopid = " + custCopId);
 					
 					tktOrder.setCustId(Integer.valueOf(custId));
 					tktOrder.setOriginalPrice(total);
@@ -164,7 +164,6 @@ public class TktOrderCreator extends HttpServlet {
 					tktOrder.setOrderName(orderName);
 					tktOrder.setOrderEmail(orderEmail);
 					tktOrder.setOrderMobile(orderMobile);
-					tktOrder.setCustCopId(copId);
 				}
 				
 				//沒有使用優惠券的
@@ -180,18 +179,23 @@ public class TktOrderCreator extends HttpServlet {
 		
 				TktOrderDao dao = new TktOrderJDBCDao();
 				//此時新增的訂單編號
-				String newOrderId = dao.insertTktOrderNoCoupon(tktOrder, orders);
+				String newOrderId = null;
 				
-				//更新已使用票券的資料
 				if(copId != 0) {
+					//新增訂單編號
+					newOrderId = dao.insertTktOrderWithCoupon(tktOrder, orders);
+					//更新已使用票券的資料
 					Long datetime = System.currentTimeMillis();
 			        Timestamp usedate = new Timestamp(datetime);
-					custCouponService.updateCustCouponStatusByTkt(custId, Integer.valueOf(newOrderId), "已使用", usedate);
+					custCouponService.updateCustCouponStatusByTkt(custCopId, Integer.valueOf(newOrderId), "已使用", usedate);
+				}else {
+					newOrderId = dao.insertTktOrderNoCoupon(tktOrder, orders);
 				}
 					
 				/************************3.訂單成立後***********************/ 
 				//移除session結帳列表
 				session.removeAttribute("list");
+				session.removeAttribute("tktImgList");
 				
 				//移除Redis的商品
 				List<String> cart = CartService.getCartList(custId.toString());
