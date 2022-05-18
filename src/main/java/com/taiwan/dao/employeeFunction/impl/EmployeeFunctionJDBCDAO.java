@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -14,6 +16,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.taiwan.beans.EmployeeFunctionVO;
+import com.taiwan.beans.EmployeeVO;
 import com.taiwan.dao.employeeFunction.EmployeeFunctionDAO_interface;
 
 public class EmployeeFunctionJDBCDAO implements EmployeeFunctionDAO_interface {
@@ -27,7 +30,7 @@ public class EmployeeFunctionJDBCDAO implements EmployeeFunctionDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT FUNC_ID, FUNC_NAME FROM EMPLOYEE_FUNCTION where FUNC_ID = ?";
 	private static final String UPDATE = "UPDATE EMPLOYEE_FUNCTION set FUNC_NAME=? where FUNC_ID = ?";
 	private static final String DELETE = "DELETE FROM EMPLOYEE_FUNCTION WHERE FUNC_ID = ? ";
-
+	private static final String GET_All_Emp_ByFuncID = "SELECT EMP_ID,EMP_NAME,EMP_PASSWORD,FUNC_ID,EMP_STATUS,HIREDATE FROM EMPLOYEE where FUNC_ID=? order by EMP_ID";
 	@Override
 	public void insert(EmployeeFunctionVO employeeFunctionVO) {
 		// TODO Auto-generated method stub
@@ -270,9 +273,73 @@ public class EmployeeFunctionJDBCDAO implements EmployeeFunctionDAO_interface {
 
 	}
 
-//	public static void main(String[] args) {
-//
-//		EmployeeFunctionJDBCDAO dao = new EmployeeFunctionJDBCDAO();
+	@Override
+	public Set<EmployeeVO> getEmpsByfuncId(Integer funcId) {
+
+		Set<EmployeeVO> set = new LinkedHashSet<EmployeeVO>();
+		EmployeeVO employeeVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_All_Emp_ByFuncID);
+			pstmt.setInt(1, funcId);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				employeeVO = new EmployeeVO();
+				employeeVO.setEmpId(rs.getInt(1));
+				employeeVO.setEmpName(rs.getString(2));
+				employeeVO.setEmpPassword(rs.getString(3));
+				employeeVO.setFuncID(rs.getInt(4));
+				employeeVO.setEmpStatus(rs.getString(5));
+				employeeVO.setHiredate(rs.getDate(6));
+				set.add(employeeVO); // Store the row in the vector
+				System.out.println(set);
+			}
+		}
+
+		// Handle any driver errors
+		catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return set;
+	}
+
+	public static void main(String[] args) {
+
+		EmployeeFunctionJDBCDAO dao = new EmployeeFunctionJDBCDAO();
 //
 //		// 新增
 //		EmployeeFunctionVO employeeFunctionVO1 = new EmployeeFunctionVO();
@@ -299,5 +366,9 @@ public class EmployeeFunctionJDBCDAO implements EmployeeFunctionDAO_interface {
 //			System.out.print(aEmp.getFuncName() + ",");
 //			System.out.println();
 //		}
-//	}
+		Set<EmployeeVO> set = dao.getEmpsByfuncId(1);
+		for (EmployeeVO aEmp : set) {
+			System.out.print(aEmp.getEmpName() + ",");
+		}
+	}
 }

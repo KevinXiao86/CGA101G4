@@ -3,19 +3,23 @@
 <%@ page import="com.taiwan.dao.employee.impl.*"%>
 <%@ page import="com.taiwan.controll.employee.*"%>
 <%@ page import="com.taiwan.service.employee.*"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+
 </head>
 <body>
+
  <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="navbar-header">
-                <a class="navbar-brand" href="back-end/emp/login/login-back-end-index.jsp">後臺首頁</a>
+                <a class="navbar-brand" href="back-login/login/login-back-end-index.jsp">後臺首頁</a>
             </div>
 
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -24,7 +28,7 @@
 
             <!-- Top Navigation: Left Menu -->
             <ul class="nav navbar-nav navbar-left navbar-top-links">
-                <li><a href="back-end/emp/login/login-back-end-index.jsp"><i class="fa fa-home fa-fw"></i> </a></li>
+                <li><a href="back-login/login/login-back-end-index.jsp"><i class="fa fa-home fa-fw"></i> </a></li>
             </ul>
 
             <!-- Top Navigation: Right Menu -->
@@ -40,26 +44,27 @@
 <!--                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a> -->
 <!--                         </li> -->
 <!--                         <li class="divider"></li> -->
-                        <li><a href="EmployeeServlet?action=logOut" id="logout"><i class="fa fa-sign-out fa-fw"></i> 登出</a>
+                        <li><a href="<%=request.getContextPath()%>/empLogout" id="logout"><i class="fa fa-sign-out fa-fw"></i> 登出</a>
                         </li>
                     </ul>
                 </li>
             </ul>
             <script type="text/javascript">
                 document.querySelector('#logout').onclick=function(){
-                    location.href="pages/login.html";
+                    location.href="EmployeeServlet?action=logOut";
                 };
             </script>
             <!-- Sidebar -->
             <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
+                <div class="sidebar-nav navbar-collapse" x-data="{ disabled: false }">
 
                     <ul class="nav" id="side-menu">
 
                         <li>
+                        
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i>員工管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>
+                                <li id=emp>
                                     <a href="back-end/emp/emp_index.jsp">員工資料管理</a>
                                 </li>
 <!--                                 <li> -->
@@ -128,5 +133,10 @@
                 </div>
             </div>
         </nav>
+        <script>$("#emp").click(function () {
+           (${sessionScope.employeeVO.funcID}===1)?return false:return true;
+//             return false;
+        });</script>
+       
 </body>
 </html>

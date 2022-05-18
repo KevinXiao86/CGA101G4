@@ -26,14 +26,14 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 	String userid = "root";
 	String passwd = "rootitri";
 
-	private static final String INSERT_STMT = "INSERT INTO EMPLOYEE(EMP_NAME,EMP_PASSWORD)VALUES ( ?,?)";
-	private static final String GET_ALL_STMT = "SELECT EMP_ID,EMP_NAME,EMP_PASSWORD,EMP_STATUS,HIREDATE FROM EMPLOYEE order by EMP_ID";
-	private static final String GET_ALL_DATE = "SELECT EMP_ID,EMP_NAME,EMP_PASSWORD,EMP_STATUS,HIREDATE FROM EMPLOYEE order by EMP_ID";
-	private static final String GET_ONE_STMT = "SELECT EMP_ID,EMP_NAME,EMP_PASSWORD,EMP_STATUS,HIREDATE FROM EMPLOYEE where EMP_ID = ?";
-	private static final String GET_ONE_NAME = "SELECT EMP_ID,EMP_NAME,EMP_PASSWORD,EMP_STATUS,HIREDATE FROM EMPLOYEE where EMP_ID = ?";
-	private static final String UPDATE_All = "UPDATE EMPLOYEE set EMP_NAME=? ,EMP_PASSWORD=?,EMP_STATUS=?,HIREDATE=?  where EMP_ID = ?" ;
+	private static final String INSERT_STMT = "INSERT INTO EMPLOYEE(EMP_NAME,EMP_PASSWORD,FUNC_ID)VALUES ( ?,?,?)";
+	private static final String GET_ALL_STMT = "SELECT EMP_ID,EMP_NAME,EMP_PASSWORD,FUNC_ID,EMP_STATUS,HIREDATE FROM EMPLOYEE order by EMP_ID";
+	private static final String GET_ALL_DATE = "SELECT EMP_ID,EMP_NAME,EMP_PASSWORD,FUNC_ID,EMP_STATUS,HIREDATE FROM EMPLOYEE order by EMP_ID";
+	private static final String GET_ONE_STMT = "SELECT EMP_ID,EMP_NAME,EMP_PASSWORD,FUNC_ID,EMP_STATUS,HIREDATE FROM EMPLOYEE where EMP_ID = ?";
+	private static final String GET_ONE_NAME = "SELECT EMP_ID,EMP_NAME,EMP_PASSWORD,FUNC_ID,EMP_STATUS,HIREDATE FROM EMPLOYEE where EMP_ID = ?";
+	private static final String UPDATE_All = "UPDATE EMPLOYEE set EMP_NAME=? ,EMP_PASSWORD=?,FUNC_ID=?,EMP_STATUS=?,HIREDATE=?  where EMP_ID = ?" ;
 	private static final String DELETE = "DELETE FROM EMPLOYEE WHERE EMP_ID = ? ";
-	private static final String login = "SELECT EMP_ID,EMP_NAME,EMP_PASSWORD,EMP_STATUS,HIREDATE from EMPLOYEE where EMP_ID = ? and EMP_PASSWORD = ? ";
+	private static final String login = "SELECT EMP_ID,EMP_NAME,EMP_PASSWORD,FUNC_ID,EMP_STATUS,HIREDATE from EMPLOYEE where EMP_ID = ? and EMP_PASSWORD = ? ";
 	private static final String GET_Emps_ByAuthority = "SELECT EMP_ID,EMP_NAME FROM EMPLOYEE where EMP_ID = ? order by EMP_ID";
 
 	@Override
@@ -48,7 +48,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 			pstmt.setString(1, employeeVO.getEmpName());
 			pstmt.setString(2, employeeVO.getEmpPassword());
 //			pstmt.setDate(3, employeeVO.getHiredate());　自動填寫
-
+			pstmt.setInt(3, employeeVO.getFuncID());
 			pstmt.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
@@ -89,9 +89,10 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 
 			pstmt.setString(1, employeeVO.getEmpName());
 			pstmt.setString(2, employeeVO.getEmpPassword());
-			pstmt.setString(3, employeeVO.getEmpStatus());
-			pstmt.setDate(4, employeeVO.getHiredate());
-			pstmt.setInt(5, employeeVO.getEmpId());
+			pstmt.setInt(3, employeeVO.getFuncID());
+			pstmt.setString(4, employeeVO.getEmpStatus());			
+			pstmt.setDate(5, employeeVO.getHiredate());
+			pstmt.setInt(6, employeeVO.getEmpId());
 			
 			count = pstmt.executeUpdate();
 			System.out.println("success 修改" + count);
@@ -142,8 +143,9 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 				employeeVO.setEmpId(rs.getInt(1));
 				employeeVO.setEmpName(rs.getString(2));
 				employeeVO.setEmpPassword(rs.getString(3));
-				employeeVO.setEmpStatus(rs.getString(4));
-				employeeVO.setHiredate(rs.getDate(5));
+				employeeVO.setFuncID(rs.getInt(4));
+				employeeVO.setEmpStatus(rs.getString(5));
+				employeeVO.setHiredate(rs.getDate(6));
 			}
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -263,8 +265,9 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 				employeeVO.setEmpId(rs.getInt(1));
 				employeeVO.setEmpName(rs.getString(2));
 				employeeVO.setEmpPassword(rs.getString(3));
-				employeeVO.setEmpStatus(rs.getString(4));
-				employeeVO.setHiredate(rs.getDate(5));
+				employeeVO.setFuncID(rs.getInt(4));
+				employeeVO.setEmpStatus(rs.getString(5));
+				employeeVO.setHiredate(rs.getDate(6));
 				list.add(employeeVO);
 			}
 
@@ -365,8 +368,9 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 				employeeVO.setEmpId(rs.getInt(1));
 				employeeVO.setEmpName(rs.getString(2));
 				employeeVO.setEmpPassword(rs.getString(3));
-				employeeVO.setEmpStatus(rs.getString(4));
-				employeeVO.setHiredate(rs.getDate(5));
+				employeeVO.setFuncID(rs.getInt(4));
+				employeeVO.setEmpStatus(rs.getString(5));
+				employeeVO.setHiredate(rs.getDate(6));
 			}
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {

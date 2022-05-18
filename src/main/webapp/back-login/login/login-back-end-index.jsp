@@ -46,7 +46,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">歡迎回來&emsp;管理員${param.empName}&emsp;</h1>
+					<h1 class="page-header">歡迎回來&emsp;管理員${sessionScope.employeeVO.empName} &emsp;</h1>
 				</div>
 			</div>
 </div></div>

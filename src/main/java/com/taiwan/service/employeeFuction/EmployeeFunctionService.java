@@ -4,8 +4,10 @@ import com.taiwan.dao.employeeFunction.EmployeeFunctionDAO_interface;
 import com.taiwan.dao.employeeFunction.impl.EmployeeFunctionJDBCDAO;
 
 import java.util.List;
+import java.util.Set;
 
 import com.taiwan.beans.EmployeeFunctionVO;
+import com.taiwan.beans.EmployeeVO;
 
 public class EmployeeFunctionService {
 
@@ -23,9 +25,9 @@ public class EmployeeFunctionService {
 		return dao.findByPrimaryKey(funcId);
 	}
 
-//	public Set<EmpVO> getEmpsByDeptno(Integer deptno) {
-//		return dao.getEmpsByDeptno(deptno);
-//	}
+	public Set<EmployeeVO> getEmpsByfuncId(Integer funcId) {
+		return dao.getEmpsByfuncId(funcId);
+	}
 
 	public void deleteEmployeeFunction(Integer funcId) {
 		dao.delete(funcId);

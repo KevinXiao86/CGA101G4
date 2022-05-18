@@ -60,6 +60,7 @@ img {
 		<th>員工編號</th>
 		<th>員工姓名</th>
 		<th>員工密碼</th>
+		<th>員工權限</th>
 		<th>啟用狀態</th>
 		<th>創建日期</th>
 	</tr>
@@ -67,6 +68,7 @@ img {
 		<td>${employeeVO.empId}</td>
 			<td>${employeeVO.empName}</td>
 			<td>${employeeVO.empPassword}</td>
+			<td>${employeeVO.employeeFunctionVO.funcName}</td>
 			<td>${employeeVO.empStatus}</td>
 			<td>${employeeVO.hiredate}</td>
 	</tr>

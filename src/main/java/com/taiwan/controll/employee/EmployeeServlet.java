@@ -101,7 +101,7 @@ public class EmployeeServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			String param = "?empId=" + employeeVO.getEmpId() + "&empName=" + employeeVO.getEmpName() + "&empPassword="
-					+ employeeVO.getEmpPassword() + "&empStatus=" + employeeVO.getEmpStatus() + "&hiredate="
+					+ employeeVO.getEmpPassword() + "&funcId=" + employeeVO.getFuncID()+ "&empStatus=" + employeeVO.getEmpStatus() + "&hiredate="
 					+ employeeVO.getHiredate();
 			String url = "/back-end/emp/update_emp_input.jsp" + param;
 
@@ -123,7 +123,7 @@ public class EmployeeServlet extends HttpServlet {
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 
 			req.setAttribute("errorMsgs", errorMsgs);
-
+System.out.println("進入UPDATE 126");
 //			try {
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			Integer empId = Integer.valueOf(req.getParameter("empId").trim());
@@ -143,6 +143,7 @@ public class EmployeeServlet extends HttpServlet {
 			} else if (!empPassword.trim().matches(empPasswordReg)) { // 以下練習正則(規)表示式(regular-expression)
 				errorMsgs.put("empPassword", "員工密碼: 只能是英文字母和數字 , 且長度必需在6到12之間");
 			}
+			Integer funcId = Integer.valueOf(req.getParameter("funcId").trim());
 
 			String empStatus = req.getParameter("empStatus");
 //			
@@ -166,9 +167,9 @@ public class EmployeeServlet extends HttpServlet {
 			System.out.println(165);
 			/*************************** 2.開始修改資料 *****************************************/
 			EmployeeService empSvc = new EmployeeService();
-			System.out.println(empId + "," + empName + "," + empPassword + "," + empStatus + "," + hiredate);
+			System.out.println(empId + "," + empName + "," + empPassword + ","+ funcId+"," + empStatus + "," + hiredate);
 
-			EmployeeVO employeeVO = empSvc.updateEmp(empId, empName, empPassword, empStatus, hiredate);
+			EmployeeVO employeeVO = empSvc.updateEmp(empId, empName, empPassword, funcId,empStatus, hiredate);
 			System.out.println(172);
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("employeeVO", employeeVO); // 資料庫update成功後,正確的的empVO物件,存入req
@@ -207,6 +208,7 @@ public class EmployeeServlet extends HttpServlet {
 			} else if (!empPassword.trim().matches(empPasswordReg)) { // 以下練習正則(規)表示式(regular-expression)
 				errorMsgs.put("empPassword", "員工密碼: 只能是英文字母和數字 , 且長度必需在6到12之間");
 			}
+			Integer funcId = Integer.valueOf(req.getParameter("funcId").trim());
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/addEmp.jsp");
@@ -217,7 +219,7 @@ public class EmployeeServlet extends HttpServlet {
 			/*************************** 2.開始新增資料 ***************************************/
 
 			EmployeeService empSvc = new EmployeeService();
-			empSvc.addEmp(empName, empPassword);
+			empSvc.addEmp(empName, empPassword,funcId);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			System.out.println(empPassword);
@@ -334,7 +336,7 @@ public class EmployeeServlet extends HttpServlet {
 				// 清除資料
 				session.invalidate();
 				System.out.println(req.getContextPath());
-				res.sendRedirect(req.getContextPath() + "/back-end/emp/login/empLogin.jsp");
+				res.sendRedirect(req.getContextPath() + "/back-login/login/empLogin.jsp");
 //		        req.getRequestDispatcher("/back-end/emp/login/login-back-end-index.jsp").include(req, res);
 
 			}

@@ -36,7 +36,7 @@ public class TicketSelectByThree extends HttpServlet {
 //			System.out.println("tktName" +tktName);
 			List<TicketVO> ticketVOs=ticketService.findByThree(status, location, tktName);
 			System.out.println(ticketVOs);
-			
+			System.out.println(location);
 			if(ticketVOs.isEmpty() || ticketVOs.size()==0) {
 //				errorMsgs.put("tickstVOs", "查無資料");
 			}

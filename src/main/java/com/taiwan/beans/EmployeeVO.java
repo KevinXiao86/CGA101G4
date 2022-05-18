@@ -9,6 +9,15 @@ public class EmployeeVO  extends Core {
 	private String empName;
 	private String empPassword;
 	private String empStatus;
+	private Integer funcID;
+	
+	public Integer getFuncID() {
+		return funcID;
+	}
+	public void setFuncID(Integer funcID) {
+		this.funcID = funcID;
+	}
+
 	private Date hiredate;
 	public Integer getEmpId() {
 		return empId;
@@ -43,13 +52,13 @@ public class EmployeeVO  extends Core {
 	@Override
 	public String toString() {
 		return "EmployeeVO [empId=" + empId + ", empName=" + empName + ", empPassword=" + empPassword + ", empStatus="
-				+ empStatus + ", hiredate=" + hiredate + "]";
+				+ empStatus + ", funcID=" + funcID + ", hiredate=" + hiredate + "]";
 	}
 
-	public List<com.taiwan.beans.AuthorityVO> getAuthorityVO() {
-		com.taiwan.service.authority.AuthorityService atiSvc = new com.taiwan.service.authority.AuthorityService();
-		List<com.taiwan.beans.AuthorityVO> authorityVO=atiSvc.findById(empId);
-	    return authorityVO;
+	public com.taiwan.beans.EmployeeFunctionVO getEmployeeFunctionVO() {
+		com.taiwan.service.employeeFuction.EmployeeFunctionService eFSvc = new com.taiwan.service.employeeFuction.EmployeeFunctionService();
+		com.taiwan.beans.EmployeeFunctionVO employeeFunctionVO=eFSvc.getOneEmployeeFunction(funcID);
+	    return employeeFunctionVO;
     }
 	
 	

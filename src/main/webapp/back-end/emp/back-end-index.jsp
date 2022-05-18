@@ -43,7 +43,7 @@
 
        <%@ include file="/common/back-end-index-bar.jsp" %>
 
-       
+       ${sessionScope.employeeVO.empName} 
         </div>
 
     </div>

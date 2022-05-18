@@ -88,7 +88,7 @@ b {
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header"  style="color:#8846af;">會員管理介面</h1>
+					<h1 class="page-header"  style="color:#8846af;">員工管理頁面</h1>
 				</div>
 			</div>
 			<div id="create_div">

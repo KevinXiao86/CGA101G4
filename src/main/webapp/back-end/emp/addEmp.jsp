@@ -98,24 +98,31 @@ input[type="submit"]:hover {
 					<h1 class="page-header">新增員工</h1>
 				</div>
 			</div>
-			
-				
-				<div id="coupon_form">
-					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/EmployeeServlet">
-						<label>員工姓名:</label> <input type="text" name="empName" autofocus
-							placeholder="請輸員工姓名" value="${param.empName}"><br>
-						${errorMsgs.empName} 
-						<label>員工密碼:</label> <input type="password"
-							name="empPassword" autofocus placeholder="請輸入密碼"
-							value="${param.empPassword}"><br>
-						${errorMsgs.empPassword} <input type="hidden" name="action"
-							value="insert"> <input type="submit" value="送出新增">
-					</FORM>
-					<div id="back_index">
-						<a href='back-end/emp/emp_index.jsp'>回到優惠券管理首頁</a>
-					</div>
+
+
+			<div id="coupon_form">
+				<FORM METHOD="post"
+					ACTION="<%=request.getContextPath()%>/EmployeeServlet">
+					<label>員工姓名:</label> <input type="text" name="empName" autofocus
+						placeholder="請輸員工姓名" value="${param.empName}"><br>
+					${errorMsgs.empName} 
+					<label>員工密碼:</label> <input type="password"
+						name="empPassword" autofocus placeholder="請輸入密碼"
+						value="${param.empPassword}"><br>
+					${errorMsgs.empPassword}
+					<jsp:useBean id="eFSvc" scope="page" class="com.taiwan.service.employeeFuction.EmployeeFunctionService" />
+						<label>員工權限</label>
+					<select size="1" name="funcId">
+			<c:forEach var="employeeFunctionVO" items="${eFSvc.all}">
+				<option value="${employeeFunctionVO.funcId}" ${(param.funcId==employeeFunctionVO.funcId)? 'selected':'' } >${employeeFunctionVO.funcName}
+			</c:forEach></select><br>
+			 <input type="hidden" name="action"
+						value="insert"> <input type="submit" value="送出新增">
+				</FORM>
+				<div id="back_index">
+					<a href='back-end/emp/emp_index.jsp'>回到優惠券管理首頁</a>
 				</div>
+			</div>
 		</div>
 	</div>
 </body>

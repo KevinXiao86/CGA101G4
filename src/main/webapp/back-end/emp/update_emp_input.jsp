@@ -120,6 +120,13 @@
 						type="text" name="empPassword"  size="45" autofocus placeholder="密碼"
 						value="${param.empPassword}">
 						${errorMsgs.empPassword}<br>
+						<jsp:useBean id="eFSvc" scope="page" class="com.taiwan.service.employeeFuction.EmployeeFunctionService" />
+					<label>員工權限</label>
+					<select size="1" name="funcId">
+			<c:forEach var="employeeFunctionVO" items="${eFSvc.all}">
+				<option value="${employeeFunctionVO.funcId}" ${(param.funcId==employeeFunctionVO.funcId)? 'selected':'' } >${employeeFunctionVO.funcName}
+			</c:forEach>
+		</select>
 					<label>啟用狀態</label>
 					<select size="1" name="empStatus">
 							<option value="啟用" ${(param.empStatus=="啟用")? 'selected':'' }>啟用</option>

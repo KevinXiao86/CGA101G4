@@ -14,12 +14,13 @@ public class EmployeeService {
 		dao = new EmployeeJDBCDAO();
 	}
 
-	public EmployeeVO addEmp(String empName, String empPassword) {
+	public EmployeeVO addEmp(String empName, String empPassword ,Integer funcId) {
 
 		EmployeeVO employeeVO = new EmployeeVO();
 
 		employeeVO.setEmpName(empName);
 		employeeVO.setEmpPassword(empPassword);
+		employeeVO.setFuncID(funcId);
 
 		dao.insert(employeeVO);
 
@@ -31,13 +32,14 @@ public class EmployeeService {
 		dao.insert(employeeVO);
 	}
 
-	public EmployeeVO updateEmp(Integer empId, String empName, String empPassword, String status,
+	public EmployeeVO updateEmp(Integer empId, String empName, String empPassword,Integer funcId, String status,
 			java.sql.Date hiredate) {
 
 		EmployeeVO employeeVO = new EmployeeVO();
 		employeeVO.setEmpId(empId);
 		employeeVO.setEmpName(empName);
 		employeeVO.setEmpPassword(empPassword);
+		employeeVO.setFuncID(funcId);
 		employeeVO.setEmpStatus(status);
 		employeeVO.setHiredate(hiredate);
 
