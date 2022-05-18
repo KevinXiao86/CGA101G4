@@ -36,7 +36,7 @@
 	<%@ include file="/front-end/homepage/header.jsp" %>
 	<%@ include file="/front-end/cust/side-bar.jsp" %>
 	
-	<main id="main" class="main" style="padding-left:70px;padding-top:40px;">
+	<main id="main" class="main" style="padding-left:70px;padding-top:40px;overflow:auto;">
 
     <div class="pagetitle">
       <h1>瀏覽檢舉</h1>

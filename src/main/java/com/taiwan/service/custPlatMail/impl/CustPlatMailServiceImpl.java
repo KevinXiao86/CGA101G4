@@ -40,4 +40,9 @@ public class CustPlatMailServiceImpl implements CustPlatMailService {
 		return dao.getAllByCustId(custId);
 	}
 
+	@Override
+	public void updateEmpId(Integer empId, Integer custPlatId) {
+		dao.updateEmpId(empId, custPlatId);
+	}
+
 }

@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>Insert title here</title>    
+<title>台玩後臺</title>    
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -276,9 +276,9 @@ img {
 									管理員<span style="padding:5px;font-size:20px"><% out.print("${empId}"); %></span><br>
 									狀態<span style="padding:5px;font-size:20px"><% out.print("${status}"); %></span><br>
 									<div style="margin-top:20px;">檢舉原因</div>
-									<pre style="margin:20px;border:1px solid blue;width:450px;padding:10px;overflow:auto;background-color:lightYellow;"><% out.print("${reason}"); %></pre>
+									<pre style="margin:20px;border:1px solid blue;width:450px;padding:10px;overflow:auto;background-color:lightYellow;white-space:pre-wrap;"><% out.print("${reason}"); %></pre>
 									<div>審核結果</div>
-									<pre style="margin:20px;border:1px solid blue;width:450px;padding:10px;overflow:auto;background-color:lightYellow;"><% out.print("${result}"); %></pre>
+									<pre style="margin:20px;border:1px solid blue;width:450px;padding:10px;overflow:auto;background-color:lightYellow;white-space:pre-wrap;"><% out.print("${result}"); %></pre>
 							   </div>`;
 			}else{	
 				exX.innerHTML=`<div id="all" style="width: 600px;height:350px;margin: 15px 15px;background-color: #ffc;padding:20px;overflow:auto;box-shadow:2px 2px 4px black,-2px -2px 4px black;" >
@@ -286,7 +286,7 @@ img {
 								        檢舉人<span style="padding:5px;font-size:20px"><% out.print("${custId}"); %></span>   <span style="float:right"><% out.print("${date}"); %></span> <br>
 										被檢舉房型<span style="padding:5px;font-size:20px"><% out.print("${cmpName}"); %></span><span style="padding:5px;font-size:20px"><% out.print("${roomTypeName}"); %></span> <br>
 										<div style="margin-top:20px;">檢舉原因</div>
-										<pre style="margin:20px;border:1px solid blue;width:450px;padding:10px;overflow:auto;background-color:lightYellow;"><% out.print("${reason}"); %></pre>           
+										<pre style="margin:20px;border:1px solid blue;width:450px;padding:10px;overflow:auto;background-color:lightYellow;white-space:pre-wrap;"><% out.print("${reason}"); %></pre>           
 						            
 							            <h4 style="margin-bottom:20px;">處理檢舉</h4>
 							            <!-- Reply Form -->

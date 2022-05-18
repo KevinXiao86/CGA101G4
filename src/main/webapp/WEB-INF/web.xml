@@ -107,14 +107,4 @@
     <filter-name>CustomerFilter</filter-name>
     <url-pattern>/cart/do</url-pattern>
   </filter-mapping>
-  <servlet>
-    <description></description>
-    <display-name>addRepCust</display-name>
-    <servlet-name>addRepCust</servlet-name>
-    <servlet-class>com.taiwan.controller.repCust12.addRepCust</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>addRepCust</servlet-name>
-    <url-pattern>/addRepCust</url-pattern>
-  </servlet-mapping>
 </web-app>

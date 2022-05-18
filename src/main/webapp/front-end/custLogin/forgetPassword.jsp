@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>會員登入頁面</title>
+<title>忘記密碼</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/front-end/company/css/login.css">
 <%@ include file="/common/head.jsp"%>
 <style>
@@ -30,7 +30,7 @@ span#errorMsg {
 		<div class="form-panel one" style="padding:50px calc(5% + 60px) 50px 60px">
 
 			<div class="form-header">
-				<h1>會員登入</h1>
+				<h1>忘記密碼</h1>
 			</div>
 
 			<div class="form-content">
@@ -38,24 +38,18 @@ span#errorMsg {
 					
 					<div class="form-group">
 						<label for="account">帳號</label>
-						<input type="text" placeholder="輸入帳號" id="account" name="account" required="required" value="${customer.account}"/>
+						<input type="text" placeholder="輸入帳號，台玩會寄送信件告知您您的密碼" id="account" name="account" required="required" value="${customer.account}"/>
 					</div>
-					<div class="form-group">
-						<label for="password">密碼</label>
-						<input type="password" id="password" placeholder="輸入密碼" name="password" required="required" value="${customer.password}"/>
-					</div>
+					
 					<span class="errorMsg" style="">${customer.message}</span>
-					<div class="form-group" style="margin-top:10px;">
-						<label class="form-remember"> <input type="checkbox" />Remember	Me</label>
-						<a class="form-recovery" href="<%=request.getContextPath()%>/front-end/custLogin/forgetPassword.jsp">忘記密碼?</a>
-					</div>
+					
 					<div class="form-group" style="margin-top:10px;">
 						</label><a class="form-recovery" href="<%=request.getContextPath()%>/front-end/rejest/custmomer_reject.jsp" style="margin-left: 380px;">註冊會員🧸</a>
 					</div>
 					<div class="form-group">
-						<button type="submit" id="login">登入</button>
+						<button type="submit" id="login">取得密碼</button>
 					</div>
-					<input type="hidden" name="action" value="justLogin">
+					<input type="hidden" name="action" value="forgetPassword">
 				</form>
 			</div>
 
@@ -65,23 +59,5 @@ span#errorMsg {
 
 	<script src='<%=request.getContextPath() %>/front-end/company/js/jquery.min.js'></script>
 	<script src="<%=request.getContextPath() %>/front-end/company/js/script.js"></script>
-
-
-
-
-	<%-- <form method="post" action="cust/CustomerLogin">
-		<label>帳號: </label><input type="text" placeholder="輸入帳號" name="account" value="${customer.account}"> 
-		<br> 
-		<label>密碼:	</label><input type="text" placeholder="輸入密碼" name="password" value="${customer.password}">
-		<br>
-		<input type="submit" value="登入">
-		<br>
-		${customer.message}
-		<input type="hidden" name="action" value="justLogin">
-	</form>
-	<form method="post" action="cust/CustomerLogin">
-		<input type="submit" value="忘記密碼"> 
-		<input type="hidden" name="action" value="forgetPassword">
-	</form> --%>
 </body>
 </html>
