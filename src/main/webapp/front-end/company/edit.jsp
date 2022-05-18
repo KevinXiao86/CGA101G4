@@ -82,13 +82,20 @@ span{
 							</a>
 						</li>
 						
+<!-- 						<li> -->
+<!-- 							<a href="javascript:history.go(-1)" -->
+<!-- 								style="font-weight: 900;"> -->
+<!-- 								<i class="fa fa-dashboard fa-fw"></i> -->
+<!-- 								返回列表 -->
+<!-- 							</a> -->
+<!-- 						</li> -->
 						<li>
-							<a href="javascript:history.go(-1)"
-								style="font-weight: 900;">
-								<i class="fa fa-dashboard fa-fw"></i>
-								返回列表
-							</a>
-						</li>
+<%-- 							<a href="<%=request.getContextPath()%>/front-end/repCust12/seeRepCust.jsp" style="font-weight: 900;"> --%>
+							<a href="front-end/repCust12/seeRepCust.jsp" style="font-weight: 900;">
+        						<i class="fa fa-dashboard fa-fw"></i> 
+        						檢舉管理
+      						</a>
+      					</li>
 						
 						<li>
 							<a href="company/logout"
@@ -121,7 +128,12 @@ span{
 								<div class="row">
 									<div class="col-lg-6">
 										<span class="errorMsg" style="color: red; font-size: 20px">${sessionScope.editCompany.message}</span>
-										<form role="form" method="post" action="company/editCompany">
+										<form role="form" method="post" action="company/editCompany"  enctype="multipart/form-data">
+										
+											<div class="form-group">
+												<label for="cmpAccount" style="font-weight: 900;">帳號</label> <br>
+												<input type="text" id="cmpAccount" name="cmpAccount" required="required" value="${sessionScope.editCompany.cmpAccount}" disabled="disabled"/>
+											</div>
 											<!-- 因為修改操作都需要 id, 所以使用隱藏域直接帶上 id -->
 											<input type="hidden" name="cmpId" id="cmpId"
 												value="${sessionScope.editCompany.cmpId}">
@@ -177,9 +189,21 @@ span{
 
 
 											<div class="form-group">
-												<label for="serialNo" style="font-weight: 900;">旅宿登記證</label><br> <img
-													src="${sessionScope.editCompany.serialNo}" width="120"
-													height="120">
+												<c:choose>
+														<c:when test="${sessionScope.editCompany.auditStatus == '審核通過'}">
+															<label for="serialNo" style="font-weight: 900;">旅宿登記證</label><br> 
+															<img src="${sessionScope.editCompany.serialNo}" width="120"	height="120">
+														</c:when>
+
+														<c:when test="${sessionScope.editCompany.auditStatus == '審核未通過'}">
+															<label for="serialNo" style="font-weight: 900;">旅宿登記證</label><br>
+															<span id="serialNoSpan">${requestScope.serialNo}</span>
+															<input type="file" name="serialNo" id="serialNo">
+														</c:when>
+												</c:choose>
+<!-- 												<label for="serialNo" style="font-weight: 900;">旅宿登記證</label><br> <img -->
+<%-- 													src="${sessionScope.editCompany.serialNo}" width="120" --%>
+<!-- 													height="120"> -->
 											</div>
 
 
