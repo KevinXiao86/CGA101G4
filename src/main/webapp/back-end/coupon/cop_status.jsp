@@ -85,7 +85,7 @@ input[type="submit"] {
 					<th>狀態</th>
 					<th>修改</th>
 					<th>發放</th>
-					<th>刪除</th>
+<!-- 					<th>刪除</th> -->
 				</tr>
 			</thead>
 			<tbody>
@@ -116,12 +116,12 @@ input[type="submit"] {
 								<input type="hidden" name="copId" value="${couponVO.copId}">
 							</FORM>
 						</td>
-						<td>
-							<FORM METHOD="post" ACTION="coupon/copDelete" style="margin-bottom: 0px;">
-								<input type="submit" value="刪除">
-								<input type="hidden"	name="copId" value="${couponVO.copId}">
-							</FORM>
-						</td>
+<!-- 						<td> -->
+<!-- 							<FORM METHOD="post" ACTION="coupon/copDelete" style="margin-bottom: 0px;"> -->
+<!-- 								<input type="submit" value="刪除"> -->
+<%-- 								<input type="hidden"	name="copId" value="${couponVO.copId}"> --%>
+<!-- 							</FORM> -->
+<!-- 						</td> -->
 					</tr>
 				</c:forEach>
 				</tbody>
