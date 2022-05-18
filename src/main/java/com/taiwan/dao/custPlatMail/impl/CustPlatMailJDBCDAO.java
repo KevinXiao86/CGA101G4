@@ -24,6 +24,7 @@ public class CustPlatMailJDBCDAO implements CustPlatMailDao_interface {
 	private static final String SET_CUST_PLAT_MAIL = "INSERT INTO CUST_PLAT_MAIL(CUST_ID,EMP_ID,MSG,WHO) VALUES(?,?,?,?);";
 	private static final String GET_ALL = "SELECT * FROM CUST_PLAT_MAIL;";
 	private static final String GET_ALL_BY_CUSTID = "SELECT * FROM CUST_PLAT_MAIL WHERE CUST_ID=? ORDER BY CUST_PLAT_TIME DESC;";
+	private static final String UPDATE_EMP_ID = "UPDATE CUST_PLAT_MAIL SET EMP_ID=? WHERE CUST_PLAT_ID=?;";
 
 	@Override
 	public List<CustPlatMailVO> getCust_Plat_Mail(Integer rowNum, Integer offset) {
@@ -85,8 +86,6 @@ public class CustPlatMailJDBCDAO implements CustPlatMailDao_interface {
 	public void setCust_Plat_Mail(CustPlatMailVO mail) {
 		Connection con = null;
 		PreparedStatement ps = null;
-		ResultSet rs = null;
-		ArrayList<CustPlatMailVO> list = null;
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
@@ -228,5 +227,42 @@ public class CustPlatMailJDBCDAO implements CustPlatMailDao_interface {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public void updateEmpId(Integer empId, Integer custPlatId) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			ps = con.prepareStatement(UPDATE_EMP_ID);
+			ps.setInt(1, empId);
+			ps.setInt(2, custPlatId);
+
+			int count = ps.executeUpdate();
+			System.out.println(count + "success");
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
 	}
 }

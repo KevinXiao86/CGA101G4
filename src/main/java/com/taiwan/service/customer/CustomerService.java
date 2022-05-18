@@ -12,7 +12,7 @@ public interface CustomerService {
 
 	public CustomerVO getAll(Integer custId);
 
-	public String getPassword(String account);
+	public CustomerVO getPassword(String account);
 
 	public String getEmail(String account);
 

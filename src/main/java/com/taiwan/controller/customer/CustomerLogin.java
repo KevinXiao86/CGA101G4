@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import com.taiwan.beans.CustomerVO;
 import com.taiwan.service.customer.CustomerService;
 import com.taiwan.service.customer.impl.CustomerServiceImpl;
+import com.taiwan.test.news.newsTest;
+import com.taiwan.utils.MailQrCode11;
 
 @WebServlet("/cust/CustomerLogin")
 public class CustomerLogin extends HttpServlet {
@@ -61,6 +63,30 @@ public class CustomerLogin extends HttpServlet {
 
 			if ("forgetPassword".equals(action)) {
 				System.out.println("foget");
+				// 取得要寄信的帳號
+				String account = (request.getParameter("account"));
+				// 到資料庫拿密碼
+				CustomerServiceImpl dao = new CustomerServiceImpl();
+				CustomerVO customerVO = dao.getPassword(account);
+				String password = customerVO.getPassword();
+				// 把回傳的會員物件存入request
+				request.setAttribute("customer", customerVO);
+				// 密碼等於空值代表帳號不存在，轉送回忘記密碼頁面
+				if (password == null) {
+					RequestDispatcher failureView = request
+							.getRequestDispatcher("/front-end/custLogin/forgetPassword.jsp");
+					failureView.forward(request, response);
+					return;
+				}
+				// 到資料庫取得email
+				String email = dao.getEmail(account);
+				// 開始寄信
+				MailQrCode11 mail = new MailQrCode11();
+				mail.SendMail(email, "台玩 | 請確認您的密碼", password,
+						getServletContext().getRealPath("/static/img/ticket-img/logo.jpg"));
+				// 回到會員登入頁面
+				RequestDispatcher successView = request.getRequestDispatcher("/front-end/custLogin/CustomerLogin.jsp");
+				successView.forward(request, response);
 			}
 		} catch (Exception e) {
 			CustomerVO customerVO = new CustomerVO();

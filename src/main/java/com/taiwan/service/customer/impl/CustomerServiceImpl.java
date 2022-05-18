@@ -14,6 +14,7 @@ import com.taiwan.dao.customer.impl.CustomerJNDIDAO;
 import com.taiwan.service.customer.CustomerService;
 
 import mybatis.mapper.CustomerMapper;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
 	private CustomerDAO_interface dao;
@@ -68,8 +69,17 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public String getPassword(String account) {
-		return dao.getPassword(account);
+	public CustomerVO getPassword(String account) {
+		String password = dao.getPassword(account);
+		if (password == null) {
+			CustomerVO customerVO = new CustomerVO();
+			customerVO.setMessage("帳號不存在");
+			return customerVO;
+		}
+		CustomerVO customerVO = new CustomerVO();
+		customerVO.setPassword(password);
+		customerVO.setAccount(account);
+		return customerVO;
 	}
 
 	@Override
@@ -108,31 +118,13 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerVO;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@Autowired
 	CustomerMapper customerMapper;
-	
+
 	@Transactional
 	@Override
 	public List<Customer> findAll() {
 		return customerMapper.queryAll();
 	}
-	
-
 
 }

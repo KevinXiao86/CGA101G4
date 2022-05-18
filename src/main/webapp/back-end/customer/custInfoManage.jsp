@@ -18,7 +18,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>Insert title here</title>
+<title>台玩後臺</title>
 <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -91,8 +91,7 @@ img {
                        				<th>性別</th>
                        				<th>電話</th>
                        				<th>電子信箱</th>
-                       				<th>身分證字號</th>                       			
-                       				<th>帳號</th>                       				
+                       				<th>身分證字號</th>                      				
                        				<th>會員權限</th>
                        				<th>查詢會員資料</th>
                        				<th>查看優惠券</th>
@@ -107,8 +106,7 @@ img {
 						   			<td>${(customerVO.sex=='f')?'女':'男'}</td>
 						   			<td>${customerVO.tel}</td>
 						   			<td>${customerVO.email}</td>
-						   			<td>${customerVO.idCard}</td>						   	
-						   			<td>${customerVO.account}</td>						  
+						   			<td>${customerVO.idCard}</td>					  
 						   			<td>
 						   				<form method="post" action="custManage/CustInfoManage">
 						   					<input type="submit" name="custRight" value="${(customerVO.custRight=='正常')?'停權':'復權'}">

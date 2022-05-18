@@ -103,16 +103,16 @@
 	        				let picture=document.querySelector('#picture');
 	        				picture.onclick=function(){
 	        					    if(picture.style.height==='50px'){
-	        						console.log('1');  
+	        							console.log('1');  
 	        						
-	        						$(picture).animate({height:150},500);
-	        						picture.removeAttribute('data-original-title');
-	        						$(picture).tooltip({ 'placement': 'bottom' ,title : '按圖片隱藏此列表'});
-	        					}else{	        						
-	        						console.log('2');
-	        						$(picture).tooltip('disable');	        						
-	        						$(picture).animate({height:50},500);	        						
-	        					}
+	        							$(picture).animate({height:150},500);
+	        							picture.removeAttribute('data-original-title');
+	        							$(picture).tooltip({ 'placement': 'bottom' ,title : '按圖片隱藏此列表'});
+	        						}else{	        						
+		        						console.log('2');
+		        						$(picture).tooltip('disable');	        						
+		        						$(picture).animate({height:50},500);	        						
+	        						}
 	        				}
 	        				</script>
 						</c:if>

@@ -35,7 +35,12 @@ public class ReplyCustPlatMail extends HttpServlet {
 		HttpSession session = request.getSession();
 		EmployeeVO employeeVO = (EmployeeVO) session.getAttribute("employeeVO");
 		Integer empId = employeeVO.getEmpId();
-		// 把資料送到資料庫
+		// 抓取信件的流水號(custPlatId)
+		Integer custPlatId = Integer.valueOf(request.getParameter("custPlatId"));
+		// 去update是誰回復了信件
+		CustPlatMailServiceImpl dao0 = new CustPlatMailServiceImpl();
+		dao0.updateEmpId(empId, custPlatId);
+		// 把回覆信件的資料送到資料庫
 		CustPlatMailServiceImpl dao = new CustPlatMailServiceImpl();
 		dao.setCust_Plat_Mail(custId, empId, msg, empId);
 		// 轉送前端

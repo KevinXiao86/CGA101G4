@@ -31,12 +31,28 @@
 	integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
 	crossorigin="anonymous"></script>
 
+<style>
+label{
+font-size:1em;
+}
+select{
+height:30px;
+}
+input{
+backgroung-color:#fff;
+height:30px;
+}
+form div{
+display:inline-block;
+margin:40px;
+}
+</style>
 </head>
 <body>
 	<%@ include file="/front-end/homepage/header.jsp" %>
 	<%@ include file="/front-end/cust/side-bar.jsp" %>
 	
-	<main id="main" class="main" style="padding-left:70px;padding-top:40px;">
+	<main id="main" class="main" style="padding-left:70px;padding-top:40px;overflow:auto;">
 
     <div class="pagetitle">
       <h1>關注廠商</h1>
@@ -48,7 +64,21 @@
         </ol>
       </nav>
     </div><!-- End Page Title -->
-
+    
+   	<!-- 選擇要加入關注的商家 -->
+   	<form method="post" action="cust/InsertFollow">
+		<div>
+			<label for="company">選取要關注的商家</label><br>
+			<select id="company" name="company">
+			<c:forEach var="company" items="${selectCompanyList}">
+				<option value="${company.cmpId}">${company.cmpName}</option>			
+			</c:forEach>
+			</select>
+		</div>
+		
+		<button class="btn btn-primary">加入關注</button>
+	</form> 
+	
     <section class="section">
       <div class="row">
         <div class="col-lg-6">
@@ -61,7 +91,7 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">廠商編號</th>
+                    <th scope="col">商家名稱</th>
                     <th scope="col">取消關注</th>
                   </tr>
                 </thead>
@@ -72,7 +102,7 @@
                     <th scope="row"><%= ++count %></th>
                   <c:forEach var="company" items="${companyList}">
                    <c:if test="${follow.cmpId==company.cmpId}">
-                    <td>${company.cmpName}</td>
+                    <td><a href="roomOrder12/ROSelectCmp?ckin=&ckout=&cmpId=${follow.cmpId}">${company.cmpName}</a></td>
                    </c:if>
                   </c:forEach>
                     <td>

@@ -1,6 +1,7 @@
 package com.taiwan.controller.customer;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -44,6 +45,23 @@ public class ShowFollow extends HttpServlet {
 		CompanyDaoJNDI14 companyDaoJNDI14 = new CompanyDaoJNDI14();
 		List<Company> companyList = companyDaoJNDI14.queryCompanyAll();
 		request.setAttribute("companyList", companyList);
+		// 把所有廠商的資料中會員已關注的廠商濾掉，轉送到前端
+				List<Company> selectCompanyList = new LinkedList<Company>();
+				
+				for (Company company : companyList) {
+					boolean add = true;
+					for (FollowVO followVO : list) {
+						if (company.getCmpId().equals(followVO.getCmpId())) {
+							System.out.println("false");
+							add = false;
+							break;
+						}
+					}
+					if (add) {
+						selectCompanyList.add(company);
+					}
+				}
+				request.setAttribute("selectCompanyList", selectCompanyList);
 		// 把關注廠商的資料存入request中，轉送前端
 		request.setAttribute("list", list);
 		RequestDispatcher successView = request.getRequestDispatcher("/front-end/cust/showFollow.jsp");

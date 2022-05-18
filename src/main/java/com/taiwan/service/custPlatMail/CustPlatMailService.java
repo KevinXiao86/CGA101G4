@@ -12,4 +12,6 @@ public interface CustPlatMailService {
 	public List<CustPlatMailVO> getAll();
 
 	public List<CustPlatMailVO> getAllByCustId(Integer custId);
+
+	public void updateEmpId(Integer empId, Integer custPlatId);
 }

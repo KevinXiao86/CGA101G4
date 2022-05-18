@@ -20,7 +20,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>Insert title here</title>
+<title>台玩後臺</title>
 <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -208,6 +208,7 @@ img {
 									<td class="receive">${(custPlatMail.who>=30000)?custPlatMail.getCustAccount():(custPlatMail.empId==0)?'尚未有管理員回復':custPlatMail.empId}</td>
 									<td class="time">${custPlatMail.custPlatTime}</td>
 									<td class="hiddenWho" style="display:none;">${custPlatMail.who}</td>
+									<td class="custPlatId" style="display:none;">${custPlatMail.custPlatId}</td>
 								</tr>
 							</c:forEach>
 							</tbody>
@@ -247,6 +248,7 @@ img {
 			let receive=item.querySelector('.receive').textContent;
 			let time=item.querySelector('.time').textContent;
 			let hiddenWho=parseInt(item.querySelector('.hiddenWho').textContent);
+			let custPlatId=parseInt(item.querySelector('.custPlatId').textContent);
 			let fixedDiv=document.createElement('div');
 			fixedDiv.style.position="fixed";
 			fixedDiv.style.top="30%";
@@ -285,7 +287,9 @@ img {
 						                        <button type="submit" id="id1" class="btn original-btn" style="margin-bottom:20px;box-shadow:2px 2px 10px #000;font-size:20px">發送訊息</button>
 						                    </div>
 						                </div>
+						                
 						                <input type="hidden" name="hiddenWho" value="<% out.print("${hiddenWho}"); %>">
+						                <input type="hidden" name="custPlatId" value="<% out.print("${custPlatId}"); %>">
 						            </form>
 						        </div>
 						    </div>`;
