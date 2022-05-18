@@ -47,5 +47,7 @@ public interface TktOrderMapper {
 //	
 //	//根據票券Id查詢資料
 //	public TicketVO queryByTktId(Integer tktId);
+	
+	//根據訂購人來做查詢
 
 }

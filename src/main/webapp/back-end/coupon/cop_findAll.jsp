@@ -105,7 +105,7 @@ input[type="submit"]:hover {
 					<th>狀態</th>
 					<th>修改</th>
 					<th>發放</th>
-					<th>刪除</th>
+<!-- 					<th>刪除</th> -->
 				</tr>
 				</thead>
 				<%@ include file="page1.file"%>
@@ -142,13 +142,13 @@ input[type="submit"]:hover {
 								<input type="hidden" name="whichPage" value="<%=whichPage %>">
 							</FORM>
 						</td>
-						<td>
-							<FORM METHOD="post" ACTION="coupon/copDelete" style="margin-bottom: 0px;">
-								<input type="submit" value="刪除" class="delete"> 
-								<input type="hidden"	name="copId" value="${couponVO.copId}">
-								<input type="hidden" name="whichPage" value="<%=whichPage %>">
-							</FORM>
-						</td>
+<!-- 						<td> -->
+<!-- 							<FORM METHOD="post" ACTION="coupon/copDelete" style="margin-bottom: 0px;"> -->
+<!-- 								<input type="submit" value="刪除" class="delete">  -->
+<%-- 								<input type="hidden"	name="copId" value="${couponVO.copId}"> --%>
+<%-- 								<input type="hidden" name="whichPage" value="<%=whichPage %>"> --%>
+<!-- 							</FORM> -->
+<!-- 						</td> -->
 					</tr>
 					
 				</c:forEach>

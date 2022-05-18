@@ -67,7 +67,7 @@ img {
 					<th>地點</th>
 					<th>狀態</th>
 					<th>詳情</th>
-					<th>刪除</th>
+<!-- 					<th>刪除</th> -->
 				</tr>
 				<tr>
 					<td>${ticketVO.tktId}</td>
@@ -90,13 +90,13 @@ img {
 							<input type="hidden" name="tktId" value="${ticketVO.tktId}">
 						</FORM>
 					</td>
-					<td>
-						<FORM METHOD="post" ACTION="ticket/tktDelete"
-							style="margin-bottom: 0px;">
-							<input type="submit" value="刪除"> 
-							<input type="hidden" name="tktId" value="${ticketVO.tktId}">
-						</FORM>
-					</td>
+<!-- 					<td> -->
+<!-- 						<FORM METHOD="post" ACTION="ticket/tktDelete" -->
+<!-- 							style="margin-bottom: 0px;"> -->
+<!-- 							<input type="submit" value="刪除">  -->
+<%-- 							<input type="hidden" name="tktId" value="${ticketVO.tktId}"> --%>
+<!-- 						</FORM> -->
+<!-- 					</td> -->
 				</tr>
 			</table>
 		</div>

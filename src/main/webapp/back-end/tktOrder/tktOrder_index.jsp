@@ -100,7 +100,7 @@ select[name="roomOrderStatus"] {
 
                 <div>
                     <FORM METHOD="post" ACTION="tktOrder/findByDate">
-                        <b>根據日期來做查詢來做查詢:</b> <br>
+                        <b>根據日期來做查詢:</b> <br>
                         <label for="from">From</label>
 						<input type="text"  name="startdate" id="start_date">
 						<label for="to">to</label>

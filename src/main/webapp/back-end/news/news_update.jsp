@@ -90,7 +90,7 @@ News news = (News) request.getAttribute("news");
 
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">新增活動主題</h1>
+					<h1 class="page-header">修改最新消息</h1>
 				</div>
 			</div>
 			<div id="select_div">

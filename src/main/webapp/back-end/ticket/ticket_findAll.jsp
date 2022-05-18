@@ -73,7 +73,7 @@ img {
 					<th>地點</th>
 					<th>狀態</th>
 					<th>詳情</th>
-					<th>刪除</th>
+<!-- 					<th>刪除</th> -->
 				</tr>
 				<%@ include file="page1.file"%>
 				<c:forEach items="${requestScope.list}" var="ticketVO"
@@ -99,13 +99,13 @@ img {
 								<input type="hidden" name="whichPage" value="<%=whichPage %>">
 							</FORM>
 						</td>
-						<td>
-							<FORM METHOD="post" ACTION="ticket/tktDelete" style="margin-bottom: 0px;">
-								<input type="submit" value="刪除"> 
-								<input type="hidden" name="tktId" value="${ticketVO.tktId}">
-								<input type="hidden" name="whichPage" value="<%=whichPage %>">
-							</FORM>
-						</td>
+<!-- 						<td> -->
+<!-- 							<FORM METHOD="post" ACTION="ticket/tktDelete" style="margin-bottom: 0px;"> -->
+<!-- 								<input type="submit" value="刪除">  -->
+<%-- 								<input type="hidden" name="tktId" value="${ticketVO.tktId}"> --%>
+<%-- 								<input type="hidden" name="whichPage" value="<%=whichPage %>"> --%>
+<!-- 							</FORM> -->
+<!-- 						</td> -->
 					</tr>
 				</c:forEach>
 			</table>
