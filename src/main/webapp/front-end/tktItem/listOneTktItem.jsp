@@ -92,48 +92,56 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="tktItem" items="${sessionScope.itemList}">
+					<c:forEach var="tktItem" items="${itemList}">
 						<tr>
 							<td>${tktItem.tktOrderId}</td>
 							<td>${tktOrder.orderName}</td>
 							<td>${tktOrder.orderMobile}</td>
 							<td>${tktOrder.orderEmail}</td>
-							<td>${(tktName == null)? tktItem.ticket.tktName : tktName}</td>
+							<td>${tktItem.ticket.tktName}</td>
 							<td>${tktItem.amount}張</td>
 							<td>${(tktItem.score == null)? "": tktItem.score}</td>
 							<td>${(tktItem.content == null)? "": tktItem.content}</td>
 							<c:if test="${tktItem.score == null}">
-								<td><input type="submit" value="立即給予評分" onclick="show()"></td>
-								<div id="showdiv" style="display: none">
-									<FORM METHOD="post"
-										ACTION="<%=request.getContextPath()%>/tktItem/content"
-										style="margin-bottom: 0px;">
-										評分:
-										<div>${errorMsgs.score}</div>
-<!-- 										<input type="number" value="1" min="1" max="5" name="score"	style="width: 40px;" required><br>  -->
-										<div class="scoreEvaluation">
-											<div class="scoringDevice clearfix">
-												<img src="front-end/tktItem/images/sss.png" class="scoreImg fl" data-index='1' onclick="scoreFunc(event)" />
-												<img src="front-end/tktItem/images/sss.png" class="scoreImg fl" data-index='2' onclick="scoreFunc(event)" />
-												<img src="front-end/tktItem/images/sss.png" class="scoreImg fl" data-index='3' onclick="scoreFunc(event)" />
-												<img src="front-end/tktItem/images/sss.png" class="scoreImg fl" data-index='4' onclick="scoreFunc(event)" />
-												<img src="front-end/tktItem/images/sss.png" class="scoreImg fl" data-index='5' onclick="scoreFunc(event)" />
+								<td><input type="button" value="立即給予評分" onclick="show()"></td>
+								<div id="${tktItem.tktId}" style="display: none">
+								<FORM METHOD="post" style="margin-bottom: 0px;" ACTION="<%=request.getContextPath()%>/tktItem/content">
+											評分:
+											<div>${errorMsgs.score}</div>
+	<!-- 										<input type="number" value="1" min="1" max="5" name="score"	style="width: 40px;" required><br>  -->
+											<div class="scoreEvaluation">
+												<div class="scoringDevice clearfix">
+													<img src="front-end/tktItem/images/sss.png" class="scoreImg fl" data-index='1' onclick="scoreFunc(event)" />
+													<img src="front-end/tktItem/images/sss.png" class="scoreImg fl" data-index='2' onclick="scoreFunc(event)" />
+													<img src="front-end/tktItem/images/sss.png" class="scoreImg fl" data-index='3' onclick="scoreFunc(event)" />
+													<img src="front-end/tktItem/images/sss.png" class="scoreImg fl" data-index='4' onclick="scoreFunc(event)" />
+													<img src="front-end/tktItem/images/sss.png" class="scoreImg fl" data-index='5' onclick="scoreFunc(event)" />
+												</div>
 											</div>
-										</div>
-										評價內容:
-										<div>${errorMsgs.content}</div>
-										<textarea name="content" style="width: 400px;" placeholder="請輸入500字以內🦒🐘🦦🐥🐇🦧" required>${param.content}</textarea>
-
-										<input type="hidden" name="score" id="score">
-										<input type="hidden" name="tktOrderId" value="${tktItem.tktOrderId}"> 
-										<input type="hidden" name="tktId" value="${tktItem.tktId}"> 
-										<input type="hidden" name="action" value="insert"> 
-										<input type="submit" value="送出" id="go"
-											style="width: 80px; background-color: lightcoral; color: white; margin-bottom: 30px;">
-									</FORM>
+											評價內容:
+											<div>${errorMsgs.content}</div>
+											<textarea name="content" style="width: 400px;" placeholder="請輸入500字以內🦒🐘🦦🐥🐇🦧" required>${param.content}</textarea>
+	
+											<input type="hidden" name="score" id="score">
+											<input type="hidden" name="tktOrderId" value="${tktItem.tktOrderId}"> 
+											<input type="hidden" name="tktId" value="${tktItem.tktId}"> 
+											<input type="hidden" name="action" value="insert"> 
+											<input type="submit" value="送出" id="go"
+												style="width: 80px; background-color: lightcoral; color: white; margin-bottom: 30px;">
+									</FORM>	
 								</div>
 							</c:if>
 						</tr>
+						<script>
+							function show(){
+								if (document.getElementById('${tktItem.tktId}').style.display == 'none') {
+									document.getElementById('${tktItem.tktId}').style.display = 'block';
+								}else {
+					 				document.getElementById('${tktItem.tktId}').style.display = 'none';
+						 		}
+							};
+						
+						</script>
 					</c:forEach>
 				</tbody>
 			</table>
@@ -145,14 +153,6 @@
 
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script>
-		function show() {
-			if (document.getElementById('showdiv').style.display == 'none') {
-				document.getElementById('showdiv').style.display = 'block';
-			}
-			// 			else {
-			// 				document.getElementById('showdiv').style.display = 'none';
-			// 			}
-		}
 		
 		
 		//評分使用的變數
@@ -195,7 +195,7 @@
 			if(nowI === 0){
 				Swal.fire({
 					icon: 'error',
-					title: '🙇‍♀️ 請給我們一點鼓勵💦💧💧，'
+					title: '🙇‍♀️ 請給我們一點鼓勵💦💧，3Q'
 				})
 				return false;
 			}

@@ -122,7 +122,7 @@
 						<FORM METHOD="post" ACTION="tktOrder/getCustId">
 							<input type="hidden" name="action" value="get_order_cust">
 							<input type="hidden" name="custId" value="${customer.custId}"> 
-							<input class="allType" type="submit" value="票券訂單">
+							<input class="allType" type="submit" value="◯ 票券訂單">
 						</FORM>
 					</li>
 				</ul>
