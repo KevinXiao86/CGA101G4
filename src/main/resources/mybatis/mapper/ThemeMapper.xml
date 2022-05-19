@@ -43,7 +43,7 @@
 	</select>
 
 	<select id="queryAll" resultMap="ThemeMap">
-		select * from THEME
+		select * from THEME 
 	</select>
 
 	<select id="queryThemeByTitle" parameterType="String"

@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.taiwan.beans.TicketVO;
 import com.taiwan.beans.TktItem;
@@ -38,6 +39,7 @@ public class TktItemSelectById extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		HttpSession session = req.getSession();
 
 		if ("get_orderItem".equals(action)) {
 
@@ -70,7 +72,7 @@ public class TktItemSelectById extends HttpServlet {
 
 			/******************** 3.查詢完成，設定參數，送出成功頁面 ********************/
 			req.setAttribute("tktOrder", tktOrder);
-			req.setAttribute("itemList", itemList);
+			session.setAttribute("itemList", itemList);
 			RequestDispatcher success = req.getRequestDispatcher("/front-end/tktItem/listOneTktItem.jsp");
 			success.forward(req, res);
 
