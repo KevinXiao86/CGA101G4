@@ -32,7 +32,8 @@
 					action="<%=request.getContextPath()%>/EmployeeServlet">
 
 					<div class="form-group">
-						<label for="empID">員工編號</label> <input type="text"
+					
+						<label for="empID">員工編號</label> ${errorMsgs.acount}<br><input type="text"
 							placeholder="輸入員工編號" id="empID" name="empId" maxlength=6
 							value="${employee.empId}" required="required" />
 							${errorMsgs.empId}
@@ -53,7 +54,7 @@
 						
 					</div>
 				</form>
-			</div>${errorMsgs.acount}
+			</div>
 		</div>
 	</div>
 

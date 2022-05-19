@@ -151,7 +151,7 @@
 				</FORM>
 				</div>
 				<div id="back_index">
-                    <a href='back-end/emp/emp_index.jsp'>回到優惠券首頁</a>
+                   
                 </div>
             </div>
         </div>

@@ -56,16 +56,18 @@
             </script>
             <!-- Sidebar -->
             <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse" x-data="{ disabled: false }">
+                <div class="sidebar-nav navbar-collapse" >
 
                     <ul class="nav" id="side-menu">
 
-                        <li>
+                        <li id=emp>
                         
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i>員工管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li id=emp>
-                                    <a href="back-end/emp/emp_index.jsp">員工資料管理</a>
+                            
+                                <li >
+                                    <a href="${sessionScope.employeeVO.funcID==1 ?'back-end/emp/emp_index.jsp':'back-login/login/login-back-end-index.jsp'}" >員工資料管理</a>
+                                     
                                 </li>
 <!--                                 <li> -->
 <!--                                     <a href="back-end/emp/authority/authorityIndex.jsp">員工權限管理</a> -->
@@ -133,10 +135,53 @@
                 </div>
             </div>
         </nav>
-        <script>$("#emp").click(function () {
-           (${sessionScope.employeeVO.funcID}===1)?return false:return true;
-//             return false;
-        });</script>
+        <script>
+
+        document.getElementById('emp').addEventListener('click', listener);
+        function listener(event){
+        	if"${sessionScope.employeeVO.funcID==6 ? 'true' : 'false' }"==='true'(){
+        		
+        	}
+        	else("${sessionScope.employeeVO.funcID!=1 ? 'true' : 'false' }"==='true'){
+                alert('您沒有權限操作員工管理功能');
+            }
+        }
+	        
+        document.getElementById('cust').addEventListener('click', listener);
+        function listener(event){
+        	if"${sessionScope.employeeVO.funcID==6 ? 'true' : 'false' }"==='true'(){    		
+    	}
+    	else("${sessionScope.employeeVO.funcID!=3 ? 'true' : 'false' }"==='true'){
+                alert('您沒有權限操作會員管理功能');
+            }
+        }
+        document.getElementById('com').addEventListener('click', listener);
+        function listener(event){
+        	if"${sessionScope.employeeVO.funcID==6 ? 'true' : 'false' }"==='true'(){    		
+        	}
+        	else("${sessionScope.employeeVO.funcID!=4 ? 'true' : 'false' }"==='true'){
+                alert('您沒有權限操作廠商管理功能');
+            }
+        }  
+        document.getElementById('ticket').addEventListener('click', listener);
+        function listener(event){
+        	if"${sessionScope.employeeVO.funcID==6 ? 'true' : 'false' }"==='true'(){    		
+        	}
+        	else("${sessionScope.employeeVO.funcID!=2 ? 'true' : 'false' }"==='true'){
+                alert('您沒有權限操作票券管理功能');
+            }
+        }  
+        document.getElementById('web').addEventListener('click', listener);
+        function listener(event){
+        	if"${sessionScope.employeeVO.funcID==6 ? 'true' : 'false' }"==='true'(){    		
+        	}
+        	else("${sessionScope.employeeVO.funcID!=5 ? 'true' : 'false' }"==='true'){
+                alert('您沒有權限操作網頁管理功能');
+            }
+        }  
+        
+        </script>
+        
        
 </body>
 </html>

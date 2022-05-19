@@ -7,9 +7,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-import com.taiwan.beans.CustomerVO;
 import com.taiwan.beans.EmployeeVO;
-import com.taiwan.service.customer.CustomerService;
 import com.taiwan.service.employee.EmployeeService;
 
 @WebServlet("/EmployeeServlet")
