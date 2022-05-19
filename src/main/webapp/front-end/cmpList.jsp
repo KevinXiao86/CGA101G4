@@ -1,3 +1,6 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.util.TimeZone"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.taiwan.service.company.CompanyService"%>
 <%@page import="com.taiwan.beans.Company"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -16,7 +19,7 @@ if (location == null) {
 	CompanyService companyService = ControllerUtil.getBean(CompanyService.class);
 	List<Company> list = companyService.getAllCompanies();
 	pageContext.setAttribute("list", list);
-}else{
+} else {
 	String ckin = request.getParameter("ckin");
 	request.setAttribute("ckin", ckin);
 	String ckout = request.getParameter("ckout");
@@ -98,13 +101,17 @@ if (location == null) {
 
 
 	<div class="select_div" style="margin-top: 100px;">
+		<span style="color: red; font-size: 20px;">${pageScope.errorMsg}</span>
 		<FORM METHOD="post" name="form1" ACTION="cmpList.jsp">
-			<b>所在地點:</b> <input name="location" id="location" type="text" style="width:90px;" value="${requestScope.location}">  
-<!-- 			<b>開始日期:</b> <input name="start_date" id="start_date" type="text" style="width:90px;">  -->
-			<b>開始日期:</b> <input type="date" name="ckin" style="width:450;" value="${requestScope.ckin}">
-<!-- 			<b>結束日期:</b> <input name="end_date" id="end_date" type="text" style="width:90px;">  -->
-			<b>結束日期:</b> <input type="date" name="ckout" style="width:450;" value="${requestScope.ckout}">
-			<input type="submit" value="送出">
+			<b>所在地點:</b> <input name="location" id="location" type="text"
+				style="width: 90px;" value="${requestScope.location}">
+			<!-- 			<b>開始日期:</b> <input name="start_date" id="start_date" type="text" style="width:90px;">  -->
+			<b>開始日期:</b> <input type="date" name="ckin" style="width: 450;"
+				value="${requestScope.ckin}">
+			<!-- 			<b>結束日期:</b> <input name="end_date" id="end_date" type="text" style="width:90px;">  -->
+			<b>結束日期:</b> <input type="date" name="ckout" style="width: 450;"
+				value="${requestScope.ckout}"> <input type="submit"
+				value="送出">
 		</FORM>
 
 		<%-- 	<%@ include file="page1.file" %>  --%>
@@ -156,11 +163,14 @@ if (location == null) {
 															<span class="price">
 
 
-																<FORM METHOD="post" ACTION="roomOrder12/ROSelectCmp" style="margin-bottom: 0px;">
-																	<input type="hidden" name="cmpId" value="${Company.cmpId}">
-																	<input type="hidden" name="ckin" value="${requestScope.ckin}">
-																	<input type="hidden" name="ckout" value="${requestScope.ckout}">
-																	<input type="submit" value="詳情"> 
+																<FORM METHOD="post" ACTION="roomOrder12/ROSelectCmp"
+																	style="margin-bottom: 0px;">
+																	<input type="hidden" name="cmpId"
+																		value="${Company.cmpId}"> <input type="hidden"
+																		name="ckin" value="${requestScope.ckin}"> <input
+																		type="hidden" name="ckout"
+																		value="${requestScope.ckout}"> <input
+																		type="submit" value="詳情">
 																</FORM>
 
 															</span>

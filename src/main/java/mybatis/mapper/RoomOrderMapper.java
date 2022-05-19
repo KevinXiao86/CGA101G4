@@ -58,4 +58,7 @@ public interface RoomOrderMapper {
 	
 	//根據廠商id查找廠商資料
 	public Company selectByCmpId(Integer cmpId);
+	
+	// 根據廠商id 和年/月查詢訂單金額的總和
+	public Integer getTotalPrice(@Param("cmpId") Integer cmpId, @Param("year")String year, @Param("month")String month);
 }

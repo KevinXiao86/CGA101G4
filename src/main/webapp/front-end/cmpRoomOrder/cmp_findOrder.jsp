@@ -1,3 +1,10 @@
+<%@page import="ch.qos.logback.core.recovery.ResilientSyslogOutputStream"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.util.TimeZone"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.taiwan.utils.ControllerUtil"%>
+<%@page import="com.taiwan.service.roomOrder.RoomOrderServicePlus"%>
+<%@page import="com.taiwan.beans.Company"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="com.taiwan.beans.CustomerVO"%>
@@ -6,10 +13,45 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%
-List<RoomOrder> list = (List<RoomOrder>) request.getAttribute("roomOrders");
-pageContext.setAttribute("list", list);
+RoomOrderServicePlus roomOrderServicePlus = ControllerUtil.getBean(RoomOrderServicePlus.class);
+String custName = request.getParameter("name");
+request.setAttribute("custName", custName);
+
+// String roomOrderId = request.getParameter("roomOrderId");
+// String status = request.getParameter("status");
+// System.out.println("roomOrderId:" + roomOrderId + ", status: " + status);
+
+Company loginCompany = (Company) session.getAttribute("loginCompany");
+Integer cmpId = loginCompany.getCmpId();
+
+if(custName == null){
+	List<RoomOrder> list = (List<RoomOrder>) request.getAttribute("roomOrders");
+	pageContext.setAttribute("list", list);	
+	
+}else{
+	List<RoomOrder> list = roomOrderServicePlus.getCustomersByName(custName);
+	pageContext.setAttribute("list", list);	
+}
 %>
 
+
+<%
+// 創建解析器
+SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+// 設置時區
+dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Taipei"));
+Date date = new Date();
+String dateString = dateFormat.format(date);
+String year = dateString.substring(0, 4);
+pageContext.setAttribute("year", year);
+String month = dateString.substring(5, 7);
+pageContext.setAttribute("month", month);
+
+// Company loginCompany = (Company) session.getAttribute("loginCompany");
+// Integer cmpId = loginCompany.getCmpId();
+Integer totalPrice = roomOrderServicePlus.getTotalPriceByCmpId(cmpId, year, month);
+pageContext.setAttribute("totalPrice", totalPrice);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -139,9 +181,9 @@ img {
 						<h1 class="page-header">搜尋全部訂房訂單</h1>
 					</div>
 				</div>
-				<div>
+				<div >
                     <FORM METHOD="post" ACTION="roomOrder/cmpSelectByDate">
-                        <b style="font-weight: 900;">根據日期來做查詢</b> <br>
+                        <b style="font-weight: 900; ">根據訂單成立日期來做查詢</b> <br>
                         <label for="from">From</label>
 						<input type="text"  name="startdate" id="start_date">
 						<label for="to">to</label>
@@ -150,6 +192,14 @@ img {
                     </FORM>
                 </div>
 
+				<div style="margin-top: 10px;">
+                    <FORM METHOD="post" ACTION="front-end/cmpRoomOrder/cmp_findOrder.jsp">
+                        <b style="font-weight: 900; ">請輸入會員姓名查詢訂單</b> <br>
+                        <input name="name" id="name" type="text" style="width:90px;" value="${requestScope.custName}">
+                        <input type="submit" value="送出">
+                    </FORM>
+                </div>
+                
 				<%--錯誤列表 --%>
 				<c:if test="${not empty errorMsgs}">
 					<font style="color: red">請修正以下錯誤:</font>
@@ -162,14 +212,24 @@ img {
 
 
 				<!-- /.row -->
-				<div class="row">
+				<div class="row" style="margin-top: 20px;">
 					<div class="col-lg-12">
 						<div class="panel panel-default">
 							<div class="panel-heading" style="font-weight: 900;">已有的訂單如下</div>
 								
-							<div class="form-group">
-							
+							<div class="form-group" style="margin-left: 20px">
+								<p style="font-weight: 900; font-size: 20px">
+									${pageScope.year}-${pageScope.month} 目前的收入是: 
+									<span style="color: red;">${pageScope.totalPrice}</span>
+									元
+								</p>
 							</div>
+							
+<!-- 							<div class="col-lg-12"> -->
+							<span style="color: red; font-size: 20px; font-weight: 900; margin-left: 20px">
+								${requestScope.error}
+							</span>
+<!-- 							</div> -->
 							
 							<!-- /.panel-heading -->
 							<div class="panel-body">
@@ -186,6 +246,7 @@ img {
 											<th style="font-weight: 900;">總金額</th>
 											<th style="font-weight: 900;">訂單狀態</th>
 											<th style="font-weight: 900;">詳情</th>
+											<th style="font-weight: 900;">取消訂單</th>
 
 										</tr>
 										<c:forEach items="${list}" var="roomOrder">
@@ -204,9 +265,36 @@ img {
 													<FORM METHOD="post" ACTION="roomOrder/cmpFindAllInfo"
 														style="margin-bottom: 0px;">
 														<input type="submit" value="詳情"> <input
-															type="hidden" name="roomOrderId"
+															 type="hidden" name="roomOrderId"
 															value="${roomOrder.roomOrderId}">
 													</FORM>
+												</td>
+												
+												<td>
+												
+												
+													<c:choose>
+														<c:when test="${roomOrder.roomOrderStatus == '已實現'}">
+															<FORM METHOD="post" ACTION="#" style="margin-bottom: 0px;">
+																<input type="submit" value="不可取消" disabled="disabled" style="cursor: not-allowed;">
+															</FORM>
+														</c:when>
+														
+														<c:when test="${roomOrder.roomOrderStatus == '已取消'}">
+															<FORM METHOD="post" ACTION="#" style="margin-bottom: 0px;">
+																<input type="submit" value="不可取消" disabled="disabled" style="cursor: not-allowed;">
+															</FORM>
+														</c:when>
+
+														<c:when test="${roomOrder.roomOrderStatus == '正常'}">
+															<FORM METHOD="post" ACTION="roomOrder/updateStatus" style="margin-bottom: 0px;">
+																<input type="hidden" name="roomOrderId"	value="${roomOrder.roomOrderId}">
+																<input type="hidden" name="status"	value="已取消">
+																<input type="hidden" name="custName" value="${requestScope.custName}">
+																<input type="submit" value="取消">
+															</FORM>
+														</c:when>
+													</c:choose>
 												</td>
 											</tr>
 										</c:forEach>

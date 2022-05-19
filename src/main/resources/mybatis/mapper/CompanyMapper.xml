@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="canx" property="canx"/>
 		<result column="bank_account" property="bankAccount"/>
 		
-		<collection property="roomtypes" select="mybatis.mapper.RoomtypeMapper.queryAllRoomtypesOrderByPrice"
+		<collection property="roomtypes" select="mybatis.mapper.RoomtypeMapper.queryAllRoomtypes"
 			column="cmp_id">
 		</collection>
 	</resultMap>
@@ -36,7 +36,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			`cmp_status`, `audit_status`, `serial_no`, `cmp_account`, `cmp_password`, 
 			`cmp_introduce`, `checkin_time`, `checkout_time`, `location`, 
 			`notice`, `canx`, `bank_account`
-	 	FROM `Taiwan`.`COMPANY` 
+	 	FROM `Taiwan`.`COMPANY`
+	 	WHERE `cmp_status` = '正常' 
+			AND `audit_status` = '審核通過' 
 	</select>
 	
 	<!-- 根據地點來查詢廠商 -->
@@ -48,6 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			`notice`, `canx`, `bank_account`
 	 	FROM `Taiwan`.`COMPANY` 
 	 	WHERE `location` like "%"#{location}"%"
+	 		AND `cmp_status` = '正常' AND `audit_status` = '審核通過'
 	</select>
 	
 	
