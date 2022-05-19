@@ -105,11 +105,11 @@ input[type="submit"]:hover {
 					ACTION="<%=request.getContextPath()%>/EmployeeServlet">
 					<label>員工姓名:</label> <input type="text" name="empName" autofocus
 						placeholder="請輸員工姓名" value="${param.empName}"><br>
-					${errorMsgs.empName} 
+					${errorMsgs.empName} <br>
 					<label>員工密碼:</label> <input type="password"
 						name="empPassword" autofocus placeholder="請輸入密碼"
 						value="${param.empPassword}"><br>
-					${errorMsgs.empPassword}
+					${errorMsgs.empPassword}<br>
 					<jsp:useBean id="eFSvc" scope="page" class="com.taiwan.service.employeeFuction.EmployeeFunctionService" />
 						<label>員工權限</label>
 					<select size="1" name="funcId">
@@ -120,7 +120,7 @@ input[type="submit"]:hover {
 						value="insert"> <input type="submit" value="送出新增">
 				</FORM>
 				<div id="back_index">
-					<a href='back-end/emp/emp_index.jsp'>回到優惠券管理首頁</a>
+				
 				</div>
 			</div>
 		</div>
