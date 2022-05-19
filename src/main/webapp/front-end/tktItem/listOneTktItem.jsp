@@ -92,7 +92,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="tktItem" items="${itemList}">
+					<c:forEach var="tktItem" items="${sessionScope.itemList}">
 						<tr>
 							<td>${tktItem.tktOrderId}</td>
 							<td>${tktOrder.orderName}</td>
@@ -128,7 +128,7 @@
 										<input type="hidden" name="tktOrderId" value="${tktItem.tktOrderId}"> 
 										<input type="hidden" name="tktId" value="${tktItem.tktId}"> 
 										<input type="hidden" name="action" value="insert"> 
-										<input type="submit" value="送出"
+										<input type="submit" value="送出" id="go"
 											style="width: 80px; background-color: lightcoral; color: white; margin-bottom: 30px;">
 									</FORM>
 								</div>
@@ -143,7 +143,7 @@
 	<!-- #### Footer start #### -->
 	<jsp:include page="/front-end/homepage/footer.jsp"></jsp:include>
 
-
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script>
 		function show() {
 			if (document.getElementById('showdiv').style.display == 'none') {
@@ -188,7 +188,18 @@
 			}
 			//將值設定回value
 			$('#score').val(nowI);
+			
 		}
+		
+		$('#go').click(function(){
+			if(nowI === 0){
+				Swal.fire({
+					icon: 'error',
+					title: '🙇‍♀️ 請給我們一點鼓勵💦💧💧，'
+				})
+				return false;
+			}
+		});
 		
 		$(function(){
 	        let date = new Date();

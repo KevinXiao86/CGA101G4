@@ -55,17 +55,17 @@ public class TktItemAddContent extends HttpServlet {
 				errorMsgs.put("content","內容請勿空白");
 			}
 			
-			Integer score = Integer.valueOf(req.getParameter("score"));
-			if(score == 0) {
+			String str = req.getParameter("score");
+			if (str == null || (str.trim()).length() == 0) {
 				errorMsgs.put("score","請評分");
 			}
-
-			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/tktItem/listOneTktItem.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/tktOrder/listAllTktOrder.jsp");
 				failureView.forward(req, res);
 				return;
 			}
+			
+			Integer score = Integer.valueOf(str);
 			
 			/*************************** 2.開始查詢資料 ***************************/
 			TktItemService tktItemSvc = new TktItemService();
@@ -78,12 +78,13 @@ public class TktItemAddContent extends HttpServlet {
 			
 			TicketVO ticketVO = ticketService.findById(tktId);
 			String tktName = ticketVO.getTktName();
+			System.out.println(tktName);
 			
 			/******************** 3.查詢完成，設定參數，送出成功頁面 ********************/
 			req.setAttribute("tktOrder", tktOrder);
 			session.setAttribute("itemList", itemList);
-			session.setAttribute("tktName", tktName);
-			RequestDispatcher success = req.getRequestDispatcher("/front-end/tktItem/listOneTktItem.jsp"); //怪怪的
+			req.setAttribute("tktName", tktName);
+			RequestDispatcher success = req.getRequestDispatcher("/front-end/tktItem/listOneTktItem.jsp"); 
 			success.forward(req, res);
 
 		}

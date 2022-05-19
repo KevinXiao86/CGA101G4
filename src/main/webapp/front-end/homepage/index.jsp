@@ -1,3 +1,5 @@
+<%@page import="com.taiwan.service.news.NewsService2"%>
+<%@page import="com.taiwan.service.theme.ThemeService2"%>
 <%@page import="com.taiwan.beans.Company"%>
 <%@page import="com.taiwan.service.company.CompanyService"%>
 <%@page import="com.taiwan.service.TktImgService"%>
@@ -5,7 +7,6 @@
 <%@page import="com.taiwan.service.news.NewsService"%>
 <%@page import="mybatis.mapper.TicketMapper"%>
 <%@page import="com.taiwan.beans.TktImgVO"%>
-<%@page import="com.taiwan.service.theme.ThemeService"%>
 <%@page import="com.taiwan.beans.Theme"%>
 <%@page import="com.taiwan.utils.ControllerUtil"%>
 <%@page import="com.taiwan.service.TicketService"%>
@@ -19,12 +20,12 @@
 	List<TicketVO> tktList = ticketService.findTicketByScore();
 	pageContext.setAttribute("tktList", tktList);
 	
-	ThemeService themeService = ControllerUtil.getBean(ThemeService.class);
-	List<Theme> themeList = themeService.findAll();
+	ThemeService2 themeService2 = new ThemeService2();
+	List<Theme> themeList = themeService2.findAll();
 	pageContext.setAttribute("themeList", themeList);
 	
-	NewsService newsService = ControllerUtil.getBean(NewsService.class);
-	List<News> newsList = newsService.findAll();
+	NewsService2 newsService2 = new NewsService2();
+	List<News> newsList = newsService2.findAll();
 	pageContext.setAttribute("newsList", newsList);
 	
 	CompanyService companyService = ControllerUtil.getBean(CompanyService.class);

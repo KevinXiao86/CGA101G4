@@ -199,6 +199,7 @@ public class TktOrderCreator extends HttpServlet {
 				
 				//移除Redis的商品
 				List<String> cart = CartService.getCartList(custId.toString());
+				System.out.println("cart 202 = " +cart);
 				CartService.deleteCartListbyTktId(custId.toString(), cart, tktId.toString());
 										
 				/*******************4.設定參數，送出成功頁面********************/ 	
