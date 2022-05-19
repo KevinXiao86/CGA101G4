@@ -66,7 +66,10 @@
 		TKT_ORDER_ID=#{tktOrderId}
 	</select>
 
-
+	<select id="queryByName" parameterType="String"
+		resultMap="TktOrderMap">
+		select * from TKT_ORDER where ORDER_NAME=concat('%',#{orderName},'%')
+	</select>
 
 
 

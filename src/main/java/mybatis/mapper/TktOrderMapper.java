@@ -49,5 +49,6 @@ public interface TktOrderMapper {
 //	public TicketVO queryByTktId(Integer tktId);
 	
 	//根據訂購人來做查詢
+	public List<TktOrder> queryByName(String orderName);
 
 }
