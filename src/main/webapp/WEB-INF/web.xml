@@ -107,4 +107,14 @@
     <filter-name>CustomerFilter</filter-name>
     <url-pattern>/cart/do</url-pattern>
   </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TktOrderFindByName</display-name>
+    <servlet-name>TktOrderFindByName</servlet-name>
+    <servlet-class>com.taiwan.controller.tktOrder.TktOrderFindByName</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TktOrderFindByName</servlet-name>
+    <url-pattern>/TktOrderFindByName</url-pattern>
+  </servlet-mapping>
 </web-app>

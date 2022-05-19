@@ -103,15 +103,15 @@ select[name="roomOrderStatus"] {
                     </FORM>
                 </div>
 
-                <div>
-                    <FORM METHOD="post" ACTION="roomOrder/selectByStatus">
-                        <b>輸入訂房訂單狀態來做查詢:</b> <select name="roomOrderStatus">
-                            <option value="正常">正常</option>
-                            <option value="已取消">已取消</option>
-                            <option value="以實現">以實現</option>
-                        </select> <input type="submit" value="送出">
-                    </FORM>
-                </div>
+<!--                 <div> -->
+<!--                     <FORM METHOD="post" ACTION="roomOrder/selectByStatus"> -->
+<!--                         <b>輸入訂房訂單狀態來做查詢:</b> <select name="roomOrderStatus"> -->
+<!--                             <option value="正常">正常</option> -->
+<!--                             <option value="已取消">已取消</option> -->
+<!--                             <option value="以實現">以實現</option> -->
+<!--                         </select> <input type="submit" value="送出"> -->
+<!--                     </FORM> -->
+<!--                 </div> -->
 
 
                 <div>
