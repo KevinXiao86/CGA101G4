@@ -5,7 +5,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="mybatis.mapper.CustomerMapper">
 
 	<!-- 這是使用第三方緩存 -->
-	<cache type="org.mybatis.caches.ehcache.EhcacheCache"></cache>
+<!-- 	<cache type="org.mybatis.caches.ehcache.EhcacheCache"></cache> -->
+
+
+	<resultMap type="com.taiwan.beans.Customer" id="customer">
+		<id column="cust_id" property="custId"/>
+		<result column="NAME" property="name"/>
+		<result column="SEX" property="sex"/>
+		<result column="TEL" property="tel"/>
+		<result column="EMAIL" property="email"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="ID_CARD" property="idCard"/>
+		<result column="BIRTH" property="birth"/>
+		<result column="ACCOUNT" property="account"/>
+		<result column="PASSWORD" property="password"/>
+		<result column="IMG" property="img"/>
+		<result column="cust_use" property="custUse"/>
+		<result column="CARD" property="card"/>
+		<result column="cust_right" property="custRight"/>
+		<collection property="roomOrders" select="mybatis.mapper.RoomOrderMapper.queryByCustId"
+			column="cust_id">
+		</collection>
+	</resultMap>
 
 
 	<!-- public int insertCustomer(Customer customer); -->
@@ -29,12 +50,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	</select>
 	
-	
-	
-
 
 	<select id="queryAll" resultType="com.taiwan.beans.Customer">
 		select * from CUSTOMER
+	</select>
+	
+	
+<!-- //根據姓名查詢會員 -->
+<!-- 	public Customer getCustomerByName(String name); -->
+	<select id="getCustomerByName" resultMap="customer">
+		SELECT 	`cust_id`, `NAME`, `SEX`, `TEL`, `EMAIL`, `ADDRESS`, `ID_CARD`, 
+			`BIRTH`, `ACCOUNT`, `PASSWORD`, `IMG`, `cust_use`, `CARD`, `cust_right`
+		FROM `Taiwan`.`CUSTOMER` 
+		WHERE `NAME` like "%"#{name}"%"
 	</select>
 
 </mapper>

@@ -177,16 +177,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE `ROOM_ORDER`.`room_order_status`= #{roomOrderStatus} AND `ROOM_ORDER`.`cmp_id`=#{cmpId}
 	</select>
 	
-<!-- 	//根據訂單Id修改狀態 -->
-<!-- 	public int updateStatus(@Param("roomOrderId") Integer roomOrderId,@Param("roomOrderStatus") String roomOrderStatus);  -->
-	<update id="updateStatus" >
-		update `Taiwan`.`ROOM_ORDER`
-		SET
-			`ROOM_ORDER`.`room_order_status` = #{roomOrderStatus},
-		where
-			`ROOM_ORDER`.`room_order_id`= #{roomOrderId}
-	</update>
-	
 	<select id="selectById" resultType="com.taiwan.beans.CustomerVO">
 		select * from CUSTOMER where CUST_ID=#{custId}
 	</select>
@@ -195,4 +185,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from COMPANY where CMP_ID=#{cmpId}
 	</select>
 	
+	
+<!-- 	// 根據廠商id 和年/月查詢訂單金額的總和 -->
+<!-- 	public Integer getTotalPrice(@Param("cmpId") Integer cmpId, @Param("year")String year, @Param("month")String month); -->
+	<select id="getTotalPrice" resultType="_int">
+		SELECT SUM(`total_price`)
+		FROM `ROOM_ORDER`
+		WHERE YEAR(`checkout_date`) = #{year}
+		AND MONTH(`checkout_date`) = #{month}
+		AND `cmp_id` = #{cmpId}
+		AND `room_order_status` = '已實現'
+		GROUP BY `cmp_id`;
+	</select>
+		
+<!-- 	//根據訂單Id修改狀態 -->
+<!-- 	public int updateStatus(@Param("roomOrderId") Integer roomOrderId,@Param("roomOrderStatus") String roomOrderStatus);  -->
+	<update id="updateStatus" >
+		UPDATE `Taiwan`.`ROOM_ORDER` 
+		SET
+			`room_order_status` = #{roomOrderStatus}
+		WHERE
+			`room_order_id` = #{roomOrderId} ;
+	</update>
 </mapper>

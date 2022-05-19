@@ -10,6 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.taiwan.beans.Company;
 import com.taiwan.beans.RoomImg;
 import com.taiwan.beans.Roomtype;
+import com.taiwan.service.company.CompanyService;
 
 import mybatis.mapper.CompanyMapper;
 
@@ -80,6 +81,20 @@ public class CompanyMapperTest {
 			}
 			
 			System.out.println("----------------------------------------------");
+		}
+	}
+	
+	
+	@Test
+	public void test07() {
+		CompanyService companyService =  context.getBean(CompanyService.class);
+		List<Company> companies = companyService.getAllCompanies();
+		for(Company company : companies) {
+			System.out.println(company.getCmpName());
+			for(Roomtype roomtype : company.getRoomtypes()) {
+				System.out.println(roomtype);
+			}
+			System.out.println("--------------------------------------------------------------");
 		}
 	}
 	

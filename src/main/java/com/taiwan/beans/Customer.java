@@ -1,6 +1,7 @@
 package com.taiwan.beans;
 
 import java.util.Date;
+import java.util.List;
 
 public class Customer extends Core {
 	private Integer custId;
@@ -17,6 +18,8 @@ public class Customer extends Core {
 	private String custUse;
 	private String card;
 	private String custRight;
+	private List<RoomOrder> roomOrders;
+	
 	public Customer() {
 		super();
 	}
@@ -37,6 +40,26 @@ public class Customer extends Core {
 		this.custUse = custUse;
 		this.card = card;
 		this.custRight = custRight;
+	}
+	public Customer(Integer custId, String name, String sex, String tel, String email, String address, String idCard,
+			Date birth, String account, String password, String img, String custUse, String card, String custRight,
+			List<RoomOrder> roomOrders) {
+		super();
+		this.custId = custId;
+		this.name = name;
+		this.sex = sex;
+		this.tel = tel;
+		this.email = email;
+		this.address = address;
+		this.idCard = idCard;
+		this.birth = birth;
+		this.account = account;
+		this.password = password;
+		this.img = img;
+		this.custUse = custUse;
+		this.card = card;
+		this.custRight = custRight;
+		this.roomOrders = roomOrders;
 	}
 	public Integer getCustId() {
 		return custId;
@@ -121,6 +144,12 @@ public class Customer extends Core {
 	}
 	public void setCustRight(String custRight) {
 		this.custRight = custRight;
+	}
+	public List<RoomOrder> getRoomOrders() {
+		return roomOrders;
+	}
+	public void setRoomOrders(List<RoomOrder> roomOrders) {
+		this.roomOrders = roomOrders;
 	}
 	@Override
 	public String toString() {

@@ -41,7 +41,7 @@ public class CompanyController {
 
 	@Autowired
 	private RoomtypeService roomtypeService;
-
+	
 	// 登出
 	@GetMapping("/logout")
 	public String logout(HttpSession session) throws IOException {

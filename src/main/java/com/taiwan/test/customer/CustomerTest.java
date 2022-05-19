@@ -2,6 +2,7 @@ package com.taiwan.test.customer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.taiwan.beans.Customer;
 import com.taiwan.beans.CustomerVO;
+import com.taiwan.beans.RoomOrder;
 import com.taiwan.service.customer.CustomerService;
 
 import mybatis.mapper.CustomerMapper;
@@ -67,7 +69,17 @@ public class CustomerTest {
 		System.out.println(res);
 	}
 
+	@Test
 	public void test02() {
-		System.out.println(customerService.findAll());
+		List<Customer> customers = customerMapper.getCustomerByName("jack");
+		for(Customer customer : customers) {
+			System.out.println("名字: " + customer.getName());
+			
+			for(RoomOrder roomOrder : customer.getRoomOrders()) {
+				System.out.println("訂單編號: " + roomOrder.getRoomOrderId());
+			}
+			
+			System.out.println("------------------------------------------------------------");
+		}
 	}
 }

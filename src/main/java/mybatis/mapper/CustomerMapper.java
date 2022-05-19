@@ -3,6 +3,7 @@ package mybatis.mapper;
 import java.util.List;
 
 import com.taiwan.beans.Customer;
+import com.taiwan.beans.RoomOrder;
 
 public interface CustomerMapper {
 
@@ -20,6 +21,9 @@ public interface CustomerMapper {
 	
 	//查詢所有會員
 	public List<Customer> queryAll();
+	
+	//根據姓名查詢會員
+	public List<Customer> getCustomerByName(String name);
 }
 
 

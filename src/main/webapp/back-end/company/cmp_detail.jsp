@@ -35,7 +35,8 @@
     	    	var cmpId = $("#cmpId").val();
         		
                 $.ajax({
-                    url: "http://localhost:8081/CGA101G4/manager/company/sendEmail",
+//                     url: "http://localhost:8081/CGA101G4/manager/company/sendEmail",
+                    url: "${pageScope.basePath}manager/company/sendEmail",
                     type: "get",
                     //如果返回的內容是 JSON，jQuery 會自動幫你解析成一個 JavaScript object
                     dataType: "json",
