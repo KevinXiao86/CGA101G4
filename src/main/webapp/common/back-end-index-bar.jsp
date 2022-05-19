@@ -3,7 +3,7 @@
 <%@ page import="com.taiwan.dao.employee.impl.*"%>
 <%@ page import="com.taiwan.controll.employee.*"%>
 <%@ page import="com.taiwan.service.employee.*"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,23 +61,54 @@
                     <ul class="nav" id="side-menu">
 
                         <li id=emp>
-                        
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i>員工管理<span class="fa arrow"></span></a>
+                        <c:if test="${sessionScope.employeeVO.funcID==1}">
+                                		<a href="#"><i class="fa fa-sitemap fa-fw"></i>員工管理<span class="fa arrow"></span></a>
+                                	</c:if>
+                                	<c:if test="${sessionScope.employeeVO.funcID==6}">
+                                		<a href="#"><i class="fa fa-sitemap fa-fw"></i>員工管理<span class="fa arrow"></span></a></c:if>
+                            		
+                            		<c:if test="${sessionScope.employeeVO.funcID != 6 && sessionScope.employeeVO.funcID !=1 }">
+                                		<a href="back-login/login/login-back-end-index.jsp" style="pointer-events: none"><i class="fa fa-sitemap fa-fw"></i>員工管理<span class="fa arrow"></span></a>
+                                		</c:if>
                             <ul class="nav nav-second-level">
                             
                                 <li >
-                                    <a href="${sessionScope.employeeVO.funcID==1 ?'back-end/emp/emp_index.jsp':'back-login/login/login-back-end-index.jsp'}" >員工資料管理</a>
-                                     
+                                	<c:if test="${sessionScope.employeeVO.funcID==1}">
+                                		<a href="back-end/emp/emp_index.jsp">員工權限管理</a>
+<%--                                  	   <a href="${sessionScope.employeeVO.funcID==1  ?'back-end/emp/emp_index.jsp':'back-login/login/login-back-end-index.jsp'}" >員工資料管理</a> --%>
+                                	</c:if>
+                                	
+                                	<c:if test="${sessionScope.employeeVO.funcID==6}">
+                                		<a href="back-end/emp/emp_index.jsp">員工權限管理</a></c:if>
+                                	
+                                	<c:if test="${sessionScope.employeeVO.funcID != 6 && sessionScope.employeeVO.funcID !=1 }">
+                                		<a href="back-login/login/login-back-end-index.jsp">員工權限管理</a>
+                                		</c:if>
+                                		
                                 </li>
 <!--                                 <li> -->
 <!--                                     <a href="back-end/emp/authority/authorityIndex.jsp">員工權限管理</a> -->
 <!--                                 </li> -->
                             </ul>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i>網頁管理<span class="fa arrow"></span></a>
+                        </li >
+<!--                                 ==================================================網頁分隔線================================================== -->
+                        
+                        <li id=web>
+                         <c:if test="${sessionScope.employeeVO.funcID==5}">
+                                		<a href="#"><i class="fa fa-sitemap fa-fw"></i>網頁管理<span class="fa arrow"></span></a>
+                                	</c:if>
+                        <c:if test="${sessionScope.employeeVO.funcID==6}">
+                                		<a href="#"><i class="fa fa-sitemap fa-fw"></i>網頁管理<span class="fa arrow"></span></a>
+                                	</c:if>
+                                	
+                        <c:if test="${sessionScope.employeeVO.funcID != 6 && sessionScope.employeeVO.funcID !=5 }">
+                                		<a href="back-login/login/login-back-end-index.jsp" style="pointer-events: none"><i class="fa fa-sitemap fa-fw"></i>網頁管理<span class="fa arrow"></span></a>
+                                		</c:if>
+                        
+<!--                             <a href="#"><i class="fa fa-sitemap fa-fw"></i>網頁管理<span class="fa arrow"></span></a> -->
+
                             <ul class="nav nav-second-level">
-                                <li>
+                                <li>                               
                                     <a href="back-end/coupon/cop_index.jsp">管理優惠券</a>
                                 </li>
                                 <li>
@@ -91,8 +122,20 @@
                                 </li>                 
                             </ul>
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i>廠商管理<span class="fa arrow"></span></a>
+<!--                         ==========================================廠商管理分隔線================================================== -->
+                        <li id=com>
+                        <c:if test="${sessionScope.employeeVO.funcID==4}">
+                                		<a href="#"><i class="fa fa-sitemap fa-fw"></i>廠商管理<span class="fa arrow"></span></a>
+                                	</c:if>
+                        <c:if test="${sessionScope.employeeVO.funcID==6}">
+                                		<a href="#"><i class="fa fa-sitemap fa-fw"></i>廠商管理<span class="fa arrow"></span></a>
+                                	</c:if>
+                        
+                        <c:if test="${sessionScope.employeeVO.funcID != 6 && sessionScope.employeeVO.funcID !=4 }">
+                                		<a href="back-login/login/login-back-end-index.jsp" style="pointer-events: none"><i class="fa fa-sitemap fa-fw"></i>廠商管理<span class="fa arrow"></span></a>
+                                		</c:if>
+
+<!--                             <a href="#"><i class="fa fa-sitemap fa-fw"></i>廠商管理<span class="fa arrow"></span></a> -->
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="back-end/doRepCust12/doRepCust.jsp">廠商檢舉管理</a>
@@ -105,8 +148,21 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i>票券管理<span class="fa arrow"></span></a>
+<!--                             ===================================票券分隔線================================================== -->
+                        
+                        <li id=tik>
+                         <c:if test="${sessionScope.employeeVO.funcID==2}">
+                                		<a href="#"><i class="fa fa-sitemap fa-fw"></i>票券管理<span class="fa arrow"></span></a>
+                                	</c:if>
+                        <c:if test="${sessionScope.employeeVO.funcID==6}">
+                                		<a href="#"><i class="fa fa-sitemap fa-fw"></i>票券管理<span class="fa arrow"></span></a>
+                                	</c:if>
+                        
+                        <c:if test="${sessionScope.employeeVO.funcID != 6 && sessionScope.employeeVO.funcID !=2 }">
+                                		<a href="back-login/login/login-back-end-index.jsp" style="pointer-events: none"><i class="fa fa-sitemap fa-fw"></i>票券管理<span class="fa arrow"></span></a>
+                                		</c:if>
+                                		  
+<!--                             <a href="#"><i class="fa fa-sitemap fa-fw"></i>票券管理<span class="fa arrow"></span></a> -->
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="back-end/ticket/ticket_index.jsp">票券資料管理</a>
@@ -116,8 +172,19 @@
                                 </li>                 
                             </ul>
                         </li>
-                         <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i>會員管理<span class="fa arrow"></span></a>
+<!--                         ===================================會員分隔線================================================== -->
+                         <li id=cust>
+                          <c:if test="${sessionScope.employeeVO.funcID==3}">
+                                		<a href="#"><i class="fa fa-sitemap fa-fw"></i>會員管理<span class="fa arrow"></span></a>
+                                	</c:if>
+                        <c:if test="${sessionScope.employeeVO.funcID==6}">
+                                		<a href="#"><i class="fa fa-sitemap fa-fw"></i>會員管理<span class="fa arrow"></span></a>
+                                	</c:if>
+                        
+                        <c:if test="${sessionScope.employeeVO.funcID != 6 && sessionScope.employeeVO.funcID !=3 }">
+                                		<a href="back-login/login/login-back-end-index.jsp" style="pointer-events: none"><i class="fa fa-sitemap fa-fw"></i>會員管理<span class="fa arrow"></span></a>
+                                		</c:if>
+<!--                             <a href="#"><i class="fa fa-sitemap fa-fw"></i>會員管理<span class="fa arrow"></span></a> -->
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="back-end/customer/custInfoManage.jsp">會員資料管理</a>
@@ -139,43 +206,49 @@
 
         document.getElementById('emp').addEventListener('click', listener);
         function listener(event){
-        	if"${sessionScope.employeeVO.funcID==6 ? 'true' : 'false' }"==='true'(){
+        	if("${sessionScope.employeeVO.funcID==6 ? 'true' : 'false' }"==='true'){    		
         		
-        	}
-        	else("${sessionScope.employeeVO.funcID!=1 ? 'true' : 'false' }"==='true'){
+        	}else if ("${sessionScope.employeeVO.funcID!=1 ? 'true' : 'false' }"==='true'){
                 alert('您沒有權限操作員工管理功能');
             }
         }
-	        
+        </script>
+         <script>
         document.getElementById('cust').addEventListener('click', listener);
         function listener(event){
-        	if"${sessionScope.employeeVO.funcID==6 ? 'true' : 'false' }"==='true'(){    		
-    	}
-    	else("${sessionScope.employeeVO.funcID!=3 ? 'true' : 'false' }"==='true'){
+			if("${sessionScope.employeeVO.funcID==6 ? 'true' : 'false' }"==='true'){    		
+        		
+        	}else if("${sessionScope.employeeVO.funcID!=3 ? 'true' : 'false' }"==='true'){
                 alert('您沒有權限操作會員管理功能');
             }
         }
+        </script>
+        <script>
         document.getElementById('com').addEventListener('click', listener);
         function listener(event){
-        	if"${sessionScope.employeeVO.funcID==6 ? 'true' : 'false' }"==='true'(){    		
-        	}
-        	else("${sessionScope.employeeVO.funcID!=4 ? 'true' : 'false' }"==='true'){
+            if("${sessionScope.employeeVO.funcID==6 ? 'true' : 'false' }"==='true'){    		
+        		
+        	}else if("${sessionScope.employeeVO.funcID!=4 ? 'true' : 'false' }"==='true'){
                 alert('您沒有權限操作廠商管理功能');
             }
         }  
-        document.getElementById('ticket').addEventListener('click', listener);
+        </script>
+        <script>
+        document.getElementById('tik').addEventListener('click', listener);
         function listener(event){
-        	if"${sessionScope.employeeVO.funcID==6 ? 'true' : 'false' }"==='true'(){    		
-        	}
-        	else("${sessionScope.employeeVO.funcID!=2 ? 'true' : 'false' }"==='true'){
+			if("${sessionScope.employeeVO.funcID==6 ? 'true' : 'false' }"==='true'){    		
+        		
+        	}else if("${sessionScope.employeeVO.funcID!=2 ? 'true' : 'false' }"==='true'){
                 alert('您沒有權限操作票券管理功能');
             }
         }  
+        </script>
+        <script>
         document.getElementById('web').addEventListener('click', listener);
         function listener(event){
-        	if"${sessionScope.employeeVO.funcID==6 ? 'true' : 'false' }"==='true'(){    		
-        	}
-        	else("${sessionScope.employeeVO.funcID!=5 ? 'true' : 'false' }"==='true'){
+			if("${sessionScope.employeeVO.funcID==6 ? 'true' : 'false' }"==='true'){    		
+        		
+        	}else if ("${sessionScope.employeeVO.funcID!=5 ? 'true' : 'false' }"==='true'){
                 alert('您沒有權限操作網頁管理功能');
             }
         }  

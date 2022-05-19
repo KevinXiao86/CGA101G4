@@ -92,13 +92,13 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="tktItem" items="${sessionScope.itemList}">
+					<c:forEach var="tktItem" items="${itemList}">
 						<tr>
 							<td>${tktItem.tktOrderId}</td>
 							<td>${tktOrder.orderName}</td>
 							<td>${tktOrder.orderMobile}</td>
 							<td>${tktOrder.orderEmail}</td>
-							<td>${(tktName == null)? tktItem.ticket.tktName : tktName}</td>
+							<td>${tktItem.ticket.tktName}</td>
 							<td>${tktItem.amount}張</td>
 							<td>${(tktItem.score == null)? "": tktItem.score}</td>
 							<td>${(tktItem.content == null)? "": tktItem.content}</td>
