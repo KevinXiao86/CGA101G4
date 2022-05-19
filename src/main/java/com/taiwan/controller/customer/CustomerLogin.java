@@ -37,7 +37,7 @@ public class CustomerLogin extends HttpServlet {
 		try {
 			if ("justLogin".equals(action)) {
 				String account = request.getParameter("account");
-				String password = request.getParameter("password");
+				String password = request.getParameter("password").trim();
 				CustomerService customerService = new CustomerServiceImpl();
 				CustomerVO customerVO = customerService.getLogin(account, password);
 				request.setAttribute("customer", customerVO);
@@ -82,7 +82,7 @@ public class CustomerLogin extends HttpServlet {
 				String email = dao.getEmail(account);
 				// 開始寄信
 				MailQrCode11 mail = new MailQrCode11();
-				mail.SendMail(email, "台玩 | 請確認您的密碼", "您的密碼是\r\n"+password,
+				mail.SendMail(email, "台玩 | 請確認您的密碼", "您的密碼是\r\n" + password,
 						getServletContext().getRealPath("/static/img/ticket-img/logo.jpg"));
 				// 回到會員登入頁面
 				RequestDispatcher successView = request.getRequestDispatcher("/front-end/custLogin/CustomerLogin.jsp");
