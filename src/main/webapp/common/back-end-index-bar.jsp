@@ -117,9 +117,9 @@
                                 <li>
                                     <a href="back-end/news/news_index.jsp">最新消息管理</a>
                                 </li>
-                                <li>
-                                    <a href="back-end/faq/faq_index.jsp">FAQ管理</a>
-                                </li>                 
+<!--                                 <li> -->
+<!--                                     <a href="back-end/faq/faq_index.jsp">FAQ管理</a> -->
+<!--                                 </li>                  -->
                             </ul>
                         </li>
 <!--                         ==========================================廠商管理分隔線================================================== -->
