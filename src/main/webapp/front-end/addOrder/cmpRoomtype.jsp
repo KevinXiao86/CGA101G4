@@ -140,6 +140,8 @@
 		<section class="result-room-type mb-lg">
 			<div class="container">
 				<!--/******************************/-->
+							<p></p>
+						<h5 class="fz-m fw-bold color-basic-b mr-1 mb-tiny text-danger">${errorMsgs.amount}</h5>
 
 				<div class="row result-b-btm-sec pb-tiny result-room-type-tit">
 					<div class="col-lg-6 col-md-7">
@@ -256,7 +258,7 @@
 											${(param.amount==amount)? 'selected':'' }>${amount}</option>
 									</c:forEach>
 							</select>
-							<p>${errorMsgs.amount}</p>
+							
 		<input type="hidden" name="roomId" value="${roomtypeVO.roomtypeId}" >
 		<input type="hidden" name="ckin" class="ckin" value="${dateMap.ckin}" >
 		<input type="hidden" name="ckout" class="ckout" value="${dateMap.ckout}" >
@@ -352,7 +354,6 @@ function renew(index){
 
             $('#ckin').attr('min', today);
             $('#ckin').attr('max', lastmonth);
-
             
             let start;
             let startMonth;
@@ -361,6 +362,7 @@ function renew(index){
             
            
 
+            $('#ckout').attr('min', '${dateMap.ckin}');
                     
                
             $('#ckin').change(function(){

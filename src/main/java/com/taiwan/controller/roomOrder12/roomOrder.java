@@ -3,6 +3,7 @@ package com.taiwan.controller.roomOrder12;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import com.taiwan.beans.Roomtype;
 import com.taiwan.service.impl.ReservationServiceImpl12;
 import com.taiwan.service.impl.RoomOrderServiceImpl;
 import com.taiwan.service.roomtype.impl.*;
+import com.taiwan.test.news.newsTest;
 
 /**
  * Servlet implementation class roomOrder
@@ -68,11 +70,11 @@ public class roomOrder extends HttpServlet {
 		
 
 		String roomIdST = req.getParameter("roomId");
-		String roomIdReg = "^[((0-9)]{1,2}$";
+		String roomIdReg = "^[((0-9)]{1,3}$";
 		if (roomIdST == null || roomIdST.trim().length() == 0) {
 			errorMsgs.put("roomId", "房型: 請勿空白");
 		} else if (!roomIdST.trim().matches(roomIdReg)) { // 以下練習正則(規)表示式(regular-expression)
-			errorMsgs.put("roomId", "房型: 只能是數字 , 且長度必需在1到2之間");
+			errorMsgs.put("roomId", "房型: 只能是數字 , 且長度必需在1到3之間");
 		}
 		Integer roomId = Integer.valueOf(roomIdST.trim());
 		System.out.println(roomId);
@@ -95,16 +97,27 @@ public class roomOrder extends HttpServlet {
 		} catch (IllegalArgumentException e) {
 			errorMsgs.put("ckout", "請輸入日期");
 		}
+		if (ckout.before(ckin)) {
+			errorMsgs.put("ckout", "開始日期要比結束日期早");
+			errorMsgs.put("ckin", "開始日期要比結束日期早");
+
+		}
+		//存入日期
+			
+				Map<String, String> map = new HashMap<>();
+				map.put("ckin", req.getParameter("ckin").trim());
+				map.put("ckout", req.getParameter("ckout").trim());
+				req.setAttribute("dateMap", map);
 		// Send the use back to the form, if there were errors
 
 //
 		String amountST = req.getParameter("amount");
-		String amountReg = "^[((1-9)]{1,1}$";
-		if (amountST == null || amountST.trim().length() == 0) {
-			errorMsgs.put("amount", "房數: 請勿空白");
-		} else if (!amountST.trim().matches(amountReg)) { // 以下練習正則(規)表示式(regular-expression)
-			errorMsgs.put("amount", "房數: 只能是數字 , 且長度必需在1到1之間");
-		}
+//		String amountReg = "^[((1-9)]{1,3}$";
+//		if (amountST == null || amountST.trim().length() == 0) {
+//			errorMsgs.put("amount", "房數: 請勿空白");
+//		} else if (!amountST.trim().matches(amountReg)) { // 以下練習正則(規)表示式(regular-expression)
+//			errorMsgs.put("amount", "房數: 只能是數字 , 且長度必需在1到2之間");
+//		}
 		if (!errorMsgs.isEmpty()) {
 			RequestDispatcher failureView = req.getRequestDispatcher("/front-end/addOrder/cmpRoomtype.jsp");
 			failureView.forward(req, res);
@@ -112,14 +125,17 @@ public class roomOrder extends HttpServlet {
 		}
 		
 		ReservationServiceImpl12 RTSvc=new ReservationServiceImpl12();
+		RoomtypeService12 roomtypeService12=new RoomtypeService12();
+		Roomtype roomtype=roomtypeService12.searchRoomtype(roomId);
+		String roomName=roomtype.getRoomtypeName();
 		int max= RTSvc.maxBuyAmount(ckin, ckout, roomId);
 		Integer amount = Integer.valueOf(amountST.trim());
 		if(max > 0 ) {
 		if (amount > max) {
-			errorMsgs.put("amount", "房數: 預定區間已無空房，剩"+max+"間可預訂");
+			errorMsgs.put("amount", roomName+"房數: 預定區間剩"+max+"間可預訂");
 		}
 		}else if(max==0){
-			errorMsgs.put("amount", "房數: 預定區間已無空房");
+			errorMsgs.put("amount", roomName+"房數: 預定區間已無空房");
 		}
 //		
 //			
