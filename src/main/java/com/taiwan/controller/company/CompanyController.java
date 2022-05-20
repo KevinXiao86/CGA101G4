@@ -53,7 +53,8 @@ public class CompanyController {
 	}
 
 	// 登陸
-	@GetMapping("/login")
+//	@GetMapping("/login")
+	@PostMapping("/login")
 //	@ResponseBody
 	public String login(HttpSession session, HttpServletResponse response, Model model, HttpServletRequest request,
 			@RequestParam("cmpAccount") String cmpAccount, @RequestParam("cmpPassword") String cmpPassword,

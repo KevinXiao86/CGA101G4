@@ -260,7 +260,7 @@ $(() => {
 							<div class="panel-body">
 								<div class="row">
 									<!-- 錯誤訊息回顯 -->
-									<span id="errorMsg" style="color: red; margin-left: 10px; font-size: 20px;"></span><br><br>
+									<span id="errorMsg" style="color: red; margin-left: 10px; font-size: 20px;">${requestScope.errorMsg}</span><br><br>
 									<div class="col-lg-6">
 										<form action="roomtype/insertRoomtype"
 											enctype="multipart/form-data" method="post">

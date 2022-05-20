@@ -33,7 +33,7 @@ span#errorMsg {
 			</div>
 
 			<div class="form-content">
-				<form action="company/login">
+				<form action="company/login" method="post">
 					<span class="errorMsg">${requestScope.loginCompany.message}</span>
 					<div class="form-group">
 						

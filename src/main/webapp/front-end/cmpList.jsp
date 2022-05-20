@@ -1,3 +1,4 @@
+<%@page import="ch.qos.logback.core.recovery.ResilientSyslogOutputStream"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.TimeZone"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -101,7 +102,7 @@ if (location == null) {
 
 
 	<div class="select_div" style="margin-top: 100px;">
-		<span style="color: red; font-size: 20px;">${pageScope.errorMsg}</span>
+		<span style="color: red; font-size: 20px;">${requestScope.errorMsg}</span>
 		<FORM METHOD="post" name="form1" ACTION="cmpList.jsp">
 			<b>所在地點:</b> <input name="location" id="location" type="text"
 				style="width: 90px;" value="${requestScope.location}">

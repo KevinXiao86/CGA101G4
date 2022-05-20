@@ -133,6 +133,39 @@ public class RoomtypeController {
 		@RequestParam("status")String[] status, @RequestParam("roomtypeArea")String roomtypeAreaStr,
 		@RequestParam("roomtypeIntroduce")String roomtypeIntroduce) throws IOException, ServletException {
 		
+		//數據校驗
+		if ("".equals(roomtypeName.trim())) {
+			model.addAttribute("errorMsg", "請輸入房型名稱!");
+			return "/front-end/roomtype/add.jsp";
+		}
+		if(!roomtypeAmountStr.matches("^[0-9]*$")) {
+			model.addAttribute("errorMsg", "請輸入正確的房型數量!");
+			return "/front-end/roomtype/add.jsp";
+		}
+		if(!roomtypePeopleStr.matches("^[0-9]*$")) {
+			model.addAttribute("errorMsg", "請輸入正確的入住數量!");
+			return "/front-end/roomtype/add.jsp";
+		}
+		if(!roomtypePriceStr.matches("^[0-9]*$")) {
+			model.addAttribute("errorMsg", "請輸入正確的入房型價格!");
+			return "/front-end/roomtype/add.jsp";
+		}
+		if ("".equals(roomtypeIntroduce.trim())) {
+			model.addAttribute("errorMsg", "請輸入房型介紹!");
+			return "/front-end/roomtype/add.jsp";	
+		}
+		// 判斷文件是否為空
+		if (files.length == 0) {
+			System.out.println("訪問成功");
+			// 註冊失敗, 回到註冊頁面並回顯訊息
+			model.addAttribute("serialNo", "未上傳圖片");
+			// 用於回顯訊息
+//			model.addAttribute("registCompany", company);
+			return "/front-end/roomtype/add.jsp";
+		}
+		
+		
+		
 		Company company = (Company) session.getAttribute("loginCompany");
 		Integer cmpId = company.getCmpId();
 		
@@ -240,6 +273,37 @@ public class RoomtypeController {
 		@RequestParam("roomtypePeople")String roomtypePeopleStr, @RequestParam("roomtypePrice")String roomtypePriceStr,
 		@RequestParam("status")String[] status, @RequestParam("roomtypeArea")String roomtypeAreaStr, 
 		@RequestParam("roomtypeIntroduce")String roomtypeIntroduce) throws IOException, ServletException {
+
+		//數據校驗
+		if ("".equals(roomtypeName.trim())) {
+			model.addAttribute("errorMsg", "請輸入房型名稱!");
+			return "/front-end/roomtype/add.jsp";
+		}
+		if(!roomtypeAmountStr.matches("^[0-9]*$")) {
+			model.addAttribute("errorMsg", "請輸入正確的房型數量!");
+			return "/front-end/roomtype/add.jsp";
+		}
+		if(!roomtypePeopleStr.matches("^[0-9]*$")) {
+			model.addAttribute("errorMsg", "請輸入正確的入住數量!");
+			return "/front-end/roomtype/add.jsp";
+		}
+		if(!roomtypePriceStr.matches("^[0-9]*$")) {
+			model.addAttribute("errorMsg", "請輸入正確的入房型價格!");
+			return "/front-end/roomtype/add.jsp";
+		}
+		if ("".equals(roomtypeIntroduce.trim())) {
+			model.addAttribute("errorMsg", "請輸入房型介紹!");
+			return "/front-end/roomtype/add.jsp";	
+		}
+		// 判斷文件是否為空
+		if (files.length == 0) {
+			System.out.println("訪問成功");
+			// 註冊失敗, 回到註冊頁面並回顯訊息
+			model.addAttribute("serialNo", "未上傳圖片");
+			// 用於回顯訊息
+//			model.addAttribute("registCompany", company);
+			return "/front-end/roomtype/add.jsp";
+		}
 		
 		Company company = (Company) session.getAttribute("loginCompany");
 		Roomtype roomtype = roomtypeService.getRoomtypeByCmpIdAndRoomtypeId(cmpId, roomtypeId);
