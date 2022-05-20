@@ -168,7 +168,7 @@
 							</div>
 							<div class="col-12 col-md-6">
 								<div class="group" style="border-bottom: groove;border-color: #f4f8fa4a;padding-bottom: 2px;">
-							      <select id="month" style="margin-top: 10px;">
+							      <select id="month" style="margin-top: 10px;" required>
 								          <option></option>
 								          <option>01</option>
 								          <option>02</option>
@@ -183,7 +183,7 @@
 								          <option>11</option>
 								          <option>12</option>
 							      </select>
-							      <select id="year">
+							      <select id="year" required>
 								          <option></option>
 								          <option>2022</option>
 								          <option>2023</option>
